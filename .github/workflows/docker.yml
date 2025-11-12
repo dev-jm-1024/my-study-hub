@@ -35,7 +35,7 @@ jobs:
         with:
           context: .
           push: true
-          tags: yourdockerhubname/my-study-hub:latest, yourdockerhubname/my-study-hub:${{ github.sha }}
+          ttags: devjm6013/my-study-hub:latest, devjm6013/my-study-hub:${{ github.sha }}
           cache-from: type=local,src=/tmp/.buildx-cache
           cache-to: type=local,dest=/tmp/.buildx-cache-new
 
