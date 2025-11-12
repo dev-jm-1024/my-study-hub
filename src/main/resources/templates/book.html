@@ -1,0 +1,139 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>추천도서 - Tech Docs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/button.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/download.css">
+    <link rel="stylesheet" href="css/pages/book.css"> <!-- 도서 테마 -->
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 메인 컨테이너 (사이드바 없음) -->
+    <div class="book-container">
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content download-page book-page">
+            <!-- 도서 전용 헤더 -->
+            <div class="book-header">
+                <div class="book-header-content">
+                    <div class="book-header-icon">
+                        <i class="fa-solid fa-book-open"></i>
+                    </div>
+                    <div class="book-header-text">
+                        <h1 class="book-main-title">
+                            개발자를 위한 추천 도서
+                        </h1>
+                        <p class="book-main-subtitle">
+                            백엔드 개발자에게 도움이 되는 도서들을 모았습니다
+                            <span class="document-count"></span>
+                        </p>
+                    </div>
+                </div>
+                
+                <!-- 도서 태그들 -->
+                <div class="book-tags">
+                    <span class="book-tag">Java</span>
+                    <span class="book-tag">Spring</span>
+                    <span class="book-tag">DB</span>
+                    <span class="book-tag">설계</span>
+                    <span class="book-tag">인프라</span>
+                    <span class="book-tag">네트워크</span>
+                    <span class="book-tag">아키텍처</span>
+                </div>
+            </div>
+            
+            <!-- 카드 그리드 -->
+            <div class="book-grid" id="bookGrid">
+                <!-- JavaScript로 동적 생성 -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 (순서 중요!) -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/animations.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/book.js"></script>
+    
+    <!-- 페이지 초기화 -->
+    <script>
+        // 페이지 로드 후 초기화
+        let bookPage;
+        
+        async function initBookPage() {
+            // 헤더만 로드 (사이드바 제외)
+            const componentsToLoad = [
+                { selector: '#header', path: 'components/header.html' }
+            ];
+            
+            await loadComponents(componentsToLoad);
+            
+            // 컴포넌트 로드 후 약간의 딜레이
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            // 테마 토글 이벤트
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle && typeof themeManager !== 'undefined') {
+                if (themeManager.isDark()) {
+                    themeToggle.classList.add('active');
+                } else {
+                    themeToggle.classList.remove('active');
+                }
+                
+                themeToggle.addEventListener('click', () => {
+                    const isDark = themeManager.toggle();
+                    if (isDark) {
+                        themeToggle.classList.add('active');
+                    } else {
+                        themeToggle.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 로고 클릭 이벤트 (홈으로)
+            setTimeout(() => {
+                const logo = document.querySelector('.logo');
+                if (logo) {
+                    logo.addEventListener('click', () => {
+                        window.location.href = 'index.html';
+                    });
+                }
+            }, 100);
+            
+            // BookPage 인스턴스 생성
+            bookPage = new BookPage();
+            
+            // 문서 개수 업데이트
+            bookPage.updateDocumentCount();
+        }
+        
+        window.addEventListener('load', initBookPage);
+    </script>
+</body>
+</html>
+

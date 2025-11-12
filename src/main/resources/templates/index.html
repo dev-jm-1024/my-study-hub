@@ -1,0 +1,171 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Tech Docs : dev-jm</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/home.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 사이드바 (모바일용) -->
+    <div id="sidebar"></div>
+    <section class="hero">
+        <h2 class="hero-title">
+            백엔드 개발 기술 문서 모음
+        </h2>
+        <p class="hero-subtitle">
+            학습하며 정리한 내용들을 공유합니다
+        </p>
+        <div class="hero-links">
+            <a href="https://velog.io/@dlwoals1024/posts" target="_blank" class="hero-link">
+                <img src="svg/velog-v2.svg" alt="Velog" class="hero-link-icon">
+                <span>Velog</span>
+            </a>
+            <a href="https://blog.naver.com/jon1024" target="_blank" class="hero-link">
+                <img src="svg/naverblog.svg" alt="Velog" class="hero-link-icon">
+                <span>블로그</span>
+            </a>
+            <a href="jm-github.html" target="_blank" class="hero-link">
+                <img src="svg/github.svg" alt="Velog" class="hero-link-icon">
+                <span>실습 자료</span>
+            </a>
+            <a href="book.html" target="_blank" class="hero-link">
+                <img src="svg/book.svg" alt="추천도서 모음" class="hero-link-icon">
+                <span>추천도서</span>
+            </a>
+        </div>
+    </section>
+
+    <!-- 메인 컨테이너 (사이드바 없음) -->
+    <div class="home-container">
+        <h2 class="section-title">기술 문서 카테고리</h2>
+        <p class="section-subtitle">원하는 카테고리를 선택하세요</p>
+        
+        <!-- 카테고리 그리드 -->
+        <div class="category-grid" id="categoryGrid">
+            <!-- JavaScript로 동적 생성 -->
+        </div>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/home.js"></script>
+    
+    <script>
+        // 홈페이지는 사이드바 없이 헤더만 로드
+        async function initHomePage() {
+            console.log('=== initHomePage called ===');
+            
+            // 1. 컴포넌트 로드 (헤더와 사이드바)
+            const componentsToLoad = [
+                { selector: '#header', path: 'components/header.html' }
+            ];
+            
+            // 사이드바도 로드 (모바일 햄버거 메뉴용)
+            if (document.getElementById('sidebar')) {
+                componentsToLoad.push({ selector: '#sidebar', path: 'components/sidebar.html' });
+            }
+            
+            await loadComponents(componentsToLoad);
+            
+            // 컴포넌트 로드 후 약간의 딜레이
+            await new Promise(resolve => setTimeout(resolve, 50));
+            
+            // 2. 사이드바 활성화 (include.js의 함수 사용)
+            if (typeof activateCurrentMenu === 'function') {
+                activateCurrentMenu();
+            }
+            
+            // 3. 홈페이지 초기화
+            const homePage = new HomePage();
+            homePage.init();
+            
+            // 4. 테마 토글 이벤트
+            const themeToggle = document.getElementById('themeToggle');
+            if (themeToggle && typeof themeManager !== 'undefined') {
+                // 초기 상태 설정
+                if (themeManager.isDark()) {
+                    themeToggle.classList.add('active');
+                } else {
+                    themeToggle.classList.remove('active');
+                }
+                
+                themeToggle.addEventListener('click', () => {
+                    const isDark = themeManager.toggle();
+                    if (isDark) {
+                        themeToggle.classList.add('active');
+                    } else {
+                        themeToggle.classList.remove('active');
+                    }
+                });
+            }
+            
+            // 5. 로고 클릭 이벤트 (홈으로)
+            setTimeout(() => {
+                const logo = document.querySelector('.logo');
+                if (logo) {
+                    logo.addEventListener('click', () => {
+                        window.location.href = 'index.html';
+                    });
+                }
+            }, 100);
+            
+            // 6. 홈페이지 전용 사이드바 처리
+            const sidebar = document.querySelector('.sidebar');
+            const mobileMenuToggle = document.getElementById('mobileMenuToggle');
+            
+            // PC에서는 사이드바와 햄버거 메뉴 숨김
+            if (window.innerWidth > 768) {
+                if (sidebar) sidebar.style.display = 'none';
+                if (mobileMenuToggle) mobileMenuToggle.style.display = 'none';
+            }
+            
+            // 모바일에서는 햄버거 메뉴 활성화
+            if (typeof setupMobileMenu === 'function') {
+                setupMobileMenu();
+            }
+            
+            // 화면 크기 변경 시 처리
+            window.addEventListener('resize', () => {
+                if (window.innerWidth > 768) {
+                    if (sidebar) sidebar.style.display = 'none';
+                    if (mobileMenuToggle) mobileMenuToggle.style.display = 'none';
+                } else {
+                    if (sidebar) sidebar.style.display = '';
+                    if (mobileMenuToggle) mobileMenuToggle.style.display = '';
+                }
+            });
+            
+            // 디버깅: 데이터 확인
+            console.log('MENUS:', MENUS);
+            console.log('MENU_DATA:', MENU_DATA);
+            console.log('categoryGrid:', document.getElementById('categoryGrid'));
+            console.log('homePage:', homePage);
+        }
+        
+        document.addEventListener('DOMContentLoaded', initHomePage);
+    </script>
+</body>
+</html>

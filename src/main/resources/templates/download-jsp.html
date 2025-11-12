@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>JSP 문서 - Tech Docs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/button.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/download.css">
+    <link rel="stylesheet" href="css/pages/jsp.css"> <!-- JSP 테마 -->
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 사이드바 (자동 로드) -->
+        <div id="sidebar"></div>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content download-page jsp-page">
+            <!-- JSP 전용 헤더 -->
+            <div class="page-header">
+                <div class="jsp-logo">
+                    <!-- <span class="jsp-logo-icon">📄</span> -->
+                    <span class="jsp-logo-text">JSP</span>
+                </div>
+                <h1 class="page-title">
+                    JSP 관련 문서
+                </h1>
+                <p class="page-subtitle">
+                    JavaServer Pages 기초부터 실전까지 <span class="document-count"></span>
+                </p>
+                
+                <!-- JSP 태그들 -->
+                <div class="jsp-tags">
+                    <span class="jsp-tag">Web</span>
+                    <span class="jsp-tag">Servlet</span>
+                    <span class="jsp-tag">Cookie & Session</span>
+                    <span class="jsp-tag">JDBC</span>
+                    <span class="jsp-tag">JSTL & EL</span>
+                    <span class="jsp-tag">DAO/DTO</span>
+                    <span class="jsp-tag">Oracle DB</span>
+                    <span class="jsp-tag">회원관리</span>
+                    <span class="jsp-tag">게시판</span>
+                </div>
+
+            </div>
+
+            <!-- 통계 박스 -->
+            <!-- <div class="jsp-stats">
+                <div class="jsp-stat-box">
+                    <div class="jsp-stat-icon">📄</div>
+                    <div class="jsp-stat-number" id="totalDocs">4</div>
+                    <div class="jsp-stat-label">전체 문서</div>
+                </div>
+                <div class="jsp-stat-box">
+                    <div class="jsp-stat-icon">⭐</div>
+                    <div class="jsp-stat-number">4.8</div>
+                    <div class="jsp-stat-label">평균 평점</div>
+                </div>
+                <div class="jsp-stat-box">
+                    <div class="jsp-stat-icon">💾</div>
+                    <div class="jsp-stat-number">1.2K</div>
+                    <div class="jsp-stat-label">다운로드</div>
+                </div>
+                <div class="jsp-stat-box">
+                    <div class="jsp-stat-icon">🚀</div>
+                    <div class="jsp-stat-number">100%</div>
+                    <div class="jsp-stat-label">실전 활용</div>
+                </div>
+            </div> -->
+            
+            <!-- 카드 그리드 -->
+            <div class="card-grid" id="cardGrid">
+                <!-- JavaScript로 동적 생성 -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 (순서 중요!) -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/animations.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/download.js"></script>
+    
+    <!-- 페이지 초기화 -->
+    <script>
+        // 페이지 로드 후 초기화
+        let downloadPage;
+        
+        window.addEventListener('load', () => {
+            // DownloadPage 인스턴스 생성
+            downloadPage = new DownloadPage('jsp');
+            
+            // 문서 개수 업데이트
+            downloadPage.updateDocumentCount();
+            
+            // 통계 업데이트
+            const totalDocs = document.getElementById('totalDocs');
+            if (totalDocs && downloadPage.cards) {
+                totalDocs.textContent = downloadPage.cards.length;
+            }
+        });
+    </script>
+</body>
+</html>

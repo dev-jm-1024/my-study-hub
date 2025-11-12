@@ -1,0 +1,510 @@
+/* Spring Boot Theme CSS */
+
+/* Spring 전용 색상 변수 - Spring Framework 공식 색상 (#62AB51, #F2F0E3) */
+.spring-page {
+    --spring-primary: #62AB51;
+    --spring-secondary: #4A8A3F;
+    --spring-accent: #7BC86A;
+    --spring-dark: #3D6B32;
+    --spring-light: #A8D99F;
+    --spring-bg: #F2F0E3;
+    --spring-border: #D4C9B8;
+    --spring-gradient: linear-gradient(135deg, #62AB51 0%, #4A8A3F 100%);
+    --spring-gradient-subtle: linear-gradient(135deg, #F2F0E3 0%, #E8E0D0 100%);
+}
+
+/* Spring 페이지 헤더 */
+.spring-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--spring-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(98, 171, 81, 0.15),
+        0 1px 3px rgba(98, 171, 81, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.spring-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용) */
+.spring-page .page-header::after {
+    content: '\f1b3';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* Spring 로고/아이콘 영역 */
+.spring-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.spring-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.spring-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Spring 페이지 타이틀 */
+.spring-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.spring-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* Spring 배지 */
+.spring-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.spring-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.spring-page .document-count::before {
+    content: '\f15c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* Spring 카드 스타일 */
+.spring-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--spring-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.spring-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--spring-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.spring-page .card:hover {
+    border-color: var(--spring-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(98, 171, 81, 0.12),
+        0 2px 8px rgba(98, 171, 81, 0.08);
+}
+
+.spring-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Spring 카드 아이콘 */
+.spring-page .card-icon {
+    background: var(--spring-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--spring-primary);
+    border: 1px solid var(--spring-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.spring-page .card:hover .card-icon {
+    background: var(--spring-gradient);
+    color: white;
+    border-color: var(--spring-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(98, 171, 81, 0.15);
+}
+
+/* Spring 다운로드 버튼 */
+.spring-page .download-btn {
+    background: var(--spring-primary);
+    border: 1px solid var(--spring-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(98, 171, 81, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.spring-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.spring-page .download-btn:hover {
+    background: var(--spring-accent);
+    border-color: var(--spring-accent);
+    box-shadow: 0 4px 12px rgba(123, 200, 106, 0.25);
+    transform: translateY(-1px);
+}
+
+.spring-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* Spring 버튼 아이콘 */
+.spring-page .download-btn::after {
+    content: '\f0e7';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.spring-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* Spring 로딩 스피너 */
+.spring-page .spinner {
+    border-color: var(--spring-light);
+    border-top-color: var(--spring-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* Spring 검색 결과 없음 */
+.spring-page .no-results {
+    background: var(--spring-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--spring-border);
+}
+
+.spring-page .no-results-icon {
+    color: var(--spring-secondary);
+    font-size: 3.5rem;
+}
+
+/* Spring 통계 박스 (추가 요소) */
+.spring-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.spring-stat-box {
+    background: white;
+    border: 1px solid var(--spring-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.spring-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--spring-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.spring-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(98, 171, 81, 0.1),
+        0 2px 6px rgba(98, 171, 81, 0.05);
+    border-color: var(--spring-accent);
+}
+
+.spring-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.spring-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.spring-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--spring-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.spring-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Spring 태그 */
+.spring-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.spring-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.spring-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 Spring 색상 조정 */
+body.dark .spring-page {
+    --spring-primary: #7BC86A;
+    --spring-secondary: #62AB51;
+    --spring-accent: #A8D99F;
+    --spring-dark: #3D6B32;
+    --spring-light: #C4E4B8;
+    --spring-bg: #2A2E24;
+    --spring-border: #3D4A35;
+    --spring-gradient: linear-gradient(135deg, #3D6B32 0%, #4A8A3F 100%);
+    --spring-gradient-subtle: linear-gradient(135deg, #2A2E24 0%, #3D4A35 100%);
+}
+
+body.dark .spring-page .card {
+    background: var(--bg-primary);
+    border-color: var(--spring-border);
+}
+
+body.dark .spring-page .spring-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--spring-border);
+}
+
+body.dark .spring-page .card-icon {
+    background: var(--spring-gradient-subtle);
+    border-color: var(--spring-border);
+    color: var(--spring-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .spring-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .spring-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .spring-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .spring-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .spring-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .spring-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .spring-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .spring-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .spring-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .spring-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .spring-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .spring-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .spring-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .spring-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .spring-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .spring-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .spring-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .spring-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .spring-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .spring-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .spring-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .spring-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .spring-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

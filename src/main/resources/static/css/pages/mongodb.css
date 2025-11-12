@@ -1,0 +1,510 @@
+/* MongoDB Theme CSS */
+
+/* MongoDB 전용 색상 변수 - MongoDB 공식 색상 팔레트 활용 */
+.mongodb-page {
+    --mongodb-primary: #399D44;
+    --mongodb-secondary: #2A8A38;
+    --mongodb-accent: #4A352A;
+    --mongodb-dark: #2A8A38;
+    --mongodb-light: #A7AF9E;
+    --mongodb-bg: #A99F98;
+    --mongodb-border: #A7AF9E;
+    --mongodb-gradient: linear-gradient(135deg, #399D44 0%, #2A8A38 100%);
+    --mongodb-gradient-subtle: linear-gradient(135deg, #F5F5F0 0%, #E8E8E0 100%);
+}
+
+/* MongoDB 페이지 헤더 */
+.mongodb-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--mongodb-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(57, 157, 68, 0.15),
+        0 1px 3px rgba(57, 157, 68, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.mongodb-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용 - 데이터베이스) */
+.mongodb-page .page-header::after {
+    content: '\f1c0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* MongoDB 로고 영역 */
+.mongodb-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.mongodb-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.mongodb-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* MongoDB 페이지 타이틀 */
+.mongodb-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.mongodb-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* MongoDB 배지 */
+.mongodb-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.mongodb-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.mongodb-page .document-count::before {
+    content: '\f1c0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* MongoDB 카드 스타일 */
+.mongodb-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--mongodb-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mongodb-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--mongodb-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.mongodb-page .card:hover {
+    border-color: var(--mongodb-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(57, 157, 68, 0.12),
+        0 2px 8px rgba(57, 157, 68, 0.08);
+}
+
+.mongodb-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* MongoDB 카드 아이콘 */
+.mongodb-page .card-icon {
+    background: var(--mongodb-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--mongodb-primary);
+    border: 1px solid var(--mongodb-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.mongodb-page .card:hover .card-icon {
+    background: var(--mongodb-gradient);
+    color: white;
+    border-color: var(--mongodb-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(57, 157, 68, 0.15);
+}
+
+/* MongoDB 다운로드 버튼 */
+.mongodb-page .download-btn {
+    background: var(--mongodb-primary);
+    border: 1px solid var(--mongodb-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(57, 157, 68, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.mongodb-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.mongodb-page .download-btn:hover {
+    background: var(--mongodb-accent);
+    border-color: var(--mongodb-accent);
+    box-shadow: 0 4px 12px rgba(74, 53, 42, 0.25);
+    transform: translateY(-1px);
+}
+
+.mongodb-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* MongoDB 버튼 아이콘 */
+.mongodb-page .download-btn::after {
+    content: '\f1c0';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.mongodb-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* MongoDB 로딩 스피너 */
+.mongodb-page .spinner {
+    border-color: var(--mongodb-light);
+    border-top-color: var(--mongodb-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* MongoDB 검색 결과 없음 */
+.mongodb-page .no-results {
+    background: var(--mongodb-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--mongodb-border);
+}
+
+.mongodb-page .no-results-icon {
+    color: var(--mongodb-secondary);
+    font-size: 3.5rem;
+}
+
+/* MongoDB 통계 박스 */
+.mongodb-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(230px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.mongodb-stat-box {
+    background: white;
+    border: 1px solid var(--mongodb-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.mongodb-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--mongodb-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.mongodb-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(57, 157, 68, 0.1),
+        0 2px 6px rgba(57, 157, 68, 0.05);
+    border-color: var(--mongodb-accent);
+}
+
+.mongodb-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.mongodb-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.mongodb-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--mongodb-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.mongodb-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* MongoDB 태그 */
+.mongodb-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.mongodb-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.mongodb-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 MongoDB 색상 조정 */
+body.dark .mongodb-page {
+    --mongodb-primary: #4CAF50;
+    --mongodb-secondary: #399D44;
+    --mongodb-accent: #6B5B4F;
+    --mongodb-dark: #2A8A38;
+    --mongodb-light: #8B9385;
+    --mongodb-bg: #2A2520;
+    --mongodb-border: #3A3530;
+    --mongodb-gradient: linear-gradient(135deg, #2A8A38 0%, #399D44 100%);
+    --mongodb-gradient-subtle: linear-gradient(135deg, #2A2520 0%, #3A3530 100%);
+}
+
+body.dark .mongodb-page .card {
+    background: var(--bg-primary);
+    border-color: var(--mongodb-border);
+}
+
+body.dark .mongodb-page .mongodb-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--mongodb-border);
+}
+
+body.dark .mongodb-page .card-icon {
+    background: var(--mongodb-gradient-subtle);
+    border-color: var(--mongodb-border);
+    color: var(--mongodb-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .mongodb-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .mongodb-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .mongodb-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .mongodb-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .mongodb-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .mongodb-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .mongodb-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .mongodb-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .mongodb-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .mongodb-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .mongodb-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .mongodb-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .mongodb-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .mongodb-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .mongodb-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .mongodb-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .mongodb-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .mongodb-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .mongodb-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .mongodb-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .mongodb-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .mongodb-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .mongodb-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

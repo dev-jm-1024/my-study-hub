@@ -1,0 +1,512 @@
+/* Java Theme CSS */
+
+/* Java 전용 색상 변수 - 차분하고 전문적인 톤 (Java 오렌지 특색 유지) */
+.java-page {
+    --java-primary: #D97706;
+    --java-secondary: #F59E0B;
+    --java-accent: #EA580C;
+    --java-dark: #B45309;
+    --java-light: #FCD34D;
+    --java-brown: #92400E;
+    --java-bg: #FFFBEB;
+    --java-border: #FDE68A;
+    --java-gradient: linear-gradient(135deg, #D97706 0%, #F59E0B 100%);
+    --java-gradient-subtle: linear-gradient(135deg, #FFFBEB 0%, #FEF3C7 100%);
+}
+
+/* Java 페이지 헤더 */
+.java-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--java-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(217, 119, 6, 0.15),
+        0 1px 3px rgba(217, 119, 6, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.java-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 커피 아이콘 배경 (Font Awesome 사용) */
+.java-page .page-header::after {
+    content: '\f0f4';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* Java 로고 영역 */
+.java-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.java-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.java-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Java 페이지 타이틀 */
+.java-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.java-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* Java 배지 */
+.java-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.java-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.java-page .document-count::before {
+    content: '\f02d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* Java 카드 스타일 */
+.java-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--java-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.java-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--java-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.java-page .card:hover {
+    border-color: var(--java-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(217, 119, 6, 0.12),
+        0 2px 8px rgba(217, 119, 6, 0.08);
+}
+
+.java-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Java 카드 아이콘 */
+.java-page .card-icon {
+    background: var(--java-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--java-primary);
+    border: 1px solid var(--java-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.java-page .card:hover .card-icon {
+    background: var(--java-gradient);
+    color: white;
+    border-color: var(--java-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(217, 119, 6, 0.15);
+}
+
+/* Java 다운로드 버튼 */
+.java-page .download-btn {
+    background: var(--java-primary);
+    border: 1px solid var(--java-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(217, 119, 6, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.java-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.java-page .download-btn:hover {
+    background: var(--java-accent);
+    border-color: var(--java-accent);
+    box-shadow: 0 4px 12px rgba(234, 88, 12, 0.25);
+    transform: translateY(-1px);
+}
+
+.java-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* Java 버튼 커피 아이콘 */
+.java-page .download-btn::after {
+    content: '\f0f4';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.java-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* Java 로딩 스피너 */
+.java-page .spinner {
+    border-color: var(--java-light);
+    border-top-color: var(--java-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* Java 검색 결과 없음 */
+.java-page .no-results {
+    background: var(--java-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--java-border);
+}
+
+.java-page .no-results-icon {
+    color: var(--java-secondary);
+    font-size: 3.5rem;
+}
+
+/* Java 통계 박스 */
+.java-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.java-stat-box {
+    background: white;
+    border: 1px solid var(--java-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.java-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--java-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.java-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(217, 119, 6, 0.1),
+        0 2px 6px rgba(217, 119, 6, 0.05);
+    border-color: var(--java-accent);
+}
+
+.java-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.java-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.java-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--java-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.java-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Java 태그 */
+.java-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.java-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.java-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 Java 색상 조정 */
+body.dark .java-page {
+    --java-primary: #FCD34D;
+    --java-secondary: #FBBF24;
+    --java-accent: #F59E0B;
+    --java-dark: #92400E;
+    --java-light: #FEF3C7;
+    --java-brown: #78350F;
+    --java-bg: #1C1917;
+    --java-border: #44403C;
+    --java-gradient: linear-gradient(135deg, #92400E 0%, #B45309 100%);
+    --java-gradient-subtle: linear-gradient(135deg, #1C1917 0%, #292524 100%);
+}
+
+body.dark .java-page .card {
+    background: var(--bg-primary);
+    border-color: var(--java-border);
+}
+
+body.dark .java-page .java-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--java-border);
+}
+
+body.dark .java-page .card-icon {
+    background: var(--java-gradient-subtle);
+    border-color: var(--java-border);
+    color: var(--java-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .java-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .java-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .java-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .java-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .java-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .java-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .java-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .java-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .java-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .java-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .java-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .java-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .java-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .java-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .java-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .java-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .java-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .java-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .java-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .java-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .java-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .java-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .java-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

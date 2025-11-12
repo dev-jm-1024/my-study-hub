@@ -1,0 +1,512 @@
+/* Kafka Theme CSS */
+
+/* Kafka 전용 색상 변수 - Apache Kafka 공식 색상 (검은색, 빨간색/오렌지) */
+.kafka-page {
+    --kafka-primary: #231F20;
+    --kafka-secondary: #1A1617;
+    --kafka-accent: #E63946;
+    --kafka-orange: #FF6B35;
+    --kafka-dark: #0F0D0E;
+    --kafka-light: #FF8F66;
+    --kafka-bg: #FFF8F5;
+    --kafka-border: #E8D5D0;
+    --kafka-gradient: linear-gradient(135deg, #231F20 0%, #1A1617 100%);
+    --kafka-gradient-subtle: linear-gradient(135deg, #FFF8F5 0%, #FFE8E0 100%);
+}
+
+/* Kafka 페이지 헤더 */
+.kafka-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--kafka-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(35, 31, 32, 0.15),
+        0 1px 3px rgba(35, 31, 32, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.kafka-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(230, 57, 70, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(230, 57, 70, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* 아이콘 배경 (Font Awesome 사용 - 메시지 큐/스트림) */
+.kafka-page .page-header::after {
+    content: '\f1d8';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.05;
+    color: var(--kafka-accent);
+    pointer-events: none;
+}
+
+/* Kafka 로고 영역 */
+.kafka-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.kafka-logo-icon {
+    font-size: 2.5rem;
+    color: var(--kafka-accent);
+}
+
+.kafka-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Kafka 페이지 타이틀 */
+.kafka-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.kafka-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* Kafka 배지 */
+.kafka-page .category-badge {
+    background: rgba(230, 57, 70, 0.15);
+    color: white;
+    border: 1px solid rgba(230, 57, 70, 0.3);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.kafka-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.kafka-page .document-count::before {
+    content: '\f1d8';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* Kafka 카드 스타일 */
+.kafka-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--kafka-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kafka-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--kafka-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.kafka-page .card:hover {
+    border-color: var(--kafka-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(230, 57, 70, 0.12),
+        0 2px 8px rgba(230, 57, 70, 0.08);
+}
+
+.kafka-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Kafka 카드 아이콘 */
+.kafka-page .card-icon {
+    background: var(--kafka-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--kafka-primary);
+    border: 1px solid var(--kafka-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.kafka-page .card:hover .card-icon {
+    background: var(--kafka-gradient);
+    color: var(--kafka-accent);
+    border-color: var(--kafka-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(230, 57, 70, 0.15);
+}
+
+/* Kafka 다운로드 버튼 */
+.kafka-page .download-btn {
+    background: var(--kafka-accent);
+    border: 1px solid var(--kafka-accent);
+    color: white;
+    box-shadow: 0 2px 8px rgba(230, 57, 70, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.kafka-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.kafka-page .download-btn:hover {
+    background: var(--kafka-orange);
+    border-color: var(--kafka-orange);
+    box-shadow: 0 4px 12px rgba(255, 107, 53, 0.25);
+    transform: translateY(-1px);
+}
+
+.kafka-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* Kafka 버튼 아이콘 */
+.kafka-page .download-btn::after {
+    content: '\f1d8';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.kafka-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* Kafka 로딩 스피너 */
+.kafka-page .spinner {
+    border-color: var(--kafka-light);
+    border-top-color: var(--kafka-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* Kafka 검색 결과 없음 */
+.kafka-page .no-results {
+    background: var(--kafka-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--kafka-border);
+}
+
+.kafka-page .no-results-icon {
+    color: var(--kafka-accent);
+    font-size: 3.5rem;
+}
+
+/* Kafka 통계 박스 */
+.kafka-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.kafka-stat-box {
+    background: white;
+    border: 1px solid var(--kafka-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kafka-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--kafka-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.kafka-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(230, 57, 70, 0.1),
+        0 2px 6px rgba(230, 57, 70, 0.05);
+    border-color: var(--kafka-accent);
+}
+
+.kafka-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.kafka-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.kafka-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--kafka-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.kafka-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Kafka 태그 */
+.kafka-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.kafka-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.kafka-tag:hover {
+    background: rgba(230, 57, 70, 0.25);
+    color: white;
+    border-color: var(--kafka-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(230, 57, 70, 0.15);
+}
+
+/* 다크모드 Kafka 색상 조정 */
+body.dark .kafka-page {
+    --kafka-primary: #2A2526;
+    --kafka-secondary: #231F20;
+    --kafka-accent: #FF4757;
+    --kafka-orange: #FF8C42;
+    --kafka-dark: #1A1617;
+    --kafka-light: #FFA07A;
+    --kafka-bg: #1A1617;
+    --kafka-border: #3A3536;
+    --kafka-gradient: linear-gradient(135deg, #1A1617 0%, #231F20 100%);
+    --kafka-gradient-subtle: linear-gradient(135deg, #1A1617 0%, #2A2526 100%);
+}
+
+body.dark .kafka-page .card {
+    background: var(--bg-primary);
+    border-color: var(--kafka-border);
+}
+
+body.dark .kafka-page .kafka-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--kafka-border);
+}
+
+body.dark .kafka-page .card-icon {
+    background: var(--kafka-gradient-subtle);
+    border-color: var(--kafka-border);
+    color: var(--kafka-accent);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .kafka-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .kafka-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .kafka-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .kafka-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .kafka-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .kafka-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .kafka-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .kafka-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .kafka-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .kafka-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .kafka-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .kafka-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .kafka-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .kafka-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .kafka-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .kafka-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .kafka-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .kafka-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .kafka-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .kafka-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .kafka-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .kafka-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .kafka-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

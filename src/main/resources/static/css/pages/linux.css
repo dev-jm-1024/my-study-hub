@@ -1,0 +1,523 @@
+/* Linux Theme CSS */
+
+/* Linux 전용 색상 변수 - Linux 대표 색상 (다크 그레이, 초록색) */
+.linux-page {
+    --linux-primary: #0D1117;
+    --linux-secondary: #161B22;
+    --linux-accent: #00D700;
+    --linux-dark: #0A0E13;
+    --linux-white: #C9D1D9;
+    --linux-gray: #30363D;
+    --linux-light-gray: #8B949E;
+    --linux-border: #484F58;
+    --linux-bg: #F6F8FA;
+    --linux-gradient: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+    --linux-gradient-subtle: linear-gradient(135deg, #F6F8FA 0%, #E8EBED 100%);
+}
+
+/* Linux 페이지 헤더 */
+.linux-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--linux-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.2),
+        0 1px 3px rgba(0, 0, 0, 0.1);
+    border: 1px solid var(--linux-border);
+}
+
+/* 미묘한 그리드 패턴 */
+.linux-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(0, 215, 0, 0.02) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(0, 215, 0, 0.02) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.3;
+}
+
+/* 아이콘 배경 (Font Awesome 사용 - 터미널) */
+.linux-page .page-header::after {
+    content: '\f120';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.05;
+    color: var(--linux-accent);
+    pointer-events: none;
+}
+
+/* Linux 로고 영역 */
+.linux-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.linux-logo-icon {
+    font-size: 2.5rem;
+    color: var(--linux-accent);
+}
+
+.linux-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: var(--linux-white);
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Linux 페이지 타이틀 */
+.linux-page .page-title {
+    color: var(--linux-white);
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: var(--linux-white);
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+    font-family: 'Courier New', monospace;
+}
+
+.linux-page .page-subtitle {
+    color: var(--linux-light-gray);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+    font-family: 'Courier New', monospace;
+}
+
+/* Linux 배지 */
+.linux-page .category-badge {
+    background: rgba(0, 215, 0, 0.15);
+    color: var(--linux-white);
+    border: 1px solid rgba(0, 215, 0, 0.3);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+    font-family: 'Courier New', monospace;
+}
+
+/* 문서 개수 표시 */
+.linux-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(72, 79, 88, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: var(--linux-white);
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid var(--linux-border);
+    font-family: 'Courier New', monospace;
+}
+
+.linux-page .document-count::before {
+    content: '$';
+    font-size: 0.9rem;
+    color: var(--linux-accent);
+}
+
+/* Linux 카드 스타일 */
+.linux-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--linux-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.linux-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--linux-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.linux-page .card:hover {
+    border-color: var(--linux-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(0, 0, 0, 0.15),
+        0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+.linux-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Linux 카드 아이콘 */
+.linux-page .card-icon {
+    background: var(--linux-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--linux-primary);
+    border: 1px solid var(--linux-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.linux-page .card:hover .card-icon {
+    background: var(--linux-gradient);
+    color: var(--linux-accent);
+    border-color: var(--linux-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.2);
+}
+
+/* Linux 다운로드 버튼 */
+.linux-page .download-btn {
+    background: var(--linux-primary);
+    border: 1px solid var(--linux-border);
+    color: var(--linux-white);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+    font-family: 'Courier New', monospace;
+}
+
+.linux-page .download-btn::before {
+    background: rgba(0, 215, 0, 0.1);
+}
+
+.linux-page .download-btn:hover {
+    background: var(--linux-secondary);
+    border-color: var(--linux-accent);
+    box-shadow: 0 4px 12px rgba(0, 215, 0, 0.2);
+    transform: translateY(-1px);
+}
+
+.linux-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* Linux 버튼 아이콘 */
+.linux-page .download-btn::after {
+    content: '\f120';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    color: var(--linux-accent);
+    transition: all 0.2s ease;
+}
+
+.linux-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* Linux 로딩 스피너 */
+.linux-page .spinner {
+    border-color: var(--linux-light-gray);
+    border-top-color: var(--linux-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* Linux 검색 결과 없음 */
+.linux-page .no-results {
+    background: var(--linux-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--linux-border);
+}
+
+.linux-page .no-results-icon {
+    color: var(--linux-gray);
+    font-size: 3.5rem;
+}
+
+/* Linux 통계 박스 */
+.linux-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.linux-stat-box {
+    background: white;
+    border: 1px solid var(--linux-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.linux-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--linux-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.linux-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.1),
+        0 2px 6px rgba(0, 0, 0, 0.05);
+    border-color: var(--linux-accent);
+}
+
+.linux-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.linux-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.linux-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--linux-primary);
+    margin-bottom: var(--spacing-xs);
+    font-family: 'Courier New', monospace;
+}
+
+.linux-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+    font-family: 'Courier New', monospace;
+}
+
+/* Linux 태그 */
+.linux-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.linux-tag {
+    background: rgba(72, 79, 88, 0.2);
+    color: var(--linux-white);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid var(--linux-border);
+    backdrop-filter: blur(10px);
+    font-family: 'Courier New', monospace;
+}
+
+.linux-tag:hover {
+    background: rgba(0, 215, 0, 0.15);
+    color: var(--linux-accent);
+    border-color: var(--linux-accent);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 215, 0, 0.15);
+}
+
+/* 다크모드 Linux 색상 조정 */
+body.dark .linux-page {
+    --linux-primary: #161B22;
+    --linux-secondary: #0D1117;
+    --linux-accent: #00FF00;
+    --linux-dark: #0A0E13;
+    --linux-white: #C9D1D9;
+    --linux-gray: #30363D;
+    --linux-light-gray: #8B949E;
+    --linux-border: #484F58;
+    --linux-bg: #0A0E13;
+    --linux-gradient: linear-gradient(135deg, #0A0E13 0%, #161B22 100%);
+    --linux-gradient-subtle: linear-gradient(135deg, #0A0E13 0%, #161B22 100%);
+}
+
+body.dark .linux-page .card {
+    background: var(--bg-primary);
+    border-color: var(--linux-border);
+}
+
+body.dark .linux-page .linux-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--linux-border);
+}
+
+body.dark .linux-page .card-icon {
+    background: var(--linux-gradient-subtle);
+    border-color: var(--linux-border);
+    color: var(--linux-accent);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .linux-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .linux-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .linux-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .linux-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .linux-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .linux-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .linux-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .linux-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .linux-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .linux-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .linux-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .linux-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .linux-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .linux-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .linux-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .linux-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .linux-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .linux-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .linux-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .linux-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .linux-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .linux-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .linux-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

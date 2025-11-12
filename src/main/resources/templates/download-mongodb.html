@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MongoDB 문서 - Tech Docs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/button.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/download.css">
+    <link rel="stylesheet" href="css/pages/mongodb.css"> <!-- MongoDB 테마 -->
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 사이드바 (자동 로드) -->
+        <div id="sidebar"></div>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content download-page mongodb-page">
+            <!-- MongoDB 전용 헤더 -->
+            <div class="page-header">
+                <div class="mongodb-logo">
+                    <!-- <span class="mongodb-logo-icon">🍃</span> -->
+                    <span class="mongodb-logo-text">MongoDB</span>
+                </div>
+                <h1 class="page-title">
+                    MongoDB 관련 문서
+                </h1>
+                <p class="page-subtitle">
+                    NoSQL 데이터베이스 기초부터 고급까지 <span class="document-count"></span>
+                </p>
+                
+                <!-- MongoDB 태그들 -->
+                <div class="mongodb-tags">
+                    <span class="mongodb-tag">Document</span>
+                    <span class="mongodb-tag">Collection</span>
+                    <span class="mongodb-tag">Query</span>
+                    <span class="mongodb-tag">Aggregation</span>
+                    <span class="mongodb-tag">Index</span>
+                    <span class="mongodb-tag">Replication</span>
+                    <span class="mongodb-tag">Sharding</span>
+                    <span class="mongodb-tag">NoSQL</span>
+                </div>
+            </div>
+
+            <!-- 통계 박스 -->
+            <!-- <div class="mongodb-stats">
+                <div class="mongodb-stat-box">
+                    <div class="mongodb-stat-icon">🍃</div>
+                    <div class="mongodb-stat-number" id="totalDocs">4</div>
+                    <div class="mongodb-stat-label">전체 문서</div>
+                </div>
+                <div class="mongodb-stat-box">
+                    <div class="mongodb-stat-icon">🚀</div>
+                    <div class="mongodb-stat-number">5.0</div>
+                    <div class="mongodb-stat-label">평균 평점</div>
+                </div>
+                <div class="mongodb-stat-box">
+                    <div class="mongodb-stat-icon">📈</div>
+                    <div class="mongodb-stat-number">2.8K</div>
+                    <div class="mongodb-stat-label">다운로드</div>
+                </div>
+                <div class="mongodb-stat-box">
+                    <div class="mongodb-stat-icon">🌱</div>
+                    <div class="mongodb-stat-number">NoSQL</div>
+                    <div class="mongodb-stat-label">문서형 DB</div>
+                </div>
+            </div> -->
+            
+            <!-- 카드 그리드 -->
+            <div class="card-grid" id="cardGrid">
+                <!-- JavaScript로 동적 생성 -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 (순서 중요!) -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/animations.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/download.js"></script>
+    
+    <!-- 페이지 초기화 -->
+    <script>
+        // 페이지 로드 후 초기화
+        let downloadPage;
+        
+        window.addEventListener('load', () => {
+            // DownloadPage 인스턴스 생성
+            downloadPage = new DownloadPage('mongodb');
+            
+            // 문서 개수 업데이트
+            downloadPage.updateDocumentCount();
+            
+            // 통계 업데이트
+            const totalDocs = document.getElementById('totalDocs');
+            if (totalDocs && downloadPage.cards) {
+                totalDocs.textContent = downloadPage.cards.length;
+            }
+        });
+    </script>
+</body>
+</html>

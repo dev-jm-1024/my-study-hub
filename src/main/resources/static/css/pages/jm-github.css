@@ -1,0 +1,462 @@
+/* GitHub Theme CSS */
+
+/* GitHub 전용 색상 변수 - GitHub 공식 색상 (검은색/회색/흰색) */
+.github-page {
+    --github-primary: #24292F;
+    --github-secondary: #161B22;
+    --github-accent: #0969DA;
+    --github-dark: #0D1117;
+    --github-light: #656D76;
+    --github-bg: #F6F8FA;
+    --github-border: #D0D7DE;
+    --github-gradient: linear-gradient(135deg, #24292F 0%, #161B22 100%);
+    --github-gradient-subtle: linear-gradient(135deg, #F6F8FA 0%, #FFFFFF 100%);
+}
+
+/* GitHub 페이지 헤더 */
+.github-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--github-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(36, 41, 47, 0.15),
+        0 1px 3px rgba(36, 41, 47, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.github-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용 - GitHub) */
+.github-page .page-header::after {
+    content: '\f09b';
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* GitHub 로고 영역 */
+.github-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.github-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.github-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* GitHub 페이지 타이틀 */
+.github-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.github-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* GitHub 배지 */
+.github-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.github-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.github-page .document-count::before {
+    content: '\f09b';
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+    font-size: 0.9rem;
+}
+
+/* GitHub 카드 스타일 */
+.github-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--github-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.github-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--github-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.github-page .card:hover {
+    border-color: var(--github-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(9, 105, 218, 0.12),
+        0 2px 8px rgba(9, 105, 218, 0.08);
+}
+
+.github-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* GitHub 카드 아이콘 */
+.github-page .card-icon {
+    background: var(--github-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--github-primary);
+    border: 1px solid var(--github-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.github-page .card:hover .card-icon {
+    background: var(--github-gradient);
+    color: white;
+    border-color: var(--github-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(9, 105, 218, 0.15);
+}
+
+/* GitHub 리포지토리 정보 */
+.github-repo-info {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-top: var(--spacing-sm);
+    font-size: var(--font-size-sm);
+    color: var(--text-secondary);
+}
+
+.github-repo-language {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.github-repo-language::before {
+    content: '';
+    width: 12px;
+    height: 12px;
+    border-radius: 50%;
+    background: var(--github-accent);
+}
+
+.github-repo-stars {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    color: var(--text-secondary);
+}
+
+.github-repo-stars i {
+    color: var(--github-accent);
+}
+
+/* GitHub 다운로드 버튼 (리포지토리 링크 버튼) */
+.github-page .download-btn {
+    background: var(--github-primary);
+    border: 1px solid var(--github-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(36, 41, 47, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.github-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.github-page .download-btn:hover {
+    background: var(--github-accent);
+    border-color: var(--github-accent);
+    box-shadow: 0 4px 12px rgba(9, 105, 218, 0.25);
+    transform: translateY(-1px);
+}
+
+.github-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* GitHub 버튼 아이콘 */
+.github-page .download-btn::after {
+    content: '\f09b';
+    font-family: 'Font Awesome 6 Brands';
+    font-weight: 400;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.github-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* GitHub 로딩 스피너 */
+.github-page .spinner {
+    border-color: var(--github-light);
+    border-top-color: var(--github-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* GitHub 검색 결과 없음 */
+.github-page .no-results {
+    background: var(--github-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--github-border);
+}
+
+.github-page .no-results-icon {
+    color: var(--github-secondary);
+    font-size: 3.5rem;
+}
+
+/* GitHub 태그 */
+.github-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.github-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.github-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 GitHub 색상 조정 */
+body.dark .github-page {
+    --github-primary: #F6F8FA;
+    --github-secondary: #656D76;
+    --github-accent: #58A6FF;
+    --github-dark: #0D1117;
+    --github-light: #8B949E;
+    --github-bg: #0D1117;
+    --github-border: #30363D;
+    --github-gradient: linear-gradient(135deg, #161B22 0%, #0D1117 100%);
+    --github-gradient-subtle: linear-gradient(135deg, #0D1117 0%, #161B22 100%);
+}
+
+body.dark .github-page .card {
+    background: var(--bg-primary);
+    border-color: var(--github-border);
+}
+
+body.dark .github-page .card-icon {
+    background: var(--github-gradient-subtle);
+    border-color: var(--github-border);
+    color: var(--github-secondary);
+}
+
+body.dark .github-page .card:hover .card-icon {
+    color: white;
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .github-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .github-page .page-header::after {
+        font-size: 6rem;
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .github-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .github-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .github-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .github-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .github-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .github-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .github-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .github-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .github-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .github-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .github-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .github-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .github-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .github-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .github-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .github-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .github-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}
+

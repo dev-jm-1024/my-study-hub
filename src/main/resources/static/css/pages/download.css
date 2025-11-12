@@ -1,0 +1,87 @@
+/* Download Page Common Styles */
+
+.download-page {
+    animation: fadeIn 0.5s ease;
+}
+
+.page-header {
+    margin-bottom: var(--spacing-2xl);
+}
+
+.category-badge {
+    display: inline-block;
+    padding: var(--spacing-xs) var(--spacing-md);
+    background: var(--primary-light);
+    color: var(--primary);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    margin-bottom: var(--spacing-md);
+}
+
+.document-count {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin-left: var(--spacing-sm);
+}
+
+/* 로딩 상태 */
+.loading {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    min-height: 400px;
+}
+
+.spinner {
+    width: 40px;
+    height: 40px;
+    border: 4px solid var(--border-color);
+    border-top-color: var(--primary);
+    border-radius: 50%;
+    animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+@keyframes fadeIn {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .page-header {
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .category-badge {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+    
+    .document-count {
+        font-size: 0.75rem;
+        display: block;
+        margin-left: 0;
+        margin-top: var(--spacing-xs);
+    }
+}
+
+@media (max-width: 480px) {
+    .page-header {
+        margin-bottom: var(--spacing-md);
+    }
+    
+    .category-badge {
+        font-size: 0.7rem;
+    }
+}

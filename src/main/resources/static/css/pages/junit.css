@@ -1,0 +1,519 @@
+/* JUnit Theme CSS */
+
+/* JUnit 전용 색상 변수 - JUnit5 대표 색상 (초록색/빨간색) */
+.junit-page {
+    --junit-primary: #10B981;
+    --junit-secondary: #059669;
+    --junit-accent: #EF4444;
+    --junit-dark: #047857;
+    --junit-light: #34D399;
+    --junit-bg: #F0FDF4;
+    --junit-border: #D1FAE5;
+    --junit-gradient: linear-gradient(135deg, #10B981 0%, #059669 100%);
+    --junit-gradient-subtle: linear-gradient(135deg, #F0FDF4 0%, #D1FAE5 100%);
+}
+
+/* JUnit 페이지 헤더 */
+.junit-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--junit-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(16, 185, 129, 0.15),
+        0 1px 3px rgba(16, 185, 129, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.junit-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용 - 체크/테스트) */
+.junit-page .page-header::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* JUnit 로고 영역 */
+.junit-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.junit-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.junit-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* JUnit 페이지 타이틀 */
+.junit-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.junit-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* JUnit 배지 */
+.junit-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.junit-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.junit-page .document-count::before {
+    content: '\f15c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* JUnit 카드 스타일 */
+.junit-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--junit-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.junit-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--junit-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.junit-page .card:hover {
+    border-color: var(--junit-primary);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(16, 185, 129, 0.12),
+        0 2px 8px rgba(16, 185, 129, 0.08);
+}
+
+.junit-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* JUnit 카드 아이콘 */
+.junit-page .card-icon {
+    background: var(--junit-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--junit-primary);
+    border: 1px solid var(--junit-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.junit-page .card:hover .card-icon {
+    background: var(--junit-gradient);
+    color: white;
+    border-color: var(--junit-primary);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(16, 185, 129, 0.15);
+}
+
+/* JUnit 다운로드 버튼 */
+.junit-page .download-btn {
+    background: var(--junit-primary);
+    border: 1px solid var(--junit-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(16, 185, 129, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.junit-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.junit-page .download-btn:hover {
+    background: var(--junit-secondary);
+    border-color: var(--junit-secondary);
+    box-shadow: 0 4px 12px rgba(5, 150, 105, 0.25);
+    transform: translateY(-1px);
+}
+
+.junit-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* JUnit 버튼 아이콘 */
+.junit-page .download-btn::after {
+    content: '\f00c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.junit-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* JUnit 로딩 스피너 */
+.junit-page .spinner {
+    border-color: var(--junit-border);
+    border-top-color: var(--junit-primary);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* JUnit 검색 결과 없음 */
+.junit-page .no-results {
+    background: var(--junit-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--junit-border);
+}
+
+.junit-page .no-results-icon {
+    color: var(--junit-secondary);
+    font-size: 3.5rem;
+}
+
+/* JUnit 통계 박스 */
+.junit-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.junit-stat-box {
+    background: white;
+    border: 1px solid var(--junit-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.junit-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--junit-primary);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+/* 짝수는 빨간색 (실패 테스트) */
+.junit-stat-box:nth-child(even)::before {
+    background: var(--junit-accent);
+}
+
+.junit-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(16, 185, 129, 0.1),
+        0 2px 6px rgba(16, 185, 129, 0.05);
+    border-color: var(--junit-primary);
+}
+
+.junit-stat-box:nth-child(even):hover {
+    border-color: var(--junit-accent);
+}
+
+.junit-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.junit-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.junit-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--junit-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.junit-stat-box:nth-child(even) .junit-stat-number {
+    color: var(--junit-accent);
+}
+
+.junit-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* JUnit 태그 */
+.junit-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.junit-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.junit-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 JUnit 색상 조정 */
+body.dark .junit-page {
+    --junit-primary: #34D399;
+    --junit-secondary: #10B981;
+    --junit-accent: #F87171;
+    --junit-dark: #047857;
+    --junit-light: #6EE7B7;
+    --junit-bg: #064E3B;
+    --junit-border: #065F46;
+    --junit-gradient: linear-gradient(135deg, #047857 0%, #065F46 100%);
+    --junit-gradient-subtle: linear-gradient(135deg, #064E3B 0%, #065F46 100%);
+}
+
+body.dark .junit-page .card,
+body.dark .junit-page .junit-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--junit-border);
+}
+
+body.dark .junit-page .card-icon {
+    background: var(--junit-gradient-subtle);
+    border-color: var(--junit-border);
+    color: var(--junit-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .junit-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .junit-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .junit-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .junit-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .junit-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .junit-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .junit-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .junit-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .junit-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .junit-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .junit-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .junit-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .junit-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .junit-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .junit-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .junit-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .junit-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .junit-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .junit-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .junit-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .junit-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .junit-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .junit-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

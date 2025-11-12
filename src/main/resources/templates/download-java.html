@@ -1,0 +1,131 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Java 문서 - Tech Docs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/button.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/download.css">
+    <link rel="stylesheet" href="css/pages/java.css"> <!-- Java 테마 -->
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 사이드바 (자동 로드) -->
+        <div id="sidebar"></div>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content download-page java-page">
+            <!-- Java 전용 헤더 -->
+            <div class="page-header">
+                <div class="java-logo">
+                    <!-- <span class="java-logo-icon">☕</span> -->
+                    <span class="java-logo-text">JAVA</span>
+                </div>
+                <h1 class="page-title">
+                    Java 관련 문서
+                </h1>
+                <p class="page-subtitle">
+                    자바 프로그래밍 기초부터 고급까지 <span class="document-count"></span>
+                </p>
+                
+                <!-- Java 태그들 -->
+                <div class="java-tags">
+                    <span class="java-tag">Java8</span>
+                    <span class="java-tag">Java9</span>
+                    <span class="java-tag">Lambda</span>
+                    <span class="java-tag">Method reference</span>
+                    <span class="java-tag">Stream API</span>
+                    <span class="java-tag">FokrJoiniFramework</span>
+
+                    <span class="java-tag">DSL</span>
+                    <span class="java-tag">Optional</span>
+                    <span class="java-tag">Date/Time API</span>
+                    <span class="java-tag">Default Method</span>
+                    <span class="java-tag">Module</span>
+                </div>
+            </div>
+
+            <!-- 통계 박스 -->
+            <!-- <div class="java-stats">
+                <div class="java-stat-box">
+                    <div class="java-stat-icon">☕</div>
+                    <div class="java-stat-number" id="totalDocs">5</div>
+                    <div class="java-stat-label">전체 문서</div>
+                </div>
+                <div class="java-stat-box">
+                    <div class="java-stat-icon">🔥</div>
+                    <div class="java-stat-number">4.9</div>
+                    <div class="java-stat-label">평균 평점</div>
+                </div>
+                <div class="java-stat-box">
+                    <div class="java-stat-icon">⭐</div>
+                    <div class="java-stat-number">2.5K</div>
+                    <div class="java-stat-label">다운로드</div>
+                </div>
+                <div class="java-stat-box">
+                    <div class="java-stat-icon">💡</div>
+                    <div class="java-stat-number">JDK 17+</div>
+                    <div class="java-stat-label">최신 버전</div>
+                </div>
+            </div> -->
+            
+            <!-- 카드 그리드 -->
+            <div class="card-grid" id="cardGrid">
+                <!-- JavaScript로 동적 생성 -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 (순서 중요!) -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/animations.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/download.js"></script>
+    
+    <!-- 페이지 초기화 -->
+    <script>
+        // 페이지 로드 후 초기화
+        let downloadPage;
+        
+        window.addEventListener('load', () => {
+            // DownloadPage 인스턴스 생성
+            downloadPage = new DownloadPage('java');
+            
+            // 문서 개수 업데이트
+            downloadPage.updateDocumentCount();
+            
+            // 통계 업데이트
+            const totalDocs = document.getElementById('totalDocs');
+            if (totalDocs && downloadPage.cards) {
+                totalDocs.textContent = downloadPage.cards.length;
+            }
+        });
+    </script>
+</body>
+</html>

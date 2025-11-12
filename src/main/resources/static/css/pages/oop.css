@@ -1,0 +1,512 @@
+/* OOP Theme CSS */
+
+/* OOP 전용 색상 변수 - 객체지향 프로그래밍에 어울리는 차분한 톤 */
+.oop-page {
+    --oop-primary: #468B9F;
+    --oop-secondary: #356B7D;
+    --oop-accent: #72C46F;
+    --oop-dark: #2A5563;
+    --oop-light: #C0E3FD;
+    --oop-gray: #BEBFC1;
+    --oop-bg: #F5F9FC;
+    --oop-border: #D0E5F0;
+    --oop-gradient: linear-gradient(135deg, #468B9F 0%, #356B7D 100%);
+    --oop-gradient-subtle: linear-gradient(135deg, #F5F9FC 0%, #E8F2F8 100%);
+}
+
+/* OOP 페이지 헤더 */
+.oop-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--oop-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(70, 139, 159, 0.15),
+        0 1px 3px rgba(70, 139, 159, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.oop-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용 - 객체/클래스) */
+.oop-page .page-header::after {
+    content: '\f1b2';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* OOP 로고 영역 */
+.oop-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.oop-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.oop-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* OOP 페이지 타이틀 */
+.oop-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.oop-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* OOP 배지 */
+.oop-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.oop-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.oop-page .document-count::before {
+    content: '\f1b2';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* OOP 카드 스타일 */
+.oop-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--oop-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.oop-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--oop-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.oop-page .card:hover {
+    border-color: var(--oop-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(70, 139, 159, 0.12),
+        0 2px 8px rgba(70, 139, 159, 0.08);
+}
+
+.oop-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* OOP 카드 아이콘 */
+.oop-page .card-icon {
+    background: var(--oop-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--oop-primary);
+    border: 1px solid var(--oop-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.oop-page .card:hover .card-icon {
+    background: var(--oop-gradient);
+    color: white;
+    border-color: var(--oop-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(70, 139, 159, 0.15);
+}
+
+/* OOP 다운로드 버튼 */
+.oop-page .download-btn {
+    background: var(--oop-primary);
+    border: 1px solid var(--oop-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(70, 139, 159, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.oop-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.oop-page .download-btn:hover {
+    background: var(--oop-accent);
+    border-color: var(--oop-accent);
+    box-shadow: 0 4px 12px rgba(114, 196, 111, 0.25);
+    transform: translateY(-1px);
+}
+
+.oop-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* OOP 버튼 아이콘 */
+.oop-page .download-btn::after {
+    content: '\f1b2';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.oop-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* OOP 로딩 스피너 */
+.oop-page .spinner {
+    border-color: var(--oop-light);
+    border-top-color: var(--oop-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* OOP 검색 결과 없음 */
+.oop-page .no-results {
+    background: var(--oop-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--oop-border);
+}
+
+.oop-page .no-results-icon {
+    color: var(--oop-secondary);
+    font-size: 3.5rem;
+}
+
+/* OOP 통계 박스 */
+.oop-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.oop-stat-box {
+    background: white;
+    border: 1px solid var(--oop-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.oop-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--oop-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.oop-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(70, 139, 159, 0.1),
+        0 2px 6px rgba(70, 139, 159, 0.05);
+    border-color: var(--oop-accent);
+}
+
+.oop-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.oop-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.oop-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--oop-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.oop-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* OOP 태그 */
+.oop-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.oop-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.oop-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 OOP 색상 조정 */
+body.dark .oop-page {
+    --oop-primary: #5BA8C0;
+    --oop-secondary: #468B9F;
+    --oop-accent: #7FD47C;
+    --oop-dark: #2A5563;
+    --oop-light: #A8D4F0;
+    --oop-gray: #9FA0A2;
+    --oop-bg: #1A2529;
+    --oop-border: #2A3A40;
+    --oop-gradient: linear-gradient(135deg, #356B7D 0%, #2A5563 100%);
+    --oop-gradient-subtle: linear-gradient(135deg, #1A2529 0%, #2A3A40 100%);
+}
+
+body.dark .oop-page .card {
+    background: var(--bg-primary);
+    border-color: var(--oop-border);
+}
+
+body.dark .oop-page .oop-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--oop-border);
+}
+
+body.dark .oop-page .card-icon {
+    background: var(--oop-gradient-subtle);
+    border-color: var(--oop-border);
+    color: var(--oop-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .oop-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .oop-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .oop-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .oop-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .oop-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .oop-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .oop-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .oop-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .oop-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .oop-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .oop-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .oop-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .oop-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .oop-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .oop-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .oop-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .oop-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .oop-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .oop-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .oop-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .oop-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .oop-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .oop-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+} 

@@ -1,0 +1,394 @@
+/* Home Page Styles */
+
+/* 홈페이지 사이드바 숨김 (PC에서) */
+.home-container ~ .sidebar,
+.home-container + .sidebar {
+    display: none;
+}
+
+/* PC에서 사이드바 완전 숨김 */
+@media (min-width: 769px) {
+    body:has(.home-container) .sidebar {
+        display: none !important;
+    }
+    
+    body:has(.home-container) .mobile-menu-toggle {
+        display: none !important;
+    }
+}
+
+/* Hero 섹션 */
+.hero {
+    text-align: center;
+    padding: var(--spacing-2xl) var(--spacing-xl);
+    background: linear-gradient(135deg, var(--bg-primary) 0%, var(--bg-secondary) 100%);
+    border-bottom: 1px solid var(--border-color);
+    margin-bottom: var(--spacing-2xl);
+    margin-top: var(--header-height);
+}
+
+
+.hero-title {
+    font-size: 3rem;
+    font-weight: 700;
+    background: linear-gradient(135deg, var(--primary), #8b5cf6);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+    margin-bottom: var(--spacing-md);
+}
+
+.hero-subtitle {
+    font-size: var(--font-size-xl);
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-xl);
+}
+
+.hero-links {
+    display: flex;
+    justify-content: center;
+    gap: var(--spacing-lg);
+    flex-wrap: wrap;
+}
+
+.hero-link {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-sm);
+    padding: var(--spacing-md) var(--spacing-xl);
+    background: var(--bg-primary);
+    border: 2px solid var(--border-color);
+    border-radius: var(--border-radius);
+    color: var(--text-primary);
+    font-weight: 600;
+    transition: all var(--transition-base);
+    text-decoration: none;
+
+        /* 👇 이 두 줄 추가 */
+    width: 200px;
+    justify-content: center;
+}
+
+.hero-link:hover {
+    border-color: var(--primary);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-md);
+}
+
+.hero-link-icon {
+    font-size: 1.5rem;
+}
+
+/* 홈 컨테이너 (사이드바 없음) */
+.home-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-2xl);
+    min-height: calc(100vh - var(--header-height));
+}
+
+.section-title {
+    font-size: var(--font-size-3xl);
+    font-weight: 700;
+    text-align: center;
+    margin-bottom: var(--spacing-2xl);
+    color: var(--text-primary);
+}
+
+.section-subtitle {
+    text-align: center;
+    color: var(--text-secondary);
+    font-size: var(--font-size-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+/* 카테고리 카드 그리드 */
+.category-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.category-card {
+    background: var(--bg-primary);
+    border: 1px solid var(--border-color);
+    border-radius: var(--border-radius);
+    padding: var(--spacing-xl);
+    text-align: center;
+    cursor: pointer;
+    transition: all var(--transition-base);
+    position: relative;
+    overflow: hidden;
+    text-decoration: none;
+    color: var(--text-primary);
+    /* 모바일 터치 최적화 */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    user-select: none;
+    -webkit-user-select: none;
+    display: block; /* 링크가 블록 요소로 작동하도록 */
+    /* 모바일에서 클릭 영역 확보 */
+    min-height: 44px;
+    -webkit-touch-callout: none;
+}
+
+.category-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: linear-gradient(90deg, var(--primary), #8b5cf6);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform var(--transition-base);
+    pointer-events: none; /* 클릭 이벤트가 링크로 전달되도록 */
+}
+
+.category-card:hover {
+    transform: translateY(-8px);
+    box-shadow: var(--shadow-lg);
+    border-color: var(--primary);
+}
+
+.category-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* 모바일에서 hover 효과 비활성화 */
+@media (hover: none) and (pointer: coarse) {
+    .category-card:hover {
+        transform: none;
+        box-shadow: none;
+        border-color: var(--border-color);
+    }
+    
+    .category-card:hover::before {
+        transform: scaleX(0);
+    }
+    
+    .category-card:hover .category-icon {
+        transform: none;
+    }
+    
+    .category-card:active {
+        transform: scale(0.98);
+        background: var(--bg-secondary);
+    }
+}
+
+.category-icon {
+    font-size: 4rem;
+    margin-bottom: var(--spacing-md);
+    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
+    transition: transform var(--transition-base);
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.2) rotate(5deg);
+}
+
+.category-name {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+}
+
+.category-count {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+}
+
+/* home.css */
+
+.category-icon {
+    width: 130px;
+    height: 130px;
+    font-size: 3rem;
+    margin: 0 auto 1rem;  /* 중앙 정렬 + 아래 여백 */
+    display: block;  /* block으로 변경해야 margin auto가 작동 */
+    transition: transform 0.3s ease;
+}
+
+/* img 태그일 때 */
+.category-icon[alt] {
+    object-fit: contain;
+}
+
+.category-card:hover .category-icon {
+    transform: scale(1.1);
+}
+
+/* home.css에 추가 */
+
+.hero-link-icon {
+    width: 60px;
+    height: 60px;
+    display: inline-block;
+    vertical-align: middle;
+}
+
+/* SVG 이미지일 때 */
+.hero-link-icon[alt] {
+    object-fit: contain;
+}
+
+/* FontAwesome 아이콘일 때 */
+.hero-link-icon.fa-solid,
+.hero-link-icon.fa-brands {
+    font-size: 20px;
+    width: auto;
+    height: auto;
+}
+
+/* 반응형 */
+@media (max-width: 1024px) {
+    .hero {
+        padding: var(--spacing-xl) var(--spacing-lg);
+    }
+    
+    .hero-title {
+        font-size: 2.5rem;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+        gap: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 768px) {
+    .hero {
+        padding: var(--spacing-lg) var(--spacing-md);
+        margin-top: 60px;
+    }
+    
+    .hero-title {
+        font-size: 1.75rem;
+        margin-bottom: var(--spacing-sm);
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .hero-links {
+        flex-direction: column;
+        align-items: center;
+        gap: var(--spacing-md);
+    }
+    
+    .hero-link {
+        width: 100%;
+        max-width: 280px;
+        padding: var(--spacing-sm) var(--spacing-lg);
+        min-height: 44px;
+    }
+    
+    .hero-link-icon {
+        width: 50px;
+        height: 50px;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    .category-card {
+        padding: var(--spacing-md);
+    }
+    
+    .category-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.5rem;
+    }
+    
+    .category-name {
+        font-size: var(--font-size-sm);
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .category-count {
+        font-size: 0.75rem;
+    }
+    
+    .home-container {
+        padding: var(--spacing-md);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-2xl);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .section-subtitle {
+        font-size: var(--font-size-base);
+        margin-bottom: var(--spacing-lg);
+    }
+}
+
+@media (max-width: 480px) {
+    .hero {
+        padding: var(--spacing-md) var(--spacing-sm);
+        margin-top: 56px;
+    }
+    
+    .hero-title {
+        font-size: 1.5rem;
+    }
+    
+    .hero-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .hero-link {
+        max-width: 100%;
+        padding: var(--spacing-sm) var(--spacing-md);
+    }
+    
+    .hero-link-icon {
+        width: 40px;
+        height: 40px;
+    }
+    
+    .category-grid {
+        grid-template-columns: repeat(3, 1fr);
+        gap: var(--spacing-xs);
+    }
+    
+    .category-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .category-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.25rem;
+    }
+    
+    .category-name {
+        font-size: 0.75rem;
+        margin-bottom: var(--spacing-xs);
+    }
+    
+    .category-count {
+        font-size: 0.7rem;
+    }
+    
+    .home-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .section-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .section-subtitle {
+        font-size: var(--font-size-sm);
+    }
+}

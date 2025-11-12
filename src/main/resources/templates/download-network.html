@@ -1,0 +1,127 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Network 문서 - Tech Docs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/button.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/download.css">
+    <link rel="stylesheet" href="css/pages/network.css"> <!-- Network 테마 -->
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 사이드바 (자동 로드) -->
+        <div id="sidebar"></div>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content download-page network-page">
+            <!-- Network 전용 헤더 -->
+            <div class="page-header">
+                <div class="network-logo">
+                    <!-- <span class="network-logo-icon">🌐</span> -->
+                    <span class="network-logo-text">Network</span>
+                </div>
+                <h1 class="page-title">
+                    Network 관련 문서
+                </h1>
+                <p class="page-subtitle">
+                    네트워크 프로토콜과 통신 기술 완벽 가이드 <span class="document-count"></span>
+                </p>
+                
+                <!-- Network 태그들 -->
+                <div class="network-tags">
+                    <span class="network-tag">TCP/IP</span>
+                    <span class="network-tag">HTTP</span>
+                    <span class="network-tag">HTTPS</span>
+                    <!-- <span class="network-tag">🔌 Socket</span>
+                    <span class="network-tag">📶 DNS</span>
+                    <span class="network-tag">⚡ WebSocket</span>
+                    <span class="network-tag">🌊 REST</span> -->
+                    <span class="network-tag">OSI</span>
+                </div>
+            </div>
+
+            <!-- 통계 박스 -->
+            <!-- <div class="network-stats">
+                <div class="network-stat-box">
+                    <div class="network-stat-icon">🌐</div>
+                    <div class="network-stat-number" id="totalDocs">4</div>
+                    <div class="network-stat-label">전체 문서</div>
+                </div>
+                <div class="network-stat-box">
+                    <div class="network-stat-icon">⭐</div>
+                    <div class="network-stat-number">4.9</div>
+                    <div class="network-stat-label">평균 평점</div>
+                </div>
+                <div class="network-stat-box">
+                    <div class="network-stat-icon">📊</div>
+                    <div class="network-stat-number">3.6K</div>
+                    <div class="network-stat-label">다운로드</div>
+                </div>
+                <div class="network-stat-box">
+                    <div class="network-stat-icon">🔗</div>
+                    <div class="network-stat-number">7 Layers</div>
+                    <div class="network-stat-label">OSI 모델</div>
+                </div>
+            </div> -->
+            
+            <!-- 카드 그리드 -->
+            <div class="card-grid" id="cardGrid">
+                <!-- JavaScript로 동적 생성 -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 (순서 중요!) -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/animations.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/download.js"></script>
+    
+    <!-- 페이지 초기화 -->
+    <script>
+        // 페이지 로드 후 초기화
+        let downloadPage;
+        
+        window.addEventListener('load', () => {
+            // DownloadPage 인스턴스 생성
+            downloadPage = new DownloadPage('network');
+            
+            // 문서 개수 업데이트
+            downloadPage.updateDocumentCount();
+            
+            // 통계 업데이트
+            const totalDocs = document.getElementById('totalDocs');
+            if (totalDocs && downloadPage.cards) {
+                totalDocs.textContent = downloadPage.cards.length;
+            }
+        });
+    </script>
+</body>
+</html>

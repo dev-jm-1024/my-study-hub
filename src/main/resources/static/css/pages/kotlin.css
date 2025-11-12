@@ -1,0 +1,512 @@
+/* Kotlin Theme CSS */
+
+/* Kotlin 전용 색상 변수 - 차분하고 전문적인 톤 (Kotlin 보라색/오렌지 특색 유지) */
+.kotlin-page {
+    --kotlin-primary: #6366F1;
+    --kotlin-secondary: #8B5CF6;
+    --kotlin-accent: #F59E0B;
+    --kotlin-dark: #4F46E5;
+    --kotlin-light: #A78BFA;
+    --kotlin-purple-light: #C4B5FD;
+    --kotlin-bg: #F5F3FF;
+    --kotlin-border: #DDD6FE;
+    --kotlin-gradient: linear-gradient(135deg, #6366F1 0%, #8B5CF6 100%);
+    --kotlin-gradient-subtle: linear-gradient(135deg, #F5F3FF 0%, #EDE9FE 100%);
+}
+
+/* Kotlin 페이지 헤더 */
+.kotlin-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--kotlin-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(99, 102, 241, 0.15),
+        0 1px 3px rgba(99, 102, 241, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.kotlin-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용) */
+.kotlin-page .page-header::after {
+    content: '\f135';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* Kotlin 로고 영역 */
+.kotlin-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.kotlin-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.kotlin-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* Kotlin 페이지 타이틀 */
+.kotlin-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.kotlin-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* Kotlin 배지 */
+.kotlin-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.kotlin-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.kotlin-page .document-count::before {
+    content: '\f02d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* Kotlin 카드 스타일 */
+.kotlin-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--kotlin-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kotlin-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--kotlin-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.kotlin-page .card:hover {
+    border-color: var(--kotlin-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(99, 102, 241, 0.12),
+        0 2px 8px rgba(99, 102, 241, 0.08);
+}
+
+.kotlin-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* Kotlin 카드 아이콘 */
+.kotlin-page .card-icon {
+    background: var(--kotlin-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--kotlin-primary);
+    border: 1px solid var(--kotlin-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.kotlin-page .card:hover .card-icon {
+    background: var(--kotlin-gradient);
+    color: white;
+    border-color: var(--kotlin-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(99, 102, 241, 0.15);
+}
+
+/* Kotlin 다운로드 버튼 */
+.kotlin-page .download-btn {
+    background: var(--kotlin-primary);
+    border: 1px solid var(--kotlin-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(99, 102, 241, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.kotlin-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.kotlin-page .download-btn:hover {
+    background: var(--kotlin-accent);
+    border-color: var(--kotlin-accent);
+    box-shadow: 0 4px 12px rgba(245, 158, 11, 0.25);
+    transform: translateY(-1px);
+}
+
+.kotlin-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* Kotlin 버튼 아이콘 */
+.kotlin-page .download-btn::after {
+    content: '\f135';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.kotlin-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* Kotlin 로딩 스피너 */
+.kotlin-page .spinner {
+    border-color: var(--kotlin-light);
+    border-top-color: var(--kotlin-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* Kotlin 검색 결과 없음 */
+.kotlin-page .no-results {
+    background: var(--kotlin-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--kotlin-border);
+}
+
+.kotlin-page .no-results-icon {
+    color: var(--kotlin-secondary);
+    font-size: 3.5rem;
+}
+
+/* Kotlin 통계 박스 */
+.kotlin-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.kotlin-stat-box {
+    background: white;
+    border: 1px solid var(--kotlin-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.kotlin-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--kotlin-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.kotlin-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(99, 102, 241, 0.1),
+        0 2px 6px rgba(99, 102, 241, 0.05);
+    border-color: var(--kotlin-accent);
+}
+
+.kotlin-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.kotlin-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.kotlin-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--kotlin-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.kotlin-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* Kotlin 태그 */
+.kotlin-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.kotlin-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.kotlin-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 Kotlin 색상 조정 */
+body.dark .kotlin-page {
+    --kotlin-primary: #818CF8;
+    --kotlin-secondary: #A78BFA;
+    --kotlin-accent: #FBBF24;
+    --kotlin-dark: #4F46E5;
+    --kotlin-light: #C4B5FD;
+    --kotlin-purple-light: #DDD6FE;
+    --kotlin-bg: #1E1B4B;
+    --kotlin-border: #312E81;
+    --kotlin-gradient: linear-gradient(135deg, #4F46E5 0%, #6366F1 100%);
+    --kotlin-gradient-subtle: linear-gradient(135deg, #1E1B4B 0%, #312E81 100%);
+}
+
+body.dark .kotlin-page .card {
+    background: var(--bg-primary);
+    border-color: var(--kotlin-border);
+}
+
+body.dark .kotlin-page .kotlin-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--kotlin-border);
+}
+
+body.dark .kotlin-page .card-icon {
+    background: var(--kotlin-gradient-subtle);
+    border-color: var(--kotlin-border);
+    color: var(--kotlin-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .kotlin-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .kotlin-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .kotlin-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .kotlin-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .kotlin-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .kotlin-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .kotlin-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .kotlin-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .kotlin-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .kotlin-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .kotlin-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .kotlin-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .kotlin-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .kotlin-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .kotlin-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .kotlin-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .kotlin-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .kotlin-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .kotlin-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .kotlin-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .kotlin-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .kotlin-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .kotlin-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

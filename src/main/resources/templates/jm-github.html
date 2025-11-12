@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>GitHub 실습 코드 - Tech Docs</title>
+    
+    <!-- Favicon -->
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+    <link rel="shortcut icon" href="favicon.ico" type="image/x-icon">
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="css/common/reset.css">
+    <link rel="stylesheet" href="css/common/variables.css">
+    <link rel="stylesheet" href="css/common/layout.css">
+    <link rel="stylesheet" href="css/components/card.css">
+    <link rel="stylesheet" href="css/components/button.css">
+    <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/pages/download.css">
+    <link rel="stylesheet" href="css/pages/jm-github.css">
+    
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" crossorigin="anonymous" referrerpolicy="no-referrer">
+</head>
+<body>
+    <!-- 헤더 (자동 로드) -->
+    <div id="header"></div>
+
+    <!-- 메인 컨테이너 -->
+    <div class="container">
+        <!-- 사이드바 (자동 로드) -->
+        <div id="sidebar"></div>
+
+        <!-- 메인 콘텐츠 -->
+        <main class="main-content download-page github-page">
+            <!-- GitHub 전용 헤더 -->
+            <div class="page-header">
+                <div class="github-logo">
+                    <i class="fa-brands fa-github github-logo-icon"></i>
+                    <span class="github-logo-text">GitHub</span>
+                </div>
+                <h1 class="page-title">
+                    실습 코드 리포지토리
+                </h1>
+                <p class="page-subtitle">
+                    학습하며 작성한 실습 코드들을 모아둔 GitHub 리포지토리 모음 <span class="document-count"></span>
+                </p>
+                
+                <!-- GitHub 태그들 -->
+                <div class="github-tags">
+                    <span class="github-tag">Java</span>
+                    <span class="github-tag">Spring Boot</span>
+                    <span class="github-tag">JSP</span>
+                    <span class="github-tag">MySQL</span>
+                    <span class="github-tag">MongoDB</span>
+                    <span class="github-tag">Kafka</span>
+                    <span class="github-tag">Network</span>
+                    <span class="github-tag">JUnit</span>
+                </div>
+            </div>
+            
+            <!-- 카드 그리드 -->
+            <div class="card-grid" id="cardGrid">
+                <!-- JavaScript로 동적 생성 -->
+                <div class="loading">
+                    <div class="spinner"></div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- 라이브러리 -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js" crossorigin="anonymous" referrerpolicy="no-referrer"></script>
+    
+    <!-- JS 모듈 (순서 중요!) -->
+    <script src="js/core/data.js"></script>
+    <script src="js/core/theme.js"></script>
+    <script src="js/core/animations.js"></script>
+    <script src="js/utils/helpers.js"></script>
+    <script src="js/utils/include.js"></script>
+    <script src="js/pages/download.js"></script>
+    <script src="js/pages/jm-github.js"></script>
+    
+    <!-- 페이지 초기화 -->
+    <script>
+        // 페이지 로드 후 초기화
+        let githubPage;
+        
+        window.addEventListener('load', () => {
+            // GitHubPage 인스턴스 생성
+            githubPage = new GitHubPage();
+            
+            // 문서 개수 업데이트
+            githubPage.updateDocumentCount();
+        });
+    </script>
+</body>
+</html>
+

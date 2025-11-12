@@ -1,0 +1,727 @@
+/* Book Theme CSS - 따뜻한 도서 느낌 */
+
+/* 도서 전용 색상 변수 - 따뜻하고 친근한 톤 */
+.book-page {
+    --book-primary: #8B6F47;
+    --book-secondary: #A68B5B;
+    --book-accent: #D4A574;
+    --book-dark: #5D4E37;
+    --book-light: #E8DCC6;
+    --book-bg: #F9F6F1;
+    --book-border: #D4C4B0;
+    --book-gradient: linear-gradient(135deg, #8B6F47 0%, #A68B5B 50%, #C9A882 100%);
+    --book-gradient-subtle: linear-gradient(135deg, #F5F0E8 0%, #E8DCC6 100%);
+    --book-shadow: 0 4px 20px rgba(139, 111, 71, 0.15);
+    --book-shadow-hover: 0 8px 30px rgba(139, 111, 71, 0.25);
+}
+
+/* 도서 페이지 컨테이너 (사이드바 없음) */
+.book-container {
+    max-width: 1400px;
+    margin: 0 auto;
+    padding: var(--spacing-2xl);
+    margin-top: var(--header-height);
+    min-height: calc(100vh - var(--header-height));
+    background: var(--bg-secondary);
+    transition: background var(--transition-base);
+}
+
+/* 도서 헤더 - 책장 느낌 */
+.book-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--book-gradient);
+    border-radius: 16px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: var(--book-shadow);
+    border: 2px solid rgba(255, 255, 255, 0.2);
+}
+
+/* 책장 패턴 배경 */
+.book-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 98px,
+            rgba(255, 255, 255, 0.05) 98px,
+            rgba(255, 255, 255, 0.05) 100px
+        );
+    pointer-events: none;
+    opacity: 0.6;
+}
+
+/* 책 아이콘 배경 */
+.book-header::after {
+    content: '\f02d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 20px;
+    right: 30px;
+    font-size: 10rem;
+    opacity: 0.1;
+    color: white;
+    pointer-events: none;
+    transform: rotate(-5deg);
+}
+
+/* 헤더 콘텐츠 */
+.book-header-content {
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.book-header-icon {
+    font-size: 4rem;
+    color: rgba(255, 255, 255, 0.95);
+    filter: drop-shadow(0 2px 8px rgba(0, 0, 0, 0.2));
+}
+
+.book-header-text {
+    flex: 1;
+}
+
+.book-main-title {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    text-shadow: 0 2px 10px rgba(0, 0, 0, 0.2);
+    letter-spacing: -0.5px;
+}
+
+.book-main-subtitle {
+    color: rgba(255, 255, 255, 0.95);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* 문서 개수 표시 */
+.book-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.25);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+    margin-left: var(--spacing-sm);
+}
+
+.book-page .document-count::before {
+    content: '\f02d';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* 도서 그리드 - PC에서 3개씩, 모바일에서 2개씩 */
+.book-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: var(--spacing-xl);
+    margin-bottom: var(--spacing-2xl);
+}
+
+/* 도서 카드 스타일 - 책 표지 느낌 */
+.book-page .book-card {
+    background: var(--bg-primary);
+    border: 2px solid var(--book-border);
+    border-radius: 12px;
+    padding: var(--spacing-lg);
+    transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+    position: relative;
+    overflow: hidden;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    box-shadow: 0 2px 8px rgba(139, 111, 71, 0.1);
+}
+
+/* 책 표지 느낌의 상단 라인 */
+.book-page .book-card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 4px;
+    background: var(--book-gradient);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.book-page .book-card:hover {
+    border-color: var(--book-accent);
+    transform: translateY(-8px) scale(1.02);
+    box-shadow: var(--book-shadow-hover);
+}
+
+.book-page .book-card:hover::before {
+    transform: scaleX(1);
+}
+
+/* 도서 표지 이미지 - 책 느낌 */
+.book-cover {
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+    background: var(--book-gradient-subtle);
+    border: 2px solid var(--book-border);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.15);
+}
+
+.book-page .book-card:hover .book-cover {
+    transform: scale(1.05) rotate(1deg);
+    box-shadow: 0 8px 20px rgba(139, 111, 71, 0.25);
+}
+
+/* 도서 아이콘 (이미지가 없을 때) - 책 느낌 */
+.book-icon {
+    background: var(--book-gradient-subtle);
+    width: 100%;
+    aspect-ratio: 3 / 4;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 8px;
+    margin-bottom: var(--spacing-md);
+    font-size: 4rem;
+    color: var(--book-primary);
+    border: 2px solid var(--book-border);
+    transition: all 0.3s ease;
+    box-shadow: 0 4px 12px rgba(139, 111, 71, 0.15);
+    position: relative;
+}
+
+/* 책 아이콘에 책장 느낌 추가 */
+.book-icon::after {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: repeating-linear-gradient(
+        90deg,
+        transparent,
+        transparent 20px,
+        rgba(139, 111, 71, 0.05) 20px,
+        rgba(139, 111, 71, 0.05) 22px
+    );
+    border-radius: 8px;
+    pointer-events: none;
+}
+
+.book-page .book-card:hover .book-icon {
+    background: var(--book-gradient);
+    color: white;
+    border-color: var(--book-accent);
+    transform: translateY(-4px) rotate(-1deg);
+    box-shadow: 0 8px 20px rgba(139, 111, 71, 0.25);
+}
+
+/* 도서 제목 */
+.book-title {
+    font-size: var(--font-size-xl);
+    font-weight: 700;
+    margin-bottom: var(--spacing-sm);
+    color: var(--text-primary);
+    line-height: 1.4;
+    display: -webkit-box;
+    -webkit-line-clamp: 2;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+    min-height: 3.2em;
+}
+
+/* 도서 저자 */
+.book-author {
+    color: var(--book-primary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-xs);
+    font-weight: 600;
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.book-author::before {
+    content: '\f007';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.7;
+}
+
+/* 도서 출판사 */
+.book-publisher {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    margin-bottom: var(--spacing-md);
+    display: flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+}
+
+.book-publisher::before {
+    content: '\f1ad';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 400;
+    font-size: 0.9rem;
+    opacity: 0.6;
+}
+
+/* 도서 설명 */
+.book-description {
+    color: var(--text-secondary);
+    margin-bottom: var(--spacing-lg);
+    line-height: 1.7;
+    font-size: var(--font-size-sm);
+    flex-grow: 1;
+    display: -webkit-box;
+    -webkit-line-clamp: 3;
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+/* 도서 카드 푸터 */
+.book-card-footer {
+    display: flex;
+    justify-content: flex-end;
+    align-items: center;
+    gap: var(--spacing-sm);
+    margin-top: auto;
+    padding-top: var(--spacing-md);
+    border-top: 2px solid var(--book-light);
+}
+
+/* 도서 구매 버튼 - 따뜻한 느낌 */
+.book-page .book-btn {
+    background: var(--book-gradient);
+    border: 2px solid var(--book-accent);
+    color: white;
+    box-shadow: 0 2px 8px rgba(139, 111, 71, 0.2);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.3s ease;
+    padding: var(--spacing-sm) var(--spacing-xl);
+    border-radius: 8px;
+    font-size: var(--font-size-sm);
+    cursor: pointer;
+}
+
+.book-page .book-btn::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    width: 0;
+    height: 0;
+    border-radius: 50%;
+    background: rgba(255, 255, 255, 0.2);
+    transform: translate(-50%, -50%);
+    transition: width 0.4s ease, height 0.4s ease;
+}
+
+.book-page .book-btn:hover {
+    background: var(--book-accent);
+    border-color: var(--book-secondary);
+    box-shadow: 0 4px 16px rgba(139, 111, 71, 0.3);
+    transform: translateY(-2px);
+}
+
+.book-page .book-btn:hover::before {
+    width: 300px;
+    height: 300px;
+}
+
+.book-page .book-btn:active {
+    transform: translateY(0);
+}
+
+/* 도서 버튼 아이콘 */
+.book-page .book-btn::after {
+    content: '\f08e';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.3s ease;
+}
+
+.book-page .book-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* 도서 로딩 스피너 */
+.book-page .spinner {
+    border-color: var(--book-light);
+    border-top-color: var(--book-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* 도서 검색 결과 없음 */
+.book-page .no-results {
+    background: var(--book-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 2px dashed var(--book-border);
+    grid-column: 1 / -1;
+    text-align: center;
+}
+
+.book-page .no-results-icon {
+    color: var(--book-secondary);
+    font-size: 3.5rem;
+    margin-bottom: var(--spacing-md);
+}
+
+/* 도서 태그 - 따뜻한 느낌 */
+.book-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.book-tag {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 20px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.3s ease;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    backdrop-filter: blur(10px);
+}
+
+.book-tag:hover {
+    background: rgba(255, 255, 255, 0.35);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.4);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.15);
+}
+
+/* 다크모드 도서 색상 조정 */
+body.dark .book-page {
+    --book-primary: #D4A574;
+    --book-secondary: #C9A882;
+    --book-accent: #E8DCC6;
+    --book-dark: #5D4E37;
+    --book-light: #8B6F47;
+    --book-bg: #2A2418;
+    --book-border: #4A3E2E;
+    --book-gradient: linear-gradient(135deg, #5D4E37 0%, #8B6F47 50%, #A68B5B 100%);
+    --book-gradient-subtle: linear-gradient(135deg, #3A3020 0%, #4A3E2E 100%);
+    --book-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+    --book-shadow-hover: 0 8px 30px rgba(0, 0, 0, 0.4);
+}
+
+/* 다크모드 컨테이너 배경 */
+body.dark .book-container {
+    background: var(--bg-secondary);
+}
+
+body.dark .book-page .main-content {
+    background: var(--bg-secondary);
+}
+
+/* 다크모드 이미지 */
+body.dark .book-page .book-cover {
+    border-color: var(--book-border);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+body.dark .book-page .book-card:hover .book-cover {
+    box-shadow: 0 8px 20px rgba(0, 0, 0, 0.4);
+}
+
+/* 다크모드 카드 */
+body.dark .book-page .book-card {
+    background: var(--bg-primary);
+    border-color: var(--book-border);
+}
+
+body.dark .book-page .book-card:hover {
+    box-shadow: var(--book-shadow-hover);
+}
+
+/* 다크모드 텍스트 색상 */
+body.dark .book-page .book-title {
+    color: var(--text-primary);
+}
+
+body.dark .book-page .book-author {
+    color: var(--book-accent);
+}
+
+body.dark .book-page .book-publisher {
+    color: var(--text-secondary);
+}
+
+body.dark .book-page .book-description {
+    color: var(--text-secondary);
+}
+
+/* 다크모드 아이콘 */
+body.dark .book-page .book-icon {
+    background: var(--book-gradient-subtle);
+    border-color: var(--book-border);
+    color: var(--book-secondary);
+}
+
+body.dark .book-page .book-card:hover .book-icon {
+    background: var(--book-gradient);
+    color: white;
+}
+
+/* 다크모드 카드 푸터 */
+body.dark .book-page .book-card-footer {
+    border-top-color: var(--book-border);
+}
+
+/* 다크모드 헤더 */
+body.dark .book-header {
+    border-color: rgba(255, 255, 255, 0.1);
+}
+
+body.dark .book-header::before {
+    background-image: 
+        repeating-linear-gradient(
+            90deg,
+            transparent,
+            transparent 98px,
+            rgba(255, 255, 255, 0.03) 98px,
+            rgba(255, 255, 255, 0.03) 100px
+        );
+}
+
+/* 다크모드 버튼 */
+body.dark .book-page .book-btn {
+    background: var(--book-gradient);
+    border-color: var(--book-accent);
+}
+
+body.dark .book-page .book-btn:hover {
+    background: var(--book-accent);
+    border-color: var(--book-secondary);
+}
+
+/* 다크모드 검색 결과 없음 */
+body.dark .book-page .no-results {
+    background: var(--book-bg);
+    border-color: var(--book-border);
+    color: var(--text-secondary);
+}
+
+body.dark .book-page .no-results-icon {
+    color: var(--book-secondary);
+}
+
+/* 다크모드 태그 */
+body.dark .book-tag {
+    background: rgba(255, 255, 255, 0.15);
+    border-color: rgba(255, 255, 255, 0.2);
+}
+
+body.dark .book-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    border-color: rgba(255, 255, 255, 0.3);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .book-container {
+        padding: var(--spacing-xl);
+    }
+    
+    .book-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .book-header::after {
+        font-size: 7rem;
+    }
+    
+    .book-main-title {
+        font-size: 2rem;
+    }
+    
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-lg);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .book-container {
+        padding: var(--spacing-md);
+        margin-top: 60px;
+    }
+    
+    .book-header {
+        padding: var(--spacing-md);
+        border-radius: 12px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .book-header::after {
+        font-size: 5rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.15;
+    }
+    
+    .book-header-content {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: var(--spacing-md);
+    }
+    
+    .book-header-icon {
+        font-size: 3rem;
+    }
+    
+    .book-main-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .book-main-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-md);
+    }
+    
+    .book-page .book-card {
+        padding: var(--spacing-md);
+    }
+    
+    .book-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .book-description {
+        font-size: 0.8125rem;
+        -webkit-line-clamp: 2;
+    }
+    
+    .book-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .book-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .book-container {
+        padding: var(--spacing-sm);
+    }
+    
+    .book-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .book-header::after {
+        font-size: 4rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .book-header-icon {
+        font-size: 2.5rem;
+    }
+    
+    .book-main-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .book-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: var(--spacing-sm);
+    }
+    
+    .book-page .book-card {
+        padding: var(--spacing-sm);
+    }
+    
+    .book-title {
+        font-size: var(--font-size-base);
+        -webkit-line-clamp: 2;
+        min-height: 2.8em;
+    }
+    
+    .book-author,
+    .book-publisher {
+        font-size: 0.75rem;
+    }
+    
+    .book-description {
+        font-size: 0.75rem;
+        -webkit-line-clamp: 2;
+    }
+    
+    .book-page .book-btn {
+        padding: var(--spacing-xs) var(--spacing-sm);
+        font-size: 0.75rem;
+        width: 100%;
+    }
+    
+    .book-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .book-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}

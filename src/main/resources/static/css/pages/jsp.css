@@ -1,0 +1,510 @@
+/* JSP Theme CSS */
+
+/* JSP 전용 색상 변수 - 차분하고 전문적인 톤 (JSP 파란색/오렌지 특색 유지) */
+.jsp-page {
+    --jsp-primary: #007396;
+    --jsp-secondary: #005A7A;
+    --jsp-accent: #F89820;
+    --jsp-dark: #004A63;
+    --jsp-light: #4A9FBB;
+    --jsp-bg: #F0F8FF;
+    --jsp-border: #B8D4E3;
+    --jsp-gradient: linear-gradient(135deg, #007396 0%, #005A7A 100%);
+    --jsp-gradient-subtle: linear-gradient(135deg, #F0F8FF 0%, #E0F0F8 100%);
+}
+
+/* JSP 페이지 헤더 */
+.jsp-page .page-header {
+    position: relative;
+    padding: var(--spacing-2xl);
+    background: var(--jsp-gradient);
+    border-radius: 12px;
+    margin-bottom: var(--spacing-2xl);
+    overflow: hidden;
+    box-shadow: 
+        0 4px 12px rgba(0, 115, 150, 0.15),
+        0 1px 3px rgba(0, 115, 150, 0.1);
+    border: 1px solid rgba(255, 255, 255, 0.1);
+}
+
+/* 미묘한 그리드 패턴 */
+.jsp-page .page-header::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-image: 
+        linear-gradient(rgba(255, 255, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(255, 255, 255, 0.03) 1px, transparent 1px);
+    background-size: 40px 40px;
+    pointer-events: none;
+    opacity: 0.5;
+}
+
+/* 아이콘 배경 (Font Awesome 사용) */
+.jsp-page .page-header::after {
+    content: '\f15c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    bottom: 30px;
+    right: 40px;
+    font-size: 8rem;
+    opacity: 0.08;
+    color: white;
+    pointer-events: none;
+}
+
+/* JSP 로고 영역 */
+.jsp-logo {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-md);
+    margin-bottom: var(--spacing-lg);
+    position: relative;
+    z-index: 1;
+}
+
+.jsp-logo-icon {
+    font-size: 2.5rem;
+    color: rgba(255, 255, 255, 0.9);
+}
+
+.jsp-logo-text {
+    font-size: 2.8rem;
+    font-weight: 700;
+    color: white;
+    letter-spacing: 1px;
+}
+
+/* JSP 페이지 타이틀 */
+.jsp-page .page-title {
+    color: white;
+    margin-bottom: var(--spacing-sm);
+    background: none;
+    background-clip: unset;
+    -webkit-background-clip: unset;
+    -webkit-text-fill-color: white;
+    font-size: 2.2rem;
+    font-weight: 600;
+    letter-spacing: -0.5px;
+}
+
+.jsp-page .page-subtitle {
+    color: rgba(255, 255, 255, 0.9);
+    font-size: var(--font-size-lg);
+    font-weight: 400;
+    line-height: 1.6;
+}
+
+/* JSP 배지 */
+.jsp-page .category-badge {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+    font-size: var(--font-size-sm);
+    padding: var(--spacing-xs) var(--spacing-lg);
+    font-weight: 600;
+    border-radius: 6px;
+    text-transform: uppercase;
+    letter-spacing: 1px;
+}
+
+/* 문서 개수 표시 */
+.jsp-page .document-count {
+    display: inline-flex;
+    align-items: center;
+    gap: var(--spacing-xs);
+    background: rgba(255, 255, 255, 0.2);
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    color: white;
+    font-weight: 600;
+    font-size: var(--font-size-sm);
+    border: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.jsp-page .document-count::before {
+    content: '\f15c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    font-size: 0.9rem;
+}
+
+/* JSP 카드 스타일 */
+.jsp-page .card {
+    background: var(--bg-primary);
+    border: 1px solid var(--jsp-border);
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.jsp-page .card::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--jsp-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.jsp-page .card:hover {
+    border-color: var(--jsp-accent);
+    transform: translateY(-4px);
+    box-shadow: 
+        0 8px 24px rgba(0, 115, 150, 0.12),
+        0 2px 8px rgba(0, 115, 150, 0.08);
+}
+
+.jsp-page .card:hover::before {
+    transform: scaleX(1);
+}
+
+/* JSP 카드 아이콘 */
+.jsp-page .card-icon {
+    background: var(--jsp-gradient-subtle);
+    width: 80px;
+    height: 80px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    border-radius: 12px;
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.5rem;
+    color: var(--jsp-primary);
+    border: 1px solid var(--jsp-border);
+    transition: all 0.2s ease;
+    position: relative;
+}
+
+.jsp-page .card:hover .card-icon {
+    background: var(--jsp-gradient);
+    color: white;
+    border-color: var(--jsp-accent);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(0, 115, 150, 0.15);
+}
+
+/* JSP 다운로드 버튼 */
+.jsp-page .download-btn {
+    background: var(--jsp-primary);
+    border: 1px solid var(--jsp-primary);
+    color: white;
+    box-shadow: 0 2px 8px rgba(0, 115, 150, 0.15);
+    font-weight: 600;
+    position: relative;
+    overflow: hidden;
+    transition: all 0.2s ease;
+}
+
+.jsp-page .download-btn::before {
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.jsp-page .download-btn:hover {
+    background: var(--jsp-accent);
+    border-color: var(--jsp-accent);
+    box-shadow: 0 4px 12px rgba(248, 152, 32, 0.25);
+    transform: translateY(-1px);
+}
+
+.jsp-page .download-btn:active {
+    transform: translateY(0);
+}
+
+/* JSP 버튼 아이콘 */
+.jsp-page .download-btn::after {
+    content: '\f15c';
+    font-family: 'Font Awesome 6 Free';
+    font-weight: 900;
+    position: absolute;
+    right: var(--spacing-md);
+    top: 50%;
+    transform: translateY(-50%);
+    opacity: 0;
+    font-size: 0.9rem;
+    transition: all 0.2s ease;
+}
+
+.jsp-page .download-btn:hover::after {
+    opacity: 1;
+    right: var(--spacing-sm);
+}
+
+/* JSP 로딩 스피너 */
+.jsp-page .spinner {
+    border-color: var(--jsp-light);
+    border-top-color: var(--jsp-accent);
+    width: 40px;
+    height: 40px;
+    border-width: 3px;
+}
+
+/* JSP 검색 결과 없음 */
+.jsp-page .no-results {
+    background: var(--jsp-bg);
+    border-radius: 12px;
+    padding: var(--spacing-2xl);
+    border: 1px dashed var(--jsp-border);
+}
+
+.jsp-page .no-results-icon {
+    color: var(--jsp-secondary);
+    font-size: 3.5rem;
+}
+
+/* JSP 통계 박스 */
+.jsp-stats {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(210px, 1fr));
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-2xl);
+}
+
+.jsp-stat-box {
+    background: white;
+    border: 1px solid var(--jsp-border);
+    border-radius: 12px;
+    padding: var(--spacing-xl);
+    text-align: center;
+    transition: all 0.2s ease;
+    position: relative;
+    overflow: hidden;
+}
+
+.jsp-stat-box::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: var(--jsp-accent);
+    transform: scaleX(0);
+    transform-origin: left;
+    transition: transform 0.3s ease;
+}
+
+.jsp-stat-box:hover {
+    transform: translateY(-2px);
+    box-shadow: 
+        0 4px 12px rgba(0, 115, 150, 0.1),
+        0 2px 6px rgba(0, 115, 150, 0.05);
+    border-color: var(--jsp-accent);
+}
+
+.jsp-stat-box:hover::before {
+    transform: scaleX(1);
+}
+
+.jsp-stat-icon {
+    font-size: 2.5rem;
+    margin-bottom: var(--spacing-sm);
+}
+
+.jsp-stat-number {
+    font-size: 2.5rem;
+    font-weight: 700;
+    color: var(--jsp-primary);
+    margin-bottom: var(--spacing-xs);
+}
+
+.jsp-stat-label {
+    color: var(--text-secondary);
+    font-size: var(--font-size-sm);
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+}
+
+/* JSP 태그 */
+.jsp-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: var(--spacing-sm);
+    margin-top: var(--spacing-lg);
+}
+
+.jsp-tag {
+    background: rgba(255, 255, 255, 0.15);
+    color: white;
+    padding: var(--spacing-xs) var(--spacing-md);
+    border-radius: 6px;
+    font-size: var(--font-size-sm);
+    font-weight: 500;
+    transition: all 0.2s ease;
+    border: 1px solid rgba(255, 255, 255, 0.2);
+    backdrop-filter: blur(10px);
+}
+
+.jsp-tag:hover {
+    background: rgba(255, 255, 255, 0.25);
+    color: white;
+    border-color: rgba(255, 255, 255, 0.3);
+    transform: translateY(-1px);
+    box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* 다크모드 JSP 색상 조정 */
+body.dark .jsp-page {
+    --jsp-primary: #4A9FBB;
+    --jsp-secondary: #007396;
+    --jsp-accent: #F89820;
+    --jsp-dark: #004A63;
+    --jsp-light: #6BB3CC;
+    --jsp-bg: #0A1A24;
+    --jsp-border: #1A2A35;
+    --jsp-gradient: linear-gradient(135deg, #004A63 0%, #005A7A 100%);
+    --jsp-gradient-subtle: linear-gradient(135deg, #0A1A24 0%, #1A2A35 100%);
+}
+
+body.dark .jsp-page .card {
+    background: var(--bg-primary);
+    border-color: var(--jsp-border);
+}
+
+body.dark .jsp-page .jsp-stat-box {
+    background: var(--bg-primary);
+    border-color: var(--jsp-border);
+}
+
+body.dark .jsp-page .card-icon {
+    background: var(--jsp-gradient-subtle);
+    border-color: var(--jsp-border);
+    color: var(--jsp-secondary);
+}
+
+/* 반응형 - 태블릿 */
+@media (max-width: 1024px) {
+    .jsp-page .page-header {
+        padding: var(--spacing-xl);
+    }
+    
+    .jsp-page .page-header::after {
+        font-size: 6rem;
+    }
+    
+    .jsp-stats {
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        gap: var(--spacing-md);
+    }
+}
+
+/* 반응형 - 모바일 */
+@media (max-width: 768px) {
+    .jsp-logo-text {
+        font-size: 1.75rem;
+        letter-spacing: 0.5px;
+    }
+    
+    .jsp-page .page-header {
+        padding: var(--spacing-md);
+        border-radius: 8px;
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .jsp-page .page-header::after {
+        font-size: 4rem;
+        bottom: 10px;
+        right: 10px;
+        opacity: 0.3;
+    }
+    
+    .jsp-page .page-title {
+        font-size: var(--font-size-xl);
+    }
+    
+    .jsp-page .page-subtitle {
+        font-size: var(--font-size-sm);
+    }
+    
+    .jsp-stats {
+        grid-template-columns: 1fr;
+        gap: var(--spacing-sm);
+        margin-bottom: var(--spacing-lg);
+    }
+    
+    .jsp-stat-box {
+        padding: var(--spacing-md);
+    }
+    
+    .jsp-page .card-icon {
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
+    }
+    
+    .jsp-tags {
+        gap: var(--spacing-xs);
+        margin-top: var(--spacing-md);
+        justify-content: center;
+    }
+    
+    .jsp-tag {
+        font-size: 0.75rem;
+        padding: 0.35rem 0.7rem;
+        line-height: 1.4;
+        white-space: nowrap;
+    }
+    
+    .jsp-page .page-tags {
+        flex-wrap: wrap;
+        gap: var(--spacing-xs);
+    }
+    
+    .jsp-page .page-tags .tag {
+        font-size: 0.75rem;
+        padding: var(--spacing-xs) var(--spacing-sm);
+    }
+}
+
+/* 반응형 - 작은 모바일 */
+@media (max-width: 480px) {
+    .jsp-logo-text {
+        font-size: 1.5rem;
+    }
+    
+    .jsp-page .page-header {
+        padding: var(--spacing-sm);
+    }
+    
+    .jsp-page .page-header::after {
+        font-size: 3rem;
+        bottom: 5px;
+        right: 5px;
+    }
+    
+    .jsp-page .page-title {
+        font-size: var(--font-size-lg);
+    }
+    
+    .jsp-stat-box {
+        padding: var(--spacing-sm);
+    }
+    
+    .jsp-page .card-icon {
+        width: 50px;
+        height: 50px;
+        font-size: 1.5rem;
+    }
+    
+    .jsp-tags {
+        gap: 0.35rem;
+        margin-top: var(--spacing-sm);
+        justify-content: flex-start;
+    }
+    
+    .jsp-tag {
+        font-size: 0.7rem;
+        padding: 0.3rem 0.6rem;
+        line-height: 1.3;
+    }
+}
