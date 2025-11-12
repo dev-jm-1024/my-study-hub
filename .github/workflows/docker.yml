@@ -2,7 +2,7 @@ name: Build and Push Docker Image
 
 on:
   push:
-    branches: [ "main" ]  # main 브랜치 푸시 시 자동 실행
+    branches: [ "main" ]  # main 브랜치에 push 시 자동 실행
 
 jobs:
   build-and-push:
@@ -21,26 +21,12 @@ jobs:
           username: ${{ secrets.DOCKERHUB_USERNAME }}
           password: ${{ secrets.DOCKERHUB_TOKEN }}
 
-      # 캐시를 쓰면 빌드가 빨라짐(선택)
-      - name: Prepare cache
-        uses: actions/cache@v4
-        with:
-          path: /tmp/.buildx-cache
-          key: ${{ runner.os }}-buildx-${{ github.sha }}
-          restore-keys: |
-            ${{ runner.os }}-buildx-
-
-      - name: Build and Push (latest + short-sha)
+      - name: Build and Push Docker image
         uses: docker/build-push-action@v6
         with:
           context: .
           push: true
-          ttags: devjm6013/my-study-hub:latest, devjm6013/my-study-hub:${{ github.sha }}
-          cache-from: type=local,src=/tmp/.buildx-cache
-          cache-to: type=local,dest=/tmp/.buildx-cache-new
-
-      # 캐시 스왑(선택)
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache
-          mv /tmp/.buildx-cache-new /tmp/.buildx-cache
+          # ⚠️ 본인 계정명으로 수정된 부분 (이게 핵심!)
+          tags: |
+            devjm6013/my-study-hub:latest
+            devjm6013/my-study-hub:${{ github.sha }}
