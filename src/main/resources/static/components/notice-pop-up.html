@@ -1,0 +1,41 @@
+<!-- 
+    ============================================
+    공지사항 팝업 컴포넌트
+    ============================================
+    
+    팝업 메시지를 수정하려면 아래 두 곳을 수정하세요:
+    
+    1. 이 HTML 파일의 기본 메시지 (아래 data 속성)
+    2. JS 파일의 메시지 설정 (js/components/notice-pop-up.js)
+    
+    ⚠️ 주의: JS 파일의 메시지가 우선순위가 높습니다.
+    JS 파일에서 동적으로 메시지를 변경할 수 있습니다.
+-->
+<div class="notice-popup" id="noticePopup">
+    <div class="notice-popup-overlay"></div>
+    <div class="notice-popup-content">
+        <button class="notice-popup-close" id="noticePopupClose" aria-label="닫기">
+            <i class="fa-solid fa-times"></i>
+        </button>
+        <div class="notice-popup-icon">
+            <i class="fa-solid fa-bell"></i>
+        </div>
+        <!-- 
+            ============================================
+            팝업 메시지 수정 위치 1: HTML 기본 메시지
+            ============================================
+            아래 제목과 메시지를 원하는 내용으로 수정하세요.
+            (JS 파일에서 동적으로 변경하는 경우 JS 파일을 우선 수정하세요)
+        -->
+        <h3 class="notice-popup-title" id="noticePopupTitle">새로운 문서가 추가되었습니다!</h3>
+        <p class="notice-popup-message" id="noticePopupMessage">최신 학습 자료를 확인해보세요.</p>
+        <!-- 
+            추가 정보가 필요한 경우 아래 영역을 사용하세요.
+            (현재는 숨김 처리되어 있으며, JS에서 필요시 표시할 수 있습니다)
+        -->
+        <div class="notice-popup-details" id="noticePopupDetails" style="display: none;">
+            <!-- JS에서 동적으로 채워짐 -->
+        </div>
+    </div>
+</div>
+

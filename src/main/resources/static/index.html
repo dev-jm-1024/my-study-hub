@@ -14,6 +14,7 @@
     <link rel="stylesheet" href="css/common/variables.css">
     <link rel="stylesheet" href="css/common/layout.css">
     <link rel="stylesheet" href="css/components/animations.css">
+    <link rel="stylesheet" href="css/components/notice-pop-up.css">
     <link rel="stylesheet" href="css/pages/home.css">
     
     <!-- Font Awesome -->
@@ -25,6 +26,10 @@
 
     <!-- 사이드바 (모바일용) -->
     <div id="sidebar"></div>
+    
+    <!-- 공지사항 팝업 (자동 로드) -->
+    <div id="noticePopupContainer"></div>
+    
     <section class="hero">
         <h2 class="hero-title">
             백엔드 개발 기술 문서 모음
@@ -71,6 +76,7 @@
     <script src="js/core/theme.js"></script>
     <script src="js/utils/helpers.js"></script>
     <script src="js/utils/include.js"></script>
+    <script src="js/components/notice-pop-up.js"></script>
     <script src="js/pages/home.js"></script>
     
     <script>
@@ -78,9 +84,10 @@
         async function initHomePage() {
             console.log('=== initHomePage called ===');
             
-            // 1. 컴포넌트 로드 (헤더와 사이드바)
+            // 1. 컴포넌트 로드 (헤더, 사이드바, 공지사항 팝업)
             const componentsToLoad = [
-                { selector: '#header', path: 'components/header.html' }
+                { selector: '#header', path: 'components/header.html' },
+                { selector: '#noticePopupContainer', path: 'components/notice-pop-up.html' }
             ];
             
             // 사이드바도 로드 (모바일 햄버거 메뉴용)
@@ -163,6 +170,26 @@
             console.log('MENU_DATA:', MENU_DATA);
             console.log('categoryGrid:', document.getElementById('categoryGrid'));
             console.log('homePage:', homePage);
+            
+            // 7. 공지사항 팝업 표시 (컴포넌트 로드 후 약간의 딜레이)
+            setTimeout(() => {
+                // 팝업이 아직 초기화되지 않았다면 초기화
+                if (typeof initNoticePopup === 'function') {
+                    initNoticePopup();
+                }
+                
+                // 팝업 표시
+                if (typeof noticePopup !== 'undefined' && noticePopup) {
+                    noticePopup.show();
+                } else {
+                    // 약간 더 기다린 후 다시 시도
+                    setTimeout(() => {
+                        if (typeof noticePopup !== 'undefined' && noticePopup) {
+                            noticePopup.show();
+                        }
+                    }, 200);
+                }
+            }, 500);
         }
         
         document.addEventListener('DOMContentLoaded', initHomePage);
