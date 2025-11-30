@@ -31,9 +31,9 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-stream', title: '6. 스트림과 결혼', description: '리듀싱·요약, 그룹화와 Collector 동작 원리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch06_%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C_%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%ED%95%98%EA%B8%B0.pdf' },
         { icon: 'fa-solid fa-project-diagram', title: '7. 포크조인? 숟가락 조인?', description: '병렬 스트림, Fork/Join, Spliterator', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch07_%20%ED%8F%AC%ED%81%AC%EC%A1%B0%EC%9D%B8%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC_%EC%88%9F%EA%B0%80%EB%9D%BD_%EC%A1%B0%EC%9D%B8%EC%9D%80_%EC%97%86%EB%82%98.pdf' },
         { icon: 'fa-solid fa-layer-group', title: '8. 개선된 컬렉션 API', description: 'List, Set, Map', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch08_%EA%B0%9C%EC%84%A0%EB%90%9C_%EC%BB%AC%EB%A0%89%EC%85%98API.pdf' },
-        { icon: 'fa-user-shield', title: '11. null 대신 Optional', description: 'NullPointerException 예방과 안전한 Optional 활용법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch11_null%EB%8C%80%EC%8B%A0_Optional.pdf' },
-        { icon: 'fa-clock', title: '12. 날짜 / 시간 API', description: 'Java와 데이트 : LocalDate', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch12_%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84API.pdf\n' },
-        { icon: 'fa-code', title: '13. 디폴트 메소드', description: '추상클래스와 인터페이스', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch13_%EB%94%94%ED%8F%B4%ED%8A%B8%EB%A9%94%EC%86%8C%EB%93%9C.pdf\n' },
+        { icon: 'fa-solid fa-shield-alt', title: '11. null 대신 Optional', description: 'NullPointerException 예방과 안전한 Optional 활용법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch11_null%EB%8C%80%EC%8B%A0_Optional.pdf' },
+        { icon: 'fa-solid fa-calendar-day', title: '12. 날짜 / 시간 API', description: 'Java와 데이트 : LocalDate', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch12_%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84API.pdf\n' },
+        { icon: 'fa-solid fa-puzzle-piece', title: '13. 디폴트 메소드', description: '추상클래스와 인터페이스', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch13_%EB%94%94%ED%8F%B4%ED%8A%B8%EB%A9%94%EC%86%8C%EB%93%9C.pdf\n' },
 
     ],
     kotlin: [
@@ -65,11 +65,11 @@ const MENU_DATA = {
     ],
 
     mysql: [
-        { icon: 'fa-solid fa-server', title: 'MySQL Setup 가이드', description: 'MySQL 8.0을 Windows에 설치하는 방법', pdfUrl: 'https://plusb3b.kr/pdf/mysql/mysql-setup.pdf' },
-        { icon: 'fa-solid fa-user-shield', title: 'MySQL 8.0 - 사용자 권한', description: '사용자 식별, 권한 부여, 역할까지 정리', pdfUrl: 'https://plusb3b.kr/pdf/mysql/mysql-ch03.pdf' },
-        { icon: 'fa-diagram-next', title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/join.pdf' },
-        { icon: 'fa-shield-check', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/transaction.pdf' },
-        { icon: 'fa-sitemap', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
+        { icon: 'fa-solid fa-server', title: 'MySQL Setup 가이드', description: 'MySQL 8.0을 Windows에 설치하는 방법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/mysql-setup.pdf' },
+        { icon: 'fa-solid fa-user-shield', title: 'MySQL 8.0 - 사용자 권한', description: '사용자 식별, 권한 부여, 역할까지 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B6%8C%ED%95%9C.pdf' },
+        { icon: 'fa-solid fa-link', title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/join.pdf' },
+        { icon: 'fa-solid fa-rotate-left', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/transaction.pdf' },
+        { icon: 'fa-solid fa-sitemap', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
     ],
     mongodb: [
         { icon: 'fa-solid fa-database', title: 'MongoDB 필기 - 2.시작하기', description: 'MongoDB 기초 개념과 설치 가이드', pdfUrl: 'https://plusb3b.kr/pdf/mongodb/MongoDB_2장_시작하기.pdf' },
