@@ -13,14 +13,13 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-plug', title: 'WebSocket 실시간 통신', description: '양방향 통신', pdfUrl: 'https://plusb3b.kr/pdf/api/WebSocket.pdf' },
     ],
     spring: [
-        { icon: 'fa-solid fa-file-pdf', title: '1. 스프링부트 시작', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-1.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '2. 웹 애플리케이션 개발', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-2.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '3. 데이터로 작업하기', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-3.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '4. Spring Security', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-4.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '5. 자동-구성속성 이용하기', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-5.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '6. REST API 1', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-6-1.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '6. REST API 2', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-6-2.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '7. RestTemplate', description: 'PDF 다운 받기', pdfUrl: 'https://plusb3b.kr/pdf/springboot-7.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '1. 스프링부트 시작', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-1-new.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '2. 웹 애플리케이션 개발', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-2-new.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '3. 데이터로 작업하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '4. Spring Security', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-4.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '5. 자동-구성속성 이용하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-5-new.pdf\n' },
+        { icon: 'fa-solid fa-file-pdf', title: '6. REST API 1', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-6-new.pdf\n' },
+        { icon: 'fa-solid fa-file-pdf', title: '7. RestTemplate', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-7-new.pdf\n' },
         { icon: 'fa-solid fa-clock', title: '8. 비동기 방식으로 메시지 수신하기', description: 'PDF 다운 받기 - 준비 중', pdfUrl: '' },
     ],
     java: [
@@ -32,8 +31,9 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-stream', title: '6. 스트림과 결혼', description: '리듀싱·요약, 그룹화와 Collector 동작 원리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch06_%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C_%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%ED%95%98%EA%B8%B0.pdf' },
         { icon: 'fa-solid fa-project-diagram', title: '7. 포크조인? 숟가락 조인?', description: '병렬 스트림, Fork/Join, Spliterator', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch07_%20%ED%8F%AC%ED%81%AC%EC%A1%B0%EC%9D%B8%ED%94%84%EB%A0%88%EC%9E%84%EC%9B%8C%ED%81%AC_%EC%88%9F%EA%B0%80%EB%9D%BD_%EC%A1%B0%EC%9D%B8%EC%9D%80_%EC%97%86%EB%82%98.pdf' },
         { icon: 'fa-solid fa-layer-group', title: '8. 개선된 컬렉션 API', description: 'List, Set, Map', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch08_%EA%B0%9C%EC%84%A0%EB%90%9C_%EC%BB%AC%EB%A0%89%EC%85%98API.pdf' },
-        { icon: 'fa-solid fa-question-circle', title: '11. null 대신 Optional', description: 'NullPointerException 예방과 안전한 Optional 활용법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch11_null%EB%8C%80%EC%8B%A0_Optional.pdf' },
-        { icon: 'fa-solid fa-question-circle', title: '12. 날짜 / 시간 API', description: 'Java와 데이트 : LocalDate', pdfUrl: '' },
+        { icon: 'fa-user-shield', title: '11. null 대신 Optional', description: 'NullPointerException 예방과 안전한 Optional 활용법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch11_null%EB%8C%80%EC%8B%A0_Optional.pdf' },
+        { icon: 'fa-clock', title: '12. 날짜 / 시간 API', description: 'Java와 데이트 : LocalDate', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch12_%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84API.pdf\n' },
+        { icon: 'fa-code', title: '13. 디폴트 메소드', description: '추상클래스와 인터페이스', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch13_%EB%94%94%ED%8F%B4%ED%8A%B8%EB%A9%94%EC%86%8C%EB%93%9C.pdf\n' },
 
     ],
     kotlin: [
@@ -67,10 +67,9 @@ const MENU_DATA = {
     mysql: [
         { icon: 'fa-solid fa-server', title: 'MySQL Setup 가이드', description: 'MySQL 8.0을 Windows에 설치하는 방법', pdfUrl: 'https://plusb3b.kr/pdf/mysql/mysql-setup.pdf' },
         { icon: 'fa-solid fa-user-shield', title: 'MySQL 8.0 - 사용자 권한', description: '사용자 식별, 권한 부여, 역할까지 정리', pdfUrl: 'https://plusb3b.kr/pdf/mysql/mysql-ch03.pdf' },
-        // { icon: 'fa-solid fa-search', title: 'MySQL - 쿼리 최적화', description: '성능 향상을 위한 쿼리 튜닝 기법', pdfUrl: '' },
-        // { icon: 'fa-solid fa-shield-alt', title: 'MySQL - 보안 가이드', description: '데이터베이스 보안 설정 및 관리', pdfUrl: '' },
-        // { icon: 'fa-solid fa-sync-alt', title: 'MySQL - 백업 및 복구', description: '데이터 백업 전략과 복구 방법', pdfUrl: '' },
-        // { icon: 'fa-solid fa-chart-line', title: 'MySQL - 성능 모니터링', description: '데이터베이스 성능 분석 및 모니터링', pdfUrl: '' },
+        { icon: 'fa-diagram-next', title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/join.pdf' },
+        { icon: 'fa-shield-check', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/transaction.pdf' },
+        { icon: 'fa-sitemap', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
     ],
     mongodb: [
         { icon: 'fa-solid fa-database', title: 'MongoDB 필기 - 2.시작하기', description: 'MongoDB 기초 개념과 설치 가이드', pdfUrl: 'https://plusb3b.kr/pdf/mongodb/MongoDB_2장_시작하기.pdf' },
