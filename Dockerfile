@@ -1,18 +1,35 @@
-# 1️⃣ Nginx 기반의 경량 이미지 사용
+# ══════════════════════════════════════════════════════════════
+#  Stage 1: React 빌드
+#  - my-study-app/src/index.css 가 ../../src/main/resources/static/css/ 경로를
+#    참조하므로, 프로젝트 루트 구조를 /project/ 에 그대로 재현한다.
+# ══════════════════════════════════════════════════════════════
+FROM node:22-alpine AS builder
+
+WORKDIR /project
+
+# 1) CSS 의존 파일 먼저 복사 (캐시 레이어 최적화)
+COPY src/main/resources/static/css/ src/main/resources/static/css/
+
+# 2) package.json 만 먼저 복사 → npm ci (의존성 캐시)
+COPY my-study-app/package*.json my-study-app/
+WORKDIR /project/my-study-app
+RUN npm ci
+
+# 3) 나머지 소스 복사 후 빌드
+COPY my-study-app/ .
+RUN npm run build
+# vite.config.ts outDir: '../static-react' → /project/static-react/
+
+# ══════════════════════════════════════════════════════════════
+#  Stage 2: Nginx 서빙
+# ══════════════════════════════════════════════════════════════
 FROM nginx:alpine
 
-# 2️⃣ 기본 설정 파일 백업 (선택)
 RUN mv /etc/nginx/conf.d/default.conf /etc/nginx/conf.d/default.conf.bak
-
-# 3️⃣ 커스텀 nginx 설정 파일 복사 (바로 아래 단계에서 만들 예정)
 COPY nginx.conf /etc/nginx/conf.d/default.conf
 
-# 4️⃣ 정적 리소스 복사
-# Spring Boot 정적 리소스 기본 경로: src/main/resources/static
-COPY src/main/resources/static /usr/share/nginx/html
+# React 빌드 결과물 복사
+COPY --from=builder /project/static-react /usr/share/nginx/html
 
-# 5️⃣ 컨테이너 내부 포트 지정
 EXPOSE 80
-
-# 6️⃣ Nginx를 포그라운드로 실행
 CMD ["nginx", "-g", "daemon off;"]

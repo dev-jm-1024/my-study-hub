@@ -51,8 +51,8 @@ class HomePage {
         grid.innerHTML = this.categories.map((category, index) => {
             // svg로 끝나는지 체크
             const isSvg = category.icon.endsWith('.svg');
-            const iconHTML = isSvg 
-                ? `<img src="${category.icon}" alt="${category.name}" class="category-icon">` 
+            const iconHTML = isSvg
+                ? `<img src="${category.icon}" alt="${category.name}" class="category-icon" loading="lazy">`
                 : `<i class="${category.icon} category-icon"></i>`;
             
             // 특수 케이스 처리
@@ -72,8 +72,10 @@ class HomePage {
             return `
                 <a href="${href}" ${target} class="category-card" data-index="${index}">
                     ${iconHTML}
+                    <div class="category-group">${category.group || ''}</div>
                     <div class="category-name">${category.name}</div>
-                    <div class="category-count">${category.count}개 문서</div>
+                    <div class="category-badge">${category.count} Docs</div>
+                    <div class="category-card-cta">자료실 이동 →</div>
                 </a>
             `;
         }).join('');

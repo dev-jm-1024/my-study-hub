@@ -1,20 +1,30 @@
 /* Layout Styles */
 
-/* 헤더 */
+/* 헤더 — 플로팅 pill navbar */
 .header {
     position: fixed;
     top: 0;
     left: 0;
     right: 0;
-    height: var(--header-height);
-    background: var(--bg-primary);
-    border-bottom: 1px solid var(--border-color);
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 var(--spacing-xl);
     z-index: 100;
-    box-shadow: var(--shadow-sm);
+    padding: 16px var(--spacing-xl);
+    background: transparent;
+    height: auto;
+}
+
+.header-inner {
+    max-width: 1400px;
+    margin: 0 auto;
+    background: var(--bg-surface);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--border-radius-full);
+    box-shadow: var(--shadow-glass);
+    padding: 10px var(--spacing-xl);
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
     gap: var(--spacing-md);
 }
 
@@ -51,10 +61,8 @@
 }
 
 .logo-text {
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    font-weight: 700;
 }
 
 /* 헤더 네비게이션 */
@@ -73,7 +81,7 @@
 }
 
 .nav-link:hover {
-    background: var(--bg-secondary);
+    background: var(--bg-surface-hover);
     color: var(--text-primary);
     transform: translateY(-2px);
 }
@@ -113,7 +121,7 @@
 }
 
 .mobile-menu-toggle.active {
-    color: var(--primary);
+    color: var(--text-primary);
 }
 
 /* 사이드바 오버레이 */
@@ -279,8 +287,10 @@ body.dark .theme-toggle.active .theme-toggle-icon {
 /* 사이드바 */
 .sidebar {
     width: var(--sidebar-width);
-    background: var(--bg-primary);
-    border-right: 1px solid var(--border-color);
+    background: var(--bg-surface-strong);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border-right: 1px solid var(--border-glass);
     overflow-y: auto;
     padding: var(--spacing-lg) 0;
     position: sticky;
@@ -390,8 +400,8 @@ body.dark .theme-toggle.active .theme-toggle-icon {
     color: var(--text-secondary);
     text-transform: uppercase;
     letter-spacing: 0.5px;
-    background: var(--bg-secondary);
-    border-bottom: 2px solid var(--border-color);
+    background: var(--bg-overlay);
+    border-bottom: 1px solid var(--border-glass);
     position: sticky;
     top: 0;
     z-index: 10;
@@ -399,7 +409,7 @@ body.dark .theme-toggle.active .theme-toggle-icon {
 
 .menu-group-title i {
     font-size: 1rem;
-    color: var(--primary);
+    color: var(--text-muted);
 }
 
 /* 그룹 내 메뉴 아이템 들여쓰기 */
@@ -417,57 +427,43 @@ body.dark .theme-toggle.active .theme-toggle-icon {
 
 /* 다크모드에서 그룹 타이틀 */
 body.dark .menu-group-title {
-    background: var(--bg-tertiary);
-    border-bottom-color: var(--bg-tertiary);
+    background: var(--bg-overlay);
+    border-bottom-color: var(--border-glass);
 }
 
 .menu-item::before {
-    content: '';
-    position: absolute;
-    left: 0;
-    top: 0;
-    bottom: 0;
-    width: 3px;
-    background: var(--primary);
-    transform: scaleY(0);
-    transition: transform var(--transition-base);
+    display: none;
 }
 
 .menu-item:hover {
-    background: var(--bg-secondary);
-}
-
-.menu-item:hover::before {
-    transform: scaleY(1);
+    background: var(--bg-surface-hover);
+    border-radius: var(--border-radius-sm);
 }
 
 /* 모바일에서 hover 효과 비활성화 및 active 상태 추가 */
 @media (hover: none) and (pointer: coarse) {
     .menu-item:hover {
         background: transparent;
+        margin: 0;
+        border-radius: 0;
     }
-    
-    .menu-item:hover::before {
-        transform: scaleY(0);
-    }
-    
+
     .menu-item:active {
-        background: var(--bg-secondary);
-    }
-    
-    .menu-item:active::before {
-        transform: scaleY(1);
+        background: var(--bg-surface-hover);
+        border-radius: var(--border-radius-sm);
+        margin: 0 var(--spacing-sm);
     }
 }
 
 .menu-item.active {
-    background: var(--primary);
-    color: white;
+    background: var(--cta-bg);
+    color: var(--cta-text);
+    border-radius: var(--border-radius-sm);
+    margin: 0 var(--spacing-sm);
 }
 
 .menu-item.active::before {
-    transform: scaleY(1);
-    background: white;
+    display: none;
 }
 
 .menu-icon {
@@ -482,18 +478,16 @@ body.dark .menu-group-title {
 .main-content {
     flex: 1;
     padding: var(--spacing-2xl);
-    background: var(--bg-secondary);
+    background: transparent;
     min-height: calc(100vh - var(--header-height));
 }
 
 .page-title {
     font-size: var(--font-size-3xl);
-    font-weight: 700;
+    font-weight: 900;
     margin-bottom: var(--spacing-xl);
-    background: linear-gradient(135deg, var(--primary), #8b5cf6);
-    -webkit-background-clip: text;
-    -webkit-text-fill-color: transparent;
-    background-clip: text;
+    color: var(--text-primary);
+    letter-spacing: -0.04em;
 }
 
 .page-subtitle {
@@ -534,10 +528,13 @@ body.dark .menu-group-title {
 @media (max-width: 768px) {
     /* 헤더 모바일 최적화 */
     .header {
-        padding: 0 var(--spacing-md);
-        height: 60px;
+        padding: 12px var(--spacing-md);
     }
-    
+
+    .header-inner {
+        padding: 8px var(--spacing-md);
+    }
+
     .logo-img {
         height: 1.75rem;
     }
@@ -611,8 +608,11 @@ body.dark .menu-group-title {
 /* 작은 모바일 (480px 이하) */
 @media (max-width: 480px) {
     .header {
-        padding: 0 var(--spacing-sm);
-        height: 56px;
+        padding: 10px var(--spacing-sm);
+    }
+
+    .header-inner {
+        padding: 6px var(--spacing-md);
     }
     
     .logo-img {

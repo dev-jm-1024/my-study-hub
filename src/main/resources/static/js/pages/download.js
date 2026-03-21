@@ -79,12 +79,14 @@ class DownloadPage {
         // 카드 렌더링
         cardGrid.innerHTML = this.filteredCards.map((card, index) => `
             <div class="card" data-index="${index}">
-                <i class="${card.icon}"></i>
+                <div class="card-icon">
+                    <i class="${card.icon}"></i>
+                </div>
                 <div class="card-title">${card.title}</div>
                 <div class="card-description">${card.description}</div>
                 <div class="card-footer">
                     <button class="download-btn" onclick="downloadPage.downloadPDF('${card.pdfUrl || ''}', '${card.title}')">
-                         다운로드
+                        다운로드
                     </button>
                 </div>
             </div>

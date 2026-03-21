@@ -16,11 +16,17 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-file-pdf', title: '1. 스프링부트 시작', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-1-new.pdf' },
         { icon: 'fa-solid fa-file-pdf', title: '2. 웹 애플리케이션 개발', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-2-new.pdf' },
         { icon: 'fa-solid fa-file-pdf', title: '3. 데이터로 작업하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
+        //{ icon: 'fa-solid fa-file-pdf', title: '3.1 Spring Data JPA - 페이징', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
+        //{ icon: 'fa-solid fa-file-pdf', title: '3.2 Spring Data JPA - Dirty Checking', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
         { icon: 'fa-solid fa-file-pdf', title: '4. Spring Security', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-4.pdf' },
         { icon: 'fa-solid fa-file-pdf', title: '5. 자동-구성속성 이용하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-5-new.pdf\n' },
         { icon: 'fa-solid fa-file-pdf', title: '6. REST API 1', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-6-new.pdf\n' },
         { icon: 'fa-solid fa-file-pdf', title: '7. RestTemplate', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-7-new.pdf\n' },
-        { icon: 'fa-solid fa-clock', title: '8. 비동기 방식으로 메시지 수신하기', description: 'PDF 다운 받기 - 준비 중', pdfUrl: '' },
+        //{ icon: 'fa-solid fa-clock', title: '8. 비동기 방식으로 메시지 수신하기', description: 'PDF 다운 받기', pdfUrl: '' },
+        //{ icon: 'fa-solid fa-clock', title: 'Spring AOP Proxy', description: 'PDF 다운 받기', pdfUrl: '' },
+        //{ icon: 'fa-solid fa-clock', title: 'Spring Cache', description: 'PDF 다운 받기', pdfUrl: '' },
+        //{ icon: 'fa-solid fa-clock', title: 'Caffeine', description: 'PDF 다운 받기', pdfUrl: '' },
+        //{ icon: 'fa-solid fa-clock', title: 'Caffeine Window Tiny LFU 알고리즘', description: 'PDF 다운 받기', pdfUrl: '' },
     ],
     java: [
         { icon: 'fa-solid fa-history', title: '1. 자바 역사 간단하게 보기', description: '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/ch01_%EC%9E%90%EB%B0%94%EC%9D%98_%EC%97%AD%EC%82%AC%EB%A5%BC_%EA%B0%84%EB%8B%A8%ED%9E%88_%EC%9E%90%EB%B0%94%EB%B3%B4%EC%9E%90.pdf' },
@@ -34,6 +40,8 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-shield-alt', title: '11. null 대신 Optional', description: 'NullPointerException 예방과 안전한 Optional 활용법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch11_null%EB%8C%80%EC%8B%A0_Optional.pdf' },
         { icon: 'fa-solid fa-calendar-day', title: '12. 날짜 / 시간 API', description: 'Java와 데이트 : LocalDate', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch12_%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84API.pdf\n' },
         { icon: 'fa-solid fa-puzzle-piece', title: '13. 디폴트 메소드', description: '추상클래스와 인터페이스', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch13_%EB%94%94%ED%8F%B4%ED%8A%B8%EB%A9%94%EC%86%8C%EB%93%9C.pdf\n' },
+//        { icon: 'fa-solid fa-puzzle-piece', title: 'Query DSL 이란?', description: 'Query DSL 살펴보기', pdfUrl: '\n' },
+//        { icon: 'fa-solid fa-puzzle-piece', title: 'Query DSL 사용법', description: 'Query DSL 사용법 보기', pdfUrl: '\n' },
 
     ],
     kotlin: [
@@ -69,7 +77,9 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-user-shield', title: 'MySQL 8.0 - 사용자 권한', description: '사용자 식별, 권한 부여, 역할까지 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B6%8C%ED%95%9C.pdf' },
         { icon: 'fa-solid fa-link', title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/join.pdf' },
         { icon: 'fa-solid fa-rotate-left', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/transaction.pdf' },
-        { icon: 'fa-solid fa-sitemap', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
+        { icon: 'fa-solid fa-sitemap', title: '우리 인덱스 타러갈까?', description: '인덱스란 무엇인가', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
+        //{ icon: 'fa-solid fa-sitemap', title: 'Innodb 스토리지 엔진 잠금', description: '잠궈버리겠어...', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
+
     ],
     mongodb: [
         { icon: 'fa-solid fa-database', title: 'MongoDB 필기 - 2.시작하기', description: 'MongoDB 기초 개념과 설치 가이드', pdfUrl: 'https://plusb3b.kr/pdf/mongodb/MongoDB_2장_시작하기.pdf' },
@@ -85,15 +95,7 @@ const MENU_DATA = {
         // { icon: 'fa-solid fa-layer-group', title: '다형성', description: '오버로딩과 오버라이딩', pdfUrl: '' },
         // { icon: 'fa-solid fa-shapes', title: '추상화', description: '인터페이스와 추상 클래스', pdfUrl: '' },
     ],
-    // systemDesignInterview: [
-    //     { icon: 'fa-solid fa-diagram-project', title: '시스템 설계 기초', description: '대규모 시스템 아키텍처 개요', pdfUrl: '' },
-    //     { icon: 'fa-solid fa-scale-balanced', title: '로드 밸런싱', description: '부하 분산 전략', pdfUrl: '' },
-    //     { icon: 'fa-solid fa-database', title: '데이터베이스 샤딩', description: '수평적 확장 기법', pdfUrl: '' },
-    //     { icon: 'fa-solid fa-bolt', title: '캐싱 전략', description: 'Redis, Memcached 활용', pdfUrl: '' },
-    //     { icon: 'fa-solid fa-network-wired', title: 'CDN', description: '콘텐츠 전송 네트워크', pdfUrl: '' },
-    //     { icon: 'fa-solid fa-code-branch', title: '마이크로서비스', description: '서비스 분산 아키텍처', pdfUrl: '' },
-    //     { icon: 'fa-solid fa-clock', title: '비동기 처리', description: '메시지 큐와 이벤트 드리븐', pdfUrl: '' },
-    // ],
+
     kafka: [
         {
             icon: 'fa-solid fa-stream',
@@ -111,19 +113,9 @@ const MENU_DATA = {
 
     network: [
         { icon: 'fa-solid fa-project-diagram', title: '1. 컴퓨터 네트워크', description: '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/network-doc/network-1.pdf' },
-        // { icon: 'fa-solid fa-globe', title: 'HTTP/HTTPS', description: '웹 통신 프로토콜', pdfUrl: '' },
-        // { icon: 'fa-solid fa-server', title: 'DNS', description: '도메인 네임 시스템', pdfUrl: '' },
-        // { icon: 'fa-solid fa-shield-halved', title: 'SSL/TLS', description: '암호화 통신', pdfUrl: '' },
-        // { icon: 'fa-solid fa-route', title: 'TCP/IP', description: '인터넷 프로토콜', pdfUrl: '' },
-        // { icon: 'fa-solid fa-wifi', title: '무선 네트워크', description: 'WiFi, Bluetooth 기술', pdfUrl: '' },
     ],
     JUnit: [
         { icon: 'fa-solid fa-vial', title: '1. 단위테스트란?', description: 'JUnit 단위 테스트 기초 개념', pdfUrl: 'https://github.com/dev-jm-1024/pdf-download-page/raw/main/junit-doc/ch1_%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8.pdf' },
-        // { icon: 'fa-solid fa-check-double', title: 'Assertions', description: '테스트 검증 메서드', pdfUrl: '' },
-        // { icon: 'fa-solid fa-clock', title: 'Lifecycle', description: '@BeforeEach, @AfterEach', pdfUrl: '' },
-        // { icon: 'fa-solid fa-flask', title: 'Mockito', description: '모의 객체 테스팅', pdfUrl: '' },
-        // { icon: 'fa-solid fa-chart-line', title: 'Coverage', description: '코드 커버리지 측정', pdfUrl: '' },
-        // { icon: 'fa-solid fa-layer-group', title: '통합 테스트', description: 'Integration Testing', pdfUrl: '' },
     ],
     error: [
         { icon: 'fa-solid fa-bug', title: 'debugSpringBoot()', description: 'Spring Boot에서 자주 발생하는 오류를 중심으로 실전 디버깅 전략과 설정 문제 해결 방법을 학습합니다.', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/error-doc/2025-%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8-%EB%94%94%EB%B2%84%EA%B9%85%ED%95%B8%EB%93%9C%EB%B6%81.pdf' },
@@ -251,20 +243,19 @@ const MENU_DATA = {
 };
 
 const MENUS = [
-    { key: 'api', name: 'API', icon: 'svg/api.svg' },
-    { key: 'spring', name: 'Spring Boot', icon: 'svg/spring.svg' },
-    { key: 'java', name: 'Modern Java', icon: 'svg/java.svg' },
-    { key: 'kotlin', name: 'Kotlin', icon: 'svg/kotlin.svg' },
-    { key: 'linux', name: 'Linux', icon: 'svg/linux.svg' },
-    { key: 'jsp', name: 'JSP', icon: 'svg/jsp.svg' },
-    { key: 'mysql', name: 'MySQL', icon: 'svg/mysql.svg' },
-    { key: 'mongodb', name: 'MongoDB', icon: 'svg/mongodb.svg' },
-    { key: 'oop', name: 'OOP', icon: 'svg/oop.svg' },
-    // { key: 'systemDesignInterview', name: '대규모시스템설계기초', icon: 'svg/systemDesignInterview.svg' },
-    { key: 'kafka', name: 'Kafka', icon: 'svg/kafka.svg' },
-    { key: 'network', name: 'Network', icon: 'svg/network.svg' },
-    { key: 'JUnit', name: 'JUnit', icon: 'svg/junit.svg' },
-    { key: 'exception', name: '예외처리 핸드북', icon: 'svg/debugging.svg' },
-    { key: 'github', name: 'GitHub', icon: 'svg/github.svg' },
-    {key:'senior-center-search', name: 'Senior Center Search', icon: 'svg/senior-center-search.svg' },
+    { key: 'api',                  name: 'API',                  group: '아키텍처',    icon: 'svg/api.svg' },
+    { key: 'spring',               name: 'Spring Boot',          group: '프레임워크',  icon: 'svg/spring.svg' },
+    { key: 'java',                 name: 'Modern Java',          group: '프로그래밍',  icon: 'svg/java.svg' },
+    { key: 'kotlin',               name: 'Kotlin',               group: '프로그래밍',  icon: 'svg/kotlin.svg' },
+    { key: 'linux',                name: 'Linux',                group: '인프라',      icon: 'svg/linux.svg' },
+    { key: 'jsp',                  name: 'JSP',                  group: '프레임워크',  icon: 'svg/jsp.svg' },
+    { key: 'mysql',                name: 'MySQL',                group: '데이터베이스', icon: 'svg/mysql.svg' },
+    { key: 'mongodb',              name: 'MongoDB',              group: '데이터베이스', icon: 'svg/mongodb.svg' },
+    { key: 'oop',                  name: 'OOP',                  group: '아키텍처',    icon: 'svg/oop.svg' },
+    { key: 'kafka',                name: 'Kafka',                group: '인프라',      icon: 'svg/kafka.svg' },
+    { key: 'network',              name: 'Network',              group: '인프라',      icon: 'svg/network.svg' },
+    { key: 'JUnit',                name: 'JUnit',                group: '테스팅',      icon: 'svg/junit.svg' },
+    { key: 'exception',            name: '예외처리 핸드북',      group: '테스팅',      icon: 'svg/debugging.svg' },
+    { key: 'github',               name: 'GitHub',               group: '실습 코드',   icon: 'svg/github.svg' },
+    { key: 'senior-center-search', name: 'Senior Center Search', group: '프로젝트',    icon: 'svg/senior-center-search.svg' },
 ];

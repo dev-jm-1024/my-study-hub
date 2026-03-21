@@ -1,81 +1,111 @@
 /* Card Component Styles */
 
+/* ── GlassCard 공통 컴포넌트 ── */
+.glass-card {
+    background: var(--bg-surface);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--border-radius-xl);
+    box-shadow: var(--shadow-glass);
+    transition: all var(--transition-base);
+}
+
+.glass-card-hover {
+    cursor: pointer;
+}
+
+.glass-card-hover:hover {
+    background: var(--bg-surface-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glass-hover);
+}
+
+.glass-card-hover:active {
+    transform: translateY(-1px);
+    box-shadow: var(--shadow-glass-sm);
+}
+
+@media (hover: none) and (pointer: coarse) {
+    .glass-card-hover:hover {
+        transform: none;
+        background: var(--bg-surface);
+        box-shadow: var(--shadow-glass);
+    }
+    .glass-card-hover:active {
+        transform: scale(0.98);
+        background: var(--bg-surface-hover);
+    }
+}
+
+
+/* ── 카드 그리드 ── */
 .card-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: var(--spacing-xl);
 }
 
+/* ── PDF 아이템 카드 (GlassCard) ── */
 .card {
-    background: var(--bg-primary);
-    border: 1px solid var(--border-color);
-    border-radius: var(--border-radius);
+    background: var(--bg-surface);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--border-radius-lg);
+    box-shadow: var(--shadow-glass);
     padding: var(--spacing-xl);
     cursor: pointer;
     transition: all var(--transition-base);
-    position: relative;
-    overflow: hidden;
-    /* 모바일 터치 최적화 */
     touch-action: manipulation;
-    -webkit-tap-highlight-color: rgba(0, 0, 0, 0.1);
+    -webkit-tap-highlight-color: transparent;
     user-select: none;
     -webkit-user-select: none;
 }
 
-.card::before {
-    content: '';
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    height: 4px;
-    background: linear-gradient(90deg, var(--primary), #8b5cf6);
-    transform: scaleX(0);
-    transform-origin: left;
-    transition: transform var(--transition-base);
-}
-
 .card:hover {
-    transform: translateY(-8px);
-    box-shadow: var(--shadow-lg);
-    border-color: var(--primary);
-}
-
-.card:hover::before {
-    transform: scaleX(1);
+    background: var(--bg-surface-hover);
+    transform: translateY(-4px);
+    box-shadow: var(--shadow-glass-hover);
 }
 
 /* 모바일에서 hover 효과 비활성화 */
 @media (hover: none) and (pointer: coarse) {
     .card:hover {
         transform: none;
-        box-shadow: none;
-        border-color: var(--border-color);
+        background: var(--bg-surface);
+        box-shadow: var(--shadow-glass);
     }
-    
-    .card:hover::before {
-        transform: scaleX(0);
-    }
-    
-    .card:hover .card-icon {
-        transform: none;
-    }
-    
+
     .card:active {
         transform: scale(0.98);
-        background: var(--bg-secondary);
+        background: var(--bg-surface-hover);
     }
 }
 
+/* 카드 아이콘 박스 */
 .card-icon {
-    font-size: 3.5rem;
-    margin-bottom: var(--spacing-md);
-    filter: drop-shadow(0 4px 8px rgba(0, 0, 0, 0.1));
-    transition: transform var(--transition-base);
+    width: 72px;
+    height: 72px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: var(--bg-overlay);
+    backdrop-filter: var(--blur-glass);
+    -webkit-backdrop-filter: var(--blur-glass);
+    border: 1px solid var(--border-glass);
+    border-radius: var(--border-radius-md);
+    margin: 0 auto var(--spacing-md);
+    font-size: 2.2rem;
+    color: var(--text-secondary);
+    transition: all var(--transition-base);
+    filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.06));
 }
 
 .card:hover .card-icon {
-    transform: scale(1.1) rotate(5deg);
+    background: var(--bg-surface-hover);
+    color: var(--text-primary);
+    transform: scale(1.05);
 }
 
 .card-title {
@@ -83,6 +113,7 @@
     font-weight: 700;
     margin-bottom: var(--spacing-sm);
     color: var(--text-primary);
+    letter-spacing: -0.02em;
 }
 
 .card-description {
@@ -125,27 +156,29 @@
         grid-template-columns: 1fr;
         gap: var(--spacing-md);
     }
-    
+
     .card {
         padding: var(--spacing-lg);
     }
-    
+
     .card-icon {
-        font-size: 2.5rem;
+        width: 60px;
+        height: 60px;
+        font-size: 1.75rem;
         margin-bottom: var(--spacing-sm);
     }
-    
+
     .card-title {
         font-size: var(--font-size-lg);
         margin-bottom: var(--spacing-xs);
     }
-    
+
     .card-description {
         font-size: var(--font-size-sm);
         margin-bottom: var(--spacing-md);
         line-height: 1.5;
     }
-    
+
     .card-footer {
         margin-top: var(--spacing-sm);
     }
@@ -155,15 +188,17 @@
     .card {
         padding: var(--spacing-md);
     }
-    
+
     .card-icon {
-        font-size: 2rem;
+        width: 52px;
+        height: 52px;
+        font-size: 1.5rem;
     }
-    
+
     .card-title {
         font-size: var(--font-size-base);
     }
-    
+
     .card-description {
         font-size: 0.8125rem;
     }

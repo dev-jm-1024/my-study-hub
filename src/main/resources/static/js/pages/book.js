@@ -110,8 +110,8 @@ class BookPage {
 
         // 도서 카드 렌더링
         bookGrid.innerHTML = this.filteredBooks.map((book, index) => {
-            const coverHtml = book.coverUrl 
-                ? `<img src="${book.coverUrl}" alt="${book.title}" class="book-cover">`
+            const coverHtml = book.coverUrl
+                ? `<img src="${book.coverUrl}" alt="${book.title}" class="book-cover" loading="lazy">`
                 : `<div class="book-icon"><i class="${book.icon || 'fa-solid fa-book'}"></i></div>`;
             
             return `
