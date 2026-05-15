@@ -41,14 +41,16 @@ export function DownloadPage() {
 
   const handleDownload = (pdfUrl: string, title: string) => {
     if (!pdfUrl) return;
-    if (pdfUrl.startsWith('http')) {
-      window.open(pdfUrl, '_blank', 'noopener,noreferrer');
-    } else {
-      const a = document.createElement('a');
-      a.href = pdfUrl;
+    const a = document.createElement('a');
+    a.href = pdfUrl;
+    a.target = '_blank';
+    a.rel = 'noopener noreferrer';
+    if (!pdfUrl.startsWith('http')) {
       a.download = `${title}.pdf`;
-      a.click();
     }
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
   };
 
   return (
