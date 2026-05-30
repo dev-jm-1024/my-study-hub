@@ -12,6 +12,7 @@ export const MENUS: MenuItem[] = [
   { key: 'oop',       name: 'OOP',               group: '아키텍처',    icon: 'fa-solid fa-cubes' },
   { key: 'kafka',     name: 'Kafka',             group: '인프라',      icon: 'fa-solid fa-stream' },
   { key: 'network',   name: 'Network',           group: '인프라',      icon: 'fa-solid fa-network-wired' },
+  { key: 'webserver', name: 'Web Server',        group: '인프라',      icon: 'fa-solid fa-server' },
   { key: 'querydsl',  name: 'QueryDSL',          group: '데이터베이스', icon: 'fa-solid fa-database' },
   { key: 'JUnit',     name: 'JUnit',             group: '테스팅',      icon: 'fa-solid fa-vial' },
   { key: 'exception', name: '예외처리 핸드북',  group: '테스팅',      icon: 'fa-solid fa-bug' },
@@ -37,6 +38,9 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { icon: 'fa-solid fa-file-pdf', title: '5. 자동-구성속성 이용하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-5-new.pdf' },
     { icon: 'fa-solid fa-file-pdf', title: '6. REST API', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-6-new.pdf' },
     { icon: 'fa-solid fa-file-pdf', title: '7. RestTemplate', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-7-new.pdf' },
+    { icon: 'fa-solid fa-file-pdf', title: '8. Spring Scheduler', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/Spring_Scheduler.pdf' },
+    { icon: 'fa-solid fa-file-pdf', title: '9. WebClient', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/WebClient.pdf' },
+    { icon: 'fa-solid fa-file-pdf', title: '10. RestClient', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/RestClient.pdf' },
   ],
   java: [
     { icon: 'fa-solid fa-history', title: '1. 자바 역사 간단하게 보기', description: '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/ch01_%EC%9E%90%EB%B0%94%EC%9D%98_%EC%97%AD%EC%82%AC%EB%A5%BC_%EA%B0%84%EB%8B%A8%ED%9E%88_%EC%9E%90%EB%B0%94%EB%B3%B4%EC%9E%90.pdf' },
@@ -100,6 +104,9 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
   ],
   network: [
     { icon: 'fa-solid fa-project-diagram', title: '1. 컴퓨터 네트워크', description: '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/network-doc/network-1.pdf' },
+  ],
+  webserver: [
+    { icon: 'fa-solid fa-server', title: 'Nginx vs Apache', description: '두 웹서버의 구조와 동작 방식 비교', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/web-server/Nginx%E1%84%8B%E1%85%AA%20Apache.pdf' },
   ],
   querydsl: [
     { icon: 'fa-solid fa-file-pdf', title: '1. Q클래스 (Q-Type) 동작 원리', description: 'Q-Type 클래스 생성 원리와 컴파일 타임 타입 안정성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/querydsl-doc/ch01_qclass.pdf' },
