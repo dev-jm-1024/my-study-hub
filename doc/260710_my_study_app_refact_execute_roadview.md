@@ -8,9 +8,9 @@
   3. 로드뷰 갱신은 문서 전용 변경이므로 각 Step 커밋에 함께 포함한다 (CSS 바이트 검증과 무관).
   4. **완료 판정에서 "working tree clean"을 볼 때 본 로드뷰 문서의 변경은 예외** — `git status --short -- ':!doc'` 로 확인하면 로드뷰 갱신분이 제외된다.
 
-> **현재 위치:** `RV-0-1` (시작 전)
+> **현재 위치:** `RV-1-1` (RV-0 완료)
 >
-> **실측 기록 (RV-0-4에서 기입):** index.css = ___ 줄 / 마커 balance≠0 개수 = ___ (기대: 1796 / 0개)
+> **실측 기록 (RV-0-4에서 기입):** index.css = 1796 줄 / 마커 balance≠0 개수 = 0개 (기대: 1796 / 0개) — 2026-07-11 재확인, 일치
 
 ---
 
@@ -86,19 +86,19 @@ echo "== gsap 잔존 ==";     grep -c '"gsap"' my-study-app/package.json
 
 ## 3. RV-0 — 선행 조건 (실행 계획서 Step 0 · main 브랜치에서)
 
-- [ ] **RV-0-1** 🤖 사전 상태 점검 — §2.1 원샷 실행, 결과 확인.
+- [x] **RV-0-1** 🤖 사전 상태 점검 — §2.1 원샷 실행, 결과 확인.
   - 판정: 미커밋 기능 파일 존재 여부 파악 완료.
-- [ ] **RV-0-2** 🙋 **[D1] 기능 커밋 범위·메시지 확정** — 기본안: 전체 1커밋 `feat: Vibe 코딩 페이지·홈 위젯 추가 및 리팩토링 계획 문서`. 분리 커밋 원하면 여기서 지정.
-- [ ] **RV-0-3** 🔐 기능 커밋: `git add -A && git commit -m "<확정 메시지>"`
-  - 판정: `git status --short -- ':!doc'` 출력 없음(로드뷰 갱신 제외 — 사용 규칙 4) + `git log -1 --oneline` 메시지 일치.
-- [ ] **RV-0-4** 🤖 재실측 (R12) — `wc -l my-study-app/src/index.css` 와 awk 균형 검증(§2.1 아님, 실행 계획서 §2 ② 명령). 결과를 문서 상단 "실측 기록"에 기입.
-  - 판정: 1796줄 + 30개 마커 전부 balance=0. **다르면 실행 계획서 §4 절단표를 먼저 갱신하고 진행.**
-- [ ] **RV-0-5** 🔐 브랜치 생성: `git checkout -b refactor/my-study-app-structure`
-  - 판정: `git branch --show-current` = `refactor/my-study-app-structure`.
-- [ ] **RV-0-6** 🔐 기준선 채취: `cd my-study-app && npm run build && cp ../static-react/assets/index-*.css /tmp/baseline.css`
-  - 판정: `ls -la /tmp/baseline.css` 존재 + 빌드 성공 로그.
-- [ ] **RV-0-7** 🙋 **[D2] (권장) 스크린샷** — 6페이지(홈/다운로드/책/GitHub/Vibe/404) × 라이트/다크. 방식 결정: 직접 / Chrome 자동화(확장 권한) / 생략.
-  - 판정: 보관 경로 기입: ___________
+- [x] **RV-0-2** 🙋 **[D1] 기능 커밋 범위·메시지 확정** — 기본안 채택: 전체 1커밋 `feat: Vibe 코딩 페이지·홈 위젯 추가 및 리팩토링 계획 문서`.
+- [x] **RV-0-3** 🔐 기능 커밋: `git add -A && git commit -m "<확정 메시지>"`
+  - 판정: `git status --short -- ':!doc'` 출력 없음(로드뷰 갱신 제외 — 사용 규칙 4) + `git log -1 --oneline` 메시지 일치. → **통과** (커밋 `fbbb13d`, 37 files changed). 커밋 전 전체 변경 파일 시크릿 패턴 grep 0건 확인.
+- [x] **RV-0-4** 🤖 재실측 (R12) — `wc -l my-study-app/src/index.css` 와 awk 균형 검증(§2.1 아님, 실행 계획서 §2 ② 명령). 결과를 문서 상단 "실측 기록"에 기입.
+  - 판정: 1796줄 + 30개 마커 전부 balance=0. → **통과**, 문서 기재값과 일치.
+- [x] **RV-0-5** 🔐 브랜치 생성: `git checkout -b refactor/my-study-app-structure`
+  - 판정: `git branch --show-current` = `refactor/my-study-app-structure`. → **통과**.
+- [x] **RV-0-6** 🔐 기준선 채취: `cd my-study-app && npm run build && cp ../static-react/assets/index-*.css /tmp/baseline.css`
+  - 판정: `ls -la /tmp/baseline.css` 존재 + 빌드 성공 로그. → **통과** (`index-Vp8Lmaed.css`, 53423 bytes).
+- [x] **RV-0-7** 🙋 **[D2] (권장) 스크린샷** — 6페이지(홈/다운로드/책/GitHub/Vibe/404) × 라이트/다크. 방식 결정: 직접 / Chrome 자동화(확장 권한) / 생략.
+  - 결정: **생략** — CSS 바이트 diff(0 강제) + 수동 체크리스트(RV-7-1)로 대체 검증.
 
 ## 4. RV-1 — 죽은 코드 제거 (Step 1 · 이하 refactor 브랜치)
 

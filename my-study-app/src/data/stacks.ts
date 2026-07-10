@@ -35,5 +35,3 @@ export const STACK: Record<string, StackVisual> = {
   querydsl:  { color: '#7C6EA8' },
   exception: { color: '#B0604E' },
 };
-
-export const stackColor = (key: string) => STACK[key]?.color ?? '#8E7A70';
