@@ -71,13 +71,20 @@
     border-radius: var(--border-radius-full);
     font-size: 0.78rem;
     font-weight: 500;
-    transition: color var(--transition-fast), border-color var(--transition-fast);
+    transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
     font-family: var(--font-family);
+    cursor: pointer;
 }
 
 .book-tag:hover {
     color: var(--text-primary);
     border-color: var(--border-strong, var(--border-color));
+}
+
+.book-tag.active {
+    background: var(--accent-ink);
+    border-color: var(--accent-ink);
+    color: var(--bg-root);
 }
 
 /* ── 그리드 ── */

@@ -29,6 +29,8 @@ export interface BookItem {
   coverUrl: string;
   purchaseUrl: string;
   icon: string;
+  /** Books 페이지 필터 칩과 매칭되는 태그(없으면 필터 미적용 시에만 노출) */
+  tags?: string[];
 }
 
 export type Theme = 'light' | 'dark';

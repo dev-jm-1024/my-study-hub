@@ -9,6 +9,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791190665186.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001942493',
     icon: 'fa-solid fa-book',
+    tags: ['Spring Boot'],
   },
   {
     title: '요즘 우아한 개발',
@@ -27,6 +28,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788979148251.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001223746',
     icon: 'fa-solid fa-book',
+    tags: ['Database'],
   },
   {
     title: '자바와 JUnit을 활용한 실용주의 단위 테스트',
@@ -36,6 +38,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160508383.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001792858',
     icon: 'fa-solid fa-book',
+    tags: ['Java', 'Testing'],
   },
   {
     title: '아파치 카프카 애플리케이션 프로그래밍 with 자바',
@@ -45,6 +48,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165920548.jpg',
     purchaseUrl: 'https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000002955323',
     icon: 'fa-solid fa-book',
+    tags: ['Kafka', 'Java'],
   },
   {
     title: '가상 면접 사례로 배우는 대규모 시스템 설계 기초',
@@ -54,6 +58,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788966263158.jpg',
     purchaseUrl: 'https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000003160871',
     icon: 'fa-solid fa-book',
+    tags: ['Architecture'],
   },
   {
     title: '자바 성능 튜닝 이야기',
@@ -63,6 +68,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788966260928.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001032977',
     icon: 'fa-solid fa-book',
+    tags: ['Java'],
   },
   {
     title: '자바/스프링 개발자를 위한 실용주의 프로그래밍',
@@ -72,6 +78,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158395155.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000213447953',
     icon: 'fa-solid fa-book',
+    tags: ['Java', 'Spring Boot'],
   },
   {
     title: '모던 자바 인 액션',
@@ -81,6 +88,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791162242025.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001810171',
     icon: 'fa-solid fa-book',
+    tags: ['Java'],
   },
   {
     title: '헤드 퍼스트 소프트웨어 아키텍처',
@@ -90,6 +98,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169213929.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000217513398',
     icon: 'fa-solid fa-book',
+    tags: ['Architecture'],
   },
   {
     title: '혼자 공부하는 SQL',
@@ -99,6 +108,7 @@ export const BOOKS: BookItem[] = [
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791162244739.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001810432',
     icon: 'fa-solid fa-book',
+    tags: ['Database'],
   },
   {
     title: '혼자 공부하는 네트워크',

@@ -1,8 +1,14 @@
+import { useState } from 'react';
 import { BOOKS } from '../data/menuData';
 import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 
+const FILTER_TAGS = ['Spring Boot', 'Java', 'Architecture', 'Testing', 'Database', 'Kafka'];
+
 export function BooksPage() {
   useScrollTopOnMount();
+  const [activeTag, setActiveTag] = useState<string | null>(null);
+
+  const filtered = activeTag ? BOOKS.filter(b => b.tags?.includes(activeTag)) : BOOKS;
 
   return (
     <div className="book-container">
@@ -14,21 +20,29 @@ export function BooksPage() {
           실무와 학습에 도움이 되는 도서를 엄선했습니다.
         </p>
         <div className="book-meta">
-          <span className="book-count">{BOOKS.length}권</span>
+          <span className="book-count">{filtered.length}권</span>
           <div className="book-tags">
-            <span className="book-tag">Spring Boot</span>
-            <span className="book-tag">Java</span>
-            <span className="book-tag">Architecture</span>
-            <span className="book-tag">Testing</span>
-            <span className="book-tag">Database</span>
-            <span className="book-tag">Kafka</span>
+            {FILTER_TAGS.map(tag => (
+              <button
+                key={tag}
+                type="button"
+                className={`book-tag${activeTag === tag ? ' active' : ''}`}
+                onClick={() => setActiveTag(prev => (prev === tag ? null : tag))}
+                aria-pressed={activeTag === tag}
+              >
+                {tag}
+              </button>
+            ))}
           </div>
         </div>
       </header>
 
       {/* 도서 그리드 */}
+      {filtered.length === 0 ? (
+        <p style={{ color: 'var(--text-muted)', padding: '8px 4px' }}>해당 태그의 도서가 없어요.</p>
+      ) : (
       <div className="book-grid">
-        {BOOKS.map((book, idx) => (
+        {filtered.map((book, idx) => (
           <div key={idx} className="book-card home-anim">
             {book.coverUrl ? (
               <div className="book-cover-wrap">
@@ -68,6 +82,7 @@ export function BooksPage() {
           </div>
         ))}
       </div>
+      )}
     </div>
   );
 }
