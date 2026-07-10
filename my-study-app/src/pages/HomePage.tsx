@@ -1,14 +1,14 @@
 import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { Search, ChevronRight, ArrowRight } from 'lucide-react';
+import { Search, ArrowRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
-import { BADGE, DESC, GROUP_ORDER, tintClass } from '../data/topics';
+import { DESC, GROUP_ORDER, tintClass } from '../data/topics';
 import { ProfileCard } from '../components/ProfileCard';
 import { StackRatio } from '../components/StackRatio';
 import { Clock } from '../components/Clock';
 import { MiniCalendar } from '../components/MiniCalendar';
+import { CategoryRow } from '../components/CategoryRow';
 import { docCount } from '../utils/category';
-import type { MenuItem } from '../types';
 
 const QUICK_KEYS = ['spring', 'java', 'mysql', 'oop'];
 
@@ -39,23 +39,6 @@ export function HomePage() {
     e.preventDefault();
     navigate(path);
   };
-
-  const renderRow = (m: MenuItem) => (
-    <a
-      key={m.key}
-      className="cat-row home-anim"
-      href={`/download/${m.key}`}
-      onClick={go(`/download/${m.key}`)}
-    >
-      <div className={`cat-badge ${tintClass(m.key)}`}>{BADGE[m.key] ?? m.name.slice(0, 2)}</div>
-      <div className="cat-main">
-        <div className="cat-title">{m.name}</div>
-        <div className="cat-desc">{DESC[m.key] ?? m.group}</div>
-      </div>
-      <span className="cat-count">{docCount(m.key)}</span>
-      <span className="cat-chev"><ChevronRight size={18} /></span>
-    </a>
-  );
 
   return (
     <main className="page-wrapper home-layout">
@@ -97,7 +80,7 @@ export function HomePage() {
         <section className="home-section">
           <div className="home-section-head"><h2>검색 결과 {filtered.length}건</h2></div>
           {filtered.length > 0 ? (
-            <div className="cat-list">{filtered.map(renderRow)}</div>
+            <div className="cat-list">{filtered.map(m => <CategoryRow key={m.key} item={m} />)}</div>
           ) : (
             <p style={{ color: 'var(--text-muted)', padding: '8px 4px' }}>일치하는 자료가 없어요.</p>
           )}
@@ -131,7 +114,7 @@ export function HomePage() {
           {groups.map(({ group, items }) => (
             <section className="home-section" key={group}>
               <div className="home-section-head"><h2>{group}</h2></div>
-              <div className="cat-list">{items.map(renderRow)}</div>
+              <div className="cat-list">{items.map(m => <CategoryRow key={m.key} item={m} />)}</div>
             </section>
           ))}
         </>

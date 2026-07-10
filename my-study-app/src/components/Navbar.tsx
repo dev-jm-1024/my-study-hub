@@ -10,6 +10,11 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
 const mobileClass = ({ isActive }: { isActive: boolean }) =>
   `mobile-menu-item${isActive ? ' active' : ''}`;
 
+const NAV_LINKS = [
+  { label: 'Velog', href: 'https://velog.io/@dlwoals1024/posts' },
+  { label: 'Blog', href: 'https://blog.naver.com/jon1024' },
+];
+
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
@@ -34,12 +39,11 @@ export function Navbar() {
           <NavLink to="/books" className={navClass}>Books</NavLink>
           <NavLink to="/github" className={navClass}>GitHub</NavLink>
           <NavLink to="/vibe" className={navClass}>Vibe</NavLink>
-          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer" className="nav-link nav-ext">
-            Velog <span className="nav-arr">↗</span>
-          </a>
-          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer" className="nav-link nav-ext">
-            Blog <span className="nav-arr">↗</span>
-          </a>
+          {NAV_LINKS.map(link => (
+            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="nav-link nav-ext">
+              {link.label} <span className="nav-arr">↗</span>
+            </a>
+          ))}
           <button className="nav-search" onClick={openSearch} aria-label="검색 (Command K)">
             <Search size={15} />
             <span>검색</span>
@@ -79,12 +83,11 @@ export function Navbar() {
           <NavLink to="/books" className={mobileClass} onClick={close}>Books</NavLink>
           <NavLink to="/github" className={mobileClass} onClick={close}>GitHub</NavLink>
           <NavLink to="/vibe" className={mobileClass} onClick={close}>Vibe</NavLink>
-          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer" className="mobile-menu-item mobile-menu-ext">
-            Velog <span className="nav-arr">↗</span>
-          </a>
-          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer" className="mobile-menu-item mobile-menu-ext">
-            Blog <span className="nav-arr">↗</span>
-          </a>
+          {NAV_LINKS.map(link => (
+            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer" className="mobile-menu-item mobile-menu-ext">
+              {link.label} <span className="nav-arr">↗</span>
+            </a>
+          ))}
         </div>
       )}
     </header>

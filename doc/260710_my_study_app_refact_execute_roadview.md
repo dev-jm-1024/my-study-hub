@@ -8,7 +8,7 @@
   3. 로드뷰 갱신은 문서 전용 변경이므로 각 Step 커밋에 함께 포함한다 (CSS 바이트 검증과 무관).
   4. **완료 판정에서 "working tree clean"을 볼 때 본 로드뷰 문서의 변경은 예외** — `git status --short -- ':!doc'` 로 확인하면 로드뷰 갱신분이 제외된다.
 
-> **현재 위치:** `RV-5-1` (RV-0~RV-4 완료)
+> **현재 위치:** `RV-6-0` (RV-0~RV-5 완료)
 >
 > **실측 기록 (RV-0-4에서 기입):** index.css = 1796 줄 / 마커 balance≠0 개수 = 0개 (기대: 1796 / 0개) — 2026-07-11 재확인, 일치
 
@@ -151,12 +151,12 @@ echo "== gsap 잔존 ==";     grep -c '"gsap"' my-study-app/package.json
 
 ## 8. RV-5 — 컴포넌트 추출 (Step 5 · JSX 1:1, DOM 불변)
 
-- [ ] **RV-5-1** 🤖 `components/CategoryRow.tsx` 추출 — HomePage.renderRow의 `.cat-row` 마크업 그대로, 사용처 2곳(검색 결과·그룹 목록) 교체.
-- [ ] **RV-5-2** 🤖 Navbar `NAV_LINKS` 상수화 (데스크탑/모바일 중복 URL 통합, 마크업 불변).
-- [ ] **RV-5-3** 🤖 (선택) `utils/searchIndex.ts`(CommandPalette.buildIndex), `hooks/useCategorySearch.ts` — HomePage 두께 보고 진행 중 판단, 생략 가능.
-- [ ] **RV-5-4** 🔐 검증: build 성공 + CSS diff 0.
-- [ ] **RV-5-5** 🙋 **[D3]** 홈 검색 3케이스("스프링"/"zzz"/빈 입력) + ⌘K·`/`·Navbar 버튼·↑↓↵ 전 시나리오 (C10) 브라우저 확인.
-- [ ] **RV-5-6** 🔐 커밋: `refactor: CategoryRow 추출 및 페이지 슬림화`
+- [x] **RV-5-1** 🤖 `components/CategoryRow.tsx` 추출 — HomePage.renderRow의 `.cat-row` 마크업 그대로, 사용처 2곳(검색 결과·그룹 목록) 교체. → **통과**. `key`는 React 요구사항상 호출부(`<CategoryRow key={m.key} .../>`)로 이동 — DOM에는 나타나지 않는 속성이라 렌더링 무영향.
+- [x] **RV-5-2** 🤖 Navbar `NAV_LINKS` 상수화 (데스크탑/모바일 중복 URL 통합, 마크업 불변). → **통과**. 모바일 링크에 원래 `onClick={close}`가 없었음을 확인하고 추가하지 않음(동작 그대로).
+- [x] **RV-5-3** 🤖 (선택) `utils/searchIndex.ts`(CommandPalette.buildIndex), `hooks/useCategorySearch.ts` — HomePage 두께 보고 진행 중 판단, 생략 가능. → **생략** (HomePage 159→142줄로 충분히 얇음, CommandPalette도 원 계획서에서 이미 "허용 범위"로 분류).
+- [x] **RV-5-4** 🔐 검증: build 성공 + CSS diff 0. → **통과** (renderRow 잔존 0건, CategoryRow 사용처 정확히 2곳).
+- [x] **RV-5-5** 🙋 **[D3]** 홈 검색 3케이스("스프링"/"zzz"/빈 입력) + ⌘K·`/`·Navbar 버튼·↑↓↵ 전 시나리오 (C10) 브라우저 확인. → **RV-7-1 최종 체크리스트로 이관** (RV-4-5와 동일 방침).
+- [x] **RV-5-6** 🔐 커밋: `refactor: CategoryRow 추출 및 페이지 슬림화`
 
 ## 9. RV-6 — 카테고리 메타 통합 (Step 6 · 게이트 통과 시에만)
 
