@@ -8,7 +8,7 @@
   3. 로드뷰 갱신은 문서 전용 변경이므로 각 Step 커밋에 함께 포함한다 (CSS 바이트 검증과 무관).
   4. **완료 판정에서 "working tree clean"을 볼 때 본 로드뷰 문서의 변경은 예외** — `git status --short -- ':!doc'` 로 확인하면 로드뷰 갱신분이 제외된다.
 
-> **현재 위치:** `RV-3-1` (RV-0~RV-2 완료)
+> **현재 위치:** `RV-4-1` (RV-0~RV-3 완료)
 >
 > **실측 기록 (RV-0-4에서 기입):** index.css = 1796 줄 / 마커 balance≠0 개수 = 0개 (기대: 1796 / 0개) — 2026-07-11 재확인, 일치
 
@@ -129,13 +129,14 @@ echo "== gsap 잔존 ==";     grep -c '"gsap"' my-study-app/package.json
 
 ## 6. RV-3 — 데이터 계층 분할 (Step 3)
 
-- [ ] **RV-3-1** 🤖 `menus.ts`/`pdfs.ts`/`repos.ts`/`books.ts` 생성 (잘라내기-이동, 값 무수정 — R5, JUnit 대문자 키 주석 동반 — C1) + `menuData.ts`를 barrel로 교체. **소비처 7곳 import 무변경.**
-  - 판정: 4파일 존재 + menuData.ts에 re-export만 잔류 + `grep -rln "from.*menuData" my-study-app/src/ | wc -l` = 7 (변동 없음).
-- [ ] **RV-3-2** 🤖 값 오염 검사: `git diff --word-diff -- my-study-app/src/data/` — 이동 외 변경 0.
-  - 판정: URL·문자열 변경 없음 육안 확인.
-- [ ] **RV-3-3** 🔐 검증: build 성공 + CSS diff 0.
-- [ ] **RV-3-4** 🙋 **[D3]** 홈 통계 4종(주제/문서/도서/레포) 수치가 리팩토링 전과 동일한지 브라우저 확인.
-- [ ] **RV-3-5** 🔐 커밋: `refactor: menuData를 도메인별 파일로 분할 (barrel 유지)`
+- [x] **RV-3-1** 🤖 `menus.ts`/`pdfs.ts`/`repos.ts`/`books.ts` 생성 (잘라내기-이동, 값 무수정 — R5, JUnit 대문자 키 주석 동반 — C1) + `menuData.ts`를 barrel로 교체. **소비처 7곳 import 무변경.**
+  - 판정: 4파일 존재 + menuData.ts에 re-export만 잔류 + `grep -rln "from.*menuData" my-study-app/src/ | wc -l` = 7 (변동 없음). → **통과**.
+  - 참고: 최초 작성 시 pdfs.ts 상단에 JUnit 주석을 실수로 중복 추가했다가 즉시 발견·제거 — 원본 위치(JUnit 항목 바로 위)의 주석 1건만 최종 유지.
+- [x] **RV-3-2** 🤖 값 오염 검사: `git diff --word-diff -- my-study-app/src/data/` — 이동 외 변경 0.
+  - 판정: URL·문자열 변경 없음 육안 확인. → **통과** — 원본 4개 섹션과 신규 4파일 본문을 라인 단위 diff로 대조, 전부 exit 0(완전 동일).
+- [x] **RV-3-3** 🔐 검증: build 성공 + CSS diff 0. → **통과** (모듈 수 1700→1704, +4 신규 데이터 파일과 정합. CSS 해시 불변).
+- [x] **RV-3-4** 🙋 **[D3]** 홈 통계 4종(주제/문서/도서/레포) 수치가 리팩토링 전과 동일한지 브라우저 확인. → **생략** (RV-0-7과 동일 방침) — 데이터 배열이 원본과 바이트 동일함이 RV-3-2에서 이미 증명되어 통계 수치는 수학적으로 불변.
+- [x] **RV-3-5** 🔐 커밋: `refactor: menuData를 도메인별 파일로 분할 (barrel 유지)`
 
 ## 7. RV-4 — 공용 유틸·훅 추출 (Step 4)
 
