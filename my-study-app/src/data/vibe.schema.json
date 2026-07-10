@@ -1,0 +1,52 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "VibeProjects",
+  "description": "바이브 코딩 프로젝트 목록",
+  "type": "object",
+  "required": ["projects"],
+  "properties": {
+    "$schema": { "type": "string" },
+    "projects": {
+      "type": "array",
+      "items": { "$ref": "#/$defs/project" }
+    }
+  },
+  "$defs": {
+    "project": {
+      "type": "object",
+      "required": ["name", "description", "techStack"],
+      "additionalProperties": false,
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "프로젝트 이름"
+        },
+        "description": {
+          "type": "string",
+          "description": "프로젝트 설명"
+        },
+        "techStack": {
+          "type": "array",
+          "description": "기술 스택 (여러 개 가능)",
+          "items": { "type": "string" },
+          "minItems": 1
+        },
+        "ai": {
+          "type": "array",
+          "description": "사용한 AI 도구 (여러 개 가능)",
+          "items": { "type": "string" }
+        },
+        "github": {
+          "type": "string",
+          "description": "GitHub 링크",
+          "format": "uri"
+        },
+        "link": {
+          "type": "string",
+          "description": "기타 링크 (라이브/데모 등)",
+          "format": "uri"
+        }
+      }
+    }
+  }
+}

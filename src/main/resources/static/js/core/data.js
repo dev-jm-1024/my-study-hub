@@ -245,7 +245,7 @@ const MENU_DATA = {
 const MENUS = [
     { key: 'api',                  name: 'API',                  group: '아키텍처',    icon: 'svg/api.svg' },
     { key: 'spring',               name: 'Spring Boot',          group: '프레임워크',  icon: 'svg/spring.svg' },
-    { key: 'java',                 name: 'Modern Java',          group: '프로그래밍',  icon: 'svg/java.svg' },
+    { key: 'java',                 name: 'Java',                 group: '프로그래밍',  icon: 'svg/java.svg' },
     { key: 'kotlin',               name: 'Kotlin',               group: '프로그래밍',  icon: 'svg/kotlin.svg' },
     { key: 'linux',                name: 'Linux',                group: '인프라',      icon: 'svg/linux.svg' },
     { key: 'jsp',                  name: 'JSP',                  group: '프레임워크',  icon: 'svg/jsp.svg' },

@@ -13,7 +13,8 @@
     "lucide-react": "^0.546.0",
     "react": "^19.0.0",
     "react-dom": "^19.0.0",
-    "react-router-dom": "^6.28.0"
+    "react-router-dom": "^6.28.0",
+    "simple-icons": "^16.25.0"
   },
   "devDependencies": {
     "@types/node": "^25.5.0",

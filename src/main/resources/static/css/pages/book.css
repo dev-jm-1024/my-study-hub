@@ -1,155 +1,115 @@
-/* Book Theme CSS — Glassmorphism */
+/* Book Page — Warm Cream (홈 톤) */
 
 /* ── 페이지 컨테이너 ── */
 .book-container {
-    max-width: 1400px;
+    max-width: 1080px;
     margin: 0 auto;
-    padding: var(--spacing-2xl) var(--spacing-xl);
-    margin-top: var(--header-height);
-    background: transparent;
+    padding: var(--spacing-2xl) var(--spacing-xl) var(--spacing-3xl);
+    margin-top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
 }
 
-/* ── 페이지 헤더 (GlassCard) ── */
+/* ── 헤더 (플레인, 좌측 정렬) ── */
 .book-header {
-    background: var(--bg-surface);
-    backdrop-filter: var(--blur-glass);
-    -webkit-backdrop-filter: var(--blur-glass);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--border-radius-xl);
-    box-shadow: var(--shadow-glass);
-    padding: var(--spacing-2xl);
     margin-bottom: var(--spacing-2xl);
-    overflow: visible;
-    position: relative;
 }
 
-.book-header::before,
-.book-header::after { display: none; }
-
-.book-logo {
-    display: inline-flex;
-    align-items: center;
-    gap: var(--spacing-md);
-    margin-bottom: var(--spacing-lg);
-}
-
-.book-logo-icon {
-    width: 56px;
-    height: 56px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: var(--bg-overlay);
-    backdrop-filter: var(--blur-glass);
-    -webkit-backdrop-filter: var(--blur-glass);
-    border: 1px solid var(--border-glass);
-    border-radius: var(--border-radius-md);
-    font-size: 1.8rem;
-    color: var(--text-secondary);
-}
-
-.book-logo-text {
-    font-size: 2rem;
-    font-weight: 900;
-    color: var(--text-primary);
-    letter-spacing: -0.04em;
+.book-eyebrow {
+    display: inline-block;
+    text-transform: uppercase;
+    letter-spacing: 0.16em;
+    font-size: 0.75rem;
+    font-weight: 600;
+    color: var(--accent-ink);
+    margin-bottom: var(--spacing-sm);
 }
 
 .book-main-title {
-    font-size: var(--font-size-3xl);
-    font-weight: 900;
+    font-size: clamp(1.6rem, 4vw, 2rem);
+    font-weight: 700;
     color: var(--text-primary);
-    background: none;
-    -webkit-background-clip: unset;
-    background-clip: unset;
-    -webkit-text-fill-color: var(--text-primary);
-    letter-spacing: -0.04em;
-    margin-bottom: var(--spacing-sm);
+    letter-spacing: -0.035em;
+    margin-bottom: var(--spacing-xs);
 }
 
 .book-main-subtitle {
     color: var(--text-secondary);
     font-size: var(--font-size-lg);
-    margin-bottom: 0;
+    margin: 0;
 }
 
-.book-count {
-    display: inline-block;
-    background: var(--bg-overlay);
-    border: 1px solid var(--border-glass);
-    color: var(--text-secondary);
-    border-radius: var(--border-radius-full);
-    padding: 5px 14px;
-    font-size: var(--font-size-sm);
-    font-weight: 600;
-    margin-top: var(--spacing-lg);
-}
-
-.book-count::before { display: none; }
-
-.book-tags {
+.book-meta {
     display: flex;
+    align-items: center;
     flex-wrap: wrap;
     gap: var(--spacing-sm);
     margin-top: var(--spacing-lg);
 }
 
-.book-tag {
-    background: var(--bg-overlay);
+.book-count {
+    display: inline-block;
+    background: var(--bg-surface);
     border: 1px solid var(--border-glass);
     color: var(--text-secondary);
-    padding: 5px 14px;
     border-radius: var(--border-radius-full);
-    font-size: var(--font-size-sm);
+    padding: 4px 12px;
+    font-size: 0.78rem;
     font-weight: 600;
-    transition: all var(--transition-base);
-    backdrop-filter: var(--blur-glass);
-    -webkit-backdrop-filter: var(--blur-glass);
+    font-variant-numeric: tabular-nums;
+}
+
+.book-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+}
+
+.book-tag {
+    background: var(--bg-surface);
+    border: 1px solid var(--border-glass);
+    color: var(--text-muted);
+    padding: 4px 12px;
+    border-radius: var(--border-radius-full);
+    font-size: 0.78rem;
+    font-weight: 500;
+    transition: color var(--transition-fast), border-color var(--transition-fast);
     font-family: var(--font-family);
 }
 
 .book-tag:hover {
-    background: var(--bg-surface-hover);
     color: var(--text-primary);
-    transform: translateY(-1px);
-    box-shadow: var(--shadow-glass-sm);
+    border-color: var(--border-strong, var(--border-color));
 }
 
 /* ── 그리드 ── */
 .book-grid {
     display: grid;
     grid-template-columns: repeat(3, 1fr);
-    gap: var(--spacing-xl);
+    gap: var(--spacing-lg);
 }
 
-/* ── 책 카드 ── */
+/* ── 책 카드 (솔리드 웜 플랫) ── */
 .book-card {
     background: var(--bg-surface);
-    backdrop-filter: var(--blur-glass);
-    -webkit-backdrop-filter: var(--blur-glass);
     border: 1px solid var(--border-glass);
     border-radius: var(--border-radius-lg);
-    box-shadow: var(--shadow-glass);
+    box-shadow: var(--shadow-glass-sm);
     display: flex;
     flex-direction: column;
-    transition: all var(--transition-base);
+    transition: transform var(--transition-base), box-shadow var(--transition-base), border-color var(--transition-fast);
     overflow: hidden;
 }
 
-.book-card::before { display: none; }
-
 .book-card:hover {
-    background: var(--bg-surface-hover);
-    border-color: var(--border-glass);
+    border-color: var(--border-color);
     box-shadow: var(--shadow-glass-hover);
-    transform: translateY(-4px);
+    transform: translateY(-3px);
 }
 
-/* ── 책 표지 ── */
+/* ── 표지 ── */
 .book-cover-wrap {
     aspect-ratio: 3 / 4;
     overflow: hidden;
-    background: var(--bg-overlay);
+    background: var(--bg-surface-hover);
     border-bottom: 1px solid var(--border-glass);
 }
 
@@ -163,19 +123,17 @@
 
 .book-card:hover .book-cover { transform: scale(1.04); }
 
-/* ── 아이콘 (표지 없을 때 fallback) ── */
+/* ── 아이콘 (표지 없을 때) ── */
 .book-icon {
     aspect-ratio: 3 / 4;
     display: flex;
     align-items: center;
     justify-content: center;
-    background: var(--bg-overlay);
+    background: var(--bg-surface-hover);
     border-bottom: 1px solid var(--border-glass);
-    font-size: 4rem;
+    font-size: 3.5rem;
     color: var(--text-muted);
 }
-
-.book-card:hover .book-icon { color: var(--text-secondary); }
 
 /* ── 카드 바디 ── */
 .book-card-body {
@@ -186,8 +144,8 @@
 }
 
 .book-title {
-    font-size: var(--font-size-lg);
-    font-weight: 700;
+    font-size: 1rem;
+    font-weight: 600;
     color: var(--text-primary);
     letter-spacing: -0.02em;
     margin-bottom: var(--spacing-xs);
@@ -195,25 +153,26 @@
 }
 
 .book-author {
-    font-size: var(--font-size-sm);
+    font-size: 0.82rem;
     color: var(--text-muted);
-    font-weight: 600;
+    font-weight: 500;
     margin-bottom: var(--spacing-xs);
 }
 
 .book-publisher {
-    font-size: var(--font-size-sm);
+    font-size: 0.82rem;
     color: var(--text-muted);
     margin-bottom: var(--spacing-md);
 }
 
 .book-description {
-    font-size: var(--font-size-sm);
+    font-size: 0.85rem;
     color: var(--text-secondary);
     line-height: 1.6;
     flex: 1;
     display: -webkit-box;
     -webkit-line-clamp: 3;
+    line-clamp: 3;
     -webkit-box-orient: vertical;
     overflow: hidden;
 }
@@ -228,39 +187,31 @@
 }
 
 .book-btn {
-    padding: var(--spacing-sm) var(--spacing-lg);
+    padding: 8px 16px;
     background: var(--cta-bg);
     color: var(--cta-text);
     border: none;
-    border-radius: var(--border-radius-md);
-    font-size: var(--font-size-sm);
-    font-weight: 700;
+    border-radius: var(--border-radius-sm);
+    font-size: 0.82rem;
+    font-weight: 600;
     cursor: pointer;
-    transition: all var(--transition-fast);
+    transition: filter var(--transition-fast), transform var(--transition-fast);
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    gap: var(--spacing-xs);
+    gap: 6px;
     font-family: var(--font-family);
     letter-spacing: -0.01em;
 }
 
-.book-btn::before,
-.book-btn::after { display: none; }
-
-.book-btn:hover {
-    background: var(--cta-bg-hover);
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(15, 23, 42, 0.20);
-}
-
-.book-btn:active { transform: scale(0.98); }
+.book-btn:hover { filter: brightness(1.08); }
+.book-btn:active { transform: translateY(1px); }
 
 /* ── 빈 결과 ── */
 .book-empty {
     background: var(--bg-surface);
-    border: 1px dashed var(--border-glass);
-    border-radius: var(--border-radius-xl);
+    border: 1px dashed var(--border-strong, var(--border-glass));
+    border-radius: var(--border-radius-lg);
     text-align: center;
     padding: var(--spacing-3xl);
     color: var(--text-muted);
@@ -268,23 +219,17 @@
 
 /* ── 반응형 ── */
 @media (max-width: 1024px) {
-    .book-grid { grid-template-columns: repeat(2, 1fr); }
-    .book-header { padding: var(--spacing-xl); }
+    .book-grid { grid-template-columns: repeat(3, 1fr); }
 }
 
 @media (max-width: 768px) {
-    .book-container { padding: var(--spacing-lg) var(--spacing-md); }
-    .book-logo-text { font-size: 1.75rem; }
-    .book-main-title { font-size: var(--font-size-2xl); }
-    .book-header { padding: var(--spacing-lg); margin-bottom: var(--spacing-lg); }
+    .book-container { padding: var(--spacing-lg) var(--spacing-md) var(--spacing-2xl); }
     .book-grid { grid-template-columns: repeat(2, 1fr); gap: var(--spacing-md); }
-    .book-tags { gap: var(--spacing-xs); margin-top: var(--spacing-md); }
-    .book-tag { font-size: 0.75rem; padding: 0.35rem 0.7rem; white-space: nowrap; }
+    .book-tag { white-space: nowrap; }
 }
 
 @media (max-width: 480px) {
-    .book-grid { grid-template-columns: 1fr; }
-    .book-logo-text { font-size: 1.5rem; }
-    .book-header { padding: var(--spacing-md); }
-    .book-tag { font-size: 0.7rem; padding: 0.3rem 0.6rem; }
+    .book-grid { grid-template-columns: repeat(2, 1fr); }
+    .book-card-body { padding: var(--spacing-md); }
+    .book-title { font-size: 0.92rem; }
 }

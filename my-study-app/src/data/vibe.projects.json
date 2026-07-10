@@ -1,0 +1,33 @@
+{
+  "$schema": "./vibe.schema.json",
+  "projects": [
+    {
+      "name": "인스타그램 계정 분석",
+      "description": "인스타그램 데이터 내보내기 파일을 업로드하면 활동·관계·메시지·로그인 기록을 분석해 시각화합니다. 모든 처리가 브라우저 안에서만 이뤄져 외부로 데이터가 나가지 않습니다.",
+      "techStack": ["Spring Boot", "Java", "React", "TypeScript", "Tailwind CSS", "Recharts"],
+      "ai": ["Claude Code", "Google AI Studio", "Figma Make"],
+      "github": "https://github.com/dev-jm-1024/instagram-account-analysis"
+    },
+    {
+      "name": "mzip",
+      "description": "맥에서 윈도우 호환 ZIP을 만드는 무료 네이티브 앱. 한글 파일명 인코딩(NFD·UTF-8)과 __MACOSX·.DS_Store 제외를 자동으로 처리합니다.",
+      "techStack": ["Swift", "SwiftUI", "ZIPFoundation"],
+      "ai": ["Claude Code", "Google AI Studio", "Figma Make"],
+      "github": "https://github.com/dev-jm-1024/mzip"
+    },
+    {
+      "name": "ddock (똑)",
+      "description": "노치에서 펼쳐지는 맥용 커스텀 런처 독. Liquid Glass 디자인으로 앱 실행·셸 명령·폴더 그룹·멀티페이지를 전역 단축키와 트랙패드 제스처로 다룹니다.",
+      "techStack": ["Swift", "SwiftUI", "AppKit"],
+      "ai": ["Claude Code", "Google AI Studio", "Figma Make"],
+      "github": "https://github.com/dev-jm-1024/ddock"
+    },
+    {
+      "name": "JM Study Hub (이 사이트)",
+      "description": "백엔드 학습 자료 아카이브. 정적 HTML에서 React로 마이그레이션하고, 글래스모피즘을 웜 크림 블로그 톤으로 전면 리디자인. 전역 검색(⌘K)·PDF 미리보기·스택 대시보드까지 AI 페어코딩으로 구현했습니다.",
+      "techStack": ["React", "TypeScript", "Vite"],
+      "ai": ["Claude Code"],
+      "github": "https://github.com/dev-jm-1024"
+    }
+  ]
+}

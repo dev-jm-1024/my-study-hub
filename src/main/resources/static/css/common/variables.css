@@ -1,47 +1,53 @@
 /* ============================================================
-   CSS Variables — Glassmorphism Design System
+   CSS Variables — Warm Cream Design System
    My Study Hub
+   (토큰 이름은 유지하고 값만 웜 팔레트로 교체 —
+    글래스 참조 컴포넌트가 자동 재스킨됨)
    ============================================================ */
 
-/* Google Fonts: Inter */
-@import url('https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&display=swap');
+/* Pretendard (한글 최적 폰트) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
 :root {
-    /* ── Glass 토큰 ── */
-    --bg-surface:          rgba(255, 255, 255, 0.40);
-    --bg-surface-hover:    rgba(255, 255, 255, 0.55);
-    --bg-surface-strong:   rgba(255, 255, 255, 0.60);
-    --bg-overlay:          rgba(255, 255, 255, 0.20);
+    /* ── Surface 토큰 (구 Glass → 솔리드 크림) ── */
+    --bg-surface:          #FAF8F4;
+    --bg-surface-hover:    #EFE8D9;
+    --bg-surface-strong:   #FAF8F4;
+    --bg-overlay:          #EFE8D9;
 
-    --border-glass:        rgba(255, 255, 255, 0.50);
-    --border-glass-subtle: rgba(255, 255, 255, 0.30);
+    --border-glass:        #E7DECE;
+    --border-glass-subtle: #EFE7DA;
 
-    --shadow-glass:        0 8px 32px 0 rgba(31, 38, 135, 0.07);
-    --shadow-glass-hover:  0 16px 40px 0 rgba(31, 38, 135, 0.12);
-    --shadow-glass-sm:     0 4px 16px 0 rgba(31, 38, 135, 0.05);
+    --shadow-glass:        0 6px 24px -12px rgba(43, 37, 34, 0.16);
+    --shadow-glass-hover:  0 10px 30px -12px rgba(43, 37, 34, 0.22);
+    --shadow-glass-sm:     0 1px 2px rgba(43, 37, 34, 0.05);
 
-    --blur-glass:          blur(24px);
+    /* 솔리드 표면이라 블러는 헤더 반투명용으로만 소폭 유지 */
+    --blur-glass:          blur(10px);
 
-    /* ── 배경 ── */
-    --bg-root: #e2e8f0;
-    --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23cbd5e1' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    /* ── 배경 (패턴 제거, 플랫 크림) ── */
+    --bg-root: #F7F3EA;
+    --bg-pattern: none;
 
-    /* ── 텍스트 (무채색 slate 계열) ── */
-    --text-primary:   #0f172a;
-    --text-secondary: #475569;
-    --text-muted:     #94a3b8;
+    /* ── 텍스트 (웜 계열) ── */
+    --text-primary:   #2B2522;
+    --text-secondary: #8E7A70;
+    --text-muted:     #B89F8A;
 
-    /* ── CTA 강한 대비 ── */
-    --cta-bg:       #0f172a;
-    --cta-text:     #ffffff;
-    --cta-bg-hover: #1e293b;
+    /* ── CTA (진한 웜 대비) ── */
+    --cta-bg:       #2B2522;
+    --cta-text:     #FAF8F4;
+    --cta-bg-hover: #3B322D;
 
-    /* ── 액센트 (최소화, 필요한 경우만) ── */
-    --color-accent:   #3b82f6;
-    /* 기존 --primary 하위 호환 alias (Phase 4에서 제거) */
-    --primary:        #3b82f6;
-    --primary-hover:  #2563eb;
-    --primary-light:  #dbeafe;
+    /* ── 액센트 (웜, 최소화) ── */
+    --color-accent:   #5E4C41;
+    --accent-ink:     #5E4C41;   /* 크림 위 가독 강조 */
+    --accent-soft:    #EDE4D3;   /* 옅은 배지/hover 틴트 */
+    --panel-cool:     #CFD5E5;   /* 유일한 쿨 포인트 (책·GitHub 패널) */
+    /* 기존 --primary 하위 호환 alias */
+    --primary:        #5E4C41;
+    --primary-hover:  #4A3B32;
+    --primary-light:  #EDE4D3;
 
     /* ── 상태 색상 ── */
     --success: #10b981;
@@ -49,12 +55,12 @@
     --danger:  #ef4444;
 
     /* ── 레이아웃 ── */
-    --header-height:      88px;  /* pill(~68px) + outer padding(16px top) */
+    --header-height:      64px;  /* 플레인 바 높이 */
     --sidebar-width:      272px;
     --border-radius-sm:   12px;
     --border-radius-md:   16px;
-    --border-radius-lg:   24px;
-    --border-radius-xl:   32px;
+    --border-radius-lg:   20px;
+    --border-radius-xl:   24px;
     --border-radius-full: 9999px;
     /* 기존 --border-radius 하위 호환 alias */
     --border-radius:      12px;
@@ -69,7 +75,8 @@
     --spacing-3xl: 4rem;
 
     /* ── 폰트 ── */
-    --font-family:    'Inter', -apple-system, BlinkMacSystemFont, 'Noto Sans KR', sans-serif;
+    --font-family:    'Pretendard', 'Pretendard Variable', -apple-system, BlinkMacSystemFont, 'Apple SD Gothic Neo', 'Noto Sans KR', sans-serif;
+    --font-mono:      'SF Mono', 'JetBrains Mono', Menlo, Consolas, ui-monospace, monospace;
     --font-size-sm:   0.875rem;
     --font-size-base: 1rem;
     --font-size-lg:   1.125rem;
@@ -88,36 +95,44 @@
     --shadow-lg: var(--shadow-glass-hover);
 
     /* ── 기존 호환 (border) ── */
-    --border-color: rgba(255, 255, 255, 0.50);
+    --border-color: #E7DECE;
 }
 
-/* ── 다크 모드 ── */
+/* ── 다크 모드 (웜 다크) ── */
 body.dark {
-    --bg-surface:          rgba(0, 0, 0, 0.40);
-    --bg-surface-hover:    rgba(0, 0, 0, 0.55);
-    --bg-surface-strong:   rgba(0, 0, 0, 0.60);
-    --bg-overlay:          rgba(0, 0, 0, 0.20);
+    --bg-surface:          #272119;
+    --bg-surface-hover:    #322A20;
+    --bg-surface-strong:   #272119;
+    --bg-overlay:          #322A20;
 
-    --border-glass:        rgba(255, 255, 255, 0.10);
-    --border-glass-subtle: rgba(255, 255, 255, 0.05);
+    --border-glass:        #3A3128;
+    --border-glass-subtle: #2F281F;
 
-    --shadow-glass:        0 8px 32px 0 rgba(0, 0, 0, 0.30);
-    --shadow-glass-hover:  0 16px 40px 0 rgba(0, 0, 0, 0.45);
-    --shadow-glass-sm:     0 4px 16px 0 rgba(0, 0, 0, 0.20);
+    --shadow-glass:        0 8px 30px -14px rgba(0, 0, 0, 0.60);
+    --shadow-glass-hover:  0 12px 36px -14px rgba(0, 0, 0, 0.70);
+    --shadow-glass-sm:     0 1px 2px rgba(0, 0, 0, 0.35);
 
-    --bg-root: #0f172a;
-    --bg-pattern: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%231e293b' fill-opacity='0.4'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+    --bg-root: #1E1A17;
+    --bg-pattern: none;
 
-    --text-primary:   #f1f5f9;
-    --text-secondary: #94a3b8;
-    --text-muted:     #475569;
+    --text-primary:   #F7F3EA;
+    --text-secondary: #C4B4A3;
+    --text-muted:     #93806F;
 
-    --cta-bg:       #f1f5f9;
-    --cta-text:     #0f172a;
-    --cta-bg-hover: #e2e8f0;
+    --cta-bg:       #E9DFCC;
+    --cta-text:     #2B2522;
+    --cta-bg-hover: #DCCFB6;
+
+    --color-accent:   #E6D6C1;
+    --accent-ink:     #E6D6C1;
+    --accent-soft:    #322A20;
+    --panel-cool:     #333A47;
+    --primary:        #E6D6C1;
+    --primary-hover:  #D9C5AC;
+    --primary-light:  #322A20;
 
     /* 기존 호환 */
-    --border-color: rgba(255, 255, 255, 0.10);
+    --border-color: #3A3128;
     --shadow-sm: var(--shadow-glass-sm);
     --shadow-md: var(--shadow-glass);
     --shadow-lg: var(--shadow-glass-hover);
@@ -131,4 +146,9 @@ body {
     background-attachment: fixed;
     color: var(--text-primary);
     transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+::selection {
+    background: var(--panel-cool);
+    color: var(--text-primary);
 }

@@ -3,7 +3,7 @@ import type { MenuItem, PdfItem, RepoItem, BookItem } from '../types';
 export const MENUS: MenuItem[] = [
   { key: 'api',       name: 'API',              group: '아키텍처',    icon: 'fa-solid fa-plug' },
   { key: 'spring',    name: 'Spring Boot',       group: '프레임워크',  icon: 'fa-solid fa-leaf' },
-  { key: 'java',      name: 'Modern Java',       group: '프로그래밍',  icon: 'fa-brands fa-java' },
+  { key: 'java',      name: 'Java',              group: '프로그래밍',  icon: 'fa-brands fa-java' },
   { key: 'kotlin',    name: 'Kotlin',            group: '프로그래밍',  icon: 'fa-solid fa-code' },
   { key: 'linux',     name: 'Linux',             group: '인프라',      icon: 'fa-brands fa-linux' },
   { key: 'jsp',       name: 'JSP',               group: '프레임워크',  icon: 'fa-solid fa-globe' },
@@ -54,6 +54,14 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { icon: 'fa-solid fa-shield-alt', title: '11. null 대신 Optional', description: 'NullPointerException 예방과 안전한 Optional 활용법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch11_null%EB%8C%80%EC%8B%A0_Optional.pdf' },
     { icon: 'fa-solid fa-calendar-day', title: '12. 날짜 / 시간 API', description: 'Java와 데이트 : LocalDate', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch12_%EB%82%A0%EC%A7%9C%EC%8B%9C%EA%B0%84API.pdf' },
     { icon: 'fa-solid fa-puzzle-piece', title: '13. 디폴트 메소드', description: '추상클래스와 인터페이스', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch13_%EB%94%94%ED%8F%B4%ED%8A%B8%EB%A9%94%EC%86%8C%EB%93%9C.pdf' },
+    { icon: 'fa-solid fa-recycle', title: 'GC - 1. GC는 왜 선택이 중요한가', description: 'GC 선택이 중요한 이유', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/1_GC.pdf' },
+    { icon: 'fa-solid fa-recycle', title: 'GC - 2. 세대별 수집이 왜 등장했을까', description: '세대별 수집의 등장 배경', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/2_GC.pdf' },
+    { icon: 'fa-solid fa-recycle', title: 'GC - 3. Serial부터 ZGC까지 맛보기', description: 'Serial ~ ZGC 개요', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/3_GC.pdf' },
+    { icon: 'fa-solid fa-recycle', title: 'GC - 4. G1에 대하여', description: 'G1 GC', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/4_GC.pdf' },
+    { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 1. 가상 스레드 준비', description: 'Thread, Executor, Runnable/Callable/Future 훑기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/1_virtual_thread.pdf' },
+    { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 2. Platform Thread vs Virtual Thread', description: '속도가 아니라 규모다', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/2_virtual_thread.pdf' },
+    { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 3. 만드는 세 가지 방법', description: 'ofVirtual, PerTaskExecutor, startVirtualThread', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/3_virtual_thread.pdf' },
+    { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 4. 기존 Thread API와 비교', description: '뭐가 같고 뭐가 달라졌나', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/4_virtual_thread.pdf' },
   ],
   kotlin: [
     { icon: 'fa-solid fa-code', title: 'KotlinEssentials.kt', description: '변수, 함수, 조건문, 반복문까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-1.pdf' },

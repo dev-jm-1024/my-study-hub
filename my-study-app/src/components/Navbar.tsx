@@ -1,12 +1,20 @@
 import { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
-import { Moon, Sun, Menu, X } from 'lucide-react';
+import { NavLink, useNavigate } from 'react-router-dom';
+import { Moon, Sun, Menu, X, Search } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+
+const openSearch = () => window.dispatchEvent(new Event('open-command-palette'));
+
+const navClass = ({ isActive }: { isActive: boolean }) =>
+  `nav-link${isActive ? ' active' : ''}`;
+const mobileClass = ({ isActive }: { isActive: boolean }) =>
+  `mobile-menu-item${isActive ? ' active' : ''}`;
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();
   const [mobileOpen, setMobileOpen] = useState(false);
   const navigate = useNavigate();
+  const close = () => setMobileOpen(false);
 
   return (
     <header className="header">
@@ -22,11 +30,21 @@ export function Navbar() {
 
         {/* 데스크탑 메뉴 */}
         <nav className="nav-links">
-          <Link to="/" className="nav-link">Home</Link>
-          <Link to="/books" className="nav-link">Books</Link>
-          <Link to="/github" className="nav-link">GitHub</Link>
-          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer" className="nav-link">Velog</a>
-          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer" className="nav-link">Blog</a>
+          <NavLink to="/" end className={navClass}>Home</NavLink>
+          <NavLink to="/books" className={navClass}>Books</NavLink>
+          <NavLink to="/github" className={navClass}>GitHub</NavLink>
+          <NavLink to="/vibe" className={navClass}>Vibe</NavLink>
+          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer" className="nav-link nav-ext">
+            Velog <span className="nav-arr">↗</span>
+          </a>
+          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer" className="nav-link nav-ext">
+            Blog <span className="nav-arr">↗</span>
+          </a>
+          <button className="nav-search" onClick={openSearch} aria-label="검색 (Command K)">
+            <Search size={15} />
+            <span>검색</span>
+            <kbd>⌘K</kbd>
+          </button>
           <div className="nav-divider" />
           <button className="theme-toggle" onClick={toggleTheme} aria-label="테마 전환">
             {theme === 'dark'
@@ -38,6 +56,9 @@ export function Navbar() {
 
         {/* 모바일 버튼 */}
         <div className="mobile-nav-actions">
+          <button className="theme-toggle" onClick={openSearch} aria-label="검색">
+            <Search size={18} />
+          </button>
           <button className="theme-toggle" onClick={toggleTheme} aria-label="테마 전환">
             {theme === 'dark' ? <Sun size={18} /> : <Moon size={18} />}
           </button>
@@ -54,11 +75,16 @@ export function Navbar() {
       {/* 모바일 드롭다운 */}
       {mobileOpen && (
         <div className="mobile-menu">
-          <Link to="/" className="mobile-menu-item" onClick={() => setMobileOpen(false)}>Home</Link>
-          <Link to="/books" className="mobile-menu-item" onClick={() => setMobileOpen(false)}>Books</Link>
-          <Link to="/github" className="mobile-menu-item" onClick={() => setMobileOpen(false)}>GitHub</Link>
-          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer" className="mobile-menu-item">Velog</a>
-          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer" className="mobile-menu-item">Blog</a>
+          <NavLink to="/" end className={mobileClass} onClick={close}>Home</NavLink>
+          <NavLink to="/books" className={mobileClass} onClick={close}>Books</NavLink>
+          <NavLink to="/github" className={mobileClass} onClick={close}>GitHub</NavLink>
+          <NavLink to="/vibe" className={mobileClass} onClick={close}>Vibe</NavLink>
+          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer" className="mobile-menu-item mobile-menu-ext">
+            Velog <span className="nav-arr">↗</span>
+          </a>
+          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer" className="mobile-menu-item mobile-menu-ext">
+            Blog <span className="nav-arr">↗</span>
+          </a>
         </div>
       )}
     </header>
