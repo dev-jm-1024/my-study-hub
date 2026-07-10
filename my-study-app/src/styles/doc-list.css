@@ -87,6 +87,12 @@
   color: color-mix(in srgb, var(--t, var(--text-muted)) 62%, var(--text-primary));
   border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 24%, var(--border-color));
 }
+/* 목록 내 실제 순번(제목에 박힌 챕터 번호와 무관하게 1부터 연속) */
+.dl-badge-num {
+  font-size: 0.95rem;
+  font-weight: 700;
+  font-variant-numeric: tabular-nums;
+}
 .dl-main { flex: 1; min-width: 0; }
 .dl-row-title {
   font-size: 0.97rem;

@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Menu, FileText, Download, Clock, ChevronRight, ChevronLeft, Eye } from 'lucide-react';
+import { Menu, Download, Clock, ChevronRight, ChevronLeft, Eye } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
 import { PdfPreview } from '../components/PdfPreview';
 import { MENUS, MENU_DATA } from '../data/menuData';
@@ -82,7 +82,7 @@ export function DownloadPage() {
           <div className="dl-list">
             {pagePdfs.map((pdf, idx) => (
               <div key={(page - 1) * DOWNLOAD_PAGE_SIZE + idx} className={`dl-row home-anim ${tint}`}>
-                <div className="dl-badge"><FileText size={18} /></div>
+                <div className="dl-badge dl-badge-num">{(page - 1) * DOWNLOAD_PAGE_SIZE + idx + 1}</div>
                 <div className="dl-main">
                   <div className="dl-row-title">{pdf.title}</div>
                   <div className="dl-row-desc">{pdf.description}</div>
