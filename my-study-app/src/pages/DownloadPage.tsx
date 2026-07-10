@@ -3,6 +3,7 @@ import { useParams, Link } from 'react-router-dom';
 import { Menu, Download, Clock, ChevronRight, ChevronLeft, Eye } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
 import { PdfPreview } from '../components/PdfPreview';
+import { NotFoundPage } from './NotFoundPage';
 import { MENUS, MENU_DATA } from '../data/menuData';
 import { badgeLabel, tintClass, DOWNLOAD_PAGE_SIZE } from '../data/topics';
 import { resolveCategoryKey, matchesKey } from '../utils/category';
@@ -34,6 +35,11 @@ export function DownloadPage() {
     setSidebarOpen(false);
     setPage(1);
   }, [category]);
+
+  // 존재하지 않는 카테고리는 404 처리 (exception처럼 문서가 0건인 정식 카테고리는 menuInfo가 있으므로 통과)
+  if (!menuInfo) {
+    return <NotFoundPage />;
+  }
 
   return (
     <div className="download-layout">
