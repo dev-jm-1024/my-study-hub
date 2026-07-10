@@ -8,7 +8,7 @@
   3. 로드뷰 갱신은 문서 전용 변경이므로 각 Step 커밋에 함께 포함한다 (CSS 바이트 검증과 무관).
   4. **완료 판정에서 "working tree clean"을 볼 때 본 로드뷰 문서의 변경은 예외** — `git status --short -- ':!doc'` 로 확인하면 로드뷰 갱신분이 제외된다.
 
-> **현재 위치:** `RV-1-1` (RV-0 완료)
+> **현재 위치:** `RV-3-1` (RV-0~RV-2 완료)
 >
 > **실측 기록 (RV-0-4에서 기입):** index.css = 1796 줄 / 마커 balance≠0 개수 = 0개 (기대: 1796 / 0개) — 2026-07-11 재확인, 일치
 
@@ -102,30 +102,30 @@ echo "== gsap 잔존 ==";     grep -c '"gsap"' my-study-app/package.json
 
 ## 4. RV-1 — 죽은 코드 제거 (Step 1 · 이하 refactor 브랜치)
 
-- [ ] **RV-1-1** 🔐 `git rm my-study-app/src/components/GlassCard.tsx`
-  - 판정: 파일 부재 + `grep -rn "GlassCard" my-study-app/src/` 0건.
-- [ ] **RV-1-2** 🔐 `cd my-study-app && npm uninstall gsap` — lock 동시 갱신 (R13).
-  - 판정: `grep '"gsap"' package.json package-lock.json` 0건.
-- [ ] **RV-1-3** 🤖 `src/data/stacks.ts`에서 `stackColor` export 삭제.
-  - 판정: `grep -rn "stackColor" my-study-app/src/` 0건.
-- [ ] **RV-1-4** 🔐 검증: `npm run build` 성공 + 🙋 **[D3]** (선택) 홈 진입 애니메이션 확인.
-  - 판정: 빌드 성공, tsc 에러 0.
-- [ ] **RV-1-5** 🔐 커밋: `chore: 미사용 GlassCard·stackColor·gsap 제거`
-  - 판정: `git show --stat HEAD`에 **package.json + package-lock.json 포함** (R13 핵심).
+- [x] **RV-1-1** 🔐 `git rm my-study-app/src/components/GlassCard.tsx`
+  - 판정: 파일 부재 + `grep -rn "GlassCard" my-study-app/src/` 0건. → **통과**.
+- [x] **RV-1-2** 🔐 `cd my-study-app && npm uninstall gsap` — lock 동시 갱신 (R13).
+  - 판정: `grep '"gsap"' package.json package-lock.json` 0건. → **통과**.
+- [x] **RV-1-3** 🤖 `src/data/stacks.ts`에서 `stackColor` export 삭제.
+  - 판정: `grep -rn "stackColor" my-study-app/src/` 0건. → **통과**.
+- [x] **RV-1-4** 🔐 검증: `npm run build` 성공 + 🙋 **[D3]** (선택) 홈 진입 애니메이션 확인.
+  - 판정: 빌드 성공, tsc 에러 0. → **통과** — CSS 산출물 해시(`index-Vp8Lmaed.css`)가 RV-0-6 기준선과 동일해 애니메이션 CSS 무영향도 기계적으로 증명됨(육안 확인 생략).
+- [x] **RV-1-5** 🔐 커밋: `chore: 미사용 GlassCard·stackColor·gsap 제거`
+  - 판정: `git show --stat HEAD`에 **package.json + package-lock.json 포함** (R13 핵심). → **통과** (커밋 `544e5d6`).
 
 ## 5. RV-2 — index.css 분할 (Step 2 · 최고 주의: 연속 슬라이스, 재배치 금지)
 
-- [ ] **RV-2-1** 🤖 절단 직전 균형 재검증 — 실행 계획서 §4 ① awk.
-  - 판정: 30개 마커 전부 balance=0. **하나라도 ≠0이면 중단** — 원인 파악 전 진행 금지.
-- [ ] **RV-2-2** 🤖 `src/styles/` 생성 + 절단표(실행 계획서 §4 ②)대로 13개 파일 sed 추출. 각 파일 최상단 한 줄 주석만 추가 허용 (`.home-anim` 전 페이지 사용 주석은 home-hero.css에, `.dl-crumb` 잔류 주석은 vibe.css에).
-  - 판정: `ls my-study-app/src/styles/ | wc -l` = 13.
-- [ ] **RV-2-3** 🤖 index.css를 @import 매니페스트로 교체 (레거시 6건 경로 불변 → styles 13건, responsive.css 마지막).
-  - 판정: `grep -c "@import" my-study-app/src/index.css` = 19.
-- [ ] **RV-2-4** 🤖 분할 무결성: 파일별 중괄호 균형 각각 0 + 13파일 라인수 합 sanity (≈ 원본 1796 − 매니페스트 잔류분 + 헤더 주석 수).
-  - 판정: 균형 전부 0.
-- [ ] **RV-2-5** 🔐 핵심 검증: `npm run build && diff /tmp/baseline.css ../static-react/assets/index-*.css`
-  - 판정: **diff 출력 0** + 산출물 파일명(content hash) 동일. **diff≠0이면 커밋 금지, RV-2-2부터 재작업.**
-- [ ] **RV-2-6** 🔐 커밋: `refactor: index.css를 styles/로 섹션 분할 (규칙 무변경)`
+- [x] **RV-2-1** 🤖 절단 직전 균형 재검증 — 실행 계획서 §4 ① awk.
+  - 판정: 30개 마커 전부 balance=0. → **통과** (마커 텍스트까지 전수 재확인: 절단 경계 13 + 내부 소제목 17).
+- [x] **RV-2-2** 🤖 `src/styles/` 생성 + 절단표(실행 계획서 §4 ②)대로 13개 파일 sed 추출. 각 파일 최상단 한 줄 주석만 추가 허용 (`.home-anim` 전 페이지 사용 주석은 home-hero.css에, `.dl-crumb` 잔류 주석은 vibe.css에).
+  - 판정: `ls my-study-app/src/styles/ | wc -l` = 13. → **통과** (라인수 합 1782 = 1796−14, 정확히 일치).
+- [x] **RV-2-3** 🤖 index.css를 @import 매니페스트로 교체 (레거시 6건 경로 불변 → styles 13건, responsive.css 마지막).
+  - 판정: `grep -c "@import" my-study-app/src/index.css` = 19. → **통과**.
+- [x] **RV-2-4** 🤖 분할 무결성: 파일별 중괄호 균형 각각 0 + 13파일 라인수 합 sanity (≈ 원본 1796 − 매니페스트 잔류분 + 헤더 주석 수).
+  - 판정: 균형 전부 0. → **통과** (13개 파일 전부 balance=0).
+- [x] **RV-2-5** 🔐 핵심 검증: `npm run build && diff /tmp/baseline.css ../static-react/assets/index-*.css`
+  - 판정: **diff 출력 0** + 산출물 파일명(content hash) 동일. → **통과** — diff exit code 0, 해시 `index-Vp8Lmaed.css` RV-0-6 기준선과 완전 동일.
+- [x] **RV-2-6** 🔐 커밋: `refactor: index.css를 styles/로 섹션 분할 (규칙 무변경)`
 
 ## 6. RV-3 — 데이터 계층 분할 (Step 3)
 

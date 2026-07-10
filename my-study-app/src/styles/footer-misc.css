@@ -1,0 +1,79 @@
+/* ══════════════════════════════════════════════════
+   공통 푸터 / 위로가기 / 404
+══════════════════════════════════════════════════ */
+.site-footer {
+  border-top: 1px solid var(--border-glass);
+  margin-top: var(--spacing-3xl);
+}
+.site-footer-inner {
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: var(--spacing-xl);
+  padding-bottom: calc(var(--spacing-xl) + env(safe-area-inset-bottom, 0px));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--spacing-md);
+  font-size: 0.82rem;
+  color: var(--text-muted);
+}
+.site-footer-links { display: flex; gap: var(--spacing-lg); }
+.site-footer-links a {
+  color: var(--text-secondary);
+  text-decoration: none;
+  transition: color var(--transition-fast);
+}
+.site-footer-links a:hover { color: var(--accent-ink); }
+
+.to-top {
+  position: fixed;
+  right: 20px;
+  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  z-index: 90;
+  width: 44px; height: 44px;
+  border-radius: 50%;
+  display: grid;
+  place-items: center;
+  cursor: pointer;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  border: none;
+  box-shadow: var(--shadow-glass-hover);
+  animation: cmdkFade 0.2s ease;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
+}
+.to-top:hover { filter: brightness(1.08); }
+.to-top:active { transform: translateY(1px); }
+
+.notfound {
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  min-height: 50vh;
+  justify-content: center;
+}
+.notfound-code {
+  font-family: var(--font-mono);
+  font-size: 4rem;
+  font-weight: 700;
+  color: var(--accent-ink);
+  letter-spacing: -0.03em;
+  line-height: 1;
+}
+.notfound-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text-primary); margin: var(--spacing-md) 0 0; }
+.notfound-sub { color: var(--text-secondary); margin: 0 0 var(--spacing-lg); }
+.notfound-btn {
+  text-decoration: none;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  padding: 11px 22px;
+  border-radius: var(--border-radius-sm);
+  font-weight: 600;
+  font-size: 0.9rem;
+  transition: filter var(--transition-fast);
+}
+.notfound-btn:hover { filter: brightness(1.08); }
+

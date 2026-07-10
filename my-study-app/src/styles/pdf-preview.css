@@ -1,0 +1,93 @@
+/* ══════════════════════════════════════════════════
+   PDF 미리보기 모달
+══════════════════════════════════════════════════ */
+.pdfp-overlay {
+  position: fixed;
+  inset: 0;
+  z-index: 210;
+  background: color-mix(in srgb, var(--text-primary) 42%, transparent);
+  backdrop-filter: blur(3px);
+  -webkit-backdrop-filter: blur(3px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 4vh 16px;
+  animation: cmdkFade 0.15s ease;
+}
+.pdfp-panel {
+  width: 100%;
+  max-width: 900px;
+  height: 90vh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-color);
+  border-radius: var(--border-radius-lg);
+  overflow: hidden;
+  box-shadow: var(--shadow-glass-hover);
+  animation: cmdkRise 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+}
+.pdfp-head {
+  flex: none;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px 14px;
+  border-bottom: 1px solid var(--border-glass);
+}
+.pdfp-title {
+  flex: 1;
+  min-width: 0;
+  font-weight: 600;
+  font-size: 0.95rem;
+  color: var(--text-primary);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.pdfp-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.pdfp-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  font-family: inherit;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  background: var(--bg-surface-hover);
+  border: 1px solid var(--border-glass);
+  border-radius: var(--border-radius-sm);
+  padding: 7px 12px;
+  cursor: pointer;
+  text-decoration: none;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.pdfp-btn:hover { color: var(--text-primary); border-color: var(--border-color); }
+.pdfp-close {
+  display: grid;
+  place-items: center;
+  width: 34px; height: 34px;
+  background: none;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.pdfp-close:hover { color: var(--text-primary); border-color: var(--border-color); }
+.pdfp-body { flex: 1; min-height: 0; background: var(--bg-surface-hover); }
+.pdfp-frame { width: 100%; height: 100%; border: none; display: block; }
+.pdfp-hint {
+  flex: none;
+  padding: 8px 14px;
+  font-size: 0.72rem;
+  color: var(--text-muted);
+  text-align: center;
+  border-top: 1px solid var(--border-glass);
+}
+@media (max-width: 560px) {
+  .pdfp-overlay { padding: 0; }
+  .pdfp-panel { height: 100vh; max-width: 100%; border-radius: 0; border: none; }
+  .pdfp-btn span { display: none; }
+}
+

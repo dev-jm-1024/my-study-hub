@@ -1,0 +1,28 @@
+/* ══════════════════════════════════════════════════
+   React 전용 레이아웃 오버라이드
+   (layout.css는 Vanilla 구조에 맞춰져 있으므로
+    React Router 기반의 SPA용으로 별도 정의)
+══════════════════════════════════════════════════ */
+
+/* 가로 스크롤 방지 (clip: sticky를 깨지 않으면서 가로 넘침만 차단) */
+html, body {
+  overflow-x: clip;
+}
+
+/* 폰트 & 배경 */
+body {
+  font-family: var(--font-family);
+  font-size: 17px;
+  line-height: 1.7;
+  letter-spacing: -0.01em;
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  background-color: var(--bg-root);
+  background-image: var(--bg-pattern);
+  background-attachment: fixed;
+  color: var(--text-primary);
+  min-height: 100vh;
+  /* iPhone 홈 인디케이터 safe area */
+  padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+

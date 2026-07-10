@@ -1,0 +1,218 @@
+/* ══════════════════════════════════════════════════
+   Download / GitHub 리스트 (홈 톤 공유)
+══════════════════════════════════════════════════ */
+.dl-head {
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  max-width: 820px;
+  margin: var(--spacing-sm) auto var(--spacing-xl);
+}
+.dl-head-badge {
+  flex: none;
+  width: 48px; height: 48px;
+  border-radius: var(--border-radius-sm);
+  display: grid;
+  place-items: center;
+  font-family: var(--font-mono);
+  font-weight: 600;
+  font-size: 1rem;
+  box-shadow: var(--shadow-glass-sm);
+  background: color-mix(in srgb, var(--t, var(--text-muted)) 20%, var(--bg-surface));
+  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
+  border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 26%, var(--border-color));
+}
+.dl-head-text { min-width: 0; }
+.dl-eyebrow {
+  font-size: 0.72rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+}
+.dl-title {
+  font-size: 1.5rem;
+  font-weight: 700;
+  letter-spacing: -0.03em;
+  color: var(--text-primary);
+  margin: 2px 0 0;
+}
+.dl-count {
+  flex: none;
+  margin-left: auto;
+  align-self: flex-start;
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-secondary);
+  font-variant-numeric: tabular-nums;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-glass);
+  padding: 5px 12px;
+  border-radius: var(--border-radius-full);
+}
+
+.dl-list { border-top: 1px solid var(--border-glass); max-width: 820px; margin: 0 auto; }
+.dl-row {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: 14px;
+  padding: 14px 4px;
+  border-bottom: 1px solid var(--border-glass);
+  transition: background var(--transition-fast);
+}
+.dl-row::before {
+  content: "";
+  position: absolute;
+  left: 0; top: 8px; bottom: 8px;
+  width: 2.5px;
+  border-radius: 3px;
+  background: var(--accent-ink);
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform var(--transition-base), opacity var(--transition-base);
+}
+.dl-row:hover { background: var(--bg-surface-hover); }
+.dl-row:hover::before { transform: scaleY(1); opacity: 1; }
+.dl-row:hover .dl-row-title { color: var(--accent-ink); }
+
+.dl-badge {
+  flex: none;
+  width: 42px; height: 42px;
+  border-radius: var(--border-radius-sm);
+  display: grid;
+  place-items: center;
+  box-shadow: var(--shadow-glass-sm);
+  background: color-mix(in srgb, var(--t, var(--text-muted)) 18%, var(--bg-surface));
+  color: color-mix(in srgb, var(--t, var(--text-muted)) 62%, var(--text-primary));
+  border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 24%, var(--border-color));
+}
+.dl-main { flex: 1; min-width: 0; }
+.dl-row-title {
+  font-size: 0.97rem;
+  font-weight: 600;
+  letter-spacing: -0.02em;
+  color: var(--text-primary);
+  transition: color var(--transition-fast);
+  line-height: 1.4;
+}
+.dl-row-desc {
+  font-size: 0.82rem;
+  color: var(--text-secondary);
+  margin-top: 2px;
+  line-height: 1.5;
+}
+.dl-btn {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 9px 16px;
+  background: var(--cta-bg);
+  color: var(--cta-text);
+  border: none;
+  border-radius: var(--border-radius-sm);
+  font-family: inherit;
+  font-size: 0.82rem;
+  font-weight: 600;
+  cursor: pointer;
+  transition: filter var(--transition-fast), transform var(--transition-fast);
+}
+.dl-btn:hover { filter: brightness(1.08); }
+.dl-btn:active { transform: translateY(1px); }
+.dl-btn:disabled {
+  background: var(--bg-surface-hover);
+  color: var(--text-muted);
+  cursor: not-allowed;
+  border: 1px solid var(--border-glass);
+}
+.dl-actions { display: flex; align-items: center; gap: 8px; flex: none; }
+.dl-preview {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: 38px; height: 38px;
+  background: none;
+  border: 1px solid var(--border-glass);
+  border-radius: var(--border-radius-sm);
+  color: var(--text-secondary);
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast);
+}
+.dl-preview:hover { color: var(--accent-ink); border-color: var(--border-color); }
+
+.dl-empty {
+  max-width: 820px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-3xl) var(--spacing-xl);
+  color: var(--text-muted);
+  border: 1px dashed var(--border-strong, var(--border-glass));
+  border-radius: var(--border-radius-lg);
+}
+.dl-empty p { margin: 0; font-size: var(--font-size-sm); }
+
+/* 페이지네이션 */
+.dl-pager {
+  max-width: 820px;
+  margin: var(--spacing-xl) auto 0;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+}
+.dl-pager-btn,
+.dl-pager-num {
+  min-width: 36px;
+  height: 36px;
+  padding: 0 6px;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--bg-surface);
+  border: 1px solid var(--border-glass);
+  color: var(--text-secondary);
+  border-radius: var(--border-radius-sm);
+  font-family: inherit;
+  font-size: 0.85rem;
+  font-weight: 600;
+  font-variant-numeric: tabular-nums;
+  cursor: pointer;
+  transition: color var(--transition-fast), border-color var(--transition-fast), background var(--transition-fast);
+}
+.dl-pager-btn:hover:not(:disabled),
+.dl-pager-num:hover { color: var(--text-primary); border-color: var(--border-color); }
+.dl-pager-btn:disabled { opacity: 0.4; cursor: not-allowed; }
+.dl-pager-num.active {
+  color: var(--accent-ink);
+  background: var(--accent-soft);
+  border-color: transparent;
+}
+
+/* 링크형 행 (GitHub) */
+a.dl-row { text-decoration: none; color: inherit; cursor: pointer; }
+a.dl-row:hover .dl-open { color: var(--accent-ink); transform: translateX(3px); }
+
+.dl-lang {
+  flex: none;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  font-size: 0.78rem;
+  font-weight: 500;
+  color: var(--text-secondary);
+}
+.dl-lang-dot { color: var(--color-accent); }
+.dl-open {
+  flex: none;
+  color: var(--text-muted);
+  display: flex;
+  transition: transform var(--transition-base), color var(--transition-fast);
+}
+
+/* GitHub 페이지 폭 (홈처럼 중앙 정렬) */
+.github-page { max-width: 860px; }
+

@@ -1,0 +1,7 @@
+/* ── 페이지 공통 래퍼 ── */
+.page-wrapper {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: calc(var(--header-height) + env(safe-area-inset-top, 0px) + var(--spacing-2xl)) var(--spacing-xl) var(--spacing-3xl);
+}
+
