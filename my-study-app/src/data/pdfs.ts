@@ -44,6 +44,9 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 2. Platform Thread vs Virtual Thread', description: '속도가 아니라 규모다', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/2_virtual_thread.pdf' },
     { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 3. 만드는 세 가지 방법', description: 'ofVirtual, PerTaskExecutor, startVirtualThread', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/3_virtual_thread.pdf' },
     { icon: 'fa-solid fa-diagram-project', title: '가상 스레드 - 4. 기존 Thread API와 비교', description: '뭐가 같고 뭐가 달라졌나', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/4_virtual_thread.pdf' },
+    { icon: 'fa-solid fa-microchip', title: 'JVM - 1. JVM은 어떤 기계인가', description: '추상 머신, 바이트코드, 플랫폼 독립성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/0_JVM.pdf' },
+    { icon: 'fa-solid fa-microchip', title: 'JVM - 2. 클래스 로더 서브시스템', description: '로딩·링킹·초기화와 부모 위임 모델', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/1_JVM.pdf' },
+    { icon: 'fa-solid fa-microchip', title: 'JVM - 3. 런타임 데이터 영역과 실행 엔진', description: '공유 영역 vs 스레드별 영역', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/2_JVM.pdf' },
   ],
   kotlin: [
     { icon: 'fa-solid fa-code', title: 'KotlinEssentials.kt', description: '변수, 함수, 조건문, 반복문까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-1.pdf' },
