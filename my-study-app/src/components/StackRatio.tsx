@@ -1,9 +1,8 @@
 import { useNavigate } from 'react-router-dom';
-import { MENUS, MENU_DATA } from '../data/menuData';
+import { MENUS } from '../data/menuData';
 import { badgeLabel } from '../data/topics';
 import { STACK } from '../data/stacks';
-
-const countOf = (key: string) => (MENU_DATA[key] ?? []).length;
+import { docCount } from '../utils/category';
 
 /** 브랜드 로고(SVG) 또는 모노그램 배지 */
 function StackIcon({ k, name }: { k: string; name: string }) {
@@ -25,7 +24,7 @@ function StackIcon({ k, name }: { k: string; name: string }) {
 export function StackRatio() {
   const navigate = useNavigate();
 
-  const items = MENUS.map(m => ({ key: m.key, name: m.name, count: countOf(m.key) }))
+  const items = MENUS.map(m => ({ key: m.key, name: m.name, count: docCount(m.key) }))
     .filter(x => x.count > 0)
     .sort((a, b) => b.count - a.count);
 

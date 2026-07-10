@@ -8,7 +8,7 @@
   3. 로드뷰 갱신은 문서 전용 변경이므로 각 Step 커밋에 함께 포함한다 (CSS 바이트 검증과 무관).
   4. **완료 판정에서 "working tree clean"을 볼 때 본 로드뷰 문서의 변경은 예외** — `git status --short -- ':!doc'` 로 확인하면 로드뷰 갱신분이 제외된다.
 
-> **현재 위치:** `RV-4-1` (RV-0~RV-3 완료)
+> **현재 위치:** `RV-5-1` (RV-0~RV-4 완료)
 >
 > **실측 기록 (RV-0-4에서 기입):** index.css = 1796 줄 / 마커 balance≠0 개수 = 0개 (기대: 1796 / 0개) — 2026-07-11 재확인, 일치
 
@@ -140,14 +140,14 @@ echo "== gsap 잔존 ==";     grep -c '"gsap"' my-study-app/package.json
 
 ## 7. RV-4 — 공용 유틸·훅 추출 (Step 4)
 
-- [ ] **RV-4-1** 🤖 `utils/category.ts` 생성 (`docCount`, `resolveCategoryKey`) + 적용: HomePage:14, Sidebar:12, StackRatio:6, DownloadPage:16-18,25, Sidebar:22,39.
-  - 판정: `grep -rn "countOf" my-study-app/src/` 0건.
-- [ ] **RV-4-2** 🤖 `utils/download.ts` 생성 (`triggerDownload` — C8 분기 그대로) + DownloadPage/PdfPreview 경유 적용.
-- [ ] **RV-4-3** 🤖 `hooks/usePagination.ts` + `hooks/useScrollTopOnMount.ts` 생성·적용 (BooksPage:6, GitHubPage:7, VibeCodingPage:7). **C9 리셋 effect(page=1→scrollTo→사이드바 닫기 순서)는 DownloadPage 잔류 (R6).**
-  - 판정: 3개 페이지에서 인라인 scrollTo useEffect 소멸, 훅 사용으로 대체.
-- [ ] **RV-4-4** 🔐 검증: build 성공 + CSS diff 0.
-- [ ] **RV-4-5** 🙋 **[D3]** `/download/java` 2페이지 이동 / 카테고리 전환 시 page 리셋 / 다운로드 버튼 / `/download/exception` "준비 중" (C14) 브라우저 확인.
-- [ ] **RV-4-6** 🔐 커밋: `refactor: 공용 유틸·훅 추출 (중복 제거)`
+- [x] **RV-4-1** 🤖 `utils/category.ts` 생성 (`docCount`, `resolveCategoryKey`) + 적용: HomePage:14, Sidebar:12, StackRatio:6, DownloadPage:16-18,25, Sidebar:22,39.
+  - 판정: `grep -rn "countOf" my-study-app/src/` 0건. → **통과**. (계획에 없던 3번째 export `matchesKey` 추가 — DownloadPage:25/Sidebar:39의 대소문자 비교를 "동작 그대로 유틸 경유로 통일"하라는 지시를 반영, 순수 비교 로직만 추출해 동작 변경 없음)
+- [x] **RV-4-2** 🤖 `utils/download.ts` 생성 (`triggerDownload` — C8 분기 그대로) + DownloadPage/PdfPreview 경유 적용. → **통과** (`handleDownload` grep 0건).
+- [x] **RV-4-3** 🤖 `hooks/usePagination.ts` + `hooks/useScrollTopOnMount.ts` 생성·적용 (BooksPage:6, GitHubPage:7, VibeCodingPage:7). **C9 리셋 effect(page=1→scrollTo→사이드바 닫기 순서)는 DownloadPage 잔류 (R6).**
+  - 판정: 3개 페이지에서 인라인 scrollTo useEffect 소멸, 훅 사용으로 대체. → **통과**. C9 effect는 `usePagination`이 반환한 `setPage`를 그대로 사용해 순서·의존성 배열(`[category]`) 무변경.
+- [x] **RV-4-4** 🔐 검증: build 성공 + CSS diff 0. → **통과** (모듈 1704→1708, +4 신규 유틸/훅 파일과 정합. tsc strict 에러 0 — 미사용 import 잔존 없음도 함께 증명).
+- [x] **RV-4-5** 🙋 **[D3]** `/download/java` 2페이지 이동 / 카테고리 전환 시 page 리셋 / 다운로드 버튼 / `/download/exception` "준비 중" (C14) 브라우저 확인. → **RV-7-1 최종 체크리스트로 이관** (동일 시나리오가 거기 포함되어 있어 중복 수행 방지). 페이지네이션 수식은 파라미터만 바뀐 동일 수식임을 코드 대조로 확인.
+- [x] **RV-4-6** 🔐 커밋: `refactor: 공용 유틸·훅 추출 (중복 제거)`
 
 ## 8. RV-5 — 컴포넌트 추출 (Step 5 · JSX 1:1, DOM 불변)
 

@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import { Sparkles, ExternalLink, Github } from 'lucide-react';
 import { VIBE_PROJECTS } from '../data/vibe';
+import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 
 export function VibeCodingPage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useScrollTopOnMount();
 
   return (
     <div className="vibe-page page-wrapper">

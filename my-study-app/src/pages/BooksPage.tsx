@@ -1,10 +1,8 @@
-import { useEffect } from 'react';
 import { BOOKS } from '../data/menuData';
+import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 
 export function BooksPage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useScrollTopOnMount();
 
   return (
     <div className="book-container">

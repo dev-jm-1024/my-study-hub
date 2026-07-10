@@ -5,55 +5,35 @@ import { Sidebar } from '../components/Sidebar';
 import { PdfPreview } from '../components/PdfPreview';
 import { MENUS, MENU_DATA } from '../data/menuData';
 import { badgeLabel, tintClass, DOWNLOAD_PAGE_SIZE } from '../data/topics';
+import { resolveCategoryKey, matchesKey } from '../utils/category';
+import { triggerDownload } from '../utils/download';
+import { usePagination } from '../hooks/usePagination';
 
 export function DownloadPage() {
   const { category = '' } = useParams<{ category: string }>();
   const [sidebarOpen, setSidebarOpen] = useState(false);
   const [preview, setPreview] = useState<{ title: string; url: string } | null>(null);
-  const [page, setPage] = useState(1);
 
   // 대소문자 혼용 처리 (data.js의 'JUnit' 키 등)
-  const resolvedKey = Object.keys(MENU_DATA).find(
-    k => k.toLowerCase() === category.toLowerCase()
-  ) ?? category;
+  const resolvedKey = resolveCategoryKey(category);
 
   const pdfs = (MENU_DATA[resolvedKey] ?? []).map(pdf => ({
     ...pdf,
     pdfUrl: pdf.pdfUrl.trim(),
   }));
 
-  const menuInfo = MENUS.find(m => m.key.toLowerCase() === category.toLowerCase());
+  const menuInfo = MENUS.find(m => matchesKey(m.key, category));
   const key = menuInfo?.key ?? category;
   const name = menuInfo?.name ?? category;
   const tint = tintClass(key);
+
+  const { page, setPage, totalPages, pageItems: pagePdfs, goPage } = usePagination(pdfs, DOWNLOAD_PAGE_SIZE);
 
   useEffect(() => {
     window.scrollTo(0, 0);
     setSidebarOpen(false);
     setPage(1);
   }, [category]);
-
-  const totalPages = Math.ceil(pdfs.length / DOWNLOAD_PAGE_SIZE);
-  const pagePdfs = pdfs.slice((page - 1) * DOWNLOAD_PAGE_SIZE, page * DOWNLOAD_PAGE_SIZE);
-
-  const goPage = (n: number) => {
-    setPage(n);
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-  };
-
-  const handleDownload = (pdfUrl: string, title: string) => {
-    if (!pdfUrl) return;
-    const a = document.createElement('a');
-    a.href = pdfUrl;
-    a.target = '_blank';
-    a.rel = 'noopener noreferrer';
-    if (!pdfUrl.startsWith('http')) {
-      a.download = `${title}.pdf`;
-    }
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-  };
 
   return (
     <div className="download-layout">
@@ -121,7 +101,7 @@ export function DownloadPage() {
                   <button
                     className="dl-btn"
                     disabled={!pdf.pdfUrl}
-                    onClick={() => handleDownload(pdf.pdfUrl, pdf.title)}
+                    onClick={() => triggerDownload(pdf.pdfUrl, pdf.title)}
                   >
                     {pdf.pdfUrl ? (
                       <>
@@ -176,7 +156,7 @@ export function DownloadPage() {
           title={preview.title}
           url={preview.url}
           onClose={() => setPreview(null)}
-          onDownload={() => handleDownload(preview.url, preview.title)}
+          onDownload={() => triggerDownload(preview.url, preview.title)}
         />
       )}
     </div>

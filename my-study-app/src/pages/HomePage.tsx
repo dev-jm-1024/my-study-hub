@@ -7,11 +7,11 @@ import { ProfileCard } from '../components/ProfileCard';
 import { StackRatio } from '../components/StackRatio';
 import { Clock } from '../components/Clock';
 import { MiniCalendar } from '../components/MiniCalendar';
+import { docCount } from '../utils/category';
 import type { MenuItem } from '../types';
 
 const QUICK_KEYS = ['spring', 'java', 'mysql', 'oop'];
 
-const countOf = (key: string) => (MENU_DATA[key] ?? []).length;
 const TOTAL_DOCS = Object.values(MENU_DATA).reduce((sum, arr) => sum + arr.length, 0);
 
 export function HomePage() {
@@ -52,7 +52,7 @@ export function HomePage() {
         <div className="cat-title">{m.name}</div>
         <div className="cat-desc">{DESC[m.key] ?? m.group}</div>
       </div>
-      <span className="cat-count">{countOf(m.key)}</span>
+      <span className="cat-count">{docCount(m.key)}</span>
       <span className="cat-chev"><ChevronRight size={18} /></span>
     </a>
   );
@@ -120,7 +120,7 @@ export function HomePage() {
                   >
                     <span className="quick-tag">{m.name}</span>
                     <h4 className="quick-card-title">{DESC[key]}</h4>
-                    <div className="quick-meta"><b>{countOf(key)}개 문서</b> · PDF</div>
+                    <div className="quick-meta"><b>{docCount(key)}개 문서</b> · PDF</div>
                   </a>
                 );
               })}

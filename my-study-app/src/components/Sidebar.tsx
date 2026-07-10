@@ -1,15 +1,14 @@
 import { Link } from 'react-router-dom';
 import { ChevronLeft } from 'lucide-react';
-import { MENUS, MENU_DATA } from '../data/menuData';
+import { MENUS } from '../data/menuData';
 import { badgeLabel, tintClass, GROUP_ORDER } from '../data/topics';
+import { docCount, matchesKey } from '../utils/category';
 
 interface SidebarProps {
   currentCategory?: string;
   isOpen?: boolean;
   onClose?: () => void;
 }
-
-const countOf = (key: string) => (MENU_DATA[key] ?? []).length;
 
 export function Sidebar({ currentCategory, isOpen = false, onClose }: SidebarProps) {
   // GROUP_ORDER 순서로 묶기 (+ 목록에 없는 그룹은 뒤에 붙임)
@@ -18,8 +17,6 @@ export function Sidebar({ currentCategory, isOpen = false, onClose }: SidebarPro
   const groups = [...GROUP_ORDER, ...extraGroups]
     .map(group => ({ group, items: MENUS.filter(m => m.group === group) }))
     .filter(g => g.items.length > 0);
-
-  const cur = currentCategory?.toLowerCase();
 
   return (
     <>
@@ -36,7 +33,7 @@ export function Sidebar({ currentCategory, isOpen = false, onClose }: SidebarPro
               <div className="menu-group-title">{group}</div>
               <ul className="menu-list">
                 {items.map(menu => {
-                  const active = cur === menu.key.toLowerCase();
+                  const active = !!currentCategory && matchesKey(menu.key, currentCategory);
                   return (
                     <li key={menu.key}>
                       <Link
@@ -48,7 +45,7 @@ export function Sidebar({ currentCategory, isOpen = false, onClose }: SidebarPro
                           {badgeLabel(menu.key, menu.name)}
                         </span>
                         <span className="menu-name">{menu.name}</span>
-                        <span className="menu-count">{countOf(menu.key)}</span>
+                        <span className="menu-count">{docCount(menu.key)}</span>
                       </Link>
                     </li>
                   );

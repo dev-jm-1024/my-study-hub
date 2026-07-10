@@ -1,11 +1,9 @@
-import { useEffect } from 'react';
 import { Github, ExternalLink, Circle } from 'lucide-react';
 import { REPO_DATA } from '../data/menuData';
+import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 
 export function GitHubPage() {
-  useEffect(() => {
-    window.scrollTo(0, 0);
-  }, []);
+  useScrollTopOnMount();
 
   return (
     <div className="github-page page-wrapper">
