@@ -22,6 +22,14 @@ export function BooksPage() {
         <div className="book-meta">
           <span className="book-count">{filtered.length}권</span>
           <div className="book-tags">
+            <button
+              type="button"
+              className={`book-tag${activeTag === null ? ' active' : ''}`}
+              onClick={() => setActiveTag(null)}
+              aria-pressed={activeTag === null}
+            >
+              전체
+            </button>
             {FILTER_TAGS.map(tag => (
               <button
                 key={tag}
