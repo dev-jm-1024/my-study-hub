@@ -119,4 +119,14 @@ export const BOOKS: BookItem[] = [
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000212911507',
     icon: 'fa-solid fa-book',
   },
+  {
+    title: 'Real MySQL 8.0 (1권)(전면개정판)',
+    author: '백은빈, 이성욱',
+    publisher: '위키북스',
+    description: '개발자와 DBA를 위한 MySQL 실전 가이드',
+    coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158392703.jpg',
+    purchaseUrl: 'http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791158392703',
+    icon: 'fa-solid fa-book',
+    tags: ['Database'],
+  },
 ];
