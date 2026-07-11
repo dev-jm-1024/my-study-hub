@@ -2,7 +2,7 @@ import { useState, useMemo } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, ArrowRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
-import { DESC, GROUP_ORDER, tintClass } from '../data/topics';
+import { ALIASES, DESC, GROUP_ORDER, tintClass } from '../data/topics';
 import { ProfileCard } from '../components/ProfileCard';
 import { StackRatio } from '../components/StackRatio';
 import { Clock } from '../components/Clock';
@@ -24,7 +24,8 @@ export function HomePage() {
     return MENUS.filter(m =>
       m.name.toLowerCase().includes(query) ||
       (DESC[m.key] ?? '').toLowerCase().includes(query) ||
-      m.group.toLowerCase().includes(query)
+      m.group.toLowerCase().includes(query) ||
+      (ALIASES[m.key] ?? []).some(alias => alias.toLowerCase().includes(query))
     );
   }, [query]);
 

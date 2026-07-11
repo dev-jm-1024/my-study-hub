@@ -26,6 +26,19 @@ export const DESC: Record<string, string> = {
   exception: '예외 설계 · 핸드북',
 };
 
+/* 한글 검색 별칭 — 이름/설명/그룹이 영문이라 한글 검색어가 안 걸리는 경우 보완 */
+export const ALIASES: Record<string, string[]> = {
+  spring: ['스프링', '스프링부트'],
+  java: ['자바'],
+  kotlin: ['코틀린'],
+  linux: ['리눅스'],
+  oop: ['객체지향'],
+  kafka: ['카프카'],
+  network: ['네트워크'],
+  webserver: ['웹서버', '웹 서버'],
+  exception: ['예외', '예외처리'],
+};
+
 /* 홈/사이드바 그룹 노출 순서 */
 export const GROUP_ORDER = ['프로그래밍', '프레임워크', '데이터베이스', '인프라', '아키텍처', '테스팅'];
 
