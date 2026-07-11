@@ -35,7 +35,7 @@ export function BooksPage() {
                 key={tag}
                 type="button"
                 className={`book-tag${activeTag === tag ? ' active' : ''}`}
-                onClick={() => setActiveTag(prev => (prev === tag ? null : tag))}
+                onClick={() => setActiveTag(tag)}
                 aria-pressed={activeTag === tag}
               >
                 {tag}
