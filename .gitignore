@@ -39,3 +39,9 @@ out/
 ### React / Node ###
 node_modules/
 static-react/
+
+### macOS ###
+.DS_Store
+
+## DOC
+*.md

@@ -23,6 +23,11 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { icon: 'fa-solid fa-file-pdf', title: '8. Spring Scheduler', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/Spring_Scheduler.pdf' },
     { icon: 'fa-solid fa-file-pdf', title: '9. WebClient', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/WebClient.pdf' },
     { icon: 'fa-solid fa-file-pdf', title: '10. RestClient', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/RestClient.pdf' },
+    { icon: 'fa-solid fa-filter', title: 'Filter/Interceptor - 1. Filter 의 개념과 동작 위치', description: '요청 앞뒤에 개입하는 서블릿 표준 구성 요소', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/spring_filter_interceptor_01.pdf' },
+    { icon: 'fa-solid fa-filter', title: 'Filter/Interceptor - 2. Dispatch, Forward 와 Redirect', description: '요청을 넘기는 세 가지 방식과 차이', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/spring_filter_interceptor_02.pdf' },
+    { icon: 'fa-solid fa-memory', title: 'Spring Cache', description: '어노테이션 기반 메소드 레벨 캐싱', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/Spring_Cache.pdf' },
+    { icon: 'fa-solid fa-memory', title: 'Caffeine', description: 'Spring의 기본 로컬 캐시 구현체', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/Caffeine.pdf' },
+    { icon: 'fa-solid fa-memory', title: 'Caffeine : Window TinyLFU', description: 'Caffeine이 빠른 진짜 이유', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/Caffeine_Window%20TinyLFU.pdf' },
   ],
   java: [
     { icon: 'fa-solid fa-history', title: '1. 자바 역사 간단하게 보기', description: '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/ch01_%EC%9E%90%EB%B0%94%EC%9D%98_%EC%97%AD%EC%82%AC%EB%A5%BC_%EA%B0%84%EB%8B%A8%ED%9E%88_%EC%9E%90%EB%B0%94%EB%B3%B4%EC%9E%90.pdf' },
@@ -47,6 +52,9 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { icon: 'fa-solid fa-microchip', title: 'JVM - 1. JVM은 어떤 기계인가', description: '추상 머신, 바이트코드, 플랫폼 독립성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/0_JVM.pdf' },
     { icon: 'fa-solid fa-microchip', title: 'JVM - 2. 클래스 로더 서브시스템', description: '로딩·링킹·초기화와 부모 위임 모델', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/1_JVM.pdf' },
     { icon: 'fa-solid fa-microchip', title: 'JVM - 3. 런타임 데이터 영역과 실행 엔진', description: '공유 영역 vs 스레드별 영역', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/2_JVM.pdf' },
+    { icon: 'fa-solid fa-boxes-stacked', title: '컬렉션 - 0. Introduction to Collections', description: '컬렉션과 컬렉션 프레임워크란 무엇인가', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/collection_0.pdf' },
+    { icon: 'fa-solid fa-boxes-stacked', title: '컬렉션 - 1. Collection Interfaces', description: '핵심 컬렉션 인터페이스 — 계약과 주의사항', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/collection_1.pdf' },
+    { icon: 'fa-solid fa-boxes-stacked', title: '컬렉션 - 2. Collection Implementations', description: '컬렉션 구현체 선택', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/collection_2.pdf' },
   ],
   kotlin: [
     { icon: 'fa-solid fa-code', title: 'KotlinEssentials.kt', description: '변수, 함수, 조건문, 반복문까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-1.pdf' },
