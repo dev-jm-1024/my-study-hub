@@ -33,4 +33,12 @@ export interface BookItem {
   tags?: string[];
 }
 
+export interface CategoryNotice {
+  /** 생략 시 '공지' 라벨만 표시 */
+  title?: string;
+  body: string;
+  /** 본문 아래에 붙는 외부 링크 */
+  link?: { label: string; href: string };
+}
+
 export type Theme = 'light' | 'dark';

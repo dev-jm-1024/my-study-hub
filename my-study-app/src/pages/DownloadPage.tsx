@@ -1,11 +1,12 @@
 import { useEffect, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Menu, Download, Clock, ChevronRight, ChevronLeft, Eye } from 'lucide-react';
+import { Menu, Download, Clock, ChevronRight, ChevronLeft, Eye, Megaphone, ExternalLink } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
 import { PdfPreview } from '../components/PdfPreview';
 import { NotFoundPage } from './NotFoundPage';
 import { MENUS, MENU_DATA } from '../data/menuData';
 import { badgeLabel, tintClass, DOWNLOAD_PAGE_SIZE } from '../data/topics';
+import { NOTICES } from '../data/notices';
 import { resolveCategoryKey, matchesKey } from '../utils/category';
 import { triggerDownload } from '../utils/download';
 import { usePagination } from '../hooks/usePagination';
@@ -27,6 +28,7 @@ export function DownloadPage() {
   const key = menuInfo?.key ?? category;
   const name = menuInfo?.name ?? category;
   const tint = tintClass(key);
+  const notice = NOTICES[resolvedKey];
 
   const { page, setPage, totalPages, pageItems: pagePdfs, goPage } = usePagination(pdfs, DOWNLOAD_PAGE_SIZE);
 
@@ -76,6 +78,30 @@ export function DownloadPage() {
           </div>
           <span className="dl-count">{pdfs.length}개 문서</span>
         </header>
+
+        {/* 카테고리 공지 */}
+        {notice && (
+          <aside className={`dl-notice home-anim ${tint}`} aria-label={notice.title ?? '공지'}>
+            <span className="dl-notice-icon" aria-hidden="true">
+              <Megaphone size={15} />
+            </span>
+            <div className="dl-notice-body">
+              <span className="dl-notice-label">{notice.title ?? '공지'}</span>
+              <p className="dl-notice-text">{notice.body}</p>
+              {notice.link && (
+                <a
+                  className="dl-notice-link"
+                  href={notice.link.href}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                >
+                  {notice.link.label}
+                  <ExternalLink size={13} />
+                </a>
+              )}
+            </div>
+          </aside>
+        )}
 
         {/* PDF 리스트 */}
         {pdfs.length === 0 ? (
