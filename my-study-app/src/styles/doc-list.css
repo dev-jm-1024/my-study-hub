@@ -216,6 +216,31 @@
 }
 .dl-empty p { margin: 0; font-size: var(--font-size-sm); }
 
+/* 자료실 소분류 (PdfItem.section) — 홈 섹션 헤더 톤 */
+.dl-section { max-width: 820px; margin: 0 auto; }
+.dl-section + .dl-section { margin-top: var(--spacing-xl); }
+.dl-section-head {
+  display: flex;
+  align-items: baseline;
+  gap: 8px;
+  margin: 0 0 var(--spacing-sm);
+  padding: 0 4px;
+}
+.dl-section-title {
+  font-size: 0.78rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  margin: 0;
+}
+.dl-section-count {
+  font-size: 0.72rem;
+  font-weight: 600;
+  color: var(--text-muted);
+  font-variant-numeric: tabular-nums;
+}
+
 /* 페이지네이션 */
 .dl-pager {
   max-width: 820px;

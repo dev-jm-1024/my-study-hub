@@ -27,7 +27,7 @@ function buildIndex(): Result[] {
         catKey: m.key,
         catName: m.name,
         title: pdf.title,
-        sub: `${m.name} · ${pdf.description}`,
+        sub: [m.name, pdf.section, pdf.description].filter(Boolean).join(' · '),
       });
     });
   }

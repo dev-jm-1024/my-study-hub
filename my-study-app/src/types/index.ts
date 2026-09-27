@@ -6,6 +6,8 @@ export interface MenuItem {
 }
 
 export interface PdfItem {
+  /** 자료실 안 소분류. 한 항목이라도 있으면 해당 카테고리는 소제목별로 묶어 보여준다(페이징 없음) */
+  section?: string;
   icon: string;
   title: string;
   description: string;

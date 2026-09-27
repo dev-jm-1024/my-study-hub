@@ -10,6 +10,63 @@ import { NOTICES } from '../data/notices';
 import { resolveCategoryKey, matchesKey } from '../utils/category';
 import { triggerDownload } from '../utils/download';
 import { usePagination } from '../hooks/usePagination';
+import type { PdfItem } from '../types';
+
+/* section 필드가 하나라도 있으면 소제목별로 묶는다(첫 등장 순서 유지). 없으면 null → 기존 페이징 목록 */
+function groupBySection(items: PdfItem[]) {
+  if (!items.some(p => p.section)) return null;
+  const groups = new Map<string, PdfItem[]>();
+  for (const p of items) {
+    const name = p.section ?? '기타';
+    groups.set(name, [...(groups.get(name) ?? []), p]);
+  }
+  return [...groups].map(([name, items]) => ({ name, items }));
+}
+
+interface DocRowProps {
+  pdf: PdfItem;
+  num: number;
+  tint: string;
+  onPreview: (pdf: PdfItem) => void;
+}
+
+function DocRow({ pdf, num, tint, onPreview }: DocRowProps) {
+  return (
+    <div className={`dl-row home-anim ${tint}`}>
+      <div className="dl-badge dl-badge-num">{num}</div>
+      <div className="dl-main">
+        <div className="dl-row-title">{pdf.title}</div>
+        <div className="dl-row-desc">{pdf.description}</div>
+      </div>
+      <div className="dl-actions">
+        {pdf.pdfUrl && (
+          <button
+            className="dl-preview"
+            onClick={() => onPreview(pdf)}
+            aria-label="미리보기"
+            title="미리보기"
+          >
+            <Eye size={17} />
+          </button>
+        )}
+        <button
+          className="dl-btn"
+          disabled={!pdf.pdfUrl}
+          onClick={() => triggerDownload(pdf.pdfUrl, pdf.title)}
+        >
+          {pdf.pdfUrl ? (
+            <>
+              <Download size={15} />
+              <span>다운로드</span>
+            </>
+          ) : (
+            '준비 중'
+          )}
+        </button>
+      </div>
+    </div>
+  );
+}
 
 export function DownloadPage() {
   const { category = '' } = useParams<{ category: string }>();
@@ -31,6 +88,11 @@ export function DownloadPage() {
   const notice = NOTICES[resolvedKey];
 
   const { page, setPage, totalPages, pageItems: pagePdfs, goPage } = usePagination(pdfs, DOWNLOAD_PAGE_SIZE);
+  const sections = groupBySection(pdfs);
+
+  // 소분류 안에서는 제목에 시리즈명이 빠져 있으므로 미리보기 헤더에 소분류를 붙여 맥락을 유지
+  const openPreview = (pdf: PdfItem) =>
+    setPreview({ title: pdf.section ? `${pdf.section} · ${pdf.title}` : pdf.title, url: pdf.pdfUrl });
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -109,43 +171,32 @@ export function DownloadPage() {
             <Clock size={22} />
             <p>준비 중인 문서입니다.</p>
           </div>
+        ) : sections ? (
+          /* 소분류가 있으면 소제목별로 묶고 페이징 없이 전부 노출 */
+          sections.map(({ name: sectionName, items }) => (
+            <section key={sectionName} className="dl-section">
+              <div className="dl-section-head home-anim">
+                <h2 className="dl-section-title">{sectionName}</h2>
+                <span className="dl-section-count">{items.length}</span>
+              </div>
+              <div className="dl-list">
+                {items.map((pdf, idx) => (
+                  <DocRow key={idx} pdf={pdf} num={idx + 1} tint={tint} onPreview={openPreview} />
+                ))}
+              </div>
+            </section>
+          ))
         ) : (
           <>
           <div className="dl-list">
             {pagePdfs.map((pdf, idx) => (
-              <div key={(page - 1) * DOWNLOAD_PAGE_SIZE + idx} className={`dl-row home-anim ${tint}`}>
-                <div className="dl-badge dl-badge-num">{(page - 1) * DOWNLOAD_PAGE_SIZE + idx + 1}</div>
-                <div className="dl-main">
-                  <div className="dl-row-title">{pdf.title}</div>
-                  <div className="dl-row-desc">{pdf.description}</div>
-                </div>
-                <div className="dl-actions">
-                  {pdf.pdfUrl && (
-                    <button
-                      className="dl-preview"
-                      onClick={() => setPreview({ title: pdf.title, url: pdf.pdfUrl })}
-                      aria-label="미리보기"
-                      title="미리보기"
-                    >
-                      <Eye size={17} />
-                    </button>
-                  )}
-                  <button
-                    className="dl-btn"
-                    disabled={!pdf.pdfUrl}
-                    onClick={() => triggerDownload(pdf.pdfUrl, pdf.title)}
-                  >
-                    {pdf.pdfUrl ? (
-                      <>
-                        <Download size={15} />
-                        <span>다운로드</span>
-                      </>
-                    ) : (
-                      '준비 중'
-                    )}
-                  </button>
-                </div>
-              </div>
+              <DocRow
+                key={(page - 1) * DOWNLOAD_PAGE_SIZE + idx}
+                pdf={pdf}
+                num={(page - 1) * DOWNLOAD_PAGE_SIZE + idx + 1}
+                tint={tint}
+                onPreview={openPreview}
+              />
             ))}
           </div>
 
