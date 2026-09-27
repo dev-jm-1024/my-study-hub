@@ -13,15 +13,15 @@ const MENU_DATA = {
         { icon: 'fa-solid fa-plug', title: 'WebSocket 실시간 통신', description: '양방향 통신', pdfUrl: 'https://plusb3b.kr/pdf/api/WebSocket.pdf' },
     ],
     spring: [
-        { icon: 'fa-solid fa-file-pdf', title: '1. 스프링부트 시작', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-1-new.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '2. 웹 애플리케이션 개발', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-2-new.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '3. 데이터로 작업하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
-        //{ icon: 'fa-solid fa-file-pdf', title: '3.1 Spring Data JPA - 페이징', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
-        //{ icon: 'fa-solid fa-file-pdf', title: '3.2 Spring Data JPA - Dirty Checking', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-3-new.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '4. Spring Security', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-4.pdf' },
-        { icon: 'fa-solid fa-file-pdf', title: '5. 자동-구성속성 이용하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-5-new.pdf\n' },
-        { icon: 'fa-solid fa-file-pdf', title: '6. REST API 1', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-6-new.pdf\n' },
-        { icon: 'fa-solid fa-file-pdf', title: '7. RestTemplate', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/springboot-doc/springboot-7-new.pdf\n' },
+        { icon: 'fa-solid fa-file-pdf', title: '1. 스프링부트 시작', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-1-new.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '2. 웹 애플리케이션 개발', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-2-new.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '3. 데이터로 작업하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-3-new.pdf' },
+        //{ icon: 'fa-solid fa-file-pdf', title: '3.1 Spring Data JPA - 페이징', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-3-new.pdf' },
+        //{ icon: 'fa-solid fa-file-pdf', title: '3.2 Spring Data JPA - Dirty Checking', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-3-new.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '4. Spring Security', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-4.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '5. 자동-구성속성 이용하기', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-5-new.pdf\n' },
+        { icon: 'fa-solid fa-file-pdf', title: '6. REST API 1', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-6-new.pdf\n' },
+        { icon: 'fa-solid fa-file-pdf', title: '7. RestTemplate', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/springboot-7-new.pdf\n' },
         //{ icon: 'fa-solid fa-clock', title: '8. 비동기 방식으로 메시지 수신하기', description: 'PDF 다운 받기', pdfUrl: '' },
         //{ icon: 'fa-solid fa-clock', title: 'Spring AOP Proxy', description: 'PDF 다운 받기', pdfUrl: '' },
         //{ icon: 'fa-solid fa-clock', title: 'Spring Cache', description: 'PDF 다운 받기', pdfUrl: '' },
@@ -29,9 +29,9 @@ const MENU_DATA = {
         //{ icon: 'fa-solid fa-clock', title: 'Caffeine Window Tiny LFU 알고리즘', description: 'PDF 다운 받기', pdfUrl: '' },
     ],
     java: [
-        { icon: 'fa-solid fa-history', title: '1. 자바 역사 간단하게 보기', description: '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/ch01_%EC%9E%90%EB%B0%94%EC%9D%98_%EC%97%AD%EC%82%AC%EB%A5%BC_%EA%B0%84%EB%8B%A8%ED%9E%88_%EC%9E%90%EB%B0%94%EB%B3%B4%EC%9E%90.pdf' },
-        { icon: 'fa-solid fa-cogs', title: '2. 동작 파라미터화 코드 전달', description: 'Predicate, 전략 패턴, 람다까지 동작 파라미터화', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/ch02_%EB%8F%99%EC%9E%91_%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%ED%99%94_%EC%BD%94%EB%93%9C_%EC%A0%84%EB%8B%AC%ED%95%98%EA%B8%B0-%EB%84%88%EC%9D%98_%ED%96%89%EB%8F%99%EC%9D%84_%EA%B0%80%EC%A0%B8%EC%98%A4%EB%A0%B4.pdf' },
-        { icon: 'fa-solid fa-bolt', title: '3. 람다 표현식', description: '람다, 함수형 인터페이스, 메소드 참조', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/modern-java-doc/ch03_%EB%9E%8C%EB%8B%A4%ED%91%9C%ED%98%84%EC%8B%9D.pdf' },
+        { icon: 'fa-solid fa-history', title: '1. 자바 역사 간단하게 보기', description: '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/ch01_%EC%9E%90%EB%B0%94%EC%9D%98_%EC%97%AD%EC%82%AC%EB%A5%BC_%EA%B0%84%EB%8B%A8%ED%9E%88_%EC%9E%90%EB%B0%94%EB%B3%B4%EC%9E%90.pdf' },
+        { icon: 'fa-solid fa-cogs', title: '2. 동작 파라미터화 코드 전달', description: 'Predicate, 전략 패턴, 람다까지 동작 파라미터화', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/ch02_%EB%8F%99%EC%9E%91_%ED%8C%8C%EB%9D%BC%EB%AF%B8%ED%84%B0%ED%99%94_%EC%BD%94%EB%93%9C_%EC%A0%84%EB%8B%AC%ED%95%98%EA%B8%B0-%EB%84%88%EC%9D%98_%ED%96%89%EB%8F%99%EC%9D%84_%EA%B0%80%EC%A0%B8%EC%98%A4%EB%A0%B4.pdf' },
+        { icon: 'fa-solid fa-bolt', title: '3. 람다 표현식', description: '람다, 함수형 인터페이스, 메소드 참조', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/ch03_%EB%9E%8C%EB%8B%A4%ED%91%9C%ED%98%84%EC%8B%9D.pdf' },
         { icon: 'fa-solid fa-water', title: '4. 스트림 소개팅', description: '스트림 개념, 내부 반복, 파이프라인, 컬렉션과의 차이', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch04_%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%86%8C%EA%B0%9C%ED%95%98%EA%B8%B0_%EC%8A%A4%ED%8C%80%EB%8B%A4%EB%A6%AC%EB%AF%B8%EB%8A%94%EC%95%84%EB%8A%94%EB%8D%B0_%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9D%80%EB%AD%98%EA%B9%8C.pdf' },
         { icon: 'fa-solid fa-stream', title: '5. 스트림과 데이트', description: '필터링, 매핑, 리듀싱부터 고급 스트림 연산', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch05_%EC%8A%A4%ED%8A%B8%EB%A6%BC%ED%99%9C%EC%9A%A9%ED%95%98%EA%B8%B0_%EC%8A%A4%ED%8A%B8%EB%A6%BC%EA%B3%BC_%EC%B9%9C%EA%B5%AC%EB%90%98%EC%96%B4%EB%B3%B4%EA%B8%B0.pdf' },
         { icon: 'fa-solid fa-stream', title: '6. 스트림과 결혼', description: '리듀싱·요약, 그룹화와 Collector 동작 원리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/modern-java/main/JavaStudy/doc/ch06_%EC%8A%A4%ED%8A%B8%EB%A6%BC%EC%9C%BC%EB%A1%9C_%EB%8D%B0%EC%9D%B4%ED%84%B0%EC%88%98%EC%A7%91%ED%95%98%EA%B8%B0.pdf' },
@@ -45,16 +45,16 @@ const MENU_DATA = {
 
     ],
     kotlin: [
-        { icon: 'fa-solid fa-code', title: 'KotlinEssentials.kt', description: '변수, 함수, 조건문, 반복문까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-1.pdf' },
-        { icon: 'fa-solid fa-database', title: 'KotlinAdvanced.kt', description: '초기화 지연부터 컬렉션, Null 처리까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-2.pdf' },
+        { icon: 'fa-solid fa-code', title: 'KotlinEssentials.kt', description: '변수, 함수, 조건문, 반복문까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-1.pdf' },
+        { icon: 'fa-solid fa-database', title: 'KotlinAdvanced.kt', description: '초기화 지연부터 컬렉션, Null 처리까지 문법 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kotlin-doc/%EB%8F%85%ED%95%99-Kotlin-2.pdf' },
     ],
     linux: [
-        { icon: 'fa-solid fa-file-pdf', title: '$ cat linux-basics.pdf', description: '기본 명령어 모음집', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/linux-doc/linux-1-1.pdf' },
-        { icon: 'fa-solid fa-folder-open', title: '$ ls -la filesystem.pdf', description: '파일 시스템 완전 정복', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/linux-doc/linux-1-2.pdf' },
-        { icon: 'fa-solid fa-terminal', title: '$ chmod 755 permissions.pdf', description: '사용자 권한 마스터', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/linux-doc/linux-2-1.pdf' },
-        { icon: 'fa-solid fa-network-wired', title: '$ ifconfig network.pdf', description: '네트워크 설정 가이드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/linux-doc/linux-2-2.pdf' },
-        { icon: 'fa-solid fa-cogs', title: '$ systemctl services.pdf', description: '서비스 관리 완벽 가이드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/linux-doc/linux-3-1.pdf' },
-        { icon: 'fa-solid fa-code', title: '$ vim scripts.pdf', description: '쉘 스크립트 작성법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/linux-doc/linux-3-2.pdf' },
+        { icon: 'fa-solid fa-file-pdf', title: '$ cat linux-basics.pdf', description: '기본 명령어 모음집', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/linux-doc/linux-1-1.pdf' },
+        { icon: 'fa-solid fa-folder-open', title: '$ ls -la filesystem.pdf', description: '파일 시스템 완전 정복', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/linux-doc/linux-1-2.pdf' },
+        { icon: 'fa-solid fa-terminal', title: '$ chmod 755 permissions.pdf', description: '사용자 권한 마스터', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/linux-doc/linux-2-1.pdf' },
+        { icon: 'fa-solid fa-network-wired', title: '$ ifconfig network.pdf', description: '네트워크 설정 가이드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/linux-doc/linux-2-2.pdf' },
+        { icon: 'fa-solid fa-cogs', title: '$ systemctl services.pdf', description: '서비스 관리 완벽 가이드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/linux-doc/linux-3-1.pdf' },
+        { icon: 'fa-solid fa-code', title: '$ vim scripts.pdf', description: '쉘 스크립트 작성법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/linux-doc/linux-3-2.pdf' },
     ],
     jsp: [
         { icon: 'fa-solid fa-globe-americas', title: '1.1 웹 개발 환경 이해', description: '웹 프로그래밍 개요, URL 구조, 개발 환경 설정', pdfUrl: 'https://plusb3b.kr/pdf/jsp/jsp-1-1.pdf' },
@@ -73,12 +73,12 @@ const MENU_DATA = {
     ],
 
     mysql: [
-        { icon: 'fa-solid fa-server', title: 'MySQL Setup 가이드', description: 'MySQL 8.0을 Windows에 설치하는 방법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/mysql-setup.pdf' },
-        { icon: 'fa-solid fa-user-shield', title: 'MySQL 8.0 - 사용자 권한', description: '사용자 식별, 권한 부여, 역할까지 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B6%8C%ED%95%9C.pdf' },
-        { icon: 'fa-solid fa-link', title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/join.pdf' },
-        { icon: 'fa-solid fa-rotate-left', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/transaction.pdf' },
-        { icon: 'fa-solid fa-sitemap', title: '우리 인덱스 타러갈까?', description: '인덱스란 무엇인가', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
-        //{ icon: 'fa-solid fa-sitemap', title: 'Innodb 스토리지 엔진 잠금', description: '잠궈버리겠어...', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/mysql-doc/index.pdf' },
+        { icon: 'fa-solid fa-server', title: 'MySQL Setup 가이드', description: 'MySQL 8.0을 Windows에 설치하는 방법', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/mysql-setup.pdf' },
+        { icon: 'fa-solid fa-user-shield', title: 'MySQL 8.0 - 사용자 권한', description: '사용자 식별, 권한 부여, 역할까지 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/%EC%82%AC%EC%9A%A9%EC%9E%90%EA%B6%8C%ED%95%9C.pdf' },
+        { icon: 'fa-solid fa-link', title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/join.pdf' },
+        { icon: 'fa-solid fa-rotate-left', title: '트랜스지방 아니고 트랜잭션', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/transaction.pdf' },
+        { icon: 'fa-solid fa-sitemap', title: '우리 인덱스 타러갈까?', description: '인덱스란 무엇인가', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/index.pdf' },
+        //{ icon: 'fa-solid fa-sitemap', title: 'Innodb 스토리지 엔진 잠금', description: '잠궈버리겠어...', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/index.pdf' },
 
     ],
     mongodb: [
@@ -89,9 +89,9 @@ const MENU_DATA = {
     ],
     oop: [
         { icon: 'fa-solid fa-code-branch', title: '1. 절차지향 vs 객체지향', description: 'TDA 원칙과 책임 중심 설계로 객체지향 구현', pdfUrl: 'https://plusb3b.kr/pdf/oop/oop1.pdf' },
-        { icon: 'fa-solid fa-cubes', title: '2. 객체의 종류', description: 'VO, DTO, DAO, Entity의 본질과 올바른 활용법', pdfUrl: 'https://github.com/dev-jm-1024/pdf-download-page/raw/main/oop-doc/oop-2.pdf' },
-        { icon: 'fa-solid fa-running', title: '3. 행동', description: '데이터가 아닌 행동 중심 설계와 TDA, 덕 타이핑', pdfUrl: 'https://github.com/dev-jm-1024/pdf-download-page/raw/main/oop-doc/oop-3.pdf' },
-        { icon: 'fa-solid fa-cubes', title: '4. SOLID', description: '객체지향 설계의 핵심 원칙: SOLID', pdfUrl: 'https://github.com/dev-jm-1024/pdf-download-page/raw/main/oop-doc/oop-4.pdf' },
+        { icon: 'fa-solid fa-cubes', title: '2. 객체의 종류', description: 'VO, DTO, DAO, Entity의 본질과 올바른 활용법', pdfUrl: 'https://github.com/dev-jm-1024/study-doc-hub/raw/main/oop-doc/oop-2.pdf' },
+        { icon: 'fa-solid fa-running', title: '3. 행동', description: '데이터가 아닌 행동 중심 설계와 TDA, 덕 타이핑', pdfUrl: 'https://github.com/dev-jm-1024/study-doc-hub/raw/main/oop-doc/oop-3.pdf' },
+        { icon: 'fa-solid fa-cubes', title: '4. SOLID', description: '객체지향 설계의 핵심 원칙: SOLID', pdfUrl: 'https://github.com/dev-jm-1024/study-doc-hub/raw/main/oop-doc/oop-4.pdf' },
         // { icon: 'fa-solid fa-layer-group', title: '다형성', description: '오버로딩과 오버라이딩', pdfUrl: '' },
         // { icon: 'fa-solid fa-shapes', title: '추상화', description: '인터페이스와 추상 클래스', pdfUrl: '' },
     ],
@@ -101,24 +101,24 @@ const MENU_DATA = {
             icon: 'fa-solid fa-stream',
             title: 'Kafka란?',
             description: '대용량 이벤트 스트리밍 플랫폼의 개념과 구조',
-            pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kafka-doc/ch01-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80.pdf'
+            pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kafka-doc/ch01-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80.pdf'
         },
         {
             icon: 'fa-solid fa-layer-group',
             title: '왜 Kafka를 공부해야 하는가',
             description: 'RabbitMQ, Redis와의 차이점 및 Kafka의 필요성',
-            pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/kafka-doc/ch02-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%A5%BC%EA%B3%B5%EB%B6%80%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94%EC%9D%B4%EC%9C%A0.pdf'
+            pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kafka-doc/ch02-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%A5%BC%EA%B3%B5%EB%B6%80%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94%EC%9D%B4%EC%9C%A0.pdf'
         }
     ],
 
     network: [
-        { icon: 'fa-solid fa-project-diagram', title: '1. 컴퓨터 네트워크', description: '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/network-doc/network-1.pdf' },
+        { icon: 'fa-solid fa-project-diagram', title: '1. 컴퓨터 네트워크', description: '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/network-doc/network-1.pdf' },
     ],
     JUnit: [
-        { icon: 'fa-solid fa-vial', title: '1. 단위테스트란?', description: 'JUnit 단위 테스트 기초 개념', pdfUrl: 'https://github.com/dev-jm-1024/pdf-download-page/raw/main/junit-doc/ch1_%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8.pdf' },
+        { icon: 'fa-solid fa-vial', title: '1. 단위테스트란?', description: 'JUnit 단위 테스트 기초 개념', pdfUrl: 'https://github.com/dev-jm-1024/study-doc-hub/raw/main/junit-doc/ch1_%EB%8B%A8%EC%9C%84%ED%85%8C%EC%8A%A4%ED%8A%B8.pdf' },
     ],
     error: [
-        { icon: 'fa-solid fa-bug', title: 'debugSpringBoot()', description: 'Spring Boot에서 자주 발생하는 오류를 중심으로 실전 디버깅 전략과 설정 문제 해결 방법을 학습합니다.', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/pdf-download-page/main/error-doc/2025-%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8-%EB%94%94%EB%B2%84%EA%B9%85%ED%95%B8%EB%93%9C%EB%B6%81.pdf' },
+        { icon: 'fa-solid fa-bug', title: 'debugSpringBoot()', description: 'Spring Boot에서 자주 발생하는 오류를 중심으로 실전 디버깅 전략과 설정 문제 해결 방법을 학습합니다.', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/error-doc/2025-%EC%BA%A1%EC%8A%A4%ED%86%A4%EB%94%94%EC%9E%90%EC%9D%B8-%EB%94%94%EB%B2%84%EA%B9%85%ED%95%B8%EB%93%9C%EB%B6%81.pdf' },
     ],
     github: [
         { icon: 'fa-brands fa-java', title: 'modern-java', description: 'Modern Java 학습을 위한 실습 코드 모음', repoUrl: 'https://github.com/dev-jm-1024/modern-java', language: 'Java', stars: 0 },
