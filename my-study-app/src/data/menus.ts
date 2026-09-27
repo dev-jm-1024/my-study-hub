@@ -13,6 +13,7 @@ export const MENUS: MenuItem[] = [
   { key: 'kafka',     name: 'Kafka',             group: '인프라',      icon: 'fa-solid fa-stream' },
   { key: 'network',   name: 'Network',           group: '인프라',      icon: 'fa-solid fa-network-wired' },
   { key: 'webserver', name: 'Web Server',        group: '인프라',      icon: 'fa-solid fa-server' },
+  { key: 'docker',    name: 'Docker',            group: '인프라',      icon: 'fa-brands fa-docker' },
   { key: 'querydsl',  name: 'QueryDSL',          group: '데이터베이스', icon: 'fa-solid fa-database' },
   { key: 'JUnit',     name: 'JUnit',             group: '테스팅',      icon: 'fa-solid fa-vial' },
   { key: 'exception', name: '예외처리 핸드북',  group: '테스팅',      icon: 'fa-solid fa-bug' },

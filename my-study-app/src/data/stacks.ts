@@ -8,6 +8,7 @@ import {
   siKotlin,
   siLinux,
   siNginx,
+  siDocker,
 } from 'simple-icons';
 
 export interface StackVisual {
@@ -26,6 +27,7 @@ export const STACK: Record<string, StackVisual> = {
   kotlin:    { color: '#7F52FF', icon: siKotlin },
   linux:     { color: '#C99700', icon: siLinux },       // 원색 노랑 → 진한 골드
   webserver: { color: '#009639', icon: siNginx },
+  docker:    { color: '#2496ED', icon: siDocker },
   // 로고 없음 → 브랜드/상징 색상 + 모노그램
   java:      { color: '#E76F00' },
   jsp:       { color: '#C74634' },

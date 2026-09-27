@@ -4,7 +4,7 @@
 export const BADGE: Record<string, string> = {
   api: 'Ap', spring: 'Sp', java: 'Jv', kotlin: 'Kt', linux: 'Lx', jsp: 'Jp',
   mysql: 'My', mongodb: 'Mo', oop: 'OO', kafka: 'Kf', network: 'Nw',
-  webserver: 'Ws', querydsl: 'Qd', JUnit: 'Ju', exception: 'Ex',
+  webserver: 'Ws', docker: 'Dk', querydsl: 'Qd', JUnit: 'Ju', exception: 'Ex',
 };
 
 /* 주제별 한 줄 설명 */
@@ -21,6 +21,7 @@ export const DESC: Record<string, string> = {
   kafka: '이벤트 스트리밍 · 개념과 구조',
   network: 'OSI 7계층 · 프로토콜',
   webserver: 'Nginx vs Apache',
+  docker: '가상화 · 컨테이너',
   querydsl: 'Q타입 · 동적 쿼리',
   JUnit: '단위 테스트 기초',
   exception: '예외 설계 · 핸드북',
@@ -36,6 +37,7 @@ export const ALIASES: Record<string, string[]> = {
   kafka: ['카프카'],
   network: ['네트워크'],
   webserver: ['웹서버', '웹 서버'],
+  docker: ['도커', '컨테이너'],
   exception: ['예외', '예외처리'],
 };
 
