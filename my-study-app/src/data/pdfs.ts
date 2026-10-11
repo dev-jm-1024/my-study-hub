@@ -29,6 +29,7 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { section: 'Filter / Interceptor', icon: 'fa-solid fa-filter', title: '5. WebMvcConfigurer를 통한 인터셉터 등록과 경로패턴 설정', description: 'HandlerInterceptor 등록, 경로 패턴, Java·XML 설정 차이', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/spring_filter_interceptor_05.pdf' },
     { section: 'Filter / Interceptor', icon: 'fa-solid fa-filter', title: '6. 정리', description: '필터 vs 인터셉터 선택 기준과 보안을 필터에서 처리하는 이유', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/spring_filter_interceptor_06.pdf' },
     { section: 'AOP', icon: 'fa-solid fa-layer-group', title: '1. 왜 AOP 를 쓰는가?', description: 'crosscutting 관심사, AOP 핵심 용어와 Advice 종류', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/spring_aop_01.pdf' },
+    { section: 'AOP', icon: 'fa-solid fa-layer-group', title: '1-1. 왜 AOP 를 쓰는가? - 보완', description: 'Join point, Pointcut, Advice, Proxy, Weaving 용어 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/spring_aop_01_01.pdf' },
     { section: 'Cache', icon: 'fa-solid fa-memory', title: 'Spring Cache', description: '어노테이션 기반 메소드 레벨 캐싱', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/Spring_Cache.pdf' },
     { section: 'Cache', icon: 'fa-solid fa-memory', title: 'Caffeine', description: 'Spring의 기본 로컬 캐시 구현체', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/Caffeine.pdf' },
     { section: 'Cache', icon: 'fa-solid fa-memory', title: 'Caffeine : Window TinyLFU', description: 'Caffeine이 빠른 진짜 이유', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/Caffeine_Window%20TinyLFU.pdf' },
@@ -104,6 +105,10 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { icon: 'fa-solid fa-running', title: '3. 행동', description: '데이터가 아닌 행동 중심 설계와 TDA, 덕 타이핑', pdfUrl: 'https://github.com/dev-jm-1024/study-doc-hub/raw/main/oop-doc/oop-3.pdf' },
     { icon: 'fa-solid fa-cubes', title: '4. SOLID', description: '객체지향 설계의 핵심 원칙: SOLID', pdfUrl: 'https://github.com/dev-jm-1024/study-doc-hub/raw/main/oop-doc/oop-4.pdf' },
   ],
+  'system-design': [
+    { icon: 'fa-solid fa-diagram-project', title: '1. 사용자 수에 따른 규모 확장성', description: '단일 서버에서 로드밸런서, 캐시, CDN, 샤딩까지', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/system-design/Ch01.pdf' },
+    { icon: 'fa-solid fa-diagram-project', title: '1-1. 사용자 수에 따른 규모 확장성 - DNS', description: 'DNS 조회 과정과 캐시, DNS 레코드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/system-design/Ch01-DNS.pdf' },
+  ],
   kafka: [
     { icon: 'fa-solid fa-stream', title: 'Kafka란?', description: '대용량 이벤트 스트리밍 플랫폼의 개념과 구조', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kafka-doc/ch01-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80.pdf' },
     { icon: 'fa-solid fa-layer-group', title: '왜 Kafka를 공부해야 하는가', description: 'RabbitMQ, Redis와의 차이점 및 Kafka의 필요성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kafka-doc/ch02-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%A5%BC%EA%B3%B5%EB%B6%80%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94%EC%9D%B4%EC%9C%A0.pdf' },
@@ -116,6 +121,7 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
   ],
   docker: [
     { icon: 'fa-brands fa-docker', title: '1. 가상화 기술과 컨테이너 가상화', description: '서버, 하이퍼바이저 가상화와 컨테이너 가상화 비교', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/docker/docker_01.pdf' },
+    { icon: 'fa-brands fa-docker', title: '2. Docker 아키텍처와 컨테이너 실행', description: 'Client-Server 모델, 컨테이너 엔진·런타임, 실행과 삭제', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/docker/docker_02.pdf' },
   ],
   querydsl: [
     { icon: 'fa-solid fa-file-pdf', title: '1. Q클래스 (Q-Type) 동작 원리', description: 'Q-Type 클래스 생성 원리와 컴파일 타임 타입 안정성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/querydsl-doc/ch01_qclass.pdf' },

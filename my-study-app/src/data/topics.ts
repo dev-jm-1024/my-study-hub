@@ -3,7 +3,7 @@
 /* 2글자 모노그램 배지 */
 export const BADGE: Record<string, string> = {
   api: 'Ap', spring: 'Sp', java: 'Jv', kotlin: 'Kt', linux: 'Lx', jsp: 'Jp',
-  mysql: 'My', mongodb: 'Mo', oop: 'OO', kafka: 'Kf', network: 'Nw',
+  mysql: 'My', mongodb: 'Mo', oop: 'OO', 'system-design': 'Sd', kafka: 'Kf', network: 'Nw',
   webserver: 'Ws', docker: 'Dk', querydsl: 'Qd', JUnit: 'Ju', exception: 'Ex',
 };
 
@@ -18,6 +18,7 @@ export const DESC: Record<string, string> = {
   mysql: '인덱스 · 트랜잭션 · JOIN',
   mongodb: '도큐먼트 모델 · 시작하기',
   oop: '절차지향 vs 객체지향 · SOLID',
+  'system-design': '규모 확장 · DNS · 캐시 · CDN',
   kafka: '이벤트 스트리밍 · 개념과 구조',
   network: 'OSI 7계층 · 프로토콜',
   webserver: 'Nginx vs Apache',
@@ -34,6 +35,7 @@ export const ALIASES: Record<string, string[]> = {
   kotlin: ['코틀린'],
   linux: ['리눅스'],
   oop: ['객체지향'],
+  'system-design': ['대규모', '시스템 설계', '시스템디자인'],
   kafka: ['카프카'],
   network: ['네트워크'],
   webserver: ['웹서버', '웹 서버'],

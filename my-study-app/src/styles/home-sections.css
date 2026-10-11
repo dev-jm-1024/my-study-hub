@@ -159,7 +159,7 @@
 .t-mysql { --t: #4E86A8; } .t-mongodb { --t: #6AA06E; } .t-kafka { --t: #A6704A; }
 .t-network { --t: #6E7CA8; } .t-linux { --t: #B8873E; } .t-api { --t: #6683A0; }
 .t-exception { --t: #B0604E; } .t-webserver { --t: #6E8A82; } .t-querydsl { --t: #7C6EA8; }
-.t-docker { --t: #4A8CC4; }
+.t-docker { --t: #4A8CC4; } .t-system-design { --t: #4E9AA6; }
 .t-github { --t: #6E7C8A; }
 .t-vibe { --t: #8A63D2; }
 

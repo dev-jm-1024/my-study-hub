@@ -32,6 +32,7 @@ export const STACK: Record<string, StackVisual> = {
   java:      { color: '#E76F00' },
   jsp:       { color: '#C74634' },
   oop:       { color: '#6E7F92' },
+  'system-design': { color: '#3E8E9E' },
   network:   { color: '#6E7CA8' },
   api:       { color: '#6683A0' },
   querydsl:  { color: '#7C6EA8' },

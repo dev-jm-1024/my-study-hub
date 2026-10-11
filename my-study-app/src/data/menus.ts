@@ -10,6 +10,7 @@ export const MENUS: MenuItem[] = [
   { key: 'mysql',     name: 'MySQL',             group: '데이터베이스', icon: 'fa-solid fa-database' },
   { key: 'mongodb',   name: 'MongoDB',           group: '데이터베이스', icon: 'fa-solid fa-leaf' },
   { key: 'oop',       name: 'OOP',               group: '아키텍처',    icon: 'fa-solid fa-cubes' },
+  { key: 'system-design', name: '대규모 시스템 설계', group: '아키텍처', icon: 'fa-solid fa-diagram-project' },
   { key: 'kafka',     name: 'Kafka',             group: '인프라',      icon: 'fa-solid fa-stream' },
   { key: 'network',   name: 'Network',           group: '인프라',      icon: 'fa-solid fa-network-wired' },
   { key: 'webserver', name: 'Web Server',        group: '인프라',      icon: 'fa-solid fa-server' },
