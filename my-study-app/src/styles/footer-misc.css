@@ -1,6 +1,16 @@
 /* ══════════════════════════════════════════════════
    공통 푸터 / 위로가기 / 404
 ══════════════════════════════════════════════════ */
+/* 페이지가 짧아도 푸터는 화면 바닥에 — App.tsx의 .app-main이 남는 높이를 채운다
+   (body의 하단 safe-area 여백만큼 빼서 짧은 페이지에 스크롤이 생기지 않게) */
+#root {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - env(safe-area-inset-bottom, 0px));
+  min-height: calc(100dvh - env(safe-area-inset-bottom, 0px));
+}
+.app-main { flex: 1 0 auto; }
+
 .site-footer {
   border-top: 1px solid var(--border-glass);
   margin-top: var(--spacing-3xl);

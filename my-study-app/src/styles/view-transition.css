@@ -1,0 +1,80 @@
+/* ══════════════════════════════════════════════════
+   View Transitions — "문서 열기" 연출
+   전환 시작은 utils/viewTransition.ts, 전환 종류는 <html data-vt="...">
+   - page        : 홈의 행/카드 → 자료실 헤더 (dl-badge · dl-title · dl-count)
+   - sheet-open  : 문서 행 → PDF 미리보기 창 (pdf-sheet)
+   - sheet-close : 그 반대
+══════════════════════════════════════════════════ */
+
+/* 도착 쪽 이름은 고정하되 해당 전환 동안에만 붙인다 — 이름 붙은 요소는 바탕(root) 위로 떠서,
+   미리보기 전환 중에 헤더가 어두운 배경 위로 비치는 일을 막기 위해. 출발 쪽 이름은 클릭할 때 JS가 붙인다 */
+html[data-vt="page"] .dl-head-badge { view-transition-name: dl-badge; }
+html[data-vt="page"] .dl-title      { view-transition-name: dl-title; }
+html[data-vt="page"] .dl-count      { view-transition-name: dl-count; }
+html[data-vt^="sheet"] .pdfp-panel  { view-transition-name: pdf-sheet; }
+
+/* 페이지 이동 중 상단 바·사이드바는 제자리에 고정 (바탕과 함께 깜빡이지 않게) */
+html[data-vt="page"] .header  { view-transition-name: site-header; }
+html[data-vt="page"] .sidebar { view-transition-name: side-nav; }
+
+/* 페이지 바탕: 겹쳐 비치지 않도록 이전 화면이 먼저 빠지고 새 화면이 뒤따라 들어온다 */
+::view-transition-group(root) { animation-duration: 260ms; }
+html[data-vt="page"]::view-transition-old(root) { animation-duration: 120ms; }
+html[data-vt="page"]::view-transition-new(root) {
+  animation-delay: 100ms;
+  animation-duration: 240ms;
+}
+
+/* 이어지는 조각은 조금 길게 감속하며 자리를 찾아간다 */
+::view-transition-group(dl-badge),
+::view-transition-group(dl-title),
+::view-transition-group(dl-count),
+::view-transition-group(pdf-sheet) {
+  animation-duration: 440ms;
+  animation-timing-function: cubic-bezier(0.2, 0, 0, 1);
+}
+
+/* 글자 조각: 기본값(가로 100%)이면 길이가 다른 글자가 늘어나 보이므로 높이에 맞춰 비율 유지 */
+::view-transition-old(dl-title),
+::view-transition-new(dl-title) {
+  height: 100%;
+  width: auto;
+}
+::view-transition-old(dl-count),
+::view-transition-new(dl-count) {
+  height: 100%;
+  width: auto;
+  inset-inline: auto 0; /* 문서 수는 오른쪽 끝 기준 */
+}
+/* 길이가 다른 이전 글자가 새 글자 뒤로 오래 비치지 않게, 이전 쪽은 이동이 거의 끝날 즈음 사라진다 */
+::view-transition-old(dl-title),
+::view-transition-old(dl-count) { animation-duration: 220ms; }
+
+/* 문서 시트: 내용을 늘리지 않고(object-fit: none) 커지는 상자로 위에서부터 드러낸다.
+   전환 이미지는 넘친 부분을 자르지 않으므로 상자(image-pair)에서 직접 자른다 */
+::view-transition-image-pair(pdf-sheet) {
+  overflow: clip;
+  border-radius: var(--border-radius-lg);
+}
+@media (max-width: 560px) {
+  ::view-transition-image-pair(pdf-sheet) { border-radius: 0; } /* 모바일 미리보기는 전체 화면·각진 모서리 */
+}
+::view-transition-old(pdf-sheet),
+::view-transition-new(pdf-sheet) {
+  height: 100%;
+  object-fit: none;
+  object-position: top center;
+}
+/* 펼칠 때: 행 내용은 금방 빠진다 / 접을 때: 창은 줄어들며 옅어지고, 행 크기에 가까워지면 행이 나타난다 */
+html[data-vt="sheet-open"]::view-transition-old(pdf-sheet) { animation-duration: 140ms; }
+html[data-vt="sheet-close"]::view-transition-old(pdf-sheet) { animation-duration: 300ms; }
+html[data-vt="sheet-close"]::view-transition-new(pdf-sheet) {
+  animation-delay: 120ms;
+  animation-duration: 220ms;
+}
+
+/* 전환을 지원하면 미리보기 자체의 등장 애니메이션은 끄고 위 연출에 맡긴다 */
+@supports (view-transition-name: none) {
+  .pdfp-overlay,
+  .pdfp-panel { animation: none; }
+}

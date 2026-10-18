@@ -4,6 +4,22 @@ import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 
 const FILTER_TAGS = ['Spring Boot', 'Java', 'Architecture', 'Testing', 'Database', 'Kafka'];
 
+const STORE_LABELS: [domain: string, label: string][] = [
+  ['kyobobook.co.kr', '교보문고'],
+  ['coupang.com', '쿠팡'],
+  ['smartstore.naver.com', '스마트스토어'],
+];
+
+// 구매 링크 도메인으로 버튼 문구를 정한다. 목록에 없는 곳은 '구매하기'.
+const storeLabel = (url: string): string => {
+  try {
+    const host = new URL(url).hostname;
+    return STORE_LABELS.find(([d]) => host === d || host.endsWith(`.${d}`))?.[1] ?? '구매하기';
+  } catch {
+    return '구매하기';
+  }
+};
+
 export function BooksPage() {
   useScrollTopOnMount();
   const [activeTag, setActiveTag] = useState<string | null>(null);
@@ -84,7 +100,7 @@ export function BooksPage() {
                 rel="noopener noreferrer"
                 className="book-btn"
               >
-                교보문고 <i className="fa-solid fa-arrow-up-right-from-square" />
+                {storeLabel(book.purchaseUrl)} <i className="fa-solid fa-arrow-up-right-from-square" />
               </a>
             </div>
           </div>

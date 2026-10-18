@@ -3,6 +3,7 @@ import { ChevronLeft } from 'lucide-react';
 import { MENUS } from '../data/menuData';
 import { badgeLabel, tintClass, GROUP_ORDER } from '../data/topics';
 import { docCount, matchesKey } from '../utils/category';
+import { useTransitionNavigate } from '../hooks/useTransitionNavigate';
 
 interface SidebarProps {
   currentCategory?: string;
@@ -11,6 +12,8 @@ interface SidebarProps {
 }
 
 export function Sidebar({ currentCategory, isOpen = false, onClose }: SidebarProps) {
+  const go = useTransitionNavigate();
+
   // GROUP_ORDER 순서로 묶기 (+ 목록에 없는 그룹은 뒤에 붙임)
   const known = new Set(GROUP_ORDER);
   const extraGroups = [...new Set(MENUS.filter(m => !known.has(m.group)).map(m => m.group))];
@@ -39,7 +42,7 @@ export function Sidebar({ currentCategory, isOpen = false, onClose }: SidebarPro
                       <Link
                         to={`/download/${menu.key}`}
                         className={`menu-item${active ? ' active' : ''}`}
-                        onClick={onClose}
+                        onClick={e => { onClose?.(); go(e, `/download/${menu.key}`); }}
                       >
                         <span className={`menu-badge ${tintClass(menu.key)}`}>
                           {badgeLabel(menu.key, menu.name)}

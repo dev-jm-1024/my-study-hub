@@ -1,4 +1,4 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
 import { Menu, Download, Clock, ChevronRight, ChevronLeft, Eye, Megaphone, ExternalLink } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
@@ -9,6 +9,7 @@ import { badgeLabel, tintClass, DOWNLOAD_PAGE_SIZE } from '../data/topics';
 import { NOTICES } from '../data/notices';
 import { resolveCategoryKey, matchesKey } from '../utils/category';
 import { triggerDownload } from '../utils/download';
+import { withViewTransition } from '../utils/viewTransition';
 import { usePagination } from '../hooks/usePagination';
 import type { PdfItem } from '../types';
 
@@ -27,12 +28,13 @@ interface DocRowProps {
   pdf: PdfItem;
   num: number;
   tint: string;
-  onPreview: (pdf: PdfItem) => void;
+  onPreview: (pdf: PdfItem, row: HTMLElement) => void;
 }
 
 function DocRow({ pdf, num, tint, onPreview }: DocRowProps) {
+  const rowRef = useRef<HTMLDivElement>(null);
   return (
-    <div className={`dl-row home-anim ${tint}`}>
+    <div ref={rowRef} className={`dl-row home-anim ${tint}`}>
       <div className="dl-badge dl-badge-num">{num}</div>
       <div className="dl-main">
         <div className="dl-row-title">{pdf.title}</div>
@@ -42,7 +44,7 @@ function DocRow({ pdf, num, tint, onPreview }: DocRowProps) {
         {pdf.pdfUrl && (
           <button
             className="dl-preview"
-            onClick={() => onPreview(pdf)}
+            onClick={() => rowRef.current && onPreview(pdf, rowRef.current)}
             aria-label="미리보기"
             title="미리보기"
           >
@@ -91,8 +93,30 @@ export function DownloadPage() {
   const sections = groupBySection(pdfs);
 
   // 소분류 안에서는 제목에 시리즈명이 빠져 있으므로 미리보기 헤더에 소분류를 붙여 맥락을 유지
-  const openPreview = (pdf: PdfItem) =>
-    setPreview({ title: pdf.section ? `${pdf.section} · ${pdf.title}` : pdf.title, url: pdf.pdfUrl });
+  const nextPreview = (pdf: PdfItem) =>
+    ({ title: pdf.section ? `${pdf.section} · ${pdf.title}` : pdf.title, url: pdf.pdfUrl });
+
+  // 미리보기 창은 누른 행이 펼쳐지며 열리고, 닫으면 그 행으로 다시 접힌다 (view-transition.css의 pdf-sheet)
+  const sheetRow = useRef<HTMLElement | null>(null);
+
+  const openPreview = (pdf: PdfItem, row: HTMLElement) => {
+    sheetRow.current = row;
+    row.style.viewTransitionName = 'pdf-sheet';
+    withViewTransition('sheet-open', () => {
+      row.style.viewTransitionName = '';
+      setPreview(nextPreview(pdf));
+    });
+  };
+
+  const closePreview = () => {
+    const row = sheetRow.current;
+    withViewTransition('sheet-close', () => {
+      setPreview(null);
+      if (row) row.style.viewTransitionName = 'pdf-sheet';
+    }).then(() => {
+      if (row) row.style.viewTransitionName = '';
+    });
+  };
 
   useEffect(() => {
     window.scrollTo(0, 0);
@@ -238,7 +262,7 @@ export function DownloadPage() {
         <PdfPreview
           title={preview.title}
           url={preview.url}
-          onClose={() => setPreview(null)}
+          onClose={closePreview}
           onDownload={() => triggerDownload(preview.url, preview.title)}
         />
       )}

@@ -1,0 +1,130 @@
+/* ══════════════════════════════════════════════════
+   홈 첫 진입 연출 (main.home-intro 동안만) — 배지 비행은 components/HeroIntro.tsx
+   0ms      머리글·제목 단어가 차례로 올라온다 / 주제 배지들이 흩어진 자리에 나타난다
+   500ms~   배지들이 소용돌이치며 "한곳에"로 모여든다
+   1000ms   "한곳에"가 튀어나오고 형광펜이 그어진다
+   1060ms~  부제·숫자(카운트업)·검색창, 양쪽 레일, 비율 막대, 바로가기 카드 순
+══════════════════════════════════════════════════ */
+
+/* ── 평소에도 보이는 모습 ── */
+.home-title-w { display: inline-block; }
+.home-gather {
+  display: inline-block;
+  padding: 0 0.08em;
+  margin: 0 -0.08em;
+  --hl: color-mix(in srgb, #D9A441 34%, transparent);
+  background: linear-gradient(transparent 60%, var(--hl) 60% 90%, transparent 90%) no-repeat 0 0 / 100% 100%;
+}
+/* 어두운 바탕에선 넓은 띠가 탁한 갈색이 되므로, 더 진한 색의 얇은 밑줄로 */
+body.dark .home-gather {
+  --hl: color-mix(in srgb, #E0B25A 62%, transparent);
+  background-image: linear-gradient(transparent 80%, var(--hl) 80% 90%, transparent 90%);
+}
+
+/* ── 배지 무리 ── */
+.home-hero { position: relative; }
+.intro-swarm {
+  position: absolute;
+  inset: 0;
+  z-index: 3;
+  pointer-events: none;
+}
+.intro-tile {
+  position: absolute;
+  left: 0;
+  top: 0;
+  width: 40px;
+  height: 40px;
+  margin: -20px 0 0 -20px; /* JS가 주는 좌표가 배지 중심이 되도록 */
+  will-change: transform, opacity;
+}
+.intro-tile .cat-badge {
+  width: 100%;
+  height: 100%;
+  border-radius: 10px;
+  font-size: 0.8rem;
+}
+@media (max-width: 480px) {
+  .intro-tile { width: 32px; height: 32px; margin: -16px 0 0 -16px; }
+  .intro-tile .cat-badge { border-radius: 8px; font-size: 0.68rem; }
+}
+
+/* ── 히어로 ── */
+.home-intro .home-eyebrow { animation: introTrack 700ms cubic-bezier(0.2, 0, 0, 1) both; }
+@keyframes introTrack {
+  from { opacity: 0; letter-spacing: 0.42em; }
+}
+
+/* 제목 단어: 아래 틈에서 밀려 올라온다 */
+.home-intro .home-title-w {
+  overflow: clip;
+  padding-bottom: 0.1em;
+  margin-bottom: -0.1em;
+}
+.home-intro .home-title-w > span {
+  display: inline-block;
+  animation: introWord 650ms cubic-bezier(0.2, 0.7, 0.1, 1) both;
+}
+.home-intro .home-title-w:nth-child(1) > span { animation-delay: 80ms; }
+.home-intro .home-title-w:nth-child(2) > span { animation-delay: 150ms; }
+.home-intro .home-title-w:nth-child(3) > span { animation-delay: 220ms; }
+.home-intro .home-title-w:nth-child(4) > span { animation-delay: 290ms; }
+@keyframes introWord {
+  from { transform: translateY(110%); }
+}
+
+/* "한곳에": 배지들이 닿는 순간 튀어나오고, 형광펜이 왼쪽부터 그어진다 */
+.home-intro .home-gather {
+  animation:
+    introPop 560ms cubic-bezier(0.3, 1.6, 0.5, 1) 1000ms both,
+    introMark 560ms cubic-bezier(0.6, 0, 0.2, 1) 1180ms both;
+}
+@keyframes introPop {
+  from { opacity: 0; transform: scale(0.4); }
+}
+@keyframes introMark {
+  from { background-size: 0% 100%; }
+}
+
+.home-intro .home-subtitle,
+.home-intro .home-stats,
+.home-intro .home-search {
+  animation: introRise 560ms cubic-bezier(0.2, 0, 0, 1) both;
+}
+.home-intro .home-subtitle { animation-delay: 1060ms; }
+.home-intro .home-stats    { animation-delay: 1130ms; } /* 숫자 카운트업은 1200ms부터 (HeroIntro.tsx) */
+.home-intro .home-search   { animation-delay: 1200ms; }
+@keyframes introRise {
+  from { opacity: 0; transform: translateY(12px); }
+}
+
+/* ── 레일: 양옆에서 밀려 들어온다 (3단 레이아웃일 때만) ── */
+@media (min-width: 1101px) {
+  .home-intro .home-rail-left  { animation: introFromL 700ms cubic-bezier(0.2, 0, 0, 1) 1060ms both; }
+  .home-intro .home-rail-right { animation: introFromR 700ms cubic-bezier(0.2, 0, 0, 1) 1120ms both; }
+}
+@keyframes introFromL { from { opacity: 0; transform: translateX(-24px); } }
+@keyframes introFromR { from { opacity: 0; transform: translateX(24px); } }
+
+/* 비율 막대: 위에서부터 차례로 차오른다 */
+.home-intro .ratio-fill {
+  animation: introFill 700ms cubic-bezier(0.2, 0, 0, 1) both;
+  animation-delay: calc(1260ms + var(--i, 0) * 45ms);
+}
+@keyframes introFill {
+  from { clip-path: inset(0 100% 0 0 round 6px); }
+}
+
+/* ── 아래 콘텐츠: 히어로가 끝난 뒤에 (기존 .home-anim 등장을 늦출 뿐) ── */
+.home-intro .home-section-head { animation: introRise 500ms cubic-bezier(0.2, 0, 0, 1) 1260ms both; }
+.home-intro .quick-card.home-anim:nth-child(1) { animation-delay: 1300ms; }
+.home-intro .quick-card.home-anim:nth-child(2) { animation-delay: 1370ms; }
+.home-intro .quick-card.home-anim:nth-child(3) { animation-delay: 1440ms; }
+.home-intro .quick-card.home-anim:nth-child(4) { animation-delay: 1510ms; }
+.home-intro .cat-row.home-anim,
+.home-intro .home-panel.home-anim { animation-delay: 1550ms; }
+
+@media (prefers-reduced-motion: reduce) {
+  .intro-swarm { display: none; }
+  .home-intro * { animation: none !important; }
+}

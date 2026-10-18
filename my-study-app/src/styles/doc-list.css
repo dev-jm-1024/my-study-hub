@@ -163,24 +163,31 @@
   margin-top: 2px;
   line-height: 1.5;
 }
+/* 행마다 반복되는 버튼이라 평소엔 테두리만 — 행에 올리거나 포커스하면 그 행의 버튼만 채워진다 */
 .dl-btn {
   flex: none;
   display: inline-flex;
   align-items: center;
   gap: 6px;
-  padding: 9px 16px;
-  background: var(--cta-bg);
-  color: var(--cta-text);
-  border: none;
+  padding: 8px 15px;
+  background: transparent;
+  color: var(--text-primary);
+  border: 1px solid var(--border-strong, var(--border-color));
   border-radius: var(--border-radius-sm);
   font-family: inherit;
   font-size: 0.82rem;
   font-weight: 600;
   cursor: pointer;
-  transition: filter var(--transition-fast), transform var(--transition-fast);
+  transition: background-color var(--transition-fast), color var(--transition-fast),
+              border-color var(--transition-fast), transform var(--transition-fast);
 }
-.dl-btn:hover { filter: brightness(1.08); }
-.dl-btn:active { transform: translateY(1px); }
+.dl-row:hover .dl-btn:not(:disabled),
+.dl-btn:focus-visible {
+  background: var(--cta-bg);
+  border-color: var(--cta-bg);
+  color: var(--cta-text);
+}
+.dl-btn:not(:disabled):active { transform: translateY(1px); }
 .dl-btn:disabled {
   background: var(--bg-surface-hover);
   color: var(--text-muted);

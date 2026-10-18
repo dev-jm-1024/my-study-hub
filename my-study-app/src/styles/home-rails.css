@@ -128,9 +128,30 @@
   color: color-mix(in srgb, var(--stk, var(--text-muted)) 62%, var(--text-primary));
 }
 
-/* 비율 바 */
-.ratio-list { display: flex; flex-direction: column; gap: 12px; }
+/* 비율 바 — 목록이 길면 카드 안에서 세로 스크롤 */
+.ratio-card { display: flex; flex-direction: column; }
+.ratio-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+  max-height: 360px;
+  overflow-y: auto;
+  padding-right: 6px;
+  margin-right: -6px;
+  scrollbar-width: thin;
+  scrollbar-color: color-mix(in srgb, var(--text-muted) 40%, transparent) transparent;
+}
+/* 3단 sticky 레이아웃: 좌 레일을 화면 높이에 맞추고 목록이 남는 높이를 채운다.
+   높이는 레일의 처음 위치(page-wrapper 상단 여백) 기준 — 스크롤 전에도 카드 끝이 보인다. */
+@media (min-width: 1101px) and (min-height: 501px) {
+  .home-rail-left {
+    max-height: calc(100vh - var(--header-height) - env(safe-area-inset-top, 0px) - var(--spacing-2xl) - var(--spacing-md));
+  }
+  .home-rail-left .ratio-card { min-height: 200px; }
+  .home-rail-left .ratio-list { flex: 1 1 auto; min-height: 0; max-height: none; }
+}
 .ratio-row {
+  flex: none;
   display: flex;
   flex-direction: column;
   gap: 6px;
@@ -242,6 +263,7 @@
   }
   .home-main { flex: none; width: 100%; max-width: 760px; order: 0; }
   .home-rail-left { order: 1; }
-  .home-rail-right { order: 2; }
+  /* 시계·달력은 넓은 화면의 곁들임 — 아래로 쌓이면 스크롤만 늘리므로 숨긴다 */
+  .home-rail-right { display: none; }
 }
 

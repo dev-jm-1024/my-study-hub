@@ -32,20 +32,20 @@ export function StackRatio() {
   const max = items.length ? items[0].count : 1;
 
   return (
-    <div className="dash-card">
+    <div className="dash-card ratio-card">
       <div className="dash-head">
         <span className="dash-title">스택별 문서 비율</span>
         <span className="dash-sub">{total}개 문서</span>
       </div>
 
       <div className="ratio-list">
-        {items.map(item => {
+        {items.map((item, i) => {
           const pct = Math.round((item.count / total) * 100);
           return (
             <button
               key={item.key}
               className="ratio-row"
-              style={{ ['--c' as string]: STACK[item.key]?.color ?? '#8E7A70' }}
+              style={{ ['--c' as string]: STACK[item.key]?.color ?? '#8E7A70', ['--i' as string]: i }}
               onClick={() => navigate(`/download/${item.key}`)}
               title={`${item.name} · ${item.count}개 (${pct}%)`}
             >

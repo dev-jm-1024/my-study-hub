@@ -1,4 +1,4 @@
-import { useState, useMemo } from 'react';
+import { Fragment, useState, useMemo, useRef } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { Search, ArrowRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
@@ -9,8 +9,12 @@ import { Clock } from '../components/Clock';
 import { MiniCalendar } from '../components/MiniCalendar';
 import { CategoryRow } from '../components/CategoryRow';
 import { docCount } from '../utils/category';
+import { useTransitionNavigate } from '../hooks/useTransitionNavigate';
+import { HeroSwarm, useHomeIntro, useCountUp } from '../components/HeroIntro';
 
 const QUICK_KEYS = ['spring', 'java', 'mysql', 'oop'];
+/* 바로가기 카드의 주제 칩·문서 수가 자료실 헤더의 배지·문서 수로 이어진다 (view-transition.css) */
+const CARD_TO_HEAD = { '.quick-tag': 'dl-badge', '.quick-meta b': 'dl-count' };
 
 const TOTAL_DOCS = Object.values(MENU_DATA).reduce((sum, arr) => sum + arr.length, 0);
 
@@ -36,13 +40,19 @@ export function HomePage() {
     []
   );
 
-  const go = (path: string) => (e: React.MouseEvent) => {
-    e.preventDefault();
-    navigate(path);
-  };
+  const go = useTransitionNavigate();
+
+  const intro = useHomeIntro();
+  const gatherRef = useRef<HTMLSpanElement>(null);
+  const stats = [
+    { n: useCountUp(MENUS.length, intro), label: '주제' },
+    { n: useCountUp(TOTAL_DOCS, intro), label: '문서' },
+    { n: useCountUp(BOOKS.length, intro), label: '추천 도서' },
+    { n: useCountUp(REPO_DATA.length, intro), label: '실습 레포' },
+  ];
 
   return (
-    <main className="page-wrapper home-layout">
+    <main className={`page-wrapper home-layout${intro ? ' home-intro' : ''}`}>
       {/* 왼쪽 레일: 프로필 + 스택 비율 (sticky) */}
       <aside className="home-rail home-rail-left">
         <ProfileCard />
@@ -53,16 +63,20 @@ export function HomePage() {
       {/* Hero */}
       <section className="home-hero">
         <p className="home-eyebrow">Backend Study Archive</p>
-        <h1 className="home-title">백엔드 개발 학습 자료를 한곳에</h1>
+        <h1 className="home-title">
+          {['백엔드', '개발', '학습', '자료를'].map(w => (
+            <Fragment key={w}><span className="home-title-w"><span>{w}</span></span>{' '}</Fragment>
+          ))}
+          <span ref={gatherRef} className="home-gather">한곳에</span>
+        </h1>
         <p className="home-subtitle">직접 공부하고 PDF로 정리했습니다. 다운로드는 자유입니다.</p>
         <div className="home-stats">
-          <span><b>{MENUS.length}</b> 주제</span>
-          <span className="home-stats-sep" aria-hidden="true" />
-          <span><b>{TOTAL_DOCS}</b> 문서</span>
-          <span className="home-stats-sep" aria-hidden="true" />
-          <span><b>{BOOKS.length}</b> 추천 도서</span>
-          <span className="home-stats-sep" aria-hidden="true" />
-          <span><b>{REPO_DATA.length}</b> 실습 레포</span>
+          {stats.map(({ n, label }, i) => (
+            <Fragment key={label}>
+              {i > 0 && <span className="home-stats-sep" aria-hidden="true" />}
+              <span><b>{n}</b> {label}</span>
+            </Fragment>
+          ))}
         </div>
         <div className="home-search">
           <span className="home-search-ico"><Search size={18} /></span>
@@ -74,6 +88,8 @@ export function HomePage() {
             aria-label="자료 검색"
           />
         </div>
+        {/* 제목 뒤에 둬야 배지 무리의 레이아웃 효과가 돌 때 gatherRef가 붙어 있다 */}
+        {intro && <HeroSwarm target={gatherRef} />}
       </section>
 
       {query ? (
@@ -100,7 +116,7 @@ export function HomePage() {
                     key={key}
                     className={`quick-card home-anim ${tintClass(key)}`}
                     href={`/download/${key}`}
-                    onClick={go(`/download/${key}`)}
+                    onClick={e => go(e, `/download/${key}`, CARD_TO_HEAD)}
                   >
                     <span className="quick-tag">{m.name}</span>
                     <h4 className="quick-card-title">{DESC[key]}</h4>
