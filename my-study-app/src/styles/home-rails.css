@@ -58,7 +58,7 @@
   text-decoration: none;
   transition: filter var(--transition-fast);
 }
-.profile-nick:hover { filter: brightness(0.96); }
+.profile-nick:hover { text-decoration: underline; text-underline-offset: 0.2em; }
 .profile-email {
   display: block;
   margin-top: 10px;
@@ -84,7 +84,7 @@
   text-decoration: none;
   transition: filter var(--transition-fast), transform var(--transition-fast);
 }
-.profile-github:hover { filter: brightness(1.08); }
+.profile-github:hover { filter: brightness(0.92); }
 .profile-github:active { transform: translateY(1px); }
 .dash-card {
   background: var(--bg-surface);
@@ -125,7 +125,7 @@
   font-family: var(--font-mono);
   font-size: 0.58rem;
   font-weight: 600;
-  color: color-mix(in srgb, var(--stk, var(--text-muted)) 62%, var(--text-primary));
+  color: color-mix(in srgb, var(--stk, var(--text-muted)) 50%, var(--text-primary));
 }
 
 /* 비율 바 — 목록이 길면 카드 안에서 세로 스크롤 */
@@ -243,13 +243,11 @@
   font-variant-numeric: tabular-nums;
 }
 .cal-empty { color: transparent; }
-.cal-sun { color: #B5654D; }
 .cal-today {
   background: var(--cta-bg);
   color: var(--cta-text);
   font-weight: 700;
 }
-.cal-today.cal-sun { color: var(--cta-text); }
 
 /* 레일이 들어갈 폭이 부족하면 → 단일 컬럼, 레일은 콘텐츠 아래로 (sticky 해제) */
 @media (max-width: 1100px) {

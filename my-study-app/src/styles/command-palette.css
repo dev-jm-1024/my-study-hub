@@ -112,7 +112,7 @@
   font-weight: 600;
   font-size: 0.72rem;
   background: color-mix(in srgb, var(--t, var(--text-muted)) 18%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
+  color: color-mix(in srgb, var(--t, var(--text-muted)) 50%, var(--text-primary));
   border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 24%, var(--border-color));
 }
 .cmdk-item-main { flex: 1; min-width: 0; display: flex; flex-direction: column; }

@@ -73,7 +73,7 @@
   font-size: 0.68rem;
   letter-spacing: 0.01em;
   background: color-mix(in srgb, var(--t, var(--text-muted)) 18%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
+  color: color-mix(in srgb, var(--t, var(--text-muted)) 50%, var(--text-primary));
   border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 24%, var(--border-color));
 }
 
@@ -220,7 +220,7 @@
   position: fixed;
   inset: 0;
   z-index: 89;
-  background: rgba(28, 22, 18, 0.48); /* 웜톤 딤 */
+  background: var(--scrim-modal);
   backdrop-filter: blur(2px);
   -webkit-backdrop-filter: blur(2px);
 }

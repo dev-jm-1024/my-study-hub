@@ -45,7 +45,7 @@ export function StackRatio() {
             <button
               key={item.key}
               className="ratio-row"
-              style={{ ['--c' as string]: STACK[item.key]?.color ?? '#8E7A70', ['--i' as string]: i }}
+              style={{ ['--c' as string]: STACK[item.key]?.color ?? 'var(--label-2)', ['--i' as string]: i }}
               onClick={() => navigate(`/download/${item.key}`)}
               title={`${item.name} · ${item.count}개 (${pct}%)`}
             >

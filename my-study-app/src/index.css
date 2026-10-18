@@ -4,6 +4,7 @@
 @import '../../src/main/resources/static/css/common/reset.css';
 @import '../../src/main/resources/static/css/common/variables.css';
 @import './styles/tokens.css';
+@import './styles/tokens.legacy.css';   /* RD-1-1 — 이 줄부터 전 페이지 재스킨 */
 
 /* ── 컴포넌트 ── */
 @import '../../src/main/resources/static/css/components/card.css';

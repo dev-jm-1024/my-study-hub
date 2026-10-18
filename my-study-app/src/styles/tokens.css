@@ -24,7 +24,7 @@
 
   /* ── 색: 글자 (글자 색은 label·label-2 둘뿐) ── */
   --label: #1D1D1F;
-  --label-2: #6E6E73;
+  --label-2: #66666B;         /* 목업 #6E6E73 → --fill 위 4.5:1 확보 (Ch1, 사용자 승인) */
   --glyph-3: #AEAEB2;         /* 셰브런·비활성 아이콘 전용 — 글자에 쓰지 않는다 */
 
   /* ── 색: 강조 ── */
@@ -155,6 +155,9 @@
 }
 
 /* ── 다크 ── */
+/* 뷰포트 스크롤바·캔버스는 html의 color-scheme을 따른다 */
+:root:has(body.dark) { color-scheme: dark; }
+
 body.dark {
   color-scheme: dark;
 

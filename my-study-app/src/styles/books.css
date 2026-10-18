@@ -18,6 +18,8 @@
   border-color: var(--cta-bg);
   color: var(--cta-text);
 }
+/* book.css의 brightness(1.08)는 파란 채움 위 흰 글자 대비를 깎으므로 어둡게 덮는다 */
+.book-btn:hover { filter: brightness(0.92); }
 
 /* 폰: 표지를 왼쪽 썸네일로 둔 가로 카드 — 한 화면에 한 권만 보이던 세로 카드 대신 */
 @media (max-width: 480px) {

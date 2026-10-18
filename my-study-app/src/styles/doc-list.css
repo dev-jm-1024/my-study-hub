@@ -19,7 +19,7 @@
   font-size: 1rem;
   box-shadow: var(--shadow-glass-sm);
   background: color-mix(in srgb, var(--t, var(--text-muted)) 20%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
+  color: color-mix(in srgb, var(--t, var(--text-muted)) 50%, var(--text-primary));
   border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 26%, var(--border-color));
 }
 .dl-head-text { min-width: 0; }
@@ -60,7 +60,7 @@
   gap: 11px;
   padding: 13px 15px;
   border-radius: var(--border-radius-sm);
-  background: color-mix(in srgb, var(--t, var(--accent-ink)) 10%, var(--bg-surface));
+  background: color-mix(in srgb, var(--t, var(--accent-ink)) 6%, var(--bg-surface));
   border: 1px solid color-mix(in srgb, var(--t, var(--accent-ink)) 22%, var(--border-glass));
   box-shadow: var(--shadow-glass-sm);
 }
@@ -80,7 +80,7 @@
   font-weight: 700;
   text-transform: uppercase;
   letter-spacing: 0.1em;
-  color: color-mix(in srgb, var(--t, var(--accent-ink)) 55%, var(--text-muted));
+  color: color-mix(in srgb, var(--t, var(--accent-ink)) 50%, var(--text-primary));
 }
 .dl-notice-text {
   margin: 3px 0 0;
@@ -139,7 +139,7 @@
   place-items: center;
   box-shadow: var(--shadow-glass-sm);
   background: color-mix(in srgb, var(--t, var(--text-muted)) 18%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 62%, var(--text-primary));
+  color: color-mix(in srgb, var(--t, var(--text-muted)) 50%, var(--text-primary));
   border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 24%, var(--border-color));
 }
 /* 목록 내 실제 순번(제목에 박힌 챕터 번호와 무관하게 1부터 연속) */

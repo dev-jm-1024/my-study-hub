@@ -9,20 +9,26 @@ html, body {
   overflow-x: clip;
 }
 
-/* 폰트 & 배경 */
+/* 본문 기본값 (SF → Pretendard 폴백, 한글은 어절 단위 줄바꿈, 바탕 패턴 없음) */
 body {
-  font-family: var(--font-family);
-  font-size: 17px;
-  line-height: 1.7;
-  letter-spacing: -0.01em;
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-base);
+  word-break: keep-all;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  background-color: var(--bg-root);
-  background-image: var(--bg-pattern);
-  background-attachment: fixed;
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--label);
   min-height: 100vh;
   /* iPhone 홈 인디케이터 safe area */
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 선택 영역: 애플 블루 옅은 색 (라이트·다크 모두 글자가 읽힌다) */
+::selection {
+  background: color-mix(in srgb, var(--accent-fill) 22%, transparent);
+  color: var(--label);
 }
 

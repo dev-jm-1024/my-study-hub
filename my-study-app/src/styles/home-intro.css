@@ -12,12 +12,12 @@
   display: inline-block;
   padding: 0 0.08em;
   margin: 0 -0.08em;
-  --hl: color-mix(in srgb, #D9A441 34%, transparent);
+  --hl: color-mix(in srgb, var(--accent-fill) 20%, transparent);
   background: linear-gradient(transparent 60%, var(--hl) 60% 90%, transparent 90%) no-repeat 0 0 / 100% 100%;
 }
-/* 어두운 바탕에선 넓은 띠가 탁한 갈색이 되므로, 더 진한 색의 얇은 밑줄로 */
+/* 어두운 바탕에선 옅은 띠가 거의 보이지 않으므로, 더 밝은 색의 얇은 밑줄로 */
 body.dark .home-gather {
-  --hl: color-mix(in srgb, #E0B25A 62%, transparent);
+  --hl: color-mix(in srgb, var(--accent) 60%, transparent);
   background-image: linear-gradient(transparent 80%, var(--hl) 80% 90%, transparent 90%);
 }
 

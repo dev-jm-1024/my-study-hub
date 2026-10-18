@@ -9,7 +9,7 @@
   3. **같은 묶음(A, B, C…) = 동시에 실행, 다음 묶음은 앞 묶음이 끝난 뒤.** 같은 묶음 안에서 소유 파일은 겹치지 않는다.
   4. 챕터 = 1커밋. 검수 PASS + 사용자 화면 확인 뒤에 커밋한다.
 
-> **현재 위치:** `RD-1-1` — Ch0 완료(2026-10-19), Ch1 시작 전
+> **현재 위치:** `RD-2-0` — Ch1 완료(2026-10-19), Ch2 시작 전
 >
 > **준비 완료(2026-10-18):** 토큰(`tokens.css`·`tokens.legacy.css`)·상수(`constants/*`)·에이전트 6종·플레이북·계획서·목업 사본 — 모두 **미연결**, 화면 변화 0
 
@@ -91,12 +91,13 @@ command grep -rn "DOWNLOAD_PAGE_SIZE = " src                                    
 
 | | ID | 작업 | 담당 | 묶음 | 소유 파일 |
 |---|---|---|---|---|---|
-| [ ] | RD-1-1 | `index.css`: `tokens.css` 다음 줄에 `@import './styles/tokens.legacy.css';` | chore | A | `src/index.css` |
-| [ ] | RD-1-2 | `base.css`: body 글꼴·배경(패턴 제거)·크기·자간·`keep-all`·`::selection`을 토큰으로 | style | A | `src/styles/base.css` |
-| [ ] | RD-1-3 | 다크·예외 점검 — `home-intro.css` 형광펜(`--hl` 지역 변수), `home-sections.css`의 `.t-*` 색조(color-mix) 대비, 앱 CSS에 남은 크림 리터럴 | architect | B | `src/styles/home-intro.css`, `src/styles/home-sections.css`(`.t-*` 블록만) |
-| [ ] | RD-1-4 | 감사 재측정 → 부록 A | chore | C | 이 문서 부록 A |
-| [ ] | RD-1-5 | 검수 (글자 대비 포함) | reviewer | C | — |
-| [ ] | RD-1-6 | 🙋 D2 화면 확인 — 홈·자료실·Books, 1440/390, 라이트/다크 | 사용자 | D | — |
+| [x] | RD-1-1 | `index.css`: `tokens.css` 다음 줄에 `@import './styles/tokens.legacy.css';` | chore | A | `src/index.css` |
+| [x] | RD-1-2 | `base.css`: body 글꼴·배경(패턴 제거)·크기·자간·`keep-all`·`::selection`을 토큰으로 | style | A | `src/styles/base.css` |
+| [x] | RD-1-3 | 다크·예외 점검 — `home-intro.css` 형광펜(`--hl` 지역 변수), `home-sections.css`의 `.t-*` 색조(color-mix) 대비, 앱 CSS에 남은 크림 리터럴 | architect | B | `src/styles/home-intro.css`, `src/styles/home-sections.css`(`.t-*` 블록만) |
+| [x] | RD-1-3b | 대비 미달 8건 수정(RD-1-3 점검 목록 12~19번 — 비율·hover 필터) · 리드 추가 | style | B′ | `src/styles/{home-sections,doc-list,home-rails}.css` 해당 규칙 |
+| [x] | RD-1-4 | 감사 재측정 → 부록 A | chore | C | 이 문서 부록 A |
+| [x] | RD-1-5 | 검수 (글자 대비 포함) | reviewer | C | — |
+| [x] | RD-1-6 | 🙋 D2 화면 확인 — 홈·자료실·Books, 1440/390, 라이트/다크 | 사용자 | D | — |
 
 **완료 판정**
 ```bash
@@ -318,7 +319,7 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 | 시점 | 리터럴 색 (src/styles 합계) | 옛 변수 사용 수 | @media 경계 종류 | 비고 |
 |---|---|---|---|---|
 | Ch0 기준선 (RD-0-2) | 12 | 384 | 12종 | 2026-10-19 · 토큰 파일 포함 시 리터럴 색 64 · 옛 변수 legacy 파일 히트 제외 0 · max-width:480px ×4, max-width:560px ×3, max-width:768px ×2, min-width:1101px ×2, prefers-reduced-motion ×2 · @media 12종은 tokens.css의 734px 포함(리터럴 색은 토큰 파일 제외 — 기준 다름) |
-| Ch1 후 (RD-1-4) | | | | |
+| Ch1 후 (RD-1-4) | 8 | 380 | 12종 | 2026-10-19 · 기준선 대비 리터럴 색 −4(12→8), 옛 변수 −4(384→380), @media 12종 유지 · 토큰 파일 포함 시 리터럴 색 60(기준선 64) · 리터럴 8줄 전부 `home-sections.css`의 `.t-*` 주제 색(색 19개, 줄 8개) · 옛 변수 상위: text-muted 62, text-primary 50, border-glass 39, accent-ink 34 · 완료 판정(새 크림 리터럴) 0건 · `npm run build` 통과 · `src/data/stacks.ts`에 리터럴 색 17줄(스택 브랜드 색, 감사 범위 밖 — styles 감사에 안 잡힘) |
 | Ch2 후 | | | | |
 | Ch3 후 | | | | |
 | Ch4 후 | | | | |
@@ -332,8 +333,8 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 
 | Ch | 커밋 | 날짜 | 메모 |
 |---|---|---|---|
-| 0 | | 2026-10-19 | 토큰·상수 연결, 화면 변화 0 · 예외: tokens.css color-scheme로 다크 모드 스크롤바(.sidebar·.cmdk-list)·포커스 링이 시스템 다크 스타일(의도, 사용자 승인) |
-| 1 | | | |
+| 0 | `fba73e7` | 2026-10-19 | 토큰·상수 연결, 화면 변화 0 · 예외: tokens.css color-scheme로 다크 모드 스크롤바(.sidebar·.cmdk-list)·포커스 링이 시스템 다크 스타일(의도, 사용자 승인) |
+| 1 | | 2026-10-19 | 전 페이지 재스킨(호환 레이어 연결)·본문 글꼴/17px/1.5/keep-all · 예외: 라이트 `--label-2` #66666B(목업 #6E6E73 → `--fill` 위 4.5:1, 사용자 승인), `:root:has(body.dark)` color-scheme, 형광펜 accent 임시(Ch3 D3) · 대비 미달 21건 수정(RD-1-3b·검수 FIX 2 포함) · Ch5 정리 거리: MiniCalendar `cal-sun` 클래스, `.profile-nick` transition:filter, stacks.ts:16 주석 |
 | 2 | | | |
 | 3 | | | |
 | 4 | | | |
