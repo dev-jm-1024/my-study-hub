@@ -1,3 +1,5 @@
+import { SOCIAL_LINKS } from '../constants';
+
 export function Footer() {
   const year = new Date().getFullYear();
   return (
@@ -5,9 +7,9 @@ export function Footer() {
       <div className="site-footer-inner">
         <span className="site-footer-copy">© {year} JM Study Hub · 직접 공부하고 정리한 자료</span>
         <nav className="site-footer-links" aria-label="외부 링크">
-          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer">Velog</a>
-          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer">네이버 블로그</a>
-          <a href="https://github.com/dev-jm-1024" target="_blank" rel="noopener noreferrer">GitHub</a>
+          {SOCIAL_LINKS.map(link => (
+            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">{link.label}</a>
+          ))}
         </nav>
       </div>
     </footer>

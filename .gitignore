@@ -45,3 +45,6 @@ static-react/
 
 ## DOC
 *.md
+
+### Claude Code (개인 로컬 설정 — 에이전트 팀 실험 기능 플래그·권한) ###
+.claude/settings.local.json

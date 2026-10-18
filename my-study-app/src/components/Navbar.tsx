@@ -2,6 +2,7 @@ import { useState } from 'react';
 import { NavLink, useNavigate } from 'react-router-dom';
 import { Moon, Sun, Menu, X, Search } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
+import { LINKS, SOCIAL_LINKS } from '../constants';
 
 const openSearch = () => window.dispatchEvent(new Event('open-command-palette'));
 
@@ -10,10 +11,10 @@ const navClass = ({ isActive }: { isActive: boolean }) =>
 const mobileClass = ({ isActive }: { isActive: boolean }) =>
   `mobile-menu-item${isActive ? ' active' : ''}`;
 
-const NAV_LINKS = [
-  { label: 'Velog', href: 'https://velog.io/@dlwoals1024/posts' },
-  { label: 'Blog', href: 'https://blog.naver.com/jon1024' },
-];
+/* 상단 바에는 Velog·Blog만 (GitHub는 내부 페이지 링크가 따로 있다) */
+const NAV_LINKS = SOCIAL_LINKS
+  .filter(link => link.href !== LINKS.github)
+  .map(({ shortLabel, href }) => ({ label: shortLabel, href }));
 
 export function Navbar() {
   const { theme, toggleTheme } = useTheme();

@@ -52,5 +52,5 @@ export const tintClass = (key: string) => `t-${key.toLowerCase()}`;
 /* 배지 라벨 (매핑 없으면 이름 앞 2글자) */
 export const badgeLabel = (key: string, name: string) => BADGE[key] ?? name.slice(0, 2);
 
-/* 자료실 페이징 전역 설정 — 페이지당 문서 수 (넘치면 페이지 분할) */
-export const DOWNLOAD_PAGE_SIZE = 10;
+/* 자료실 페이징 전역 설정 — 값은 constants/ui가 단일 출처, 기존 import 경로 호환용 re-export */
+export { DOWNLOAD_PAGE_SIZE } from '../constants/ui';

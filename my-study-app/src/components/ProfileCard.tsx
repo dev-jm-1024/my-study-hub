@@ -1,4 +1,5 @@
 import { Github } from 'lucide-react';
+import { LINKS } from '../constants';
 
 export function ProfileCard() {
   return (
@@ -7,7 +8,7 @@ export function ProfileCard() {
       <div className="profile-name">이재민</div>
       <div className="profile-role">BE Developer</div>
       <a
-        href="https://github.com/dev-jm-1024"
+        href={LINKS.github}
         target="_blank"
         rel="noopener noreferrer"
         className="profile-nick"
@@ -18,7 +19,7 @@ export function ProfileCard() {
         develop6013@gmail.com
       </a>
       <a
-        href="https://github.com/dev-jm-1024"
+        href={LINKS.github}
         target="_blank"
         rel="noopener noreferrer"
         className="profile-github"

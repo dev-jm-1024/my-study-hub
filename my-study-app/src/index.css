@@ -3,6 +3,7 @@
 /* ── 공통 기반 ── */
 @import '../../src/main/resources/static/css/common/reset.css';
 @import '../../src/main/resources/static/css/common/variables.css';
+@import './styles/tokens.css';
 
 /* ── 컴포넌트 ── */
 @import '../../src/main/resources/static/css/components/card.css';

@@ -1,0 +1,145 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>드롭다운 메뉴 콘텐츠</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
+<style>
+body{margin:0}
+</style>
+</helmet>
+<div style="--fill: #E8E8ED; --sep: #D2D2D7; --label: #1D1D1F; --label-2: #6E6E73; --accent: #0066CC; --fs-t3: 21px; --fs-foot: 13px; --fs-cap: 12px; --sp-1: 4px; --sp-2: 8px; --sp-3: 12px; --sp-7: 48px; --sp-8: 64px; --gutter: 24px; font-family: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Apple SD Gothic Neo', 'Pretendard', 'Noto Sans KR', sans-serif; color: #1D1D1F; letter-spacing: -0.01em; word-break: keep-all; -webkit-font-smoothing: antialiased">
+
+  <!-- ───────── 자료실 ───────── -->
+  <sc-if value="{{showData}}" hint-placeholder-val="{{ true }}">
+    <section aria-label="자료실 메뉴" style="max-width: 1080px; margin: 0 auto; padding: var(--sp-7) var(--gutter) var(--sp-8); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: var(--sp-7) var(--sp-8)">
+      <div style="flex: 0 0 220px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.04s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">자료실 둘러보기</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">모든 주제</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">Java</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">Spring Boot</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">JSP</a></li>
+        </ul>
+      </div>
+      <div style="flex: 0 0 160px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.09s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">데이터 · 인프라</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">MySQL</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">QueryDSL</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">Linux</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">Docker</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">Kafka</a></li>
+        </ul>
+      </div>
+      <div style="flex: 0 0 160px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.14s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">설계 · 기타</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">API</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">OOP</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">대규모 시스템 설계</a></li>
+          <li><a href="Archive.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">Kotlin</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label-2)">그 외 5개 주제 ›</a></li>
+        </ul>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ───────── Books ───────── -->
+  <sc-if value="{{showBooks}}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Books 메뉴" style="max-width: 1080px; margin: 0 auto; padding: var(--sp-7) var(--gutter) var(--sp-8); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: var(--sp-7) var(--sp-8); border-top: {{lineTop}}">
+      <div style="flex: 0 0 220px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.04s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">Books 둘러보기</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">모든 책</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">Java</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">Spring Boot</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">Database</a></li>
+        </ul>
+      </div>
+      <div style="flex: 0 1 auto; min-width: 0; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.09s">
+        <p style="margin: 0 0 var(--sp-3); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">새로 추가한 책</p>
+        <div style="display: flex; gap: var(--sp-3)">
+          <a href="Main.dc.html" aria-label="이것이 Spring AI다 (개정판)" style="flex: none; display: block; width: 64px; aspect-ratio: 3 / 4; border-radius: 4px; overflow: hidden; background: var(--fill); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 14px rgba(0, 0, 0, 0.08)"><img src="/_blob/49f1cce9e3bebebf1888f788d1b3d383" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+          <a href="Main.dc.html" aria-label="HTTP 완벽 가이드" style="flex: none; display: block; width: 64px; aspect-ratio: 3 / 4; border-radius: 4px; overflow: hidden; background: var(--fill); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 14px rgba(0, 0, 0, 0.08)"><img src="/_blob/c6cf30376e85019d573cd46aced3896a" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+          <a href="Main.dc.html" aria-label="객체지향의 사실과 오해" style="flex: none; display: block; width: 64px; aspect-ratio: 3 / 4; border-radius: 4px; overflow: hidden; background: var(--fill); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 14px rgba(0, 0, 0, 0.08)"><img src="/_blob/6d1ed9bbcc78acf711341aa099938a0d" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+          <a href="Main.dc.html" aria-label="면접을 위한 CS 전공지식 노트" style="flex: none; display: block; width: 64px; aspect-ratio: 3 / 4; border-radius: 4px; overflow: hidden; background: var(--fill); box-shadow: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 14px rgba(0, 0, 0, 0.08)"><img src="/_blob/883b7b621a86160861b2c5147afec830" alt="" style="display: block; width: 100%; height: 100%; object-fit: cover"></a>
+        </div>
+        <a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; margin-top: var(--sp-2); font-size: var(--fs-foot); font-weight: 600; color: var(--label-2)">추천 도서 18권 모두 보기 ›</a>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ───────── GitHub ───────── -->
+  <sc-if value="{{showGit}}" hint-placeholder-val="{{ false }}">
+    <section aria-label="GitHub 메뉴" style="max-width: 1080px; margin: 0 auto; padding: var(--sp-7) var(--gutter) var(--sp-8); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: var(--sp-7) var(--sp-8); border-top: {{lineTop}}">
+      <div style="flex: 0 0 220px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.04s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">GitHub 둘러보기</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">모든 레포</a></li>
+          <li><a href="https://github.com/dev-jm-1024" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">프로필 ↗</a></li>
+        </ul>
+      </div>
+      <div style="flex: 0 0 160px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.09s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">실습 레포</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="https://github.com/dev-jm-1024/modern-java" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">modern-java</a></li>
+          <li><a href="https://github.com/dev-jm-1024/JMS-study" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">jms-study</a></li>
+          <li><a href="https://github.com/dev-jm-1024/jsp-study" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">jsp-study</a></li>
+        </ul>
+      </div>
+      <div style="flex: 0 0 160px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.14s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">자료 원본</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="https://github.com/dev-jm-1024/study-doc-hub" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">study-doc-hub ↗</a></li>
+        </ul>
+      </div>
+    </section>
+  </sc-if>
+
+  <!-- ───────── Vibe ───────── -->
+  <sc-if value="{{showVibe}}" hint-placeholder-val="{{ false }}">
+    <section aria-label="Vibe 메뉴" style="max-width: 1080px; margin: 0 auto; padding: var(--sp-7) var(--gutter) var(--sp-8); box-sizing: border-box; display: flex; flex-wrap: wrap; gap: var(--sp-7) var(--sp-8); border-top: {{lineTop}}">
+      <div style="flex: 0 0 220px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.04s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">Vibe Coding 둘러보기</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">모든 프로젝트</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">macOS 앱</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-t3); line-height: 1.3; font-weight: 600; letter-spacing: -0.02em; color: var(--label)">웹</a></li>
+        </ul>
+      </div>
+      <div style="flex: 0 0 220px; animation: navIn 0.45s cubic-bezier(0.2, 0.8, 0.2, 1) both; animation-delay: 0.09s">
+        <p style="margin: 0 0 var(--sp-2); font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">프로젝트</p>
+        <ul style="list-style: none; margin: 0; padding: 0">
+          <li><a href="https://github.com/dev-jm-1024/instagram-account-analysis" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">인스타그램 계정 분석</a></li>
+          <li><a href="https://github.com/dev-jm-1024/mzip" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">mzip</a></li>
+          <li><a href="https://github.com/dev-jm-1024/ddock" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">ddock (똑)</a></li>
+          <li><a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 32px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">JM Study Hub</a></li>
+        </ul>
+      </div>
+    </section>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"menu":{"editor":"enum","options":["all","자료실","Books","GitHub","Vibe"],"default":"all","tsType":"string"},"$preview":{"width":1440,"height":1320}}'>
+class Component extends DCLogic {
+  renderVals() {
+    const m = this.props.menu;
+    const all = m === undefined || m === null || m === 'all';
+    return {
+      showData: all || m === '자료실',
+      showBooks: all || m === 'Books',
+      showGit: all || m === 'GitHub',
+      showVibe: all || m === 'Vibe',
+      lineTop: all ? '1px solid var(--sep)' : '0',
+    };
+  }
+}
+</script>
+</body>
+</html>

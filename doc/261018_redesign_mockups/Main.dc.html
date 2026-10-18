@@ -1,0 +1,635 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>JM Hub 홈</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
+<style>
+:root{
+--bg:#F5F5F7;--surface:#FFFFFF;--fill:#E8E8ED;--sep:#D2D2D7;
+--label:#1D1D1F;--label-2:#6E6E73;--glyph-3:#AEAEB2;
+--accent:#0066CC;--accent-fill:#0071E3;--on-accent:#FFFFFF;
+--hl:#B64400;--hl-soft:#FFF1E6;
+--inv-surface:#1D1D1F;--inv-fill:#333336;--inv-label:#F5F5F7;--inv-label-2:#A1A1A6;--inv-accent:#2997FF;
+--fs-display:clamp(48px,6vw,80px);--fs-t1:clamp(32px,3.4vw,48px);--fs-t2:32px;--fs-t3:21px;--fs-lead:21px;--fs-body:17px;--fs-callout:15px;--fs-foot:13px;--fs-cap:12px;
+--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;--sp-9:96px;
+--gutter:24px;--section:96px;--tile-pad:40px;--card-pad:24px;--gap:20px;
+--r-tile:28px;--r-card:20px;--r-group:16px;--r-input:12px;--r-s:8px;--r-pill:980px;
+--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif;
+--mono:'SF Mono',ui-monospace,Menlo,monospace;
+}
+body{margin:0;background:var(--bg)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+input::placeholder{color:var(--label-2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@keyframes navIn{from{opacity:0;transform:translateY(-6px)}to{opacity:1;transform:none}}
+@media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important}}
+</style>
+</helmet>
+<div style="--accent: {{accent}}; --accent-fill: {{accentFill}}; min-height: 100vh; background: var(--bg); color: var(--label); font-family: var(--font); -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; word-break: keep-all">
+
+  <!-- 글로벌 내비게이션 -->
+  <header onMouseLeave="{{navLeave}}" onKeyDown="{{navKey}}" style="position: sticky; top: 0; z-index: 10">
+    <div style="position: relative; z-index: 2; background: {{barBg}}; backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid {{barLine}}; transition: background 0.3s ease">
+    <div style="max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); box-sizing: border-box; min-height: 52px; display: flex; align-items: center; gap: var(--sp-5); flex-wrap: wrap">
+      <a href="#top" onMouseEnter="{{hoverNone}}" style="display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; color: var(--label); font-size: var(--fs-callout); font-weight: 600">
+        <img src="/_blob/ed96c54f569ccc9f41f80164e1cc22dc" alt="" style="width: 24px; height: 24px; border-radius: 6px">
+        JM Hub
+      </a>
+      <nav aria-label="주요 메뉴" style="flex: 1; display: flex; justify-content: center; gap: 0 var(--sp-6); flex-wrap: wrap">
+        <sc-for list="{{navItems}}" as="n" hint-placeholder-count="4">
+          <button type="button" aria-expanded="{{n.expanded}}" aria-controls="nav-panel" onMouseEnter="{{n.hover}}" onClick="{{n.toggle}}" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0; border: 0; background: transparent; font: inherit; font-size: var(--fs-foot); font-weight: {{n.weight}}; color: var(--label); cursor: pointer">{{n.label}}</button>
+        </sc-for>
+        <a href="https://velog.io/@dlwoals1024/posts" onMouseEnter="{{hoverNone}}" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-foot); color: var(--label)">Velog
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+        </a>
+        <a href="https://blog.naver.com/jon1024" onMouseEnter="{{hoverNone}}" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-foot); color: var(--label)">Blog
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+        </a>
+      </nav>
+      <div style="display: flex; align-items: center">
+        <button type="button" aria-label="검색 (⌘K)" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--label); cursor: pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        </button>
+        <button type="button" aria-label="다크 모드로 전환" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--label); cursor: pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </button>
+      </div>
+    </div>
+    </div>
+
+    <!-- 드롭다운 패널: Apple 플라이아웃처럼 바 아래로 펼쳐짐 -->
+    <div id="nav-panel" style="position: absolute; left: 0; right: 0; top: 100%; z-index: 1; overflow: hidden; max-height: {{panelMax}}; transition: max-height 0.45s cubic-bezier(0.4, 0, 0.2, 1); background: rgba(250, 250, 252, 0.97); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px)">
+      <dc-import name="NavPanel" menu="{{shown}}" hint-size="100%,480px"></dc-import>
+    </div>
+  </header>
+
+  <!-- 메뉴 바깥: 블러 + 살짝 흐리게, 누르면 닫힘 -->
+  <button type="button" tabindex="-1" aria-label="메뉴 닫기" onClick="{{closeMenu}}" style="position: fixed; inset: 0; z-index: 9; border: 0; padding: 0; background: rgba(232, 232, 237, 0.4); backdrop-filter: blur(20px); -webkit-backdrop-filter: blur(20px); opacity: {{ovOp}}; visibility: {{ovVis}}; transition: opacity 0.3s ease, visibility 0s linear {{ovDelay}}; cursor: default"></button>
+
+  <main id="top">
+
+    <!-- 히어로 -->
+    <section style="text-align: center; padding: var(--section) var(--gutter) var(--sp-8)">
+      <a href="#topics" style="display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; box-sizing: border-box; padding: var(--sp-2) var(--sp-4) var(--sp-2) var(--sp-2); border-radius: var(--r-pill); background: var(--surface); font-size: var(--fs-callout); color: var(--label)">
+        <span style="padding: 2px var(--sp-2); border-radius: var(--r-pill); background: var(--hl-soft); color: var(--hl); font-size: var(--fs-cap); font-weight: 600">NEW</span>
+        대규모 시스템 설계 자료실이 열렸어요
+        <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="var(--glyph-3)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+      </a>
+      <p style="margin: var(--sp-6) 0 var(--sp-2); font-size: var(--fs-callout); line-height: 1.45; font-weight: 600; color: var(--label-2)">Backend Study Archive</p>
+      <h1 style="margin: 0; font-size: var(--fs-display); line-height: 1.05; font-weight: 700; letter-spacing: -0.035em">백엔드 학습 기록, 한곳에.</h1>
+      <p style="margin: var(--sp-5) auto 0; max-width: 620px; font-size: var(--fs-lead); line-height: 1.45; color: var(--label-2)">직접 공부하고 PDF로 정리했습니다.<br>다운로드는 자유입니다.</p>
+      <div style="margin-top: var(--sp-6); display: flex; justify-content: center; align-items: center; gap: var(--sp-3) var(--sp-6); flex-wrap: wrap">
+        <a href="#topics" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-5); border-radius: var(--r-pill); background: var(--accent-fill); color: var(--on-accent); font-size: var(--fs-body); font-weight: 500">자료실 둘러보기</a>
+        <a href="#more" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-body); color: var(--accent)">읽은 책 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        </a>
+      </div>
+      <label style="position: relative; display: flex; align-items: center; gap: var(--sp-3); max-width: 600px; margin: var(--sp-7) auto 0; box-sizing: border-box; height: 56px; padding: 0 var(--sp-3) 0 var(--sp-4); border-radius: var(--r-input); background: var(--surface); box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06); color: var(--label-2); cursor: text; text-align: left">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">자료 검색</span>
+        <input type="search" placeholder="자료 검색 — Spring, 인덱스, 네트워크…" style="flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; font: inherit; font-size: var(--fs-body); color: var(--label)">
+        <kbd style="font-family: inherit; font-size: var(--fs-cap); color: var(--label-2); background: var(--fill); border-radius: 6px; padding: var(--sp-1) var(--sp-2)">⌘K</kbd>
+      </label>
+    </section>
+
+    <!-- 숫자로 보기 -->
+    <section aria-label="자료 현황" style="max-width: 1080px; margin: 0 auto; padding: 0 var(--gutter); box-sizing: border-box">
+      <dl style="margin: 0; display: grid; grid-template-columns: repeat(auto-fit, minmax(180px, 1fr)); border-top: 1px solid var(--sep); border-bottom: 1px solid var(--sep)">
+        <div style="padding: var(--sp-6) var(--sp-4); display: flex; flex-direction: column-reverse; align-items: center; gap: var(--sp-1)">
+          <dt style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">주제</dt>
+          <dd style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">17</dd>
+        </div>
+        <div style="padding: var(--sp-6) var(--sp-4); display: flex; flex-direction: column-reverse; align-items: center; gap: var(--sp-1)">
+          <dt style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">문서</dt>
+          <dd style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">96</dd>
+        </div>
+        <div style="padding: var(--sp-6) var(--sp-4); display: flex; flex-direction: column-reverse; align-items: center; gap: var(--sp-1)">
+          <dt style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">추천 도서</dt>
+          <dd style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">18</dd>
+        </div>
+        <div style="padding: var(--sp-6) var(--sp-4); display: flex; flex-direction: column-reverse; align-items: center; gap: var(--sp-1)">
+          <dt style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">실습 레포</dt>
+          <dd style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">3</dd>
+        </div>
+      </dl>
+    </section>
+
+    <!-- 가장 많이 쌓인 자료실: 상위 2개 + 문서 비중(두 칸) -->
+    <section aria-labelledby="featured-h" style="max-width: 1080px; margin: 0 auto; padding: var(--section) var(--gutter) 0; box-sizing: border-box">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-2) var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-6)">
+        <h2 id="featured-h" style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">가장 많이 쌓인 자료실.</h2>
+        <a href="#topics" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-body); color: var(--accent)">모든 주제 보기
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        </a>
+      </div>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: var(--gap)">
+
+        <!-- 1위 Java -->
+        <article style="min-width: 0; min-height: 380px; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--inv-surface); color: var(--inv-label); display: flex; flex-direction: column; gap: var(--sp-5)">
+          <div style="display: flex; align-items: center; gap: var(--sp-3)">
+            <span aria-hidden="true" style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: #E76F00; color: #FFFFFF; display: grid; place-items: center; font-size: 17px; font-weight: 700">Jv</span>
+            <span style="font-size: var(--fs-callout); font-weight: 600; color: var(--inv-label-2)">프로그래밍</span>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">Java</h3>
+            <p style="margin: var(--sp-2) 0 0; font-size: var(--fs-body); line-height: 1.5; color: var(--inv-label-2)">모던 자바부터 JVM, GC, 가상 스레드까지.</p>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2)">
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--inv-fill); font-size: var(--fs-foot); line-height: 1.4">Modern Java <span style="color: var(--inv-label-2)">11</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--inv-fill); font-size: var(--fs-foot); line-height: 1.4">컬렉션 <span style="color: var(--inv-label-2)">3</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--inv-fill); font-size: var(--fs-foot); line-height: 1.4">JVM <span style="color: var(--inv-label-2)">3</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--inv-fill); font-size: var(--fs-foot); line-height: 1.4">GC <span style="color: var(--inv-label-2)">4</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--inv-fill); font-size: var(--fs-foot); line-height: 1.4">가상 스레드 <span style="color: var(--inv-label-2)">4</span></li>
+          </ul>
+          <div style="margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap">
+            <p style="margin: 0"><span style="font-size: var(--fs-t2); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em">25</span><span style="margin-left: var(--sp-1); font-size: var(--fs-callout); color: var(--inv-label-2)">개 문서</span></p>
+            <a href="#topics" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-body); color: var(--inv-accent)">자료실 열기
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- 2위 Spring Boot -->
+        <article style="min-width: 0; min-height: 380px; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--surface); display: flex; flex-direction: column; gap: var(--sp-5)">
+          <div style="display: flex; align-items: center; gap: var(--sp-3)">
+            <span aria-hidden="true" style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: #6DB33F; color: #FFFFFF; display: grid; place-items: center; font-size: 17px; font-weight: 700">Sp</span>
+            <span style="font-size: var(--fs-callout); font-weight: 600; color: var(--label-2)">프레임워크</span>
+          </div>
+          <div>
+            <h3 style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">Spring Boot</h3>
+            <p style="margin: var(--sp-2) 0 0; font-size: var(--fs-body); line-height: 1.5; color: var(--label-2)">부트 시작부터 HTTP Client, 필터·인터셉터, AOP, 캐시까지.</p>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: flex; flex-wrap: wrap; gap: var(--sp-2)">
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--fill); font-size: var(--fs-foot); line-height: 1.4">Basic <span style="color: var(--label-2)">6</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--fill); font-size: var(--fs-foot); line-height: 1.4">HTTP Client <span style="color: var(--label-2)">3</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--fill); font-size: var(--fs-foot); line-height: 1.4">Filter / Interceptor <span style="color: var(--label-2)">6</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--fill); font-size: var(--fs-foot); line-height: 1.4">AOP <span style="color: var(--label-2)">2</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--fill); font-size: var(--fs-foot); line-height: 1.4">Cache <span style="color: var(--label-2)">3</span></li>
+            <li style="padding: var(--sp-1) var(--sp-3); border-radius: var(--r-pill); background: var(--fill); font-size: var(--fs-foot); line-height: 1.4">Scheduler <span style="color: var(--label-2)">1</span></li>
+          </ul>
+          <div style="margin-top: auto; display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap">
+            <p style="margin: 0"><span style="font-size: var(--fs-t2); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em">21</span><span style="margin-left: var(--sp-1); font-size: var(--fs-callout); color: var(--label-2)">개 문서</span></p>
+            <a href="#topics" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-body); color: var(--accent)">자료실 열기
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+            </a>
+          </div>
+        </article>
+
+        <!-- 문서 비중: 두 칸 -->
+        <article style="grid-column: 1 / -1; min-width: 0; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--surface); display: flex; flex-direction: column; gap: var(--sp-5)">
+          <div>
+            <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; font-weight: 600; color: var(--label-2)">문서 비중</p>
+            <p style="margin: var(--sp-2) 0 0; font-size: var(--fs-body); line-height: 1.5; color: var(--label-2)">Java와 Spring Boot가 절반 가까이를 차지합니다.</p>
+          </div>
+          <div role="img" aria-label="주제별 문서 수: Java 25, Spring Boot 21, JSP 13, API 6, Linux 6, MySQL 5, 기타 11개 주제 20" style="height: 12px; display: flex; gap: 2px; border-radius: 6px; overflow: hidden">
+            <span style="flex: 25; background: #E76F00"></span>
+            <span style="flex: 21; background: #6DB33F"></span>
+            <span style="flex: 13; background: #C74634"></span>
+            <span style="flex: 6; background: #6683A0"></span>
+            <span style="flex: 6; background: #C99700"></span>
+            <span style="flex: 5; background: #4479A1"></span>
+            <span style="flex: 20; background: var(--sep)"></span>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0; display: grid; grid-template-columns: repeat(auto-fill, minmax(140px, 1fr)); gap: var(--sp-2) var(--sp-5); font-size: var(--fs-callout); line-height: 1.45">
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: #E76F00"></span><span style="flex: 1">Java</span><span style="color: var(--label-2)">25</span></li>
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: #6DB33F"></span><span style="flex: 1">Spring Boot</span><span style="color: var(--label-2)">21</span></li>
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: #C74634"></span><span style="flex: 1">JSP</span><span style="color: var(--label-2)">13</span></li>
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: #6683A0"></span><span style="flex: 1">API</span><span style="color: var(--label-2)">6</span></li>
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: #C99700"></span><span style="flex: 1">Linux</span><span style="color: var(--label-2)">6</span></li>
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: #4479A1"></span><span style="flex: 1">MySQL</span><span style="color: var(--label-2)">5</span></li>
+            <li style="display: flex; align-items: center; gap: var(--sp-2)"><span aria-hidden="true" style="flex: none; width: 8px; height: 8px; border-radius: 4px; background: var(--sep)"></span><span style="flex: 1">기타 11개 주제</span><span style="color: var(--label-2)">20</span></li>
+          </ul>
+        </article>
+      </div>
+    </section>
+
+    <!-- 최근 올라온 문서: 자동 슬라이드 · 무한 반복 -->
+    <section aria-labelledby="latest-h" aria-roledescription="carousel" style="max-width: 1080px; margin: 0 auto; padding: var(--section) var(--gutter) 0; box-sizing: border-box">
+      <div style="display: flex; align-items: flex-end; justify-content: space-between; gap: var(--sp-2) var(--sp-4); flex-wrap: wrap; margin-bottom: var(--sp-6)">
+        <h2 id="latest-h" style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">최근 올라온 문서.</h2>
+        <div style="display: flex; gap: var(--sp-3)">
+          <button type="button" aria-label="{{pauseLabel}}" onClick="{{togglePause}}" style="width: 44px; height: 44px; border: 0; border-radius: var(--r-pill); background: var(--fill); color: var(--label); display: grid; place-items: center; cursor: pointer">
+            <sc-if value="{{playing}}" hint-placeholder-val="{{ true }}"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8 5v14"></path><path d="M16 5v14"></path></svg></sc-if>
+            <sc-if value="{{paused}}" hint-placeholder-val="{{ false }}"><svg width="14" height="14" viewBox="0 0 24 24" aria-hidden="true"><path d="M7 4.5v15l12.5-7.5z" fill="currentColor"></path></svg></sc-if>
+          </button>
+          <button type="button" aria-label="이전 문서" onClick="{{prev}}" style="width: 44px; height: 44px; border: 0; border-radius: var(--r-pill); background: var(--fill); color: var(--label); display: grid; place-items: center; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg>
+          </button>
+          <button type="button" aria-label="다음 문서" onClick="{{next}}" style="width: 44px; height: 44px; border: 0; border-radius: var(--r-pill); background: var(--fill); color: var(--label); display: grid; place-items: center; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </button>
+        </div>
+      </div>
+      <div style="position: relative" onMouseEnter="{{hoverOn}}" onMouseLeave="{{hoverOff}}" onPointerDown="{{hold}}" onFocus="{{hold}}">
+        <div data-shelf="" onScroll="{{onShelfScroll}}" style="display: flex; gap: var(--gap); overflow-x: auto; scroll-snap-type: x mandatory; scrollbar-width: none; padding-bottom: var(--sp-1)">
+          <sc-for list="{{loop}}" as="c" hint-placeholder-count="4">
+            <article data-card="" aria-hidden="{{c.hidden}}" style="flex: 0 0 300px; scroll-snap-align: start; box-sizing: border-box; min-height: 240px; padding: var(--card-pad); border-radius: var(--r-card); background: var(--surface); display: flex; flex-direction: column; gap: var(--sp-2)">
+              <p style="margin: 0; font-size: var(--fs-foot); line-height: 1.4; font-weight: 600; color: {{c.dateColor}}">{{c.date}}</p>
+              <p style="margin: 0; display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-callout); color: var(--label-2)"><span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 6px; background: {{c.color}}; color: #FFFFFF; display: grid; place-items: center; font-size: 12px; font-weight: 700">{{c.badge}}</span>{{c.topic}}</p>
+              <h3 style="margin: var(--sp-1) 0 0; font-size: var(--fs-t3); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em">{{c.title}}</h3>
+              <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">{{c.desc}}</p>
+              <div style="margin-top: auto; display: flex; align-items: center; justify-content: space-between">
+                <span style="font-size: var(--fs-cap); font-weight: 600; color: var(--label-2); border: 1px solid var(--sep); border-radius: 6px; padding: 2px 6px">PDF</span>
+                <a href="#latest-h" tabindex="{{c.tab}}" style="display: inline-flex; align-items: center; min-height: 44px"><span style="display: inline-flex; align-items: center; height: 32px; padding: 0 var(--sp-4); border-radius: var(--r-pill); background: var(--fill); color: var(--accent); font-size: var(--fs-callout); font-weight: 600">받기</span></a>
+              </div>
+            </article>
+          </sc-for>
+        </div>
+        <div aria-hidden="true" style="position: absolute; top: 0; bottom: 0; left: 0; width: 64px; pointer-events: none; background: linear-gradient(to right, var(--bg) 0%, transparent 100%); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); mask-image: linear-gradient(to right, #000 0%, transparent 100%); -webkit-mask-image: linear-gradient(to right, #000 0%, transparent 100%)"></div>
+        <div aria-hidden="true" style="position: absolute; top: 0; bottom: 0; right: 0; width: 64px; pointer-events: none; background: linear-gradient(to left, var(--bg) 0%, transparent 100%); backdrop-filter: blur(4px); -webkit-backdrop-filter: blur(4px); mask-image: linear-gradient(to left, #000 0%, transparent 100%); -webkit-mask-image: linear-gradient(to left, #000 0%, transparent 100%)"></div>
+      </div>
+      <div aria-hidden="true" style="margin-top: var(--sp-4); display: flex; justify-content: center; gap: var(--sp-2)">
+        <sc-for list="{{dots}}" as="d" hint-placeholder-count="6">
+          <span style="width: {{d.w}}; height: 8px; border-radius: var(--r-pill); background: {{d.bg}}; transition: width 0.3s, background 0.3s"></span>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 주제별: 같은 줄의 그룹은 시작·끝을 맞춤 (grid + stretch) -->
+    <section id="topics" aria-labelledby="topics-h" style="max-width: 1080px; margin: 0 auto; padding: var(--section) var(--gutter) 0; box-sizing: border-box">
+      <h2 id="topics-h" style="margin: 0 0 var(--sp-6); font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">주제별로 찾아보기.</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: var(--sp-6) var(--gap); align-items: stretch">
+        <sc-for list="{{groups}}" as="g" hint-placeholder-count="6">
+          <section style="min-width: 0; display: flex; flex-direction: column">
+            <h3 style="margin: 0 0 var(--sp-2); padding-left: var(--sp-4); font-size: var(--fs-foot); line-height: 1.4; font-weight: 600; color: var(--label-2)">{{g.name}}</h3>
+            <div style="flex: 1; background: var(--surface); border-radius: var(--r-group); overflow: hidden">
+              <sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+                <a href="#topics" style="display: flex; align-items: center; gap: var(--sp-4); padding-left: var(--sp-4); min-height: 64px; color: var(--label)">
+                  <span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 8px; background: {{it.color}}; color: #FFFFFF; display: grid; place-items: center; font-size: 13px; font-weight: 700">{{it.badge}}</span>
+                  <span style="flex: 1; min-width: 0; align-self: stretch; display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-3) var(--sp-4) var(--sp-3) 0; border-top: {{it.border}}">
+                    <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: var(--fs-body); line-height: 1.4; font-weight: 500">{{it.name}}</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">{{it.desc}}</span></span>
+                    <sc-if value="{{it.isNew}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px var(--sp-2); border-radius: var(--r-pill); background: var(--hl-soft); color: var(--hl); font-size: var(--fs-cap); font-weight: 600">NEW</span></sc-if>
+                    <sc-if value="{{it.soon}}" hint-placeholder-val="{{ false }}"><span style="padding: 2px var(--sp-2); border-radius: var(--r-pill); background: var(--fill); color: var(--label-2); font-size: var(--fs-cap); font-weight: 600">준비 중</span></sc-if>
+                    <span style="font-size: var(--fs-callout); color: var(--label-2)">{{it.count}}</span>
+                    <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="var(--glyph-3)" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+                  </span>
+                </a>
+              </sc-for>
+            </div>
+          </section>
+        </sc-for>
+      </div>
+    </section>
+
+    <!-- 기록하는 사람: 프로필 · 달력 -->
+    <section aria-labelledby="about-h" style="max-width: 1080px; margin: 0 auto; padding: var(--section) var(--gutter) 0; box-sizing: border-box">
+      <h2 id="about-h" style="margin: 0 0 var(--sp-6); font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">기록하는 사람.</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: var(--gap)">
+
+        <article style="min-width: 0; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--surface); display: flex; flex-direction: column; align-items: flex-start; gap: var(--sp-5)">
+          <img src="/_blob/af1877753e26c55bdfe8fc8c00e56a00" alt="이재민 프로필" style="width: 64px; height: 64px; border-radius: var(--r-group)">
+          <div>
+            <h3 style="margin: 0; font-size: var(--fs-t3); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em">이재민</h3>
+            <p style="margin: var(--sp-1) 0 0; font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">BE Developer · @dev-jm-1024</p>
+            <p style="margin: var(--sp-3) 0 0; font-size: var(--fs-body); line-height: 1.5">책을 읽고 강의를 듣고 나면 노트는 남는데, 필요할 때 찾기 어려워 한곳에 모았습니다.</p>
+          </div>
+          <div style="margin-top: auto; display: flex; gap: var(--sp-2); flex-wrap: wrap">
+            <a href="https://github.com/dev-jm-1024" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-5); border-radius: var(--r-pill); background: var(--label); color: var(--surface); font-size: var(--fs-body); font-weight: 500">GitHub</a>
+            <a href="https://velog.io/@dlwoals1024/posts" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-5); border-radius: var(--r-pill); background: var(--fill); color: var(--label); font-size: var(--fs-body); font-weight: 500">Velog</a>
+          </div>
+        </article>
+
+        <article style="min-width: 0; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--surface); display: flex; flex-direction: column; gap: var(--sp-5)">
+          <div style="display: flex; align-items: baseline; justify-content: space-between; gap: var(--sp-3)">
+            <h3 style="margin: 0; font-size: var(--fs-t3); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em">2026년 10월</h3>
+            <p style="margin: 0; font-size: var(--fs-foot); color: var(--label-2)">오늘 18일 일요일</p>
+          </div>
+          <div style="display: grid; grid-template-columns: repeat(7, minmax(0, 1fr)); row-gap: var(--sp-1); text-align: center; font-size: var(--fs-foot); font-variant-numeric: tabular-nums">
+            <span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">일</span><span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">월</span><span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">화</span><span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">수</span><span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">목</span><span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">금</span><span style="padding-bottom: var(--sp-1); font-size: var(--fs-cap); font-weight: 600; color: var(--label-2)">토</span>
+            <sc-for list="{{cal}}" as="c" hint-placeholder-count="35">
+              <span style="display: flex; flex-direction: column; align-items: center; gap: 2px">
+                <sc-if value="{{c.today}}" hint-placeholder-val="{{ false }}"><span style="width: 32px; height: 32px; border-radius: var(--r-pill); background: var(--accent-fill); color: var(--on-accent); font-weight: 600; display: grid; place-items: center">{{c.n}}</span></sc-if>
+                <sc-if value="{{c.normal}}" hint-placeholder-val="{{ true }}"><span style="width: 32px; height: 32px; display: grid; place-items: center">{{c.n}}</span></sc-if>
+                <span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 2px; background: {{c.dotBg}}"></span>
+                <sc-if value="{{c.dot}}" hint-placeholder-val="{{ false }}"><span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">문서를 올린 날</span></sc-if>
+              </span>
+            </sc-for>
+          </div>
+          <p style="margin: auto 0 0; display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-foot); color: var(--label-2)"><span aria-hidden="true" style="width: 4px; height: 4px; border-radius: 2px; background: var(--hl)"></span>문서를 올린 날</p>
+        </article>
+      </div>
+    </section>
+
+    <!-- 책 · GitHub -->
+    <section id="more" aria-labelledby="more-h" style="max-width: 1080px; margin: 0 auto; padding: var(--section) var(--gutter) 0; box-sizing: border-box">
+      <h2 id="more-h" style="margin: 0 0 var(--sp-6); font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">함께 보면 좋은 것들.</h2>
+      <div style="display: grid; grid-template-columns: repeat(auto-fit, minmax(min(100%, 440px), 1fr)); gap: var(--gap)">
+
+        <article style="min-width: 0; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--surface); display: flex; flex-direction: column; gap: var(--sp-5)">
+          <div>
+            <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; font-weight: 600; color: var(--label-2)">Books</p>
+            <h3 style="margin: var(--sp-2) 0 0; font-size: var(--fs-t2); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em">읽은 책 18권.</h3>
+            <p style="margin: var(--sp-2) 0 0; font-size: var(--fs-body); line-height: 1.5; color: var(--label-2)">공부하면서 곁에 둔 책을 짧게 정리했습니다.</p>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0">
+            <li style="display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--sep)">
+              <span aria-hidden="true" style="flex: none; width: 32px; height: 44px; border-radius: 6px; background: #E76F00"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: var(--fs-body); line-height: 1.4; font-weight: 500">모던 자바 인 액션</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">Java</span></span>
+            </li>
+            <li style="display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--sep)">
+              <span aria-hidden="true" style="flex: none; width: 32px; height: 44px; border-radius: 6px; background: #4479A1"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: var(--fs-body); line-height: 1.4; font-weight: 500">Real MySQL 8.0 (1권)</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">MySQL</span></span>
+            </li>
+            <li style="display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--sep); border-bottom: 1px solid var(--sep)">
+              <span aria-hidden="true" style="flex: none; width: 32px; height: 44px; border-radius: 6px; background: #6E7F92"></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-size: var(--fs-body); line-height: 1.4; font-weight: 500">객체지향의 사실과 오해</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">OOP</span></span>
+            </li>
+          </ul>
+          <a href="#more" style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-body); color: var(--accent)">모든 책 보기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </a>
+        </article>
+
+        <article style="min-width: 0; box-sizing: border-box; padding: var(--tile-pad); border-radius: var(--r-tile); background: var(--surface); display: flex; flex-direction: column; gap: var(--sp-5)">
+          <div>
+            <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; font-weight: 600; color: var(--label-2)">GitHub</p>
+            <h3 style="margin: var(--sp-2) 0 0; font-size: var(--fs-t2); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em">실습 레포 3개.</h3>
+            <p style="margin: var(--sp-2) 0 0; font-size: var(--fs-body); line-height: 1.5; color: var(--label-2)">문서로 정리한 내용을 직접 돌려본 코드입니다.</p>
+          </div>
+          <ul style="list-style: none; margin: 0; padding: 0">
+            <li style="display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--sep)">
+              <span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 8px; background: var(--fill); color: var(--label); display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="7" r="2.5"></circle><path d="M6 8.5v7"></path><path d="M18 9.5a8 8 0 0 1-8 8H8.5"></path></svg></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-family: var(--mono); font-size: var(--fs-body); line-height: 1.4; font-weight: 500; letter-spacing: 0">modern-java</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">Modern Java 학습을 위한 실습 코드 모음</span></span>
+            </li>
+            <li style="display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--sep)">
+              <span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 8px; background: var(--fill); color: var(--label); display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="7" r="2.5"></circle><path d="M6 8.5v7"></path><path d="M18 9.5a8 8 0 0 1-8 8H8.5"></path></svg></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-family: var(--mono); font-size: var(--fs-body); line-height: 1.4; font-weight: 500; letter-spacing: 0">jms-study</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">JMS를 이용한 채팅 구현</span></span>
+            </li>
+            <li style="display: flex; align-items: center; gap: var(--sp-4); padding: var(--sp-3) 0; border-top: 1px solid var(--sep); border-bottom: 1px solid var(--sep)">
+              <span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 8px; background: var(--fill); color: var(--label); display: grid; place-items: center"><svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="6" cy="6" r="2.5"></circle><circle cx="6" cy="18" r="2.5"></circle><circle cx="18" cy="7" r="2.5"></circle><path d="M6 8.5v7"></path><path d="M18 9.5a8 8 0 0 1-8 8H8.5"></path></svg></span>
+              <span style="flex: 1; min-width: 0; display: flex; flex-direction: column"><span style="font-family: var(--mono); font-size: var(--fs-body); line-height: 1.4; font-weight: 500; letter-spacing: 0">jsp-study</span><span style="font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">JSP 공부</span></span>
+            </li>
+          </ul>
+          <a href="https://github.com/dev-jm-1024" style="margin-top: auto; align-self: flex-start; display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-body); color: var(--accent)">GitHub에서 보기
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+          </a>
+        </article>
+      </div>
+    </section>
+  </main>
+
+  <footer style="margin-top: var(--section); border-top: 1px solid var(--sep)">
+    <div style="max-width: 1080px; margin: 0 auto; padding: var(--sp-2) var(--gutter) var(--sp-7); box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 0 var(--sp-5); flex-wrap: wrap; font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">
+      <p style="margin: 0">© 2026 JM Study Hub · 직접 공부하고 정리한 자료</p>
+      <nav aria-label="외부 링크" style="display: flex; gap: 0 var(--sp-5); flex-wrap: wrap">
+        <a href="https://velog.io/@dlwoals1024/posts" style="display: inline-flex; align-items: center; min-height: 44px; color: var(--label)">Velog</a>
+        <a href="https://blog.naver.com/jon1024" style="display: inline-flex; align-items: center; min-height: 44px; color: var(--label)">네이버 블로그</a>
+        <a href="https://github.com/dev-jm-1024" style="display: inline-flex; align-items: center; min-height: 44px; color: var(--label)">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#0066CC","options":["#0066CC","#5E5CE6","#1D1D1F","#B64400"]},"interval":{"editor":"range","default":4,"min":2,"max":8,"step":0.5,"unit":"초"},"menu":{"editor":"enum","options":["닫힘","자료실","Books","GitHub","Vibe"],"default":"닫힘"},"$preview":{"width":1440,"height":4760}}'>
+class Component extends DCLogic {
+  componentDidMount() {
+    this.reduce = !!(window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches);
+    if (this.reduce) this.setState({ paused: true });
+    this.startTimer();
+    requestAnimationFrame(() => this.center());
+  }
+
+  componentDidUpdate(prevProps) {
+    if (prevProps.interval !== this.props.interval) this.startTimer();
+  }
+
+  componentWillUnmount() {
+    clearInterval(this.timer);
+    clearTimeout(this.settleT);
+    clearTimeout(this.openT);
+    clearTimeout(this.closeT);
+  }
+
+  // ── 글로벌 내비 드롭다운 ──
+  currentMenu() {
+    const st = this.state || {};
+    if (st.menu !== undefined) return st.menu;
+    const p = this.props.menu ?? '닫힘';
+    return p === '닫힘' ? '' : p;
+  }
+
+  setMenu(m) {
+    clearTimeout(this.openT);
+    clearTimeout(this.closeT);
+    if (m) this.lastMenu = m;
+    this.setState({ menu: m });
+  }
+
+  // 닫혀 있을 땐 살짝 머문 뒤 열고, 이미 열려 있으면 즉시 바꾼다
+  hoverMenu(label) {
+    clearTimeout(this.closeT);
+    if (this.currentMenu()) { this.setMenu(label); return; }
+    clearTimeout(this.openT);
+    this.openT = setTimeout(() => this.setMenu(label), 120);
+  }
+
+  leaveNav() {
+    clearTimeout(this.openT);
+    clearTimeout(this.closeT);
+    this.closeT = setTimeout(() => this.setMenu(''), 200);
+  }
+
+  startTimer() {
+    clearInterval(this.timer);
+    const sec = Number(this.props.interval ?? 4) || 4;
+    this.timer = setInterval(() => this.tick(), sec * 1000);
+  }
+
+  // 셸프 치수: 카드 한 칸(step)과 한 벌(setW) 너비
+  metrics() {
+    const el = document.querySelector('[data-shelf]');
+    if (!el) return null;
+    const cards = el.querySelectorAll('[data-card]');
+    if (cards.length < 2) return null;
+    const step = cards[1].offsetLeft - cards[0].offsetLeft;
+    return { el, step, setW: step * this.count };
+  }
+
+  center() {
+    const m = this.metrics();
+    if (m) m.el.scrollLeft = m.setW;
+  }
+
+  // 같은 목록을 3벌 깔고 가운데 벌 근처에 머물게 해 끝없이 이어지게 한다
+  normalize() {
+    const m = this.metrics();
+    if (!m) return;
+    const sl = m.el.scrollLeft;
+    if (sl < m.setW - m.step / 2) m.el.scrollLeft = sl + m.setW;
+    else if (sl >= 2 * m.setW - m.step / 2) m.el.scrollLeft = sl - m.setW;
+  }
+
+  go(dir) {
+    const m = this.metrics();
+    if (!m) return;
+    this.normalize();
+    m.el.scrollBy({ left: dir * m.step, behavior: 'smooth' });
+  }
+
+  tick() {
+    const st = this.state || {};
+    if (st.paused || this.hovering || this.reduce) return;
+    if (this.holdUntil && Date.now() < this.holdUntil) return;
+    this.go(1);
+  }
+
+  settle() {
+    this.normalize();
+    const m = this.metrics();
+    if (!m) return;
+    const n = this.count;
+    const i = ((Math.round((m.el.scrollLeft - m.setW) / m.step) % n) + n) % n;
+    if ((this.state || {}).idx !== i) this.setState({ idx: i });
+  }
+
+  renderVals() {
+    const st = this.state || {};
+    const paused = !!st.paused;
+    const idx = st.idx || 0;
+
+    if (!this.handlers) {
+      this.handlers = {
+        onShelfScroll: () => {
+          clearTimeout(this.settleT);
+          this.settleT = setTimeout(() => this.settle(), 140);
+        },
+        prev: () => { this.holdUntil = Date.now() + 6000; this.go(-1); },
+        next: () => { this.holdUntil = Date.now() + 6000; this.go(1); },
+        hoverOn: () => { this.hovering = true; },
+        hoverOff: () => { this.hovering = false; },
+        hold: () => { this.holdUntil = Date.now() + 6000; },
+        togglePause: () => this.setState({ paused: !(this.state || {}).paused }),
+      };
+    }
+
+    const latest = [
+      ['10월 11일 · 새 자료실', true, 'Sd', '#3E8E9E', '대규모 시스템 설계', '1. 사용자 수에 따른 규모 확장성', '단일 서버에서 로드밸런서, 캐시, CDN, 샤딩까지'],
+      ['10월 11일', true, 'Sd', '#3E8E9E', '대규모 시스템 설계', '1-1. 규모 확장성 - DNS', 'DNS 조회 과정과 캐시, DNS 레코드'],
+      ['10월 11일', true, 'Dk', '#2496ED', 'Docker', '2. Docker 아키텍처와 컨테이너 실행', 'Client-Server 모델, 컨테이너 엔진·런타임, 실행과 삭제'],
+      ['10월 11일', true, 'Sp', '#6DB33F', 'Spring Boot · AOP', '1-1. 왜 AOP 를 쓰는가? - 보완', 'Join point, Pointcut, Advice, Proxy, Weaving 용어 정리'],
+      ['9월 27일', false, 'Sp', '#6DB33F', 'Spring Boot · AOP', '1. 왜 AOP 를 쓰는가?', 'crosscutting 관심사, AOP 핵심 용어와 Advice 종류'],
+      ['9월 27일 · 새 자료실', false, 'Dk', '#2496ED', 'Docker', '1. 가상화 기술과 컨테이너 가상화', '서버, 하이퍼바이저 가상화와 컨테이너 가상화 비교'],
+    ];
+    this.count = latest.length;
+    const loop = [];
+    for (let set = 0; set < 3; set++) {
+      latest.forEach(([date, recent, badge, color, topic, title, desc]) => {
+        loop.push({
+          date, badge, color, topic, title, desc,
+          dateColor: recent ? 'var(--hl)' : 'var(--label-2)',
+          hidden: set === 1 ? 'false' : 'true',
+          tab: set === 1 ? '0' : '-1',
+        });
+      });
+    }
+    const dots = latest.map((_, i) => ({
+      w: i === idx ? '20px' : '8px',
+      bg: i === idx ? 'var(--label)' : 'var(--glyph-3)',
+    }));
+
+    const G = (name, items) => ({
+      name,
+      items: items.map(([badge, color, title, desc, count, flag], i) => ({
+        badge, color, name: title, desc, count,
+        isNew: flag === 'new',
+        soon: flag === 'soon',
+        border: i === 0 ? '0' : '1px solid var(--sep)',
+      })),
+    });
+
+    const groups = [
+      G('프로그래밍', [
+        ['Jv', '#E76F00', 'Java', '람다 · 스트림 · Optional · 컬렉션', '25'],
+        ['Kt', '#7F52FF', 'Kotlin', '문법 · 널 안정성 · 컬렉션', '2'],
+      ]),
+      G('프레임워크', [
+        ['Sp', '#6DB33F', 'Spring Boot', 'DI · 부트 · Security · REST API', '21'],
+        ['Jp', '#C74634', 'JSP', '서블릿 · JDBC · 세션 · JSTL', '13'],
+      ]),
+      G('데이터베이스', [
+        ['My', '#4479A1', 'MySQL', '인덱스 · 트랜잭션 · JOIN', '5'],
+        ['Mo', '#47A248', 'MongoDB', '도큐먼트 모델 · 시작하기', '1'],
+        ['Qd', '#7C6EA8', 'QueryDSL', 'Q타입 · 동적 쿼리', '3'],
+      ]),
+      G('인프라', [
+        ['Lx', '#C99700', 'Linux', '명령어 · 파일시스템 · 권한', '6'],
+        ['Kf', '#6B7280', 'Kafka', '이벤트 스트리밍 · 개념과 구조', '2'],
+        ['Nw', '#6E7CA8', 'Network', 'OSI 7계층 · 프로토콜', '1'],
+        ['Ws', '#009639', 'Web Server', 'Nginx vs Apache', '1'],
+        ['Dk', '#2496ED', 'Docker', '가상화 · 컨테이너', '2'],
+      ]),
+      G('아키텍처', [
+        ['Ap', '#6683A0', 'API', 'REST · GraphQL · gRPC · WebSocket', '6'],
+        ['OO', '#6E7F92', 'OOP', '절차지향 vs 객체지향 · SOLID', '4'],
+        ['Sd', '#3E8E9E', '대규모 시스템 설계', '규모 확장 · DNS · 캐시 · CDN', '2', 'new'],
+      ]),
+      G('테스팅', [
+        ['Ju', '#25A162', 'JUnit', '단위 테스트 기초', '1'],
+        ['Ex', '#B0604E', '예외처리 핸드북', '예외 설계 · 핸드북', '', 'soon'],
+      ]),
+    ];
+
+    // 달력: 2026년 10월, 오늘 18일, 문서 올린 날 11일
+    const YEAR = 2026, MONTH = 9, TODAY = 18, UPLOADS = [11];
+    const lead = new Date(YEAR, MONTH, 1).getDay();
+    const days = new Date(YEAR, MONTH + 1, 0).getDate();
+    const cal = [];
+    for (let i = 0; i < lead; i++) cal.push({ n: '', today: false, normal: true, dot: false, dotBg: 'transparent' });
+    for (let d = 1; d <= days; d++) {
+      const dot = UPLOADS.includes(d);
+      cal.push({ n: String(d), today: d === TODAY, normal: d !== TODAY, dot, dotBg: dot ? 'var(--hl)' : 'transparent' });
+    }
+
+    // 내비 드롭다운
+    if (!this.navHandlers) {
+      this.navHandlers = {
+        navLeave: () => this.leaveNav(),
+        hoverNone: () => { clearTimeout(this.openT); if (this.currentMenu()) this.setMenu(''); },
+        closeMenu: () => this.setMenu(''),
+        navKey: (e) => { if (e.key === 'Escape' && this.currentMenu()) this.setMenu(''); },
+      };
+    }
+    const open = this.currentMenu();
+    const shown = open || this.lastMenu || '';
+    // 메뉴 콘텐츠는 NavPanel.dc.html 한 곳에서 관리
+    const navItems = ['자료실', 'Books', 'GitHub', 'Vibe'].map(label => ({
+      label,
+      expanded: open === label ? 'true' : 'false',
+      weight: open === label ? '600' : '400',
+      hover: () => this.hoverMenu(label),
+      toggle: () => this.setMenu(this.currentMenu() === label ? '' : label),
+    }));
+
+    const accent = this.props.accent ?? '#0066CC';
+    return {
+      ...this.navHandlers,
+      navItems,
+      shown,
+      barBg: open ? 'rgba(250, 250, 252, 0.97)' : 'rgba(245, 245, 247, 0.8)',
+      barLine: open ? 'transparent' : 'var(--sep)',
+      panelMax: open ? '820px' : '0px',
+      ovOp: open ? 1 : 0,
+      ovVis: open ? 'visible' : 'hidden',
+      ovDelay: open ? '0s' : '0.3s',
+      accent,
+      accentFill: accent === '#0066CC' ? '#0071E3' : accent,
+      loop,
+      dots,
+      groups,
+      cal,
+      playing: !paused,
+      paused,
+      pauseLabel: paused ? '자동 넘김 재생' : '자동 넘김 일시정지',
+      ...this.handlers,
+    };
+  }
+}
+</script>
+</body>
+</html>
