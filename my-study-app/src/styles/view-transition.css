@@ -54,10 +54,10 @@ html[data-vt="page"]::view-transition-new(root) {
    전환 이미지는 넘친 부분을 자르지 않으므로 상자(image-pair)에서 직접 자른다 */
 ::view-transition-image-pair(pdf-sheet) {
   overflow: clip;
-  border-radius: var(--border-radius-lg);
+  border-radius: var(--r-tile);
 }
-@media (max-width: 560px) {
-  ::view-transition-image-pair(pdf-sheet) { border-radius: 0; } /* 모바일 미리보기는 전체 화면·각진 모서리 */
+@media (max-width: 734px) {
+  ::view-transition-image-pair(pdf-sheet) { border-radius: 0; } /* 모바일 미리보기는 전체 화면·각진 모서리 (pdf-preview.css와 같은 경계) */
 }
 ::view-transition-old(pdf-sheet),
 ::view-transition-new(pdf-sheet) {

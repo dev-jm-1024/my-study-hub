@@ -9,6 +9,12 @@ html, body {
   overflow-x: clip;
 }
 
+/* 스크롤바 자리를 늘 비워 둔다 — 시트가 html 스크롤을 잠가도 화면 폭이 그대로라
+   View Transition이 "Viewport size changed"로 취소되지 않고, 뒤 화면도 옆으로 밀리지 않는다 */
+html {
+  scrollbar-gutter: stable;
+}
+
 /* 본문 기본값 (SF → Pretendard 폴백, 한글은 어절 단위 줄바꿈, 바탕 패턴 없음) */
 body {
   font-family: var(--font);

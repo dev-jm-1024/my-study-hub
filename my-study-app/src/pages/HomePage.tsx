@@ -3,7 +3,7 @@ import { flushSync } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { Search, ChevronRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
-import { ALIASES, DESC } from '../data/topics';
+import { searchTopics } from '../utils/topicSearch';
 import { AboutSection } from '../components/home/AboutSection';
 import { FeaturedSection } from '../components/home/FeaturedSection';
 import { HeroNewPill } from '../components/home/HeroNewPill';
@@ -19,15 +19,7 @@ export function HomePage() {
   const [q, setQ] = useState('');
   const query = q.trim().toLowerCase();
 
-  const filtered = useMemo(() => {
-    if (!query) return [];
-    return MENUS.filter(m =>
-      m.name.toLowerCase().includes(query) ||
-      (DESC[m.key] ?? '').toLowerCase().includes(query) ||
-      m.group.toLowerCase().includes(query) ||
-      (ALIASES[m.key] ?? []).some(alias => alias.toLowerCase().includes(query))
-    );
-  }, [query]);
+  const filtered = useMemo(() => (query ? searchTopics(MENUS, query) : []), [query]);
 
   const newTopic = useMemo(() => newestTopic(), []);
 
