@@ -1,4 +1,6 @@
 /* 주제(카테고리) 공통 표시 헬퍼 — 홈 / 사이드바 / 다운로드에서 공유 */
+import type { CSSProperties } from 'react';
+import { STACK } from './stacks';
 
 /* 2글자 모노그램 배지 */
 export const BADGE: Record<string, string> = {
@@ -51,6 +53,10 @@ export const tintClass = (key: string) => `t-${key.toLowerCase()}`;
 
 /* 배지 라벨 (매핑 없으면 이름 앞 2글자) */
 export const badgeLabel = (key: string, name: string) => BADGE[key] ?? name.slice(0, 2);
+
+/* 주제 색을 CSS 변수(--topic)로만 넘긴다 — 색이 없는 주제는 CSS의 폴백.
+   대표 타일·주제 행·히어로 배지 무리가 같은 색을 쓰도록 STACK이 단일 출처 */
+export const topicStyle = (key: string): CSSProperties => ({ '--topic': STACK[key]?.color }) as CSSProperties;
 
 /* 자료실 페이징 전역 설정 — 값은 constants/ui가 단일 출처, 기존 import 경로 호환용 re-export */
 export { DOWNLOAD_PAGE_SIZE } from '../constants/ui';

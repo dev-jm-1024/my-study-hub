@@ -1,7 +1,7 @@
 /* ══════════════════════════════════════════════════
    View Transitions — "문서 열기" 연출
    전환 시작은 utils/viewTransition.ts, 전환 종류는 <html data-vt="...">
-   - page        : 홈의 행/카드 → 자료실 헤더 (dl-badge · dl-title · dl-count)
+   - page        : 홈의 행/카드 → 자료실 헤더 (dl-title · dl-count 이어짐. 출발 쪽 배지가 없어 dl-badge는 짝 없이 도착 쪽 페이드인만)
    - sheet-open  : 문서 행 → PDF 미리보기 창 (pdf-sheet)
    - sheet-close : 그 반대
 ══════════════════════════════════════════════════ */

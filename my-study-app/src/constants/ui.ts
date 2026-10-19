@@ -23,15 +23,22 @@ export const NEW_BADGE_DAYS = 21;
 export const LATEST_SHELF = {
   /** 셸프에 올릴 문서 수 */
   count: 6,
-  /** 자동 넘김 간격 */
-  intervalMs: 4000,
-  /** 화살표·터치·포커스 뒤 자동 넘김을 멈추는 시간 */
+  /** 자동 흐름 속도 — 카드 한 칸(300px + 간격)이 약 10초에 시작선을 지나간다 */
+  speedPxPerSec: 32,
+  /** 흐름이 멈추거나 다시 흐를 때 감속·가속에 걸리는 시간 (멈추는 동안 약 speed × ramp / 2 = 8px 더 간다) */
+  rampMs: 500,
+  /** 이전/다음 화살표로 한 칸 미끄러지는 시간 */
+  glideMs: 500,
+  /** 화살표·터치·포커스 뒤 자동 흐름을 멈추는 시간 */
   holdAfterInteractMs: 6000,
   /** 스크롤이 멈췄다고 보는 시간 (위치 보정·점 갱신) */
   settleMs: 140,
   /** 무한 반복용으로 목록을 몇 벌 깔지 (가운데 벌 근처에 머문다). 최소값 — 한 벌이 화면보다 좁으면 훅이 늘린다 */
   copies: 3,
 } as const;
+
+/** 홈 '함께 보면 좋은 것들': 책·GitHub 타일에 미리 보여 줄 항목 수 */
+export const HOME_MORE_PREVIEW_COUNT = 3;
 
 /** 상단 드롭다운 메뉴 */
 export const NAV_MENU_TIMING = {

@@ -28,20 +28,11 @@
 @media (max-width: 768px) {
   .page-wrapper { padding-left: var(--spacing-md); padding-right: var(--spacing-md); }
   .main-content { padding: var(--spacing-lg) var(--spacing-md); }
-  /* 홈: 대시보드 카드 패딩 축소 */
-  .dash-card { padding: 16px; }
-}
-
-/* 좁은 폭: 리스트 설명 줄바꿈 */
-@media (max-width: 620px) {
-  .cat-desc { white-space: normal; }
 }
 
 /* 폰 */
 @media (max-width: 480px) {
   body { font-size: 16px; }
-  .home-panel { padding: 22px; }
-  .home-panel-btn { width: 100%; justify-content: center; }
   /* 책 카드 1열 */
   .book-grid { grid-template-columns: 1fr !important; }
 }
@@ -51,7 +42,6 @@
   .page-wrapper { padding-left: var(--spacing-sm); padding-right: var(--spacing-sm); }
   .main-content { padding: var(--spacing-md) var(--spacing-sm); }
   .dl-head-badge { width: 42px; height: 42px; font-size: 0.9rem; }
-  .cal-day { font-size: 0.72rem; }
 }
 
 /* 가로 모드(짧은 높이): 사이드바 좌측 safe-area 여백 (히어로 여백 보정은 Ch7) */

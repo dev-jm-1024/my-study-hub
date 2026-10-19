@@ -1,6 +1,6 @@
 import { useEffect, useLayoutEffect, useRef, useState } from 'react';
 import { MENUS } from '../data/menuData';
-import { badgeLabel, tintClass } from '../data/topics';
+import { badgeLabel, topicStyle } from '../data/topics';
 
 /* ══════════════════════════════════════════════════
    홈 첫 진입 연출 — 흩어진 주제 배지들이 제목의 "한곳에"로 모여든다.
@@ -138,7 +138,7 @@ export function HeroSwarm({ target }: { target: React.RefObject<HTMLElement | nu
     <div className="intro-swarm" ref={box} aria-hidden="true">
       {MENUS.map(m => (
         <span key={m.key} className="intro-tile">
-          <span className={`cat-badge ${tintClass(m.key)}`}>{badgeLabel(m.key, m.name)}</span>
+          <span className="cat-badge" style={topicStyle(m.key)}>{badgeLabel(m.key, m.name)}</span>
         </span>
       ))}
     </div>

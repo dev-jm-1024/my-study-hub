@@ -167,11 +167,34 @@
   line-height: var(--lh-cap);
 }
 
-/* 검색 결과가 없을 때 */
+/* 검색 결과가 없을 때 — 안내 문장 + 검색어 지우기 */
 .home-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: var(--sp-1);
+}
+.home-empty-text {
   margin: 0;
-  padding: var(--sp-2) var(--sp-1);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
   color: var(--label-2);
+}
+.home-empty-clear {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  color: var(--accent);
+  cursor: pointer;
+}
+.home-empty-clear:hover { text-decoration: underline; }
+.home-empty-clear:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
 }
 
 /* '자료실 둘러보기'가 내려오는 자리 — 고정 헤더 아래에 제목이 붙지 않게 */

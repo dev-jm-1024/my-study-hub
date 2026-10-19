@@ -126,7 +126,7 @@
 | `docShare(topN)` | `{ total, parts: [{ key, name, count, color }], rest }` | RD-4-3 |
 | `latestDocs(n)` | addedAt 내림차순 n건 `{ topicKey, section?, title, desc, addedAt }` | RD-4-3 |
 | `isNewTopic(key, today)` | 첫 문서 addedAt이 `NEW_BADGE_DAYS` 이내 | RD-4-3 |
-| `uploadDaysInMonth(y, m)` | 그 달에 문서를 올린 날짜 배열 | RD-5-4 |
+| `uploadDaysInMonth(y, m)` | 그 달에 문서를 올린 날짜 배열 | RD-5-3 |
 | `paginateSections(sections, sel, page, size)` | `{ groups: [{ name, count, cont, docs }], pageCount, range }` | RD-6-1 |
 
 ## 3. 공통 규칙 (모든 에이전트)
@@ -135,7 +135,7 @@
 2. **동작 숫자는 `src/constants`에서.** 없으면 만들지 말고 리드에게 보고(architect만 `constants/ui.ts`에 추가 가능).
 3. **새 npm 의존성 금지.** 아이콘은 `lucide-react`, 브랜드 로고는 `simple-icons`(이미 설치).
 4. **소유 파일만 수정.** 같은 묶음의 에이전트끼리 파일이 겹치지 않게 리드가 나눈다. 밖을 고쳐야 하면 보고한다.
-5. **기존 연출 보존.** `view-transition.css`의 이름과 `useTransitionNavigate`의 `nameParts` 짝(`.cat-badge→dl-badge`, `.cat-title→dl-title`, `.cat-count→dl-count`, 문서 행↔미리보기 시트)을 깨지 않는다. 클래스 이름을 바꾸면 짝도 같은 작업에서 바꾼다.
+5. **기존 연출 보존.** `view-transition.css`의 이름과 `useTransitionNavigate`의 `nameParts` 짝(`.cat-title→dl-title`, `.cat-count→dl-count`, 문서 행↔미리보기 시트)을 깨지 않는다. `.cat-badge→dl-badge` 짝은 Ch5에서 주제 행 배지를 빼며 없어졌다 — `dl-badge`는 도착 화면에서 페이드만 한다. 클래스 이름을 바꾸면 짝도 같은 작업에서 바꾼다.
 6. **접근성 기본값.** 클릭 요소는 `<button>`/`<a>`, 아이콘 버튼 `aria-label`, 터치 44px, 포커스 링(`:focus-visible`), `prefers-reduced-motion`에서 움직임 끔, 회색 글자 4.5:1.
 7. **빌드 통과 후 보고.** `cd my-study-app && npm run build`.
 8. **검색은 `command grep`.** 이 환경의 `grep`은 ugrep 별칭이라 결과가 다르다.
@@ -156,9 +156,12 @@
 | ≤734px | 드롭다운 없음. 메뉴 이름은 링크, 햄버거 메뉴 사용(Ch7) |
 | reduced-motion | 지연(120/200ms)은 그대로, 패널·열·덮개 애니메이션만 끈다 (2026-10-19 리드 결정 — 지연 0이면 바를 가로지르기만 해도 메뉴가 연달아 열리고, 머물러 연 직후 클릭이 늘 닫기가 된다) |
 
-### 4.2 최근 문서 셸프 (`useInfiniteCarousel`, Ch4)
-- 목록을 `LATEST_SHELF.copies`(3)벌 깔고 시작 위치를 가운데 벌 첫 칸에 둔다. 스크롤이 `settleMs` 동안 멈추면 위치를 가운데 벌 범위(`[setW − step/2, 2·setW − step/2)`)로 **순간 보정**해 끝이 없게 한다. `step` = 두 카드의 `offsetLeft` 차, `setW = step × count`.
-- `intervalMs`마다 한 칸 `scrollBy({ behavior: 'smooth' })`. 멈춤 조건: 일시정지 상태, 마우스 올림, 화살표·터치·포커스 뒤 `holdAfterInteractMs`, `prefers-reduced-motion`(처음부터 일시정지).
+### 4.2 최근 문서 셸프 (`useInfiniteCarousel`, Ch4 · Ch5 D2에서 연속 흐름으로 개편)
+- 목록을 `LATEST_SHELF.copies`(최소 3 — 한 벌이 화면보다 좁으면 훅이 늘린다)벌 깔고 시작 위치를 가운데 벌 첫 칸에 둔다. 위치가 가운데 벌 범위를 벗어나면 벌 하나(`setW`)만큼 **같은 프레임에서 순간 보정**해 끝이 없게 한다(생김새가 같아 안 보인다). 손 스크롤은 `settleMs` 동안 멈춘 뒤 보정.
+- **연속 흐름**(10-19 사용자 요청): 한 칸씩 넘기지 않고 `speedPxPerSec`(32)로 멈추지 않고 흐른다. 움직이는 동안 rAF가 트랙을 `transform`으로 소수 px까지 밀고, 멈추면 민 양을 정수 `scrollLeft`로 옮겨 네이티브 스크롤과 잇는다. `scroll-snap`·`scroll-behavior: smooth` 없음.
+- 멈춤·재개: 일시정지 · 마우스 올림 · 셸프 안 포커스는 `rampMs`(500) 동안 감속해 멈추고 같은 시간 동안 가속한다. 손가락 닿음 · 가로 휠은 그 자리에서 바로, 탭 숨김 · 셸프가 화면 밖(IntersectionObserver)이면 바로. 화살표·터치·포커스가 끝나면 `holdAfterInteractMs` 쉰 뒤 다시 흐른다. `prefers-reduced-motion`은 처음부터 일시정지(재생을 누르면 감속·가속 없이 흐름).
+- 이전/다음: 시작선에 가장 가까운 카드의 앞/뒤 카드를 `glideMs`(500) 동안 시작선으로 미끄러뜨린다(흐르던 속도를 이어받는 곡선, 연타하면 한 칸씩 더).
+- 셸프 안에 포커스가 있는 동안: 이음매 보정을 쉰다(브라우저가 포커스 카드를 보이게 스크롤한 자리를 지킨다), 점 = 포커스 카드.
 - 일시정지 버튼(`aria-label` 재생/일시정지 전환), 점 표시(현재 칸 = 넓은 알약, `aria-hidden`), 복제 벌은 `aria-hidden` + 안의 링크 `tabIndex=-1`.
 - 양쪽 가장자리: 배경색→투명 그라데이션 + `--blur-edge`를 마스크로 페이드. 폭 데스크톱 64px · 모바일 40px. 끝없이 이어지므로 항상 표시.
 

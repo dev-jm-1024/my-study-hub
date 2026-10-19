@@ -1,20 +1,21 @@
 import { Fragment, useState, useMemo, useRef } from 'react';
 import { flushSync } from 'react-dom';
-import { Link, useNavigate } from 'react-router-dom';
-import { Search, ArrowRight, ChevronRight } from 'lucide-react';
+import { Link } from 'react-router-dom';
+import { Search, ChevronRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
-import { ALIASES, DESC, GROUP_ORDER } from '../data/topics';
-import { CategoryRow } from '../components/CategoryRow';
+import { ALIASES, DESC } from '../data/topics';
+import { AboutSection } from '../components/home/AboutSection';
 import { FeaturedSection } from '../components/home/FeaturedSection';
 import { HeroNewPill } from '../components/home/HeroNewPill';
 import { LatestShelf } from '../components/home/LatestShelf';
+import { MoreSection } from '../components/home/MoreSection';
+import { TopicGroup, TopicGroups } from '../components/home/TopicGroups';
 import { newestTopic } from '../utils/home';
 import { HeroSwarm, useHomeIntro, useCountUp } from '../components/HeroIntro';
 
 const TOTAL_DOCS = Object.values(MENU_DATA).reduce((sum, arr) => sum + arr.length, 0);
 
 export function HomePage() {
-  const navigate = useNavigate();
   const [q, setQ] = useState('');
   const query = q.trim().toLowerCase();
 
@@ -28,18 +29,12 @@ export function HomePage() {
     );
   }, [query]);
 
-  const groups = useMemo(
-    () =>
-      GROUP_ORDER.map(group => ({ group, items: MENUS.filter(m => m.group === group) }))
-        .filter(g => g.items.length > 0),
-    []
-  );
-
   const newTopic = useMemo(() => newestTopic(), []);
 
   const intro = useHomeIntro();
   const gatherRef = useRef<HTMLSpanElement>(null);
   const topicsRef = useRef<HTMLDivElement>(null);
+  const searchRef = useRef<HTMLInputElement>(null);
   const stats = [
     { n: useCountUp(MENUS.length, intro), label: '주제' },
     { n: useCountUp(TOTAL_DOCS, intro), label: '문서' },
@@ -55,6 +50,12 @@ export function HomePage() {
     /* 'auto'는 html의 scroll-behavior: smooth를 따르므로 '동작 줄이기'에서는 'instant'로 끊는다 */
     topicsRef.current?.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
     topicsRef.current?.focus({ preventScroll: true });
+  };
+
+  /* 검색 결과가 0건일 때 — 검색어를 비우고 입력창으로 돌아가 바로 다시 칠 수 있게 한다 */
+  const clearSearch = () => {
+    setQ('');
+    searchRef.current?.focus();
   };
 
   return (
@@ -82,6 +83,7 @@ export function HomePage() {
         <label className="home-search">
           <Search size={20} aria-hidden="true" />
           <input
+            ref={searchRef}
             type="search"
             value={q}
             onChange={e => setQ(e.target.value)}
@@ -107,44 +109,40 @@ export function HomePage() {
       </section>
 
       <div className="home-main">
-      {query ? (
-        /* 검색 결과 */
-        <section className="home-section">
-          <div className="home-section-head"><h2>검색 결과 {filtered.length}건</h2></div>
-          {filtered.length > 0 ? (
-            <div className="cat-list">{filtered.map(m => <CategoryRow key={m.key} item={m} />)}</div>
-          ) : (
-            <p className="home-empty">일치하는 자료가 없어요.</p>
-          )}
-        </section>
-      ) : (
-        <>
-          {/* 가장 많이 쌓인 자료실 · 최근 올라온 문서 */}
-          <FeaturedSection onBrowseTopics={browseTopics} />
-          <LatestShelf />
+        {query ? (
+          /* 검색 결과 — 대표 타일·셸프·주제 그룹 자리를 대신한다 */
+          <section className="home-block" aria-labelledby="search-h">
+            <div className="home-block-head">
+              <h2 className="home-block-title" id="search-h">검색 결과 {filtered.length}건.</h2>
+            </div>
+            {filtered.length > 0 ? (
+              /* 주제 목록과 같은 열 폭 — 결과가 적어도 전체 폭으로 늘어나지 않는다 */
+              <div className="topic-grid topic-grid--results">
+                <TopicGroup items={filtered} />
+              </div>
+            ) : (
+              <div className="home-empty">
+                <p className="home-empty-text">일치하는 자료가 없어요.</p>
+                <button type="button" className="home-empty-clear" onClick={clearSearch}>검색어 지우기</button>
+              </div>
+            )}
+          </section>
+        ) : (
+          <>
+            {/* 가장 많이 쌓인 자료실 · 최근 올라온 문서 */}
+            <FeaturedSection onBrowseTopics={browseTopics} />
+            <LatestShelf />
 
-          {/* 주제별 자료 — '자료실 둘러보기'가 내려오는 자리 */}
-          <div id="topics" className="home-topics" ref={topicsRef} tabIndex={-1}>
-            {groups.map(({ group, items }) => (
-              <section className="home-section" key={group}>
-                <div className="home-section-head"><h2>{group}</h2></div>
-                <div className="cat-list">{items.map(m => <CategoryRow key={m.key} item={m} />)}</div>
-              </section>
-            ))}
-          </div>
-        </>
-      )}
+            {/* 주제별 자료 — '자료실 둘러보기'가 내려오는 자리 */}
+            <div id="topics" className="home-topics" ref={topicsRef} tabIndex={-1}>
+              <TopicGroups />
+            </div>
+          </>
+        )}
 
-      {/* 책 · GitHub 패널 */}
-      <section className="home-panel home-anim">
-        <div className="grow">
-          <h3><span className="tick" />읽은 책 &amp; GitHub</h3>
-          <p>추천 도서 정리와 실습 레포지토리도 함께 보세요.</p>
-        </div>
-        <button className="home-panel-btn" onClick={() => navigate('/books')}>
-          책 보러가기 <span className="arr"><ArrowRight size={16} /></span>
-        </button>
-      </section>
+        {/* 기록하는 사람 · 함께 보면 좋은 것들 — 검색 중에도 그대로 */}
+        <AboutSection />
+        <MoreSection />
       </div>
     </main>
   );

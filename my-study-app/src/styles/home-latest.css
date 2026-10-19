@@ -1,9 +1,10 @@
 /* ══════════════════════════════════════════════════
    홈 '최근 올라온 문서.' 셸프 (Ch4 · components/home/LatestShelf.tsx)
    머리 줄(.home-block*)은 home-featured.css 가 준다 — 여기서 다시 정의하지 않는다.
-   가로로 도는 동작은 hooks/useInfiniteCarousel 이 한다. 이 파일이 그 훅에 지키는 약속:
-   스크롤러는 overflow-x: auto + scroll-snap-type: x mandatory, 카드는 scroll-snap-align: start.
-   부드러운 스크롤 · 칸마다 강제 멈춤 · 카드별 스냅 여백 속성은 쓰지 않는다 — 이동 방식은 훅이 고른다.
+   가로로 흐르는 동작은 hooks/useInfiniteCarousel 이 한다. 이 파일이 그 훅에 지키는 약속:
+   스크롤러(.latest-scroller)는 overflow-x: auto, 시작선은 scroll-padding-left. 그 안의 트랙(.latest-track)이 카드를 담고,
+   흐르는 동안 훅이 트랙에 인라인 transform 을 쓴다 — 트랙에 CSS transform 을 주지 않는다.
+   스크롤 스냅 · 부드러운 스크롤 속성은 쓰지 않는다 — 흐르는 위치를 훅이 쥐고, 이동 방식도 훅이 고른다.
 ══════════════════════════════════════════════════ */
 
 .latest {
@@ -58,18 +59,23 @@
   margin-inline: calc(-1 * var(--latest-inset));
 }
 
+.latest-scroller {
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: var(--sp-1);  /* 포커스 링이 위아래에서 잘리지 않게 */
+  /* 시작선 = 본문 왼쪽 끝(제목 줄). 훅이 읽어 첫 카드를 맞추고, 포커스로 스크롤될 때도 이 안쪽에 둔다 */
+  scroll-padding-inline: var(--latest-inset);
+}
+.latest-scroller::-webkit-scrollbar { display: none; }
+
+/* 흐르는 띠 — 끝 여백까지 스크롤 범위에 들도록 폭은 내용만큼, 매 프레임 transform 만 바뀌므로 합성 레이어로 */
 .latest-track {
   display: flex;
   gap: var(--gap);
-  overflow-x: auto;
-  scroll-snap-type: x mandatory;
-  scrollbar-width: none;
-  padding-block: var(--sp-1);  /* 포커스 링이 위아래에서 잘리지 않게 */
-  /* 정지 상태의 첫 카드가 본문 왼쪽 끝(제목 줄)에 오도록 — 훅이 scroll-padding 을 읽어 칸을 맞춘다 */
+  width: max-content;
   padding-inline: var(--latest-inset);
-  scroll-padding-inline: var(--latest-inset);
+  will-change: transform;
 }
-.latest-track::-webkit-scrollbar { display: none; }
 
 .latest-card {
   flex: none;
@@ -82,7 +88,6 @@
   padding: var(--card-pad);
   border-radius: var(--r-card);
   background: var(--surface);
-  scroll-snap-align: start;
 }
 
 /* 날짜 — 새로 올라온 기간 안이면 --new 색 */
@@ -95,30 +100,13 @@
 }
 .latest-date--new { color: var(--new); }
 
-/* 주제 줄: 배지 + 이름 · 소분류 (주제 색은 인라인 --topic 변수로만 들어온다, 색 없는 새 주제는 폴백) */
+/* 주제 줄: 이름 · 소분류 (글자 배지 없음 — 10-19 사용자 요청) */
 .latest-topic {
-  display: flex;
-  align-items: center;
-  gap: var(--sp-2);
   margin: 0;
   font-size: var(--fs-callout);
   line-height: var(--lh-callout);
   color: var(--label-2);
 }
-.latest-badge {
-  flex: none;
-  display: grid;
-  place-items: center;
-  width: var(--icon-s);
-  height: var(--icon-s);
-  border-radius: calc(var(--icon-s) / 4);
-  background: var(--topic, var(--glyph-3));
-  color: var(--on-accent);
-  font-size: var(--fs-cap);
-  line-height: 1;
-  font-weight: 700;
-}
-.latest-topic-name { min-width: 0; }
 
 .latest-title {
   margin: var(--sp-1) 0 0;

@@ -2,10 +2,17 @@
    규칙 값은 constants/ui.ts, 재료는 data/*. 주제 순서의 기준은 MENUS이고 MENU_DATA는 키로만 찾는다
    (MENU_DATA 키 순서가 바뀌어도 결과는 같다). 날짜를 보는 함수는 today를 마지막 인자로 받는다. */
 
-import { DOC_SHARE_TOP_N, FEATURED_TOPIC_COUNT, LATEST_SHELF, NEW_BADGE_DAYS } from '../constants/ui';
+import {
+  DOC_SHARE_TOP_N,
+  FEATURED_TOPIC_COUNT,
+  HOME_MORE_PREVIEW_COUNT,
+  LATEST_SHELF,
+  NEW_BADGE_DAYS,
+} from '../constants/ui';
+import { BOOKS } from '../data/books';
 import { MENUS, MENU_DATA } from '../data/menuData';
 import { STACK } from '../data/stacks';
-import type { PdfItem } from '../types';
+import type { BookItem, PdfItem } from '../types';
 import { resolveCategoryKey } from './category';
 
 export interface TopicRef {
@@ -177,6 +184,38 @@ export function latestDocs(n: number = LATEST_SHELF.count): LatestDoc[] {
 export function isNewTopic(key: string, today: Date = new Date()): boolean {
   const opening = openingOf(docsOf(key));
   return opening !== null && isRecentDate(opening.date, today);
+}
+
+/** 문서가 없거나 모든 문서의 pdfUrl이 비어 있는 주제 — '준비 중' 알약용 */
+export function isPreparingTopic(key: string): boolean {
+  // 문서가 0개면 every가 true — 없는 키도 '준비 중'
+  return docsOf(key).every(doc => !doc.pdfUrl);
+}
+
+/**
+ * 그 달에 문서가 올라온 '일' 목록 — 달력 점 표시용. 오름차순·중복 제거.
+ * month는 1~12 (addedAt의 YYYY-MM-DD와 같은 기준 — Date#getMonth()가 아니라 getMonth() + 1).
+ * 형식이 틀렸거나 빈 addedAt은 무시하고, 오늘보다 미래 날짜는 뺀다(날짜 오타 방지).
+ * 예) const t = new Date(); uploadDaysInMonth(t.getFullYear(), t.getMonth() + 1, t)
+ */
+export function uploadDaysInMonth(year: number, month: number, today: Date = new Date()): number[] {
+  const now = todayNumber(today);
+  const days = new Set<number>();
+  for (const menu of MENUS) {
+    for (const doc of docsOf(menu.key)) {
+      const ymd = parseYmd(doc.addedAt);
+      if (!ymd || ymd.y !== year || ymd.m !== month) continue;
+      if (Date.UTC(ymd.y, ymd.m - 1, ymd.d) / DAY_MS > now) continue;
+      days.add(ymd.d);
+    }
+  }
+  return [...days].sort((a, b) => a - b);
+}
+
+/** 최근 추가한 책 n권, 최신순 — books.ts 배열 끝이 최근 추가. Books 메뉴 표지(navMenus)와 같은 결과 */
+export function recentBooks(n: number = HOME_MORE_PREVIEW_COUNT): BookItem[] {
+  // slice(-0)은 전체 배열이라 0 이하는 따로 거른다
+  return n > 0 ? BOOKS.slice(-n).reverse() : [];
 }
 
 /** NEW 주제 중 가장 최근에 열린 것(동률은 MENUS 순서). 없으면 null — 히어로 NEW 알약용 */

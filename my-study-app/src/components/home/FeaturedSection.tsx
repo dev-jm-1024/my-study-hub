@@ -1,15 +1,11 @@
 import { useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
-import { badgeLabel, DESC } from '../../data/topics';
-import { STACK } from '../../data/stacks';
+import { DESC, topicStyle } from '../../data/topics';
 import { docShare, topTopics } from '../../utils/home';
 import { useTransitionNavigate } from '../../hooks/useTransitionNavigate';
 
-/* 타일의 배지·이름·문서 수가 자료실 헤더의 같은 조각으로 이어진다 (view-transition.css) */
-const TILE_TO_HEAD = { '.feat-badge': 'dl-badge', '.feat-name': 'dl-title', '.feat-count': 'dl-count' };
-
-/** 주제 색을 CSS 변수로만 넘긴다 (색이 없는 주제는 CSS의 폴백) */
-const topicVars = (color: string | undefined) => ({ '--topic': color }) as React.CSSProperties;
+/* 타일의 이름·문서 수가 자료실 헤더의 같은 조각으로 이어진다 (view-transition.css) */
+const TILE_TO_HEAD = { '.feat-name': 'dl-title', '.feat-count': 'dl-count' };
 
 interface FeaturedSectionProps {
   /** '모든 주제 보기' 클릭 — 검색어를 비우고 #topics로 내려간다 */
@@ -50,13 +46,8 @@ export function FeaturedSection({ onBrowseTopics }: FeaturedSectionProps) {
               href={to}
               onClick={e => go(e, to, TILE_TO_HEAD)}
             >
-              <div className="feat-top">
-                <span className="feat-badge" style={topicVars(STACK[t.key]?.color)} aria-hidden="true">
-                  {badgeLabel(t.key, t.name)}
-                </span>
-                <span className="feat-group">{t.group}</span>
-              </div>
               <div>
+                <p className="feat-group">{t.group}</p>
                 <h3 className="feat-name">{t.name}</h3>
                 <p className="feat-desc">{DESC[t.key] ?? t.group}</p>
               </div>
@@ -99,7 +90,7 @@ export function FeaturedSection({ onBrowseTopics }: FeaturedSectionProps) {
                 <span
                   key={p.key}
                   className="feat-bar-seg"
-                  style={{ ...topicVars(p.color), '--share': p.count } as React.CSSProperties}
+                  style={{ ...topicStyle(p.key), '--share': p.count } as React.CSSProperties}
                 />
               ))}
               {share.rest.count > 0 && (
@@ -112,7 +103,7 @@ export function FeaturedSection({ onBrowseTopics }: FeaturedSectionProps) {
             <ul className="feat-legend">
               {share.parts.map(p => (
                 <li key={p.key} className="feat-legend-item">
-                  <span className="feat-dot" style={topicVars(p.color)} aria-hidden="true" />
+                  <span className="feat-dot" style={topicStyle(p.key)} aria-hidden="true" />
                   <span className="feat-legend-name">{p.name}</span>
                   <span className="feat-legend-n">{p.count}</span>
                 </li>
