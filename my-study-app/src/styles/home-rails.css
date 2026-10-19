@@ -1,25 +1,21 @@
 /* ══════════════════════════════════════════════════
-   홈 3단 레이아웃 (좌 레일: 스택 · 중앙 콘텐츠 · 우 레일: 달력)
+   홈 단일 컬럼 레이아웃 (Ch3)
+   히어로(.home-hero)·숫자 스트립(.home-stats)은 home-hero.css가 각자 폭·여백을 가진다.
+   이 위치는 임시 — Ch5에서 레일 컴포넌트(프로필·스택 비율·시계·달력)를 정리할 때
+   홈 레이아웃 블록의 파일 위치를 재검토한다.
 ══════════════════════════════════════════════════ */
-.home-layout {
-  max-width: 1240px;
-  display: flex;
-  align-items: flex-start;
-  justify-content: center;
-  gap: 28px;
+.home-page {
+  /* .page-wrapper가 아니므로 고정 헤더 높이만큼 직접 띄운다. 좌우 여백은 각 섹션의 --gutter.
+     아래 여백은 .site-footer margin-top과 합쳐 이전 간격(128px) 유지 — Ch5 푸터 개편 때 다시 맞춘다. */
+  padding: calc(var(--bar-h) + env(safe-area-inset-top, 0px)) 0 var(--sp-8);
 }
-.home-main { flex: 1 1 700px; max-width: 700px; min-width: 0; }
-.home-rail-left { width: 236px; }
-.home-rail-right { width: 252px; }
-.home-rail {
-  flex: none;
-  position: sticky;
-  align-self: flex-start;
-  top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--spacing-md));
-  height: fit-content;
-  display: flex;
-  flex-direction: column;
-  gap: 16px;
+.home-main {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  /* 숫자 스트립 → 첫 섹션 간격을 --section으로 맞춘다: 이 패딩 + 첫 .home-section의 margin-top(48px).
+     Ch4에서 .home-section 여백을 새 토큰으로 바꾸면 이 보정도 함께 조정한다. */
+  padding: calc(var(--section) - var(--sp-7)) var(--gutter) 0;
 }
 
 /* 프로필 카드 */
@@ -141,15 +137,6 @@
   scrollbar-width: thin;
   scrollbar-color: color-mix(in srgb, var(--text-muted) 40%, transparent) transparent;
 }
-/* 3단 sticky 레이아웃: 좌 레일을 화면 높이에 맞추고 목록이 남는 높이를 채운다.
-   높이는 레일의 처음 위치(page-wrapper 상단 여백) 기준 — 스크롤 전에도 카드 끝이 보인다. */
-@media (min-width: 1101px) and (min-height: 501px) {
-  .home-rail-left {
-    max-height: calc(100vh - var(--bar-h) - env(safe-area-inset-top, 0px) - var(--spacing-2xl) - var(--spacing-md));
-  }
-  .home-rail-left .ratio-card { min-height: 200px; }
-  .home-rail-left .ratio-list { flex: 1 1 auto; min-height: 0; max-height: none; }
-}
 .ratio-row {
   flex: none;
   display: flex;
@@ -248,20 +235,3 @@
   color: var(--cta-text);
   font-weight: 700;
 }
-
-/* 레일이 들어갈 폭이 부족하면 → 단일 컬럼, 레일은 콘텐츠 아래로 (sticky 해제) */
-@media (max-width: 1100px) {
-  .home-layout { flex-direction: column; align-items: center; }
-  .home-rail {
-    position: static;
-    height: auto;
-    width: 100%;
-    max-width: 460px;
-    margin: var(--spacing-lg) auto 0;
-  }
-  .home-main { flex: none; width: 100%; max-width: 760px; order: 0; }
-  .home-rail-left { order: 1; }
-  /* 시계·달력은 넓은 화면의 곁들임 — 아래로 쌓이면 스크롤만 늘리므로 숨긴다 */
-  .home-rail-right { display: none; }
-}
-

@@ -1,13 +1,11 @@
 import { Fragment, useState, useMemo, useRef } from 'react';
-import { useNavigate } from 'react-router-dom';
-import { Search, ArrowRight } from 'lucide-react';
+import { flushSync } from 'react-dom';
+import { Link, useNavigate } from 'react-router-dom';
+import { Search, ArrowRight, ChevronRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
 import { ALIASES, DESC, GROUP_ORDER, tintClass } from '../data/topics';
-import { ProfileCard } from '../components/ProfileCard';
-import { StackRatio } from '../components/StackRatio';
-import { Clock } from '../components/Clock';
-import { MiniCalendar } from '../components/MiniCalendar';
 import { CategoryRow } from '../components/CategoryRow';
+import { HeroNewPill } from '../components/home/HeroNewPill';
 import { docCount } from '../utils/category';
 import { useTransitionNavigate } from '../hooks/useTransitionNavigate';
 import { HeroSwarm, useHomeIntro, useCountUp } from '../components/HeroIntro';
@@ -44,6 +42,7 @@ export function HomePage() {
 
   const intro = useHomeIntro();
   const gatherRef = useRef<HTMLSpanElement>(null);
+  const topicsRef = useRef<HTMLDivElement>(null);
   const stats = [
     { n: useCountUp(MENUS.length, intro), label: '주제' },
     { n: useCountUp(TOTAL_DOCS, intro), label: '문서' },
@@ -51,47 +50,66 @@ export function HomePage() {
     { n: useCountUp(REPO_DATA.length, intro), label: '실습 레포' },
   ];
 
-  return (
-    <main className={`page-wrapper home-layout${intro ? ' home-intro' : ''}`}>
-      {/* 왼쪽 레일: 프로필 + 스택 비율 (sticky) */}
-      <aside className="home-rail home-rail-left">
-        <ProfileCard />
-        <StackRatio />
-      </aside>
+  /* 검색 중이면 검색어를 비워 주제 목록이 다시 그려진 뒤에 그 자리로 내려간다 */
+  const browseTopics = (e: React.MouseEvent<HTMLAnchorElement>) => {
+    e.preventDefault();
+    flushSync(() => setQ(''));
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* 'auto'는 html의 scroll-behavior: smooth를 따르므로 '동작 줄이기'에서는 'instant'로 끊는다 */
+    topicsRef.current?.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
+  };
 
-      <div className="home-main">
+  return (
+    <main className={`home-page${intro ? ' home-intro' : ''}`}>
       {/* Hero */}
       <section className="home-hero">
+        {/* Ch4(RD-4-6): isNewTopic으로 고른 최신 NEW 주제를 넘긴다 */}
+        <HeroNewPill topic={null} />
         <p className="home-eyebrow">Backend Study Archive</p>
         <h1 className="home-title">
-          {['백엔드', '개발', '학습', '자료를'].map(w => (
+          {['백엔드', '학습', '기록,'].map(w => (
             <Fragment key={w}><span className="home-title-w"><span>{w}</span></span>{' '}</Fragment>
           ))}
-          <span ref={gatherRef} className="home-gather">한곳에</span>
+          <span className="home-title-end">
+            <span ref={gatherRef} className="home-gather">한곳에</span>
+            <span className="home-title-dot">.</span>
+          </span>
         </h1>
-        <p className="home-subtitle">직접 공부하고 PDF로 정리했습니다. 다운로드는 자유입니다.</p>
-        <div className="home-stats">
-          {stats.map(({ n, label }, i) => (
-            <Fragment key={label}>
-              {i > 0 && <span className="home-stats-sep" aria-hidden="true" />}
-              <span><b>{n}</b> {label}</span>
-            </Fragment>
-          ))}
+        <p className="home-subtitle">직접 공부하고 PDF로 정리했습니다.<br />다운로드는 자유입니다.</p>
+        <div className="home-cta">
+          <a className="home-cta-primary" href="#topics" onClick={browseTopics}>자료실 둘러보기</a>
+          <Link className="home-cta-link" to="/books">
+            읽은 책 보기 <ChevronRight size={14} strokeWidth={2.4} aria-hidden="true" />
+          </Link>
         </div>
-        <div className="home-search">
-          <span className="home-search-ico"><Search size={18} /></span>
+        <label className="home-search">
+          <Search size={20} aria-hidden="true" />
           <input
-            type="text"
+            type="search"
             value={q}
             onChange={e => setQ(e.target.value)}
             placeholder="자료 검색 — Spring, 인덱스, 네트워크…"
             aria-label="자료 검색"
           />
-        </div>
+          <kbd className="home-search-kbd" aria-hidden="true">⌘K</kbd>
+        </label>
         {/* 제목 뒤에 둬야 배지 무리의 레이아웃 효과가 돌 때 gatherRef가 붙어 있다 */}
         {intro && <HeroSwarm target={gatherRef} />}
       </section>
 
+      {/* 숫자로 보기 */}
+      <section className="home-stats" aria-label="자료 현황">
+        <dl className="home-stats-list">
+          {stats.map(({ n, label }) => (
+            <div className="home-stat" key={label}>
+              <dt>{label}</dt>
+              <dd>{n}</dd>
+            </div>
+          ))}
+        </dl>
+      </section>
+
+      <div className="home-main">
       {query ? (
         /* 검색 결과 */
         <section className="home-section">
@@ -99,7 +117,7 @@ export function HomePage() {
           {filtered.length > 0 ? (
             <div className="cat-list">{filtered.map(m => <CategoryRow key={m.key} item={m} />)}</div>
           ) : (
-            <p style={{ color: 'var(--text-muted)', padding: '8px 4px' }}>일치하는 자료가 없어요.</p>
+            <p className="home-empty">일치하는 자료가 없어요.</p>
           )}
         </section>
       ) : (
@@ -127,13 +145,15 @@ export function HomePage() {
             </div>
           </section>
 
-          {/* 주제별 자료 */}
-          {groups.map(({ group, items }) => (
-            <section className="home-section" key={group}>
-              <div className="home-section-head"><h2>{group}</h2></div>
-              <div className="cat-list">{items.map(m => <CategoryRow key={m.key} item={m} />)}</div>
-            </section>
-          ))}
+          {/* 주제별 자료 — '자료실 둘러보기'가 내려오는 자리 */}
+          <div id="topics" className="home-topics" ref={topicsRef}>
+            {groups.map(({ group, items }) => (
+              <section className="home-section" key={group}>
+                <div className="home-section-head"><h2>{group}</h2></div>
+                <div className="cat-list">{items.map(m => <CategoryRow key={m.key} item={m} />)}</div>
+              </section>
+            ))}
+          </div>
         </>
       )}
 
@@ -148,12 +168,6 @@ export function HomePage() {
         </button>
       </section>
       </div>
-
-      {/* 오른쪽 레일: 시계 + 달력 (sticky) */}
-      <aside className="home-rail home-rail-right">
-        <Clock />
-        <MiniCalendar />
-      </aside>
     </main>
   );
 }

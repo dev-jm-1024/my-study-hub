@@ -28,8 +28,7 @@
 @media (max-width: 768px) {
   .page-wrapper { padding-left: var(--spacing-md); padding-right: var(--spacing-md); }
   .main-content { padding: var(--spacing-lg) var(--spacing-md); }
-  /* 홈: 상단 여백·대시보드 카드 패딩 축소 */
-  .home-hero { padding-top: var(--spacing-lg); }
+  /* 홈: 대시보드 카드 패딩 축소 */
   .dash-card { padding: 16px; }
 }
 
@@ -42,8 +41,6 @@
 /* 폰 */
 @media (max-width: 480px) {
   body { font-size: 16px; }
-  .home-title, .home-subtitle { white-space: normal; text-wrap: balance; }
-  .home-subtitle { font-size: var(--font-size-base); }
   .home-panel { padding: 22px; }
   .home-panel-btn { width: 100%; justify-content: center; }
   /* 책 카드 1열 */
@@ -58,10 +55,8 @@
   .cal-day { font-size: 0.72rem; }
 }
 
-/* 가로 모드(짧은 높이): 히어로 여백 축소, 레일 sticky 해제 */
+/* 가로 모드(짧은 높이): 사이드바 좌측 safe-area 여백 (히어로 여백 보정은 Ch7) */
 @media (orientation: landscape) and (max-height: 500px) {
-  .home-hero { padding: var(--spacing-md) 0 var(--spacing-sm); }
-  .home-rail { position: static; }
   .sidebar {
     padding-left: max(var(--spacing-md), calc(var(--spacing-md) + env(safe-area-inset-left, 0px)));
   }

@@ -8,7 +8,7 @@ import { badgeLabel, tintClass } from '../data/topics';
    두 파일의 시각(ms)이 맞물려 있으니 한쪽을 바꾸면 다른 쪽도 맞춘다.
 ══════════════════════════════════════════════════ */
 
-const INTRO_MS = 2700;     // 전체 연출이 끝나는 시각 → .home-intro 해제
+const INTRO_MS = 2200;     // 전체 연출이 끝나는 시각 → .home-intro 해제 (가장 늦은 숫자 카운트업 2140 뒤)
 const APPEAR_SPREAD = 200; // 배지가 흩어진 자리에 하나씩 나타나는 구간
 const GATHER_AT = 500;     // 모여들기 시작 (다 나타난 뒤 잠깐 머문다)
 const GATHER_STEP = 14;    // 배지마다 출발 간격 (원을 따라 차례로)
@@ -37,7 +37,7 @@ export function useHomeIntro() {
  * 0부터 target까지 세어 올라간다. enabled가 아니면 바로 target.
  * 시계로 빈 애니메이션을 써서 CSS 연출과 같은 타임라인을 탄다 (개발자 도구에서 느리게 재생해도 함께 느려진다)
  */
-export function useCountUp(target: number, enabled: boolean, delay = 1200, duration = 800) {
+export function useCountUp(target: number, enabled: boolean, delay = 1340, duration = 800) {
   const [n, setN] = useState(enabled ? 0 : target);
   useEffect(() => {
     if (!enabled) { setN(target); return; }
@@ -74,14 +74,20 @@ export function HeroSwarm({ target }: { target: React.RefObject<HTMLElement | nu
     const dest = word.getBoundingClientRect();
     const tx = dest.left + dest.width / 2 - hero.left;
     const ty = dest.top + dest.height / 2 - hero.top;
-    const cx = hero.width / 2;
-    const cy = hero.height * 0.5;
-    // 가로로는 히어로 밖(레일 자리)까지 넓게 흩뿌리되 화면 밖으로는 나가지 않게
-    const rx = Math.min(hero.width * 0.8, window.innerWidth / 2 - 36);
-    const ry = hero.height * 0.62;
-    // 위쪽은 고정 헤더에 가려지지 않게
+    // 흩뿌릴 타원: 히어로 중 지금 보이는 부분(고정 헤더 아래·뷰포트 안)에서 배지 한 칸씩 안쪽에 내접
+    //  → 헤더에 가리거나 화면 밖으로 나가는 배지가 없고, 줄지어 잘린 듯한 가장자리도 생기지 않는다
+    const tile = (root.firstElementChild as HTMLElement | null)?.offsetWidth ?? 0;
     const header = document.querySelector('.header')?.getBoundingClientRect().bottom ?? 0;
-    const minY = header - hero.top + 32;
+    const left = Math.max(0, -hero.left) + tile;
+    const right = Math.min(hero.width, document.documentElement.clientWidth - hero.left) - tile;
+    const top = Math.max(0, header - hero.top) + tile;
+    const bottom = Math.min(hero.height, window.innerHeight - hero.top) - tile;
+    const cx = (left + right) / 2;
+    const cy = (top + bottom) / 2;
+    // 가로는 본문 폭(--container) 가장자리를 배지 한 칸 넘는 데까지만 — 넓은 화면에서 너무 흩어지지 않게
+    const container = parseFloat(getComputedStyle(root).getPropertyValue('--container')) || Infinity;
+    const rx = Math.max(0, Math.min((right - left) / 2, container / 2 + tile));
+    const ry = Math.max(0, (bottom - top) / 2);
     const count = root.children.length;
     const anims: Animation[] = [];
 
@@ -89,7 +95,7 @@ export function HeroSwarm({ target }: { target: React.RefObject<HTMLElement | nu
       // 출발: 히어로를 둘러싼 타원 위에 흩뿌림
       const angle = -Math.PI / 2 + ((i + 0.5) / count) * Math.PI * 2 + (rand(i + 1) - 0.5) * 0.3;
       const sx = cx + Math.cos(angle) * rx * (0.7 + rand(i + 7) * 0.3);
-      const sy = Math.max(cy + Math.sin(angle) * ry * (0.75 + rand(i + 13) * 0.25), minY);
+      const sy = cy + Math.sin(angle) * ry * (0.75 + rand(i + 13) * 0.25);
       const rot = (rand(i + 21) - 0.5) * 40;
 
       // 비행: 2차 베지어 곡선 — 모든 배지가 같은 방향으로 휘어 소용돌이처럼 모인다
