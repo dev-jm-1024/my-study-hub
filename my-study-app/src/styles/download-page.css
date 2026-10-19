@@ -3,7 +3,7 @@
   display: flex;
   align-items: flex-start;
   min-height: 100vh;
-  padding-top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+  padding-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px));
 }
 
 .sidebar {
@@ -11,8 +11,8 @@
   flex-shrink: 0;
   position: sticky;
   align-self: flex-start;
-  top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
-  max-height: calc(100vh - var(--header-height) - env(safe-area-inset-top, 0px));
+  top: calc(var(--bar-h) + env(safe-area-inset-top, 0px));
+  max-height: calc(100vh - var(--bar-h) - env(safe-area-inset-top, 0px));
   overflow-y: auto;
   background: var(--bg-root);
   border-right: 1px solid var(--border-glass);
@@ -212,7 +212,6 @@
 /* ── 터치 타겟 최소 44px ── */
 .hero-link    { min-height: 44px; }
 .menu-item    { min-height: 44px; }
-.mobile-menu-item { min-height: 44px; }
 .sidebar-back { min-height: 44px; }
 
 /* ── 사이드바 배경 오버레이 (tap-to-close) ── */

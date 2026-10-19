@@ -1,8 +1,7 @@
 import { useState } from 'react';
 import { BOOKS } from '../data/menuData';
+import { BOOK_FILTER_TAGS as FILTER_TAGS } from '../data/books';
 import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
-
-const FILTER_TAGS = ['Spring Boot', 'Java', 'Architecture', 'Testing', 'Database', 'Kafka'];
 
 const STORE_LABELS: [domain: string, label: string][] = [
   ['kyobobook.co.kr', '교보문고'],

@@ -1,5 +1,8 @@
 import type { BookItem } from '../types';
 
+/** Books 페이지 필터 칩과 상단 Books 메뉴가 쓰는 태그 목록. BookItem.tags는 이 중에서 고른다 */
+export const BOOK_FILTER_TAGS = ['Spring Boot', 'Java', 'Architecture', 'Testing', 'Database', 'Kafka'];
+
 export const BOOKS: BookItem[] = [
   {
     title: 'Spring in Action 제 5판',

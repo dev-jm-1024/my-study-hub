@@ -15,7 +15,7 @@
   flex: none;
   position: sticky;
   align-self: flex-start;
-  top: calc(var(--header-height) + env(safe-area-inset-top, 0px) + var(--spacing-md));
+  top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--spacing-md));
   height: fit-content;
   display: flex;
   flex-direction: column;
@@ -145,7 +145,7 @@
    높이는 레일의 처음 위치(page-wrapper 상단 여백) 기준 — 스크롤 전에도 카드 끝이 보인다. */
 @media (min-width: 1101px) and (min-height: 501px) {
   .home-rail-left {
-    max-height: calc(100vh - var(--header-height) - env(safe-area-inset-top, 0px) - var(--spacing-2xl) - var(--spacing-md));
+    max-height: calc(100vh - var(--bar-h) - env(safe-area-inset-top, 0px) - var(--spacing-2xl) - var(--spacing-md));
   }
   .home-rail-left .ratio-card { min-height: 200px; }
   .home-rail-left .ratio-list { flex: 1 1 auto; min-height: 0; max-height: none; }

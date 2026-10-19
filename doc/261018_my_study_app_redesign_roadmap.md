@@ -9,7 +9,7 @@
   3. **같은 묶음(A, B, C…) = 동시에 실행, 다음 묶음은 앞 묶음이 끝난 뒤.** 같은 묶음 안에서 소유 파일은 겹치지 않는다.
   4. 챕터 = 1커밋. 검수 PASS + 사용자 화면 확인 뒤에 커밋한다.
 
-> **현재 위치:** `RD-2-0` — Ch1 완료(2026-10-19), Ch2 시작 전
+> **현재 위치:** `RD-3-0` — Ch2 완료(2026-10-19), Ch3 시작 전
 >
 > **준비 완료(2026-10-18):** 토큰(`tokens.css`·`tokens.legacy.css`)·상수(`constants/*`)·에이전트 6종·플레이북·계획서·목업 사본 — 모두 **미연결**, 화면 변화 0
 
@@ -119,14 +119,14 @@ command grep -rniE '#(F7F3EA|FAF8F4|EFE8D9|E7DECE|EDE4D3|2B2522|8E7A70|B89F8A|5E
 
 | | ID | 작업 | 담당 | 묶음 | 소유 파일 |
 |---|---|---|---|---|---|
-| [ ] | RD-2-0 | 🙋 D5 Books 태그 바로가기(`/books?tag=`) 도입 여부 | 리드 | — | — |
-| [ ] | RD-2-1 | `buildNavMenus()` — 네 규칙 적용, D5 결과에 맞춘 Books 링크 | data | A | `src/utils/navMenus.ts` |
-| [ ] | RD-2-2 | `useNavMenu` 훅 — 계획서 4.1 표 전부(지연·Esc·라우트·포커스·터치·reduced-motion) | architect | A | `src/hooks/useNavMenu.ts`, `src/constants/ui.ts` |
-| [ ] | RD-2-3 | `Navbar` 재작성 + `NavPanel`(열 렌더) + 바깥 덮개 + `navbar.css` 토큰화 | ui | B | `src/components/Navbar.tsx`, `src/components/NavPanel.tsx`(신규), `src/styles/navbar.css` |
-| [ ] | RD-2-4 | `--header-height` 사용처 → `--bar-h` (navbar.css 제외) | style | B | `src/styles/{layout,responsive,download-page,view-transition,command-palette}.css` 중 사용처 |
-| [ ] | RD-2-5 | 빌드·감사 | chore | C | — |
-| [ ] | RD-2-6 | 검수 | reviewer | C | — |
-| [ ] | RD-2-7 | 🙋 D2 화면 확인 — 메뉴 4개 열기/전환/닫기, 다크 | 사용자 | D | — |
+| [x] | RD-2-0 | 🙋 D5 Books 태그 바로가기(`/books?tag=`) 도입 여부 | 리드 | — | — |
+| [x] | RD-2-1 | `buildNavMenus()` — 네 규칙 적용, D5 결과에 맞춘 Books 링크 | data | A | `src/utils/navMenus.ts` |
+| [x] | RD-2-2 | `useNavMenu` 훅 — 계획서 4.1 표 전부(지연·Esc·라우트·포커스·터치·reduced-motion) | architect | A | `src/hooks/useNavMenu.ts`, `src/constants/ui.ts` |
+| [x] | RD-2-3 | `Navbar` 재작성 + `NavPanel`(열 렌더) + 바깥 덮개 + `navbar.css` 토큰화 | ui | B | `src/components/Navbar.tsx`, `src/components/NavPanel.tsx`(신규), `src/styles/navbar.css` |
+| [x] | RD-2-4 | `--header-height` 사용처 → `--bar-h` (navbar.css 제외) | style | B | `src/styles/{layout,responsive,download-page,view-transition,command-palette}.css` 중 사용처 |
+| [x] | RD-2-5 | 빌드·감사 | chore | C | — |
+| [x] | RD-2-6 | 검수 | reviewer | C | — |
+| [x] | RD-2-7 | 🙋 D2 화면 확인 — 메뉴 4개 열기/전환/닫기, 다크 | 사용자 | D | — |
 
 **완료 판정**
 - 메뉴 위 0.12초 → 열림 / 옆 메뉴로 즉시 전환 / 헤더 밖 0.2초 → 닫힘 / Esc·바깥 클릭·이동 → 닫힘
@@ -280,7 +280,7 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 | | ID | 작업 | 담당 | 묶음 | 소유 파일 |
 |---|---|---|---|---|---|
 | [ ] | RD-8-1 | `BooksPage` | ui | A | `src/pages/BooksPage.tsx`, `src/styles/books.css` |
-| [ ] | RD-8-2 | `GitHubPage`·`VibeCodingPage` | ui | A | `src/pages/{GitHubPage,VibeCodingPage}.tsx`, `src/styles/vibe.css` |
+| [ ] | RD-8-2 | `GitHubPage`·`VibeCodingPage` (`?kind=macos\|web` 읽기 — Ch2 Vibe 메뉴 링크) | ui | A | `src/pages/{GitHubPage,VibeCodingPage}.tsx`, `src/styles/vibe.css` |
 | [ ] | RD-8-3 | `NotFoundPage`·`CommandPalette` | ui | A | `src/pages/NotFoundPage.tsx`, `src/components/CommandPalette.tsx`, `src/styles/command-palette.css` |
 | [ ] | RD-8-4 | 빌드·감사 | chore | B | — |
 | [ ] | RD-8-5 | 검수 | reviewer | B | — |
@@ -320,7 +320,7 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 |---|---|---|---|---|
 | Ch0 기준선 (RD-0-2) | 12 | 384 | 12종 | 2026-10-19 · 토큰 파일 포함 시 리터럴 색 64 · 옛 변수 legacy 파일 히트 제외 0 · max-width:480px ×4, max-width:560px ×3, max-width:768px ×2, min-width:1101px ×2, prefers-reduced-motion ×2 · @media 12종은 tokens.css의 734px 포함(리터럴 색은 토큰 파일 제외 — 기준 다름) |
 | Ch1 후 (RD-1-4) | 8 | 380 | 12종 | 2026-10-19 · 기준선 대비 리터럴 색 −4(12→8), 옛 변수 −4(384→380), @media 12종 유지 · 토큰 파일 포함 시 리터럴 색 60(기준선 64) · 리터럴 8줄 전부 `home-sections.css`의 `.t-*` 주제 색(색 19개, 줄 8개) · 옛 변수 상위: text-muted 62, text-primary 50, border-glass 39, accent-ink 34 · 완료 판정(새 크림 리터럴) 0건 · `npm run build` 통과 · `src/data/stacks.ts`에 리터럴 색 17줄(스택 브랜드 색, 감사 범위 밖 — styles 감사에 안 잡힘) |
-| Ch2 후 | | | | |
+| Ch2 후 (RD-2-5) | 8 | 343 | 12종 | 2026-10-19 · Ch1 대비 리터럴 색 0(8→8), 옛 변수 −37(380→343, 주로 navbar.css 재작성), @media 12종 유지 · 토큰 파일 포함 시 리터럴 색 60 · 리터럴 8줄은 Ch1과 같은 `home-sections.css`의 `.t-*` 주제 색 · 옛 변수 상위: text-muted 61, text-primary 45, border-glass 36, accent-ink 31 · `navbar.css` 리터럴 색 0 · 추가 확인: `header-height` → `tokens.legacy.css` 주석 1건 · `nav-search` → `command-palette.css`만(쓰는 곳 없음, Ch8 정리) · `theme-toggle`·`header-inner`·`nav-links` 0건, logo-text 히트 2 = `.nav-logo-text`(사용 중, `Navbar.tsx:36`) + `.download-logo-text`(사용처 0, Ch6 정리 후보) · navbar.css 감사 예외: 열 폭 지역 변수 2개(`--nav-col-l: 220px`·`--nav-col-s: 160px`), 시간·translateY 리터럴 · `@media (prefers-reduced-motion)` ×3(navbar.css 신규 1) · `npm run build` 통과 · 마무리: footer-misc.css .to-top z-index 90 → calc(var(--z-scrim) - 1)(드롭다운 덮개 아래, 검수 사소한 것 1) |
 | Ch3 후 | | | | |
 | Ch4 후 | | | | |
 | Ch5 후 | | | | |
@@ -334,8 +334,8 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 | Ch | 커밋 | 날짜 | 메모 |
 |---|---|---|---|
 | 0 | `fba73e7` | 2026-10-19 | 토큰·상수 연결, 화면 변화 0 · 예외: tokens.css color-scheme로 다크 모드 스크롤바(.sidebar·.cmdk-list)·포커스 링이 시스템 다크 스타일(의도, 사용자 승인) |
-| 1 | | 2026-10-19 | 전 페이지 재스킨(호환 레이어 연결)·본문 글꼴/17px/1.5/keep-all · 예외: 라이트 `--label-2` #66666B(목업 #6E6E73 → `--fill` 위 4.5:1, 사용자 승인), `:root:has(body.dark)` color-scheme, 형광펜 accent 임시(Ch3 D3) · 대비 미달 21건 수정(RD-1-3b·검수 FIX 2 포함) · Ch5 정리 거리: MiniCalendar `cal-sun` 클래스, `.profile-nick` transition:filter, stacks.ts:16 주석 |
-| 2 | | | |
+| 1 | `483e73b` | 2026-10-19 | 전 페이지 재스킨(호환 레이어 연결)·본문 글꼴/17px/1.5/keep-all · 예외: 라이트 `--label-2` #66666B(목업 #6E6E73 → `--fill` 위 4.5:1, 사용자 승인), `:root:has(body.dark)` color-scheme, 형광펜 accent 임시(Ch3 D3) · 대비 미달 21건 수정(RD-1-3b·검수 FIX 2 포함) · Ch5 정리 거리: MiniCalendar `cal-sun` 클래스, `.profile-nick` transition:filter, stacks.ts:16 주석 |
+| 2 | | 2026-10-19 | 상단 블러 바 52px + 메뉴 4 드롭다운(데이터 자동 생성 buildNavMenus) + useNavMenu(hover-intent·Esc·바깥·라우트·키보드·터치) + 바깥 블러 덮개 · --header-height→--bar-h · D5 도입(링크만, 읽기는 Ch8) · 리드 결정: 외부 링크 전부 ↗, reduced-motion은 지연 유지·애니메이션만 끔, 패널 링크 View Transition 없음 · 남은 거리: Books 표지 순서(목업과 반대, 사용자 '나중에'), .download-logo-text(Ch6), .nav-search(Ch8), ≤1024 서랍 .sidebar z 90이 덮개 위(Ch7), 작은 링크 32px·새 탭 SR 안내(Ch9) |
 | 3 | | | |
 | 4 | | | |
 | 5 | | | |

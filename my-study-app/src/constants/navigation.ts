@@ -1,7 +1,7 @@
 /* 상단 내비게이션과 드롭다운 메뉴 구성.
    과목·책·레포·프로젝트 목록은 data/*에서 아래 규칙으로 뽑는다 —
    항목이 늘거나 순위가 바뀌어도 이 파일은 고치지 않는다.
-   규칙을 실제 메뉴 데이터로 바꾸는 선택자는 로드맵 RD-2-1(utils/navMenus.ts)에서 만든다. */
+   규칙을 실제 메뉴 데이터로 바꾸는 선택자는 utils/navMenus.ts(buildNavMenus·NAV_MENUS). */
 
 import { LINKS } from './links';
 
@@ -31,11 +31,20 @@ export interface NavLink {
   muted?: boolean;
 }
 
-/** 드롭다운 한 열 — large: 큰 글씨(t3) 첫 열, small: 작은 글씨(foot) 목록 */
+/** 표지 열의 책 한 권 */
+export interface NavCover {
+  title: string;
+  coverUrl: string;
+  to: string;
+}
+
+/** 드롭다운 한 열 — large: 큰 글씨(t3) 첫 열, small: 작은 글씨(foot) 목록, covers: 책 표지 열 */
 export interface NavColumn {
   heading: string;
-  size: 'large' | 'small';
+  size: 'large' | 'small' | 'covers';
   links: readonly NavLink[];
+  /** size === 'covers'일 때 표지 목록 (links는 표지 아래 보조 링크) */
+  covers?: readonly NavCover[];
 }
 
 /** 자료실 메뉴 축약 규칙 */

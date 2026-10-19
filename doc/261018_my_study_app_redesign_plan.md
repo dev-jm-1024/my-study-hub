@@ -154,7 +154,7 @@
 | 메뉴 버튼 클릭(터치·키보드) | 열고 닫기 토글. `aria-expanded`, `aria-controls` |
 | 열림 표시 | 바 배경 `--bar-bg-open`, 바 아래 선 숨김, 패널 `max-height` 0→콘텐츠 높이(`--dur-panel` `--ease-panel`), 열마다 40/90/140ms 지연 등장(`--ease-out`), 바깥 `--scrim` + `--blur-scrim` |
 | ≤734px | 드롭다운 없음. 메뉴 이름은 링크, 햄버거 메뉴 사용(Ch7) |
-| reduced-motion | 지연·애니메이션 없이 즉시 열고 닫기 |
+| reduced-motion | 지연(120/200ms)은 그대로, 패널·열·덮개 애니메이션만 끈다 (2026-10-19 리드 결정 — 지연 0이면 바를 가로지르기만 해도 메뉴가 연달아 열리고, 머물러 연 직후 클릭이 늘 닫기가 된다) |
 
 ### 4.2 최근 문서 셸프 (`useInfiniteCarousel`, Ch4)
 - 목록을 `LATEST_SHELF.copies`(3)벌 깔고 시작 위치를 가운데 벌 첫 칸에 둔다. 스크롤이 `settleMs` 동안 멈추면 위치를 가운데 벌 범위(`[setW − step/2, 2·setW − step/2)`)로 **순간 보정**해 끝이 없게 한다. `step` = 두 카드의 `offsetLeft` 차, `setW = step × count`.

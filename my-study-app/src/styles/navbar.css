@@ -1,171 +1,372 @@
-/* ── Plain top bar (구 Pill Navbar) ── */
+/* ── 상단 바 + 드롭다운 (Ch2) ──
+   header.header   fixed, 배경·블러 없음 (view-transition.css의 site-header, HeroIntro가 .header의 bottom을 잰다)
+     ├ .nav-bar    블러 바
+     ├ .nav-panel  absolute 드롭다운 — 블러는 .nav-bar와 .nav-panel이 각자 (중첩 backdrop-filter는 안쪽이 안 먹는다)
+     └ .mobile-menu (≤734px 햄버거 메뉴, Ch7에서 새로)
+   .nav-scrim      header 밖 형제 — 열리면 바깥을 흐리게 덮는다
+   열고 닫는 동작은 hooks/useNavMenu.ts, 이 파일은 모양만 */
+
+/* 열 폭: 목업(NavPanel.dc.html) 고정값 — 토큰 단계에 없는 예외 */
+.nav-panel {
+  --nav-col-l: 220px;
+  --nav-col-s: 160px;
+}
+
 .header {
   position: fixed;
   top: 0;
   left: 0;
   right: 0;
-  z-index: 100;
-  background: color-mix(in srgb, var(--bg-root) 82%, transparent);
-  backdrop-filter: saturate(180%) var(--blur-glass);
-  -webkit-backdrop-filter: saturate(180%) var(--blur-glass);
-  border-bottom: 1px solid var(--border-glass);
-  padding-top: env(safe-area-inset-top, 0px);
+  z-index: var(--z-header);
 }
 
-.header-inner {
-  max-width: 1120px;
+/* ── 바 ── */
+.nav-bar {
+  padding-top: env(safe-area-inset-top, 0px);
+  background-color: var(--bar-bg);
+  backdrop-filter: var(--blur-bar);
+  -webkit-backdrop-filter: var(--blur-bar);
+  /* 아래 선은 그림자로 — 바 높이가 정확히 --bar-h라 sticky top과 1px도 겹치지 않는다 */
+  box-shadow: inset 0 -1px 0 var(--sep);
+  transition: background-color var(--dur-base) ease, box-shadow var(--dur-base) ease;
+}
+
+.header.is-open .nav-bar {
+  background-color: var(--bar-bg-open);
+  box-shadow: inset 0 -1px 0 transparent;
+}
+
+.nav-bar-inner {
+  max-width: var(--container);
+  min-height: var(--bar-h);
   margin: 0 auto;
-  padding: 12px var(--spacing-xl);
+  /* 가로 모드 노치 옆으로 밀리지 않게 */
+  padding: 0 max(var(--gutter), env(safe-area-inset-right, 0px)) 0 max(var(--gutter), env(safe-area-inset-left, 0px));
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  gap: var(--sp-5);
 }
 
 .nav-logo {
-  display: flex;
+  display: inline-flex;
   align-items: center;
-  gap: var(--spacing-sm);
-  background: none;
-  border: none;
-  cursor: pointer;
-  padding: 0;
+  gap: var(--sp-2);
+  min-height: var(--touch);
+  color: var(--label);
 }
 
 .nav-logo-img {
-  width: 36px;
-  height: 36px;
+  flex: none;
+  width: var(--icon-s);
+  height: var(--icon-s);
   object-fit: contain;
-  border-radius: var(--border-radius-full);
-  display: block;
+  border-radius: calc(var(--icon-s) / 4);
 }
 
-.logo-text {
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  color: var(--text-primary);
-  letter-spacing: -0.02em;
-}
-
-.nav-links {
-  display: flex;
-  align-items: center;
-  gap: var(--spacing-xs);
-}
-
-.nav-link {
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-decoration: none;
-  letter-spacing: -0.01em;
-  padding: 6px 11px;
-  border-radius: var(--border-radius-sm);
-  transition: color var(--transition-fast), background var(--transition-fast);
-}
-
-.nav-link:hover { color: var(--text-primary); background: var(--bg-surface-hover); }
-.nav-link.active {
-  color: var(--accent-ink);
-  background: var(--accent-soft);
+.nav-logo-text {
+  font-size: var(--fs-callout);
   font-weight: 600;
-}
-.nav-ext { display: inline-flex; align-items: center; gap: 3px; }
-.nav-arr {
-  font-size: 0.7rem;
-  color: var(--text-muted);
-  transition: color var(--transition-fast), transform var(--transition-fast);
-}
-.nav-ext:hover .nav-arr { color: var(--accent-ink); transform: translate(1px, -1px); }
-
-.nav-divider {
-  width: 1px;
-  height: 20px;
-  background: var(--border-glass);
+  color: var(--label);
+  white-space: nowrap;
 }
 
-.theme-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
+/* ── 메뉴 (데스크탑) ── */
+.nav-menus {
+  flex: 1;
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 6px;
-  min-height: 44px;
-  min-width: 44px;
-  border-radius: var(--border-radius-sm);
-  transition: all var(--transition-fast);
+  gap: 0 var(--sp-6);
+  white-space: nowrap;
 }
 
-.theme-toggle:hover {
-  background: var(--bg-overlay);
-  color: var(--text-primary);
+.nav-menu-btn,
+.nav-menu-link {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  font-size: var(--fs-foot);
+  color: var(--label);
 }
 
+.nav-menu-btn {
+  padding: 0;
+  border: 0;
+  background: transparent;
+  font: inherit;
+  font-size: var(--fs-foot);
+  font-weight: 400;
+  cursor: pointer;
+}
+
+.nav-menu-btn[aria-expanded="true"] { font-weight: 600; }
+
+/* 열림(600)의 글자 폭을 미리 잡아 둔다 — 메뉴 사이를 오가도 이웃 글자가 흔들리지 않게.
+   높이 0·visibility hidden이라 보이지 않고, alt 문법(/ "")으로 스크린 리더에도 읽히지 않는다 */
+.nav-menu-label {
+  display: inline-flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.nav-menu-label::after {
+  content: attr(data-label);
+  content: attr(data-label) / "";
+  height: 0;
+  overflow: hidden;
+  visibility: hidden;
+  font-weight: 600;
+}
+
+.nav-menu-link { gap: var(--sp-1); }
+.nav-menu-link:hover { text-decoration: underline; }
+
+/* ── 아이콘 버튼 (검색·테마, 모바일 햄버거) ── */
+.nav-actions {
+  display: flex;
+  align-items: center;
+}
+
+.nav-icon-btn,
+.mobile-menu-toggle {
+  display: grid;
+  place-items: center;
+  width: var(--touch);
+  height: var(--touch);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: transparent;
+  color: var(--label);
+  cursor: pointer;
+  transition: background-color var(--dur-fast) ease;
+}
+
+.nav-icon-btn:hover,
+.mobile-menu-toggle:hover { background-color: var(--fill); }
+
+.nav-logo:focus-visible,
+.nav-menu-btn:focus-visible,
+.nav-menu-link:focus-visible,
+.nav-icon-btn:focus-visible,
+.mobile-menu-toggle:focus-visible,
+.nav-panel-link:focus-visible,
+.nav-cover:focus-visible,
+.mobile-menu-item:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+
+/* ── 드롭다운 패널 ── */
+.nav-panel {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  right: 0;
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows var(--dur-panel) var(--ease-panel);
+}
+
+.header.is-open .nav-panel { grid-template-rows: 1fr; }
+
+/* 배경·블러는 잘리는 요소(.nav-panel-cols)에 둔다 — absolute grid 틀(.nav-panel)은 전환 중 행보다 커져서
+   틀에 두면 닫힐 때 내용이 먼저 잘리고 빈 반투명 띠가 남는다 */
+.nav-panel-cols {
+  overflow: hidden;
+  min-height: 0;
+  background-color: var(--bar-bg-open);
+  backdrop-filter: var(--blur-bar);
+  -webkit-backdrop-filter: var(--blur-bar);
+}
+
+.nav-panel-section {
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: var(--sp-7) max(var(--gutter), env(safe-area-inset-right, 0px)) var(--sp-8) max(var(--gutter), env(safe-area-inset-left, 0px));
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--sp-7) var(--sp-8);
+}
+
+/* 열이 위에서 살짝 내려오며 차례로 나타난다 (panelKey가 바뀔 때마다 다시 재생) */
+@keyframes nav-col-in {
+  from { opacity: 0; transform: translateY(-6px); }
+}
+
+.nav-col {
+  animation: nav-col-in var(--dur-panel) var(--ease-out) both;
+}
+.nav-col:nth-child(1) { animation-delay: 40ms; }
+.nav-col:nth-child(2) { animation-delay: 90ms; }
+.nav-col:nth-child(n + 3) { animation-delay: 140ms; }
+
+.nav-col--large { flex: 0 0 var(--nav-col-l); }
+/* 작은 열은 160px 이상, 긴 이름(Vibe 프로젝트)은 줄바꿈 대신 열이 넓어진다 */
+.nav-col--small { flex: 0 0 auto; min-width: var(--nav-col-s); }
+.nav-col--covers { flex: 0 1 auto; min-width: 0; }
+
+.nav-col-heading {
+  margin: 0 0 var(--sp-2);
+  font-size: var(--fs-cap);
+  line-height: var(--lh-cap);
+  color: var(--label-2);
+}
+
+.nav-col--covers .nav-col-heading { margin-bottom: var(--sp-3); }
+
+.nav-col-list,
+.nav-covers {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.nav-panel-link {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  color: var(--label);
+  white-space: nowrap;
+}
+
+.nav-panel-link:hover { text-decoration: underline; }
+
+.nav-panel-link--large {
+  min-height: var(--touch);
+  font-size: var(--fs-t3);
+  line-height: var(--lh-t3);
+  font-weight: 600;
+  letter-spacing: var(--ls-t3);
+}
+
+.nav-panel-link--small {
+  min-height: var(--sp-6);
+  font-size: var(--fs-foot);
+  font-weight: 600;
+}
+
+.nav-panel-link.is-muted { color: var(--label-2); }
+
+/* Books 표지 열 */
+.nav-covers {
+  display: flex;
+  gap: var(--sp-3);
+}
+
+.nav-covers li { flex: none; }
+.nav-covers + .nav-col-list { margin-top: var(--sp-2); }
+
+.nav-cover {
+  display: block;
+  width: var(--sp-8);
+  aspect-ratio: 3 / 4;
+  border-radius: calc(var(--r-s) / 2);
+  background: var(--fill);
+  box-shadow: var(--shadow-cover);
+  overflow: hidden;
+}
+
+.nav-cover img {
+  display: block;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+/* ── 바깥 덮개 ── */
+.nav-scrim {
+  position: fixed;
+  inset: 0;
+  z-index: var(--z-scrim);
+  padding: 0;
+  border: 0;
+  background: var(--scrim);
+  backdrop-filter: var(--blur-scrim);
+  -webkit-backdrop-filter: var(--blur-scrim);
+  cursor: default;
+  opacity: 0;
+  visibility: hidden;
+  /* 닫힐 때만 visibility를 늦춰 페이드 아웃이 끝난 뒤 포인터를 놓는다 */
+  transition: opacity var(--dur-base) ease, visibility 0s linear var(--dur-base);
+}
+
+.nav-scrim.is-open {
+  opacity: 1;
+  visibility: visible;
+  transition: opacity var(--dur-base) ease, visibility 0s;
+}
+
+/* ── 모바일 메뉴 (≤734px) — 새 디자인은 Ch7 ── */
 .mobile-nav-actions {
   display: none;
   align-items: center;
-  gap: var(--spacing-xs);
+  gap: var(--sp-1);
+  margin-left: auto;
 }
-
-.mobile-menu-toggle {
-  background: none;
-  border: none;
-  cursor: pointer;
-  color: var(--text-secondary);
-  display: flex;
-  align-items: center;
-  padding: 6px;
-  min-height: 44px;
-  min-width: 44px;
-  border-radius: var(--border-radius-sm);
-  transition: all var(--transition-fast);
-}
-
-.mobile-menu-toggle:hover { color: var(--text-primary); }
 
 .mobile-menu {
+  display: none;
   position: absolute;
-  top: calc(100% + 8px);
-  left: var(--spacing-xl);
-  right: var(--spacing-xl);
-  background: var(--bg-surface);
-  backdrop-filter: var(--blur-glass);
-  -webkit-backdrop-filter: var(--blur-glass);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-glass-hover);
-  padding: var(--spacing-sm);
-  display: flex;
+  top: calc(100% + var(--sp-2));
+  left: var(--gutter);
+  right: var(--gutter);
+  padding: var(--sp-2);
   flex-direction: column;
-  gap: 2px;
+  gap: var(--sp-1);
+  background-color: var(--bar-bg-open);
+  backdrop-filter: var(--blur-bar);
+  -webkit-backdrop-filter: var(--blur-bar);
+  border: 1px solid var(--sep);
+  border-radius: var(--r-group);
+  box-shadow: var(--shadow-float);
 }
 
 .mobile-menu-item {
-  display: block;
-  padding: var(--spacing-sm) var(--spacing-md);
-  font-size: var(--font-size-sm);
-  font-weight: 700;
-  color: var(--text-secondary);
-  text-decoration: none;
-  border-radius: var(--border-radius-sm);
-  transition: all var(--transition-fast);
-}
-
-.mobile-menu-item:hover {
-  background: var(--bg-overlay);
-  color: var(--text-primary);
-}
-
-.mobile-menu-item.active {
-  color: var(--accent-ink);
-  background: var(--accent-soft);
-}
-
-.mobile-menu-ext {
   display: flex;
   align-items: center;
-  gap: 4px;
+  min-height: var(--touch);
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-callout);
+  font-weight: 600;
+  color: var(--label);
+  border-radius: var(--r-s);
+  transition: background-color var(--dur-fast) ease;
 }
 
+.mobile-menu-item:hover { background-color: var(--fill); }
+
+.mobile-menu-item.active {
+  color: var(--accent);
+  background-color: var(--fill);
+}
+
+.mobile-menu-ext { gap: var(--sp-1); }
+
+.nav-arr {
+  font-size: var(--fs-cap);
+  color: var(--label-2);
+}
+
+/* ≤734px: 드롭다운 대신 햄버거 */
+@media (max-width: 734px) {
+  .nav-menus,
+  .nav-actions,
+  .nav-panel,
+  .nav-scrim { display: none; }
+
+  .mobile-nav-actions { display: flex; }
+  .mobile-menu { display: flex; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .nav-bar,
+  .nav-panel,
+  .nav-scrim,
+  .nav-scrim.is-open,
+  .nav-icon-btn,
+  .mobile-menu-toggle,
+  .mobile-menu-item { transition: none; }
+
+  .nav-col { animation: none; }
+}
