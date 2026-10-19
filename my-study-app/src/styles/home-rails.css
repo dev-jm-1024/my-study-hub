@@ -13,10 +13,18 @@
   box-sizing: border-box;
   max-width: var(--container);
   margin: 0 auto;
-  /* 숫자 스트립 → 첫 섹션 간격을 --section으로 맞춘다: 이 패딩 + 첫 .home-section의 margin-top(48px).
-     Ch4에서 .home-section 여백을 새 토큰으로 바꾸면 이 보정도 함께 조정한다. */
-  padding: calc(var(--section) - var(--sp-7)) var(--gutter) 0;
+  padding: 0 var(--gutter);
 }
+/* 숫자 스트립 → 첫 섹션 간격은 --section. 첫 섹션이 .home-block(기본)이든 .home-section(검색 결과)이든 같다.
+   패딩이 아니라 첫 자식의 margin-top으로 줘서, 섹션마다 자기 위 여백 규칙을 따로 맞추지 않는다. */
+.home-main > :first-child { margin-top: var(--section); }
+
+/* 셸프 → 주제 그룹 간격도 --section. 위 .home-block은 자기 margin-top을 갖지만 이 래퍼 안의 첫 .home-section은
+   48px라, 래퍼 margin과 합쳐지지 않고(부모-첫 자식 여백은 큰 쪽으로 겹친다) 첫 자식에 직접 준다.
+   Ch5 TopicGroups 개편 때 이 간격과 .home-section 여백을 함께 다시 맞춘다. */
+.home-topics > :first-child { margin-top: var(--section); }
+/* '자료실 둘러보기'·'모든 주제 보기'가 프로그램으로 포커스를 옮기는 자리라 링은 필요 없다 */
+.home-topics:focus { outline: none; }
 
 /* 프로필 카드 */
 .profile-card { text-align: center; }

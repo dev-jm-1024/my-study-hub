@@ -15,7 +15,8 @@ export function HeroNewPill({ topic }: HeroNewPillProps) {
   return (
     <a className="home-new-pill" href={to} onClick={e => go(e, to)}>
       <span className="home-new-tag">NEW</span>
-      {topic.name} 자료실<span className="home-new-more">이 열렸어요</span>
+      {/* 문구를 한 flex 항목으로 묶어 '자료실'과 '이 열렸어요' 사이에 gap이 끼지 않게 한다 */}
+      <span>{topic.name} 자료실<span className="home-new-more">이 열렸어요</span></span>
       <ChevronRight className="home-new-chev" size={12} strokeWidth={2.6} aria-hidden="true" />
     </a>
   );

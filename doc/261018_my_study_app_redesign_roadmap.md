@@ -9,7 +9,7 @@
   3. **같은 묶음(A, B, C…) = 동시에 실행, 다음 묶음은 앞 묶음이 끝난 뒤.** 같은 묶음 안에서 소유 파일은 겹치지 않는다.
   4. 챕터 = 1커밋. 검수 PASS + 사용자 화면 확인 뒤에 커밋한다.
 
-> **현재 위치:** `RD-4-1` — Ch3 완료(2026-10-19), Ch4 시작 전
+> **현재 위치:** `RD-5-0` — Ch4 완료(2026-10-19), Ch5 시작 전
 >
 > **준비 완료(2026-10-18):** 토큰(`tokens.css`·`tokens.legacy.css`)·상수(`constants/*`)·에이전트 6종·플레이북·계획서·목업 사본 — 모두 **미연결**, 화면 변화 0
 
@@ -170,15 +170,15 @@ command grep -rniE '#(F7F3EA|FAF8F4|EFE8D9|E7DECE|EDE4D3|2B2522|8E7A70|B89F8A|5E
 
 | | ID | 작업 | 담당 | 묶음 | 소유 파일 |
 |---|---|---|---|---|---|
-| [ ] | RD-4-1 | `PdfItem.addedAt?` 추가 + git 이력으로 채우기(문서별 근거 해시 보고, 못 찾으면 비움) | data | A | `src/types/index.ts`, `src/data/pdfs.ts` |
-| [ ] | RD-4-2 | `useInfiniteCarousel` 훅 | architect | A | `src/hooks/useInfiniteCarousel.ts`, `src/constants/ui.ts` |
-| [ ] | RD-4-3 | 선택자 `topTopics`·`docShare`·`latestDocs`·`isNewTopic` | data | B | `src/utils/home.ts` |
-| [ ] | RD-4-4 | `FeaturedSection` (대표 타일 2 + 문서 비중) | ui | C | `src/components/home/FeaturedSection.tsx`(신규), `src/styles/home-featured.css`(신규) |
-| [ ] | RD-4-5 | `LatestShelf` (훅 사용, 페이드·점·버튼) | ui | C | `src/components/home/LatestShelf.tsx`(신규), `src/styles/home-latest.css`(신규) |
-| [ ] | RD-4-6 | `HomePage` 연결 — 기존 '바로가기' 자리를 두 섹션으로 교체, CSS import | ui | D | `src/pages/HomePage.tsx`, `src/index.css` |
-| [ ] | RD-4-7 | 빌드·감사 | chore | E | — |
-| [ ] | RD-4-8 | 검수 | reviewer | E | — |
-| [ ] | RD-4-9 | 🙋 D2 화면 확인 — 셸프 10칸 이상 넘겨 튐 없는지 | 사용자 | F | — |
+| [x] | RD-4-1 | `PdfItem.addedAt?` 추가 + git 이력으로 채우기(문서별 근거 해시 보고, 못 찾으면 비움) | data | A | `src/types/index.ts`, `src/data/pdfs.ts` |
+| [x] | RD-4-2 | `useInfiniteCarousel` 훅 | architect | A | `src/hooks/useInfiniteCarousel.ts`, `src/constants/ui.ts` |
+| [x] | RD-4-3 | 선택자 `topTopics`·`docShare`·`latestDocs`·`isNewTopic` | data | B | `src/utils/home.ts` |
+| [x] | RD-4-4 | `FeaturedSection` (대표 타일 2 + 문서 비중) | ui | C | `src/components/home/FeaturedSection.tsx`(신규), `src/styles/home-featured.css`(신규) |
+| [x] | RD-4-5 | `LatestShelf` (훅 사용, 페이드·점·버튼) | ui | C | `src/components/home/LatestShelf.tsx`(신규), `src/styles/home-latest.css`(신규) |
+| [x] | RD-4-6 | `HomePage` 연결 — 기존 '바로가기' 자리를 두 섹션으로 교체, CSS import | ui | D | `src/pages/HomePage.tsx`, `src/index.css` |
+| [x] | RD-4-7 | 빌드·감사 | chore | E | — |
+| [x] | RD-4-8 | 검수 | reviewer | E | — |
+| [x] | RD-4-9 | 🙋 D2 화면 확인 — 셸프 10칸 이상 넘겨 튐 없는지 | 사용자 | F | — |
 
 **완료 판정**
 - `MENU_DATA` 키 순서를 바꿔도 대표 타일 결과가 같다(문서 수 기준)
@@ -322,7 +322,7 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 | Ch1 후 (RD-1-4) | 8 | 380 | 12종 | 2026-10-19 · 기준선 대비 리터럴 색 −4(12→8), 옛 변수 −4(384→380), @media 12종 유지 · 토큰 파일 포함 시 리터럴 색 60(기준선 64) · 리터럴 8줄 전부 `home-sections.css`의 `.t-*` 주제 색(색 19개, 줄 8개) · 옛 변수 상위: text-muted 62, text-primary 50, border-glass 39, accent-ink 34 · 완료 판정(새 크림 리터럴) 0건 · `npm run build` 통과 · `src/data/stacks.ts`에 리터럴 색 17줄(스택 브랜드 색, 감사 범위 밖 — styles 감사에 안 잡힘) |
 | Ch2 후 (RD-2-5) | 8 | 343 | 12종 | 2026-10-19 · Ch1 대비 리터럴 색 0(8→8), 옛 변수 −37(380→343, 주로 navbar.css 재작성), @media 12종 유지 · 토큰 파일 포함 시 리터럴 색 60 · 리터럴 8줄은 Ch1과 같은 `home-sections.css`의 `.t-*` 주제 색 · 옛 변수 상위: text-muted 61, text-primary 45, border-glass 36, accent-ink 31 · `navbar.css` 리터럴 색 0 · 추가 확인: `header-height` → `tokens.legacy.css` 주석 1건 · `nav-search` → `command-palette.css`만(쓰는 곳 없음, Ch8 정리) · `theme-toggle`·`header-inner`·`nav-links` 0건, logo-text 히트 2 = `.nav-logo-text`(사용 중, `Navbar.tsx:36`) + `.download-logo-text`(사용처 0, Ch6 정리 후보) · navbar.css 감사 예외: 열 폭 지역 변수 2개(`--nav-col-l: 220px`·`--nav-col-s: 160px`), 시간·translateY 리터럴 · `@media (prefers-reduced-motion)` ×3(navbar.css 신규 1) · `npm run build` 통과 · 마무리: footer-misc.css .to-top z-index 90 → calc(var(--z-scrim) - 1)(드롭다운 덮개 아래, 검수 사소한 것 1) |
 | Ch3 후 (RD-3-4) | 8 | 314 | 10종 | 2026-10-19 · Ch2 대비 리터럴 색 0(8→8), 옛 변수 −29(343→314), @media 12→10종(−2 = 레일 레이아웃의 `min-width: 1101px`·`max-width: 1100px` 삭제 · 현재 목록: 1024·380·480·560·620·720·734·768px, orientation: landscape, prefers-reduced-motion) · 토큰 파일 포함 시 리터럴 색 60(tokens.css 52 + 나머지 8) · 옛 변수 상위: text-muted 56, text-primary 42, border-glass 35, text-secondary 28·accent-ink 28(동률) · `npm run build` 통과(tsc -b + vite build, 경고 0) · 3번 확인: `home-layout\|home-rail` 1건 = `src/index.css:22` `@import './styles/home-rails.css'`(파일명 매치 — 정상, 파일은 홈 레이아웃·레일 컴포넌트 규칙을 담고 Ch5에서 재검토) · ProfileCard·StackRatio·Clock·MiniCalendar(HomePage.tsx) 0건 · `--hl`·introMark·ratio-fill·max-width:480px(home-intro.css) 0건 · home-hero·home-intro·home-rails 리터럴 색 0 · 세 파일 @media 2종(734px ×2, prefers-reduced-motion ×2) · `src/components/home/` = HeroNewPill.tsx 1개 |
-| Ch4 후 | | | | |
+| Ch4 후 (RD-4-7) | 8 | 304 | 11종 | 2026-10-19 · Ch3 대비 리터럴 색 0(8→8), 옛 변수 −10(314→304), @media 10→11종(+1 = `(hover: hover)` — home-latest.css 버튼·받기 hover 2곳, 폭 경계 아님) · 토큰 파일 포함 시 리터럴 색 60(tokens.css 52 + home-sections.css `.t-*` 8) · `npm run build` 통과(tsc -b + vite build, 경고 0, 1721 모듈) · `quick-` 19→0줄(바로가기 제거) · 신규 home-featured.css·home-latest.css 리터럴 색 0 · 감사 예외 지역 변수: `--feat-min`·`--feat-tile-min-h`·`--feat-legend-min`(home-featured.css), `--latest-card-w`·`--latest-card-min-h`·`--latest-fade-w`·`--latest-dot-on-w`·`--latest-inset`(home-latest.css), 마스크 그라데이션 `black`(알파), 주제 색 인라인 `--topic` · addedAt 95/96(근거 없음 1 = exception '예외상황', pdfUrl '') · utils/home.ts MENU_DATA는 키 조회만(순회 0) |
 | Ch5 후 | | | | |
 | Ch6 후 | | | | |
 | Ch7 후 | | | 2 목표 | |
@@ -336,8 +336,8 @@ command grep -rhoE '@media \([^)]*width[^)]*\)' my-study-app/src/styles | sort -
 | 0 | `fba73e7` | 2026-10-19 | 토큰·상수 연결, 화면 변화 0 · 예외: tokens.css color-scheme로 다크 모드 스크롤바(.sidebar·.cmdk-list)·포커스 링이 시스템 다크 스타일(의도, 사용자 승인) |
 | 1 | `483e73b` | 2026-10-19 | 전 페이지 재스킨(호환 레이어 연결)·본문 글꼴/17px/1.5/keep-all · 예외: 라이트 `--label-2` #66666B(목업 #6E6E73 → `--fill` 위 4.5:1, 사용자 승인), `:root:has(body.dark)` color-scheme, 형광펜 accent 임시(Ch3 D3) · 대비 미달 21건 수정(RD-1-3b·검수 FIX 2 포함) · Ch5 정리 거리: MiniCalendar `cal-sun` 클래스, `.profile-nick` transition:filter, stacks.ts:16 주석 |
 | 2 | `a937698` | 2026-10-19 | 상단 블러 바 52px + 메뉴 4 드롭다운(데이터 자동 생성 buildNavMenus) + useNavMenu(hover-intent·Esc·바깥·라우트·키보드·터치) + 바깥 블러 덮개 · --header-height→--bar-h · D5 도입(링크만, 읽기는 Ch8) · 리드 결정: 외부 링크 전부 ↗, reduced-motion은 지연 유지·애니메이션만 끔, 패널 링크 View Transition 없음 · 남은 거리: Books 표지 순서(목업과 반대, 사용자 '나중에'), .download-logo-text(Ch6), .nav-search(Ch8), ≤1024 서랍 .sidebar z 90이 덮개 위(Ch7), 작은 링크 32px·새 탭 SR 안내(Ch9) |
-| 3 | | 2026-10-19 | 한 줄 히어로("백엔드 학습 기록, 한곳에." · NEW 알약 자리 · CTA 2 · 검색 ⌘K 힌트) + 숫자 스트립 4칸(≤734px 2×2) + 좌우 레일 제거 → `--container` 단일 컬럼(`.home-page`/`.home-main`) · D3: 진입 연출 유지·형광펜 제거(팝 + 마침표 페이드), 배지 `--icon-l`/모바일 `--icon-m`, INTRO_MS 2200·카운트업 1340ms · NEW 알약 `HeroNewPill topic={null}`(Ch4 RD-4-6에서 isNewTopic 연결) · 리드 결정: ⌘K 힌트 유지, '자료실 둘러보기' = 검색어 비우고 #topics(reduced-motion instant, scroll-margin `--sp-6`), 홈→푸터 128px 유지(`.home-page` 아래 `--sp-8`, Ch5 재조정), `.home-main` 위 여백 보정(옛 `.home-section` 48px, Ch4 재조정) · 검수 FIX 1(reduced-motion 스크롤) · 남은 거리: 둘러보기 뒤 포커스 이동(Ch4), 검색 0건 화면 안내 버튼(Ch5), 레일 컴포넌트·home-rails.css 위치(Ch5), 모바일 검색창 그림자·짧은 placeholder(Ch7), 가로 모드 히어로 여백(Ch7), 검색 × 버튼 스타일·⌘K 플랫폼 표기·연출 타이밍 상수 constants 이전(Ch9) |
-| 4 | | | |
+| 3 | `1da2e45` | 2026-10-19 | 한 줄 히어로("백엔드 학습 기록, 한곳에." · NEW 알약 자리 · CTA 2 · 검색 ⌘K 힌트) + 숫자 스트립 4칸(≤734px 2×2) + 좌우 레일 제거 → `--container` 단일 컬럼(`.home-page`/`.home-main`) · D3: 진입 연출 유지·형광펜 제거(팝 + 마침표 페이드), 배지 `--icon-l`/모바일 `--icon-m`, INTRO_MS 2200·카운트업 1340ms · NEW 알약 `HeroNewPill topic={null}`(Ch4 RD-4-6에서 isNewTopic 연결) · 리드 결정: ⌘K 힌트 유지, '자료실 둘러보기' = 검색어 비우고 #topics(reduced-motion instant, scroll-margin `--sp-6`), 홈→푸터 128px 유지(`.home-page` 아래 `--sp-8`, Ch5 재조정), `.home-main` 위 여백 보정(옛 `.home-section` 48px, Ch4 재조정) · 검수 FIX 1(reduced-motion 스크롤) · 남은 거리: 둘러보기 뒤 포커스 이동(Ch4), 검색 0건 화면 안내 버튼(Ch5), 레일 컴포넌트·home-rails.css 위치(Ch5), 모바일 검색창 그림자·짧은 placeholder(Ch7), 가로 모드 히어로 여백(Ch7), 검색 × 버튼 스타일·⌘K 플랫폼 표기·연출 타이밍 상수 constants 이전(Ch9) |
+| 4 | | 2026-10-19 | 대표 타일 2(topTopics — 1위 반전, 타일 전체 링크 → 자료실 헤더 전환 `.feat-badge/.feat-name/.feat-count`) + 문서 비중 타일(docShare 상위 6 + 기타, 막대 aria-hidden·범례) + 최근 문서 셸프(useInfiniteCarousel — 최소 3벌·순간 보정·4초 자동·hover/포커스/탭 숨김 정지·reduced-motion 꺼짐·복제 aria-hidden/tabIndex −1) + `PdfItem.addedAt` 95/96(git 이력, 정적 사이트 init 2025-11-13이 하한) + utils/home.ts 선택자(newestTopic → 히어로 NEW 알약, NAV_MENUS에 isNewTopic 연결) · 사용자 결정: 셸프 화면 끝까지(풀블리드 — 첫 카드 제목 줄 정렬, 페이드는 화면 가장자리 `min(64/40px, inset + card-pad)`) · 리드 결정: 타일 설명 = DESC, 비중 문장 'A · B 두 주제가 전체 문서 N개 중 P%를 차지합니다.', latestDocs 같은 날짜는 주제 라운드 로빈·빈 pdfUrl 제외, NEW 21일째 포함·미래 날짜 제외, addedAt = PDF 연결일 기준, 빠른 연타 덜컥거림 수용(브라우저 한계), aria-roledescription 한국어(캐러셀/슬라이드), 다크 반전 타일 = 일반 면(토큰 규칙) · Ch3 거리 해소: 둘러보기 뒤 #topics 포커스, `.home-main` 위 여백 → `> :first-child` `--section` · 검수 FIX 1(kafka addedAt 2026-03-21 → 2025-11-13) · 남은 거리: `.home-topics` 간격·주제 목록 개편(Ch5), 클래식 스크롤바에서 100vw로 셸프 약 7.5px 넘침(clip됨, Ch7), 셸프 점 진입 연출·머리 줄 버튼 포커스 시 회전 정지(APG 권고)·타일 링크 이름 길이(aria-labelledby 검토)(Ch9), PDF 꼬리표 목업 대비 2px 차이(기록만) |
 | 5 | | | |
 | 6 | | | |
 | 7 | | | |

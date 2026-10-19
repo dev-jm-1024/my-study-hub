@@ -3,16 +3,13 @@ import { flushSync } from 'react-dom';
 import { Link, useNavigate } from 'react-router-dom';
 import { Search, ArrowRight, ChevronRight } from 'lucide-react';
 import { MENUS, MENU_DATA, BOOKS, REPO_DATA } from '../data/menuData';
-import { ALIASES, DESC, GROUP_ORDER, tintClass } from '../data/topics';
+import { ALIASES, DESC, GROUP_ORDER } from '../data/topics';
 import { CategoryRow } from '../components/CategoryRow';
+import { FeaturedSection } from '../components/home/FeaturedSection';
 import { HeroNewPill } from '../components/home/HeroNewPill';
-import { docCount } from '../utils/category';
-import { useTransitionNavigate } from '../hooks/useTransitionNavigate';
+import { LatestShelf } from '../components/home/LatestShelf';
+import { newestTopic } from '../utils/home';
 import { HeroSwarm, useHomeIntro, useCountUp } from '../components/HeroIntro';
-
-const QUICK_KEYS = ['spring', 'java', 'mysql', 'oop'];
-/* 바로가기 카드의 주제 칩·문서 수가 자료실 헤더의 배지·문서 수로 이어진다 (view-transition.css) */
-const CARD_TO_HEAD = { '.quick-tag': 'dl-badge', '.quick-meta b': 'dl-count' };
 
 const TOTAL_DOCS = Object.values(MENU_DATA).reduce((sum, arr) => sum + arr.length, 0);
 
@@ -38,7 +35,7 @@ export function HomePage() {
     []
   );
 
-  const go = useTransitionNavigate();
+  const newTopic = useMemo(() => newestTopic(), []);
 
   const intro = useHomeIntro();
   const gatherRef = useRef<HTMLSpanElement>(null);
@@ -50,21 +47,21 @@ export function HomePage() {
     { n: useCountUp(REPO_DATA.length, intro), label: '실습 레포' },
   ];
 
-  /* 검색 중이면 검색어를 비워 주제 목록이 다시 그려진 뒤에 그 자리로 내려간다 */
+  /* 검색 중이면 검색어를 비워 주제 목록이 다시 그려진 뒤에 그 자리로 내려가고, 키보드 포커스도 그 자리로 옮긴다 */
   const browseTopics = (e: React.MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault();
     flushSync(() => setQ(''));
     const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     /* 'auto'는 html의 scroll-behavior: smooth를 따르므로 '동작 줄이기'에서는 'instant'로 끊는다 */
     topicsRef.current?.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
+    topicsRef.current?.focus({ preventScroll: true });
   };
 
   return (
     <main className={`home-page${intro ? ' home-intro' : ''}`}>
       {/* Hero */}
       <section className="home-hero">
-        {/* Ch4(RD-4-6): isNewTopic으로 고른 최신 NEW 주제를 넘긴다 */}
-        <HeroNewPill topic={null} />
+        <HeroNewPill topic={newTopic} />
         <p className="home-eyebrow">Backend Study Archive</p>
         <h1 className="home-title">
           {['백엔드', '학습', '기록,'].map(w => (
@@ -122,31 +119,12 @@ export function HomePage() {
         </section>
       ) : (
         <>
-          {/* 바로가기 */}
-          <section className="home-section">
-            <div className="home-section-head"><h2>바로가기</h2></div>
-            <div className="quick-grid">
-              {QUICK_KEYS.map(key => {
-                const m = MENUS.find(x => x.key === key);
-                if (!m) return null;
-                return (
-                  <a
-                    key={key}
-                    className={`quick-card home-anim ${tintClass(key)}`}
-                    href={`/download/${key}`}
-                    onClick={e => go(e, `/download/${key}`, CARD_TO_HEAD)}
-                  >
-                    <span className="quick-tag">{m.name}</span>
-                    <h4 className="quick-card-title">{DESC[key]}</h4>
-                    <div className="quick-meta"><b>{docCount(key)}개 문서</b> · PDF</div>
-                  </a>
-                );
-              })}
-            </div>
-          </section>
+          {/* 가장 많이 쌓인 자료실 · 최근 올라온 문서 */}
+          <FeaturedSection onBrowseTopics={browseTopics} />
+          <LatestShelf />
 
           {/* 주제별 자료 — '자료실 둘러보기'가 내려오는 자리 */}
-          <div id="topics" className="home-topics" ref={topicsRef}>
+          <div id="topics" className="home-topics" ref={topicsRef} tabIndex={-1}>
             {groups.map(({ group, items }) => (
               <section className="home-section" key={group}>
                 <div className="home-section-head"><h2>{group}</h2></div>

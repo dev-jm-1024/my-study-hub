@@ -12,6 +12,8 @@ export interface PdfItem {
   title: string;
   description: string;
   pdfUrl: string;
+  /** 문서 등록일 YYYY-MM-DD — git 이력에서 그 문서가 처음 나타난 커밋의 날짜(커밋 %ad). 근거 없으면 생략 */
+  addedAt?: string;
 }
 
 export interface RepoItem {

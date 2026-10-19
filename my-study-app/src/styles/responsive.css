@@ -32,9 +32,8 @@
   .dash-card { padding: 16px; }
 }
 
-/* 좁은 폭: 바로가기 1열, 리스트 설명 줄바꿈 */
+/* 좁은 폭: 리스트 설명 줄바꿈 */
 @media (max-width: 620px) {
-  .quick-grid { grid-template-columns: 1fr; }
   .cat-desc { white-space: normal; }
 }
 

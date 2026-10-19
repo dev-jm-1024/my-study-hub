@@ -5,7 +5,7 @@
    500ms~   배지들이 소용돌이치며 "한곳에"로 모여든다 (마지막 도착 ~1380)
    1000ms   "한곳에"가 튀어나온다 → 1300ms 마침표가 찍힌다
    1060ms~  부제·CTA·검색창·숫자 스트립 순 (카운트업 1340~2140)
-   1340ms~  아래 콘텐츠: 섹션 머리·바로가기 카드·목록·패널
+   1340ms~  아래 콘텐츠: 섹션 머리·대표 타일·문서 비중·최근 문서 셸프·목록·패널
    2200ms   .home-intro 해제 (INTRO_MS)
 ══════════════════════════════════════════════════ */
 
@@ -91,12 +91,14 @@
   from { opacity: 0; }
 }
 
-/* ── 아래 콘텐츠: 히어로가 끝난 뒤에 (기존 .home-anim 등장을 늦출 뿐) ── */
-.home-intro .home-section-head { animation: introRise 500ms var(--ease-out) 1340ms both; }
-.home-intro .quick-card.home-anim:nth-child(1) { animation-delay: 1380ms; }
-.home-intro .quick-card.home-anim:nth-child(2) { animation-delay: 1450ms; }
-.home-intro .quick-card.home-anim:nth-child(3) { animation-delay: 1520ms; }
-.home-intro .quick-card.home-anim:nth-child(4) { animation-delay: 1590ms; }
+/* ── 아래 콘텐츠: 히어로가 끝난 뒤에 (기존 .home-anim 등장을 늦출 뿐) ──
+   .feat-grid 안 순서: 대표 타일 둘 → 문서 비중(3번째 자식). 셸프는 가로 스크롤 영역(.latest-region) 하나만 올라온다. */
+.home-intro .home-section-head,
+.home-intro .home-block-head { animation: introRise 500ms var(--ease-out) 1340ms both; }
+.home-intro .feat-tile.home-anim:nth-child(1) { animation-delay: 1380ms; }
+.home-intro .feat-tile.home-anim:nth-child(2) { animation-delay: 1450ms; }
+.home-intro .feat-share.home-anim { animation-delay: 1520ms; }
+.home-intro .latest-region.home-anim { animation-delay: 1590ms; }
 .home-intro .cat-row.home-anim,
 .home-intro .home-panel.home-anim { animation-delay: 1630ms; }
 

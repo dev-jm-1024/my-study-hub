@@ -16,6 +16,7 @@ import { MENUS } from '../data/menus';
 import { REPO_DATA } from '../data/repos';
 import { VIBE_PROJECTS } from '../data/vibe';
 import { docCount } from './category';
+import { isNewTopic } from './home';
 
 export interface BuildNavMenusOptions {
   /** NEW 주제 판정(Ch4에서 addedAt 기준으로 넘긴다). 기본은 NEW 없음 */
@@ -153,5 +154,5 @@ export function buildNavMenus(opts: BuildNavMenusOptions = {}): Record<NavMenuKe
   };
 }
 
-/** 데이터가 정적이라 모듈 로드 때 한 번 계산한다. NEW 판정이 필요하면 buildNavMenus({ isNewTopic })를 쓴다 */
-export const NAV_MENUS: Record<NavMenuKey, NavColumn[]> = buildNavMenus();
+/** 데이터가 정적이라 모듈 로드 때 한 번 계산한다. NEW 주제(utils/home.ts)는 로드 시점의 오늘 기준 */
+export const NAV_MENUS: Record<NavMenuKey, NavColumn[]> = buildNavMenus({ isNewTopic: key => isNewTopic(key) });

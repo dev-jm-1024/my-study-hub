@@ -23,49 +23,6 @@
 }
 .home-section-head .more:hover { text-decoration: underline; }
 
-/* ── 바로가기 카드 ── */
-.quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.quick-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-glass);
-  border-radius: 14px;
-  padding: 16px 18px;
-  box-shadow: var(--shadow-glass-sm);
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-base), border-color var(--transition-fast);
-}
-.quick-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glass-hover);
-  border-color: var(--border-color);
-}
-.quick-card:hover .quick-card-title { color: var(--accent-ink); }
-.quick-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 3px 9px;
-  border-radius: var(--border-radius-full);
-  margin-bottom: 11px;
-  background: color-mix(in srgb, var(--t, var(--text-muted)) 20%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 50%, var(--text-primary));
-}
-.quick-card-title {
-  margin: 0 0 8px;
-  font-size: 0.97rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.4;
-  color: var(--text-primary);
-  transition: color var(--transition-fast);
-}
-.quick-meta { font-size: 0.8rem; color: var(--text-muted); }
-.quick-meta b { color: var(--text-secondary); font-weight: 500; }
-
 /* ── 주제 리스트 행 ── */
 .cat-list { border-top: 1px solid var(--border-glass); }
 .cat-row {

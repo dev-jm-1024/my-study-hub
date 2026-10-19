@@ -181,7 +181,8 @@
 - NEW: `isNewTopic` — 히어로 알약·드롭다운에 쓴다.
 
 ### 4.6 데이터 추가 — `PdfItem.addedAt`
-- 형식 `YYYY-MM-DD`(선택 필드). 근거는 git 이력: `git log --format='%h %ad' --date=short -S'<제목>' -- my-study-app/src/data/pdfs.ts`의 가장 오래된 커밋.
+- 형식 `YYYY-MM-DD`(선택 필드).
+- 근거는 git 이력: **경로 제한 없이** 저장소 전체에서 `git log --all --reverse --format='%h %ad' --date=short -S'<pdfUrl 파일명>'`의 첫 커밋(정적 사이트 data.js 시절 포함 — `pdfs.ts` 경로로 제한하면 분할 커밋 f464845 날짜만 나온다). URL이 바뀐 문서는 제목 계보로, PDF가 연결된 날 기준. 첫 채움(RD-4-1) 근거 표는 Ch4 커밋 메모 참고.
 - 이후 문서 추가 절차(인수인계 §3.1)에 "addedAt 넣기" 한 줄을 더한다(Ch9 기록 문서에서).
 
 ## 5. 에이전트 구성

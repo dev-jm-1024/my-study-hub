@@ -21,6 +21,8 @@
 @import './styles/home-hero.css';
 @import './styles/home-rails.css';
 @import './styles/home-sections.css';
+@import './styles/home-featured.css';
+@import './styles/home-latest.css';
 @import './styles/doc-list.css';
 @import './styles/vibe.css';
 @import './styles/command-palette.css';
