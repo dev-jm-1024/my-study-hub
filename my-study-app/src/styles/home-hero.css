@@ -242,10 +242,12 @@
   .home-new-more { display: none; }
   .home-subtitle { max-width: none; }
   .home-cta { flex-direction: column; gap: var(--sp-2); }
+  /* 검색창: 면만 있고 그림자·⌘K 표시는 없다 (목업 Mobile.dc.html) */
   .home-search {
     max-width: none;
     height: calc(var(--touch) + var(--sp-2));
     padding: 0 var(--sp-4);
+    box-shadow: none;
   }
   .home-search-kbd { display: none; }
 
@@ -253,4 +255,15 @@
   .home-stats-list { grid-template-columns: repeat(2, minmax(0, 1fr)); }
   .home-stat:nth-child(odd) { border-right: 1px solid var(--sep); }
   .home-stat:nth-child(-n + 2) { border-bottom: 1px solid var(--sep); }
+}
+
+/* ── 가로 폰 (짧은 높이) ──
+   폭 경계가 아니라 높이 조건이라 734·1068 목록 밖의 예외다.
+   844×390에서 제목·소개·버튼이 첫 화면에 들어오도록 위·아래 여백을 줄인다. */
+@media (orientation: landscape) and (max-height: 500px) {
+  .home-hero { padding-top: var(--sp-5); padding-bottom: var(--sp-7); }
+  .home-eyebrow { margin-top: var(--sp-3); }
+  .home-subtitle { margin-top: var(--sp-3); }
+  .home-cta { margin-top: var(--sp-4); }
+  .home-search { margin-top: var(--sp-6); }
 }

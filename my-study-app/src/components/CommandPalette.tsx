@@ -4,6 +4,7 @@ import { useNavigate } from 'react-router-dom';
 import { Search, FileText } from 'lucide-react';
 import { MENUS, MENU_DATA } from '../data/menuData';
 import { badgeLabel, tintClass } from '../data/topics';
+import { lockScroll } from '../utils/scrollLock';
 
 type Result =
   | { kind: 'cat'; id: string; catKey: string; catName: string; title: string; sub: string }
@@ -76,18 +77,14 @@ export function CommandPalette() {
     };
   }, [open]);
 
+  // 열린 동안 뒤 화면 스크롤 잠금 — html까지 잠그고, 서랍 위에 겹쳐 열려도 서랍이 닫히기 전엔 안 풀린다.
+  // 잠근 순서가 층 순서라, 아래 서랍(useDrawer)은 이 팔레트가 떠 있는 동안 Esc·Tab을 받지 않는다
   useEffect(() => {
-    if (open) {
-      setQ('');
-      setActive(0);
-      requestAnimationFrame(() => inputRef.current?.focus());
-      document.body.style.overflow = 'hidden';
-    } else {
-      document.body.style.overflow = '';
-    }
-    return () => {
-      document.body.style.overflow = '';
-    };
+    if (!open) return;
+    setQ('');
+    setActive(0);
+    requestAnimationFrame(() => inputRef.current?.focus());
+    return lockScroll();
   }, [open]);
 
   useEffect(() => setActive(0), [query]);

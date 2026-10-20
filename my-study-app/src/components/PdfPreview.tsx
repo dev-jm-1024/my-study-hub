@@ -1,5 +1,6 @@
-import { useEffect, useId, useRef, type RefObject } from 'react';
+import { useId, useRef } from 'react';
 import { X } from 'lucide-react';
+import { useDrawer } from '../hooks/useDrawer';
 
 export interface PdfPreviewProps {
   title: string;
@@ -41,75 +42,13 @@ function toEmbeddable(url: string): string {
   }
 }
 
-const FOCUSABLE = 'a[href], button:not([disabled]), iframe, [tabindex]:not([tabindex="-1"])';
-
-/**
- * 모달 공통 동작을 한 덩어리로: Esc로 닫기 · 화면 스크롤 잠금 · 열릴 때 initialFocus로 포커스 ·
- * Tab이 panel 안에서만 돌기(iframe은 정지점 하나) · 닫힐 때 열기 전 포커스 복귀.
- * 마운트 한 번에 설치한다 — 부모가 리렌더해 onClose 모양이 바뀌어도 포커스를 다시 뺏지 않는다.
- * Ch7 useDrawer와 겹치면 이 훅을 공용으로 뽑는다.
- */
-function useDialogBehavior(
-  panel: RefObject<HTMLElement | null>,
-  initialFocus: RefObject<HTMLElement | null>,
-  onClose: () => void,
-) {
-  const onCloseRef = useRef(onClose);
-  useEffect(() => {
-    onCloseRef.current = onClose;
-  });
-
-  useEffect(() => {
-    const root = panel.current;
-    if (!root) return;
-
-    const opener = document.activeElement instanceof HTMLElement ? document.activeElement : null;
-    const html = document.documentElement;
-    // html에 overflow-x: clip(base.css)이 걸려 있어 body의 overflow가 화면 스크롤로 전파되지 않는다 → html도 잠근다
-    html.style.overflow = 'hidden';
-    document.body.style.overflow = 'hidden';
-    initialFocus.current?.focus({ preventScroll: true });
-
-    const onKey = (e: KeyboardEvent) => {
-      if (e.key === 'Escape') {
-        onCloseRef.current();
-        return;
-      }
-      if (e.key !== 'Tab') return;
-      const items = root.querySelectorAll<HTMLElement>(FOCUSABLE);
-      if (items.length === 0) return;
-      const first = items[0];
-      const last = items[items.length - 1];
-      const active = document.activeElement;
-      // 안쪽 이동은 브라우저에 맡기고, 가장자리·바깥에서 시작할 때만 안으로 되돌린다
-      if (!root.contains(active)) {
-        e.preventDefault();
-        (e.shiftKey ? last : first).focus();
-      } else if (e.shiftKey && active === first) {
-        e.preventDefault();
-        last.focus();
-      } else if (!e.shiftKey && active === last) {
-        e.preventDefault();
-        first.focus();
-      }
-    };
-    window.addEventListener('keydown', onKey);
-
-    return () => {
-      window.removeEventListener('keydown', onKey);
-      html.style.overflow = '';
-      document.body.style.overflow = '';
-      if (opener?.isConnected) opener.focus({ preventScroll: true });
-    };
-  }, [panel, initialFocus]);
-}
-
 export function PdfPreview({ title, url, onClose, onDownload, num, where, desc }: PdfPreviewProps) {
   const titleId = useId();
   const descId = useId();
   const panelRef = useRef<HTMLDivElement>(null);
   const closeRef = useRef<HTMLButtonElement>(null);
-  useDialogBehavior(panelRef, closeRef, onClose);
+  // Esc로 닫기 · 화면 스크롤 잠금 · 닫기 버튼으로 포커스 · Tab은 패널 안에서만(iframe은 정지점 하나) · 닫히면 연 행으로 포커스 복귀
+  useDrawer({ open: true, onClose, panelRef, initialFocusRef: closeRef });
 
   const embedUrl = toEmbeddable(url);
 

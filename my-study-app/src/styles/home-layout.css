@@ -9,6 +9,9 @@
   /* .page-wrapper가 아니므로 고정 헤더 높이만큼 직접 띄운다. 좌우 여백은 각 섹션의 --gutter.
      아래 여백은 0 — 마지막 섹션 → 푸터 간격은 .site-footer의 margin-top(--section)이 맡는다. */
   padding: calc(var(--bar-h) + env(safe-area-inset-top, 0px)) 0 0;
+  /* 스크롤바를 뺀 화면 폭을 cqw 로 재는 기준 — 셸프의 --latest-inset (home-latest.css).
+     컨테이너(layout containment)는 position: fixed 자손의 기준이 되므로 이 안에 fixed 요소를 두지 않는다 */
+  container-type: inline-size;
 }
 .home-main {
   box-sizing: border-box;

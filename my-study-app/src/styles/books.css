@@ -21,9 +21,10 @@
 /* book.css의 brightness(1.08)는 파란 채움 위 흰 글자 대비를 깎으므로 어둡게 덮는다 */
 .book-btn:hover { filter: brightness(0.92); }
 
-/* 폰: 표지를 왼쪽 썸네일로 둔 가로 카드 — 한 화면에 한 권만 보이던 세로 카드 대신 */
-@media (max-width: 480px) {
-  .book-grid { gap: 10px; }
+/* 모바일(≤734px): 1열, 표지를 왼쪽 썸네일로 둔 가로 카드 — 한 화면에 한 권만 보이던 세로 카드 대신
+   .book-grid 열 수는 pages/book.css(768·480 블록의 2열)보다 이 파일이 뒤에 import 되어 !important 없이 이긴다 */
+@media (max-width: 734px) {
+  .book-grid { grid-template-columns: 1fr; gap: 10px; }
   .book-card {
     display: grid;
     grid-template-columns: 76px 1fr;

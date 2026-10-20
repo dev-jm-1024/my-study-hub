@@ -12,6 +12,8 @@ import { MoreSection } from '../components/home/MoreSection';
 import { TopicGroup, TopicGroups } from '../components/home/TopicGroups';
 import { newestTopic } from '../utils/home';
 import { HeroSwarm, useHomeIntro, useCountUp } from '../components/HeroIntro';
+import { useMediaQuery } from '../hooks/useMediaQuery';
+import { BREAKPOINT } from '../constants';
 
 const TOTAL_DOCS = Object.values(MENU_DATA).reduce((sum, arr) => sum + arr.length, 0);
 
@@ -27,6 +29,8 @@ export function HomePage() {
   const gatherRef = useRef<HTMLSpanElement>(null);
   const topicsRef = useRef<HTMLDivElement>(null);
   const searchRef = useRef<HTMLInputElement>(null);
+  // 좁은 화면에서는 '자료 검색 —' 머리말을 빼야 예시가 잘리지 않는다 (이름은 aria-label이 맡는다)
+  const isMobile = useMediaQuery(`(max-width: ${BREAKPOINT.mobile}px)`);
   const stats = [
     { n: useCountUp(MENUS.length, intro), label: '주제' },
     { n: useCountUp(TOTAL_DOCS, intro), label: '문서' },
@@ -79,7 +83,7 @@ export function HomePage() {
             type="search"
             value={q}
             onChange={e => setQ(e.target.value)}
-            placeholder="자료 검색 — Spring, 인덱스, 네트워크…"
+            placeholder={isMobile ? 'Spring, 인덱스, 네트워크…' : '자료 검색 — Spring, 인덱스, 네트워크…'}
             aria-label="자료 검색"
           />
           <kbd className="home-search-kbd" aria-hidden="true">⌘K</kbd>

@@ -44,12 +44,14 @@
 /* ── 타일 그리드 ── */
 .feat-grid {
   /* 폭 값: 목업(Main.dc.html) 고정값 — 토큰 단계에 없는 예외 (navbar.css의 --nav-col-l과 같은 방식) */
-  --feat-min: 440px;          /* 타일 한 칸 최소 폭 — 이보다 좁아지면 한 열로 */
+  --feat-min: 320px;          /* 타일 한 칸 최소 폭 — 이보다 좁아지면 한 열로 (목업 440 → 320: 태블릿 2열, Ch7 사용자 결정) */
   --feat-tile-min-h: 380px;   /* 대표 타일 최소 높이 */
   --feat-legend-min: 140px;   /* 범례 한 칸 최소 폭 */
 
   display: grid;
-  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--feat-min)), 1fr));
+  /* 최대 2열: 최소 폭이 (전체 − 간격) / 2 보다 작아지지 않게 해서, 넓은 화면에서 --feat-min 만큼씩 3열로 쪼개지지 않게 한다
+     (문서 비중 타일이 1 / -1 로 모든 열을 가로지르므로 3열이 되면 빈 세 번째 열이 남는다). 타일이 하나뿐이면 auto-fit 이 한 칸으로 합친다 */
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, max(var(--feat-min), calc((100% - var(--gap)) / 2))), 1fr));
   gap: var(--gap);
 }
 
@@ -233,4 +235,22 @@
 .feat-legend-n {
   color: var(--label-2);
   font-variant-numeric: tabular-nums;
+}
+
+/* ── 모바일 (≤734px): 타일 2열 — 배지·그룹+이름·문서 수만 (목업 Mobile.dc.html m-featured) ──
+   .feat-name · .feat-count 는 자료실 헤더로 이어지는 화면 전환의 출발점이라 숨기지 않는다 */
+@media (max-width: 734px) {
+  .feat-grid { grid-template-columns: repeat(2, minmax(0, 1fr)); }
+  .feat-tile { min-height: 0; }
+  .feat-name {
+    font-size: var(--fs-t2);
+    line-height: var(--lh-t2);
+    letter-spacing: var(--ls-t2);
+  }
+  .feat-desc,
+  .feat-chips,
+  .feat-cta { display: none; }
+
+  /* 범례도 두 열 — 한 칸 최소 폭(--feat-legend-min)이 좁은 카드 안에서 한 열로 떨어지지 않게 */
+  .feat-legend { grid-template-columns: repeat(2, minmax(0, 1fr)); }
 }

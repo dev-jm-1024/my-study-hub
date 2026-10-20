@@ -159,8 +159,7 @@
   padding: 1px 5px;
   margin-right: 3px;
 }
-@media (max-width: 768px) {
-  .nav-search { display: none; }
+@media (max-width: 734px) {
   .cmdk-hint { display: none; }
 }
 

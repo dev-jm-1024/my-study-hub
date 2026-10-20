@@ -1,49 +1,12 @@
 /* ══════════════════════════════════════════════════
-   반응형
+   반응형 — 반드시 마지막 import
+   폭 경계는 둘뿐이다: 모바일 734px · 태블릿 1068px (constants/ui.ts의 BREAKPOINT와 같은 값).
+   각 파일이 자기 @media 를 가져도 같은 두 값만 쓴다. 높이·방향 조건은 폭 경계가 아니라 예외로 둔다.
+   ≤734px 타입·간격 스케일은 tokens.css 가 가진다 — 여기서는 공통 래퍼 여백만 맞춘다.
+   (자료실 사이드 메뉴 서랍은 download-page.css, 헤더 규칙은 navbar.css, 홈 모바일은 home-*.css)
 ══════════════════════════════════════════════════ */
 
-/* Download 사이드바: 태블릿 상단 바 → 모바일 오버레이 슬라이드 */
-/* 태블릿·모바일: 사이드바를 오버레이 슬라이드로 통일 (콘텐츠 위 덤프 X) */
-@media (max-width: 1024px) {
-  .sidebar {
-    position: fixed;
-    top: calc(var(--bar-h) + env(safe-area-inset-top, 0px));
-    left: -100%;
-    width: min(var(--sidebar-w), 84vw);
-    max-height: none;
-    height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top, 0px));
-    z-index: 90;
-    border-radius: 0 var(--r-card) var(--r-card) 0;   /* 왼쪽 가장자리에 붙는 서랍 */
-    /* 그림자는 열렸을 때만 — 닫힌 서랍의 그림자가 화면 왼쪽 끝으로 번지지 않게 */
-    transition: left var(--dur-base) var(--ease-drawer), box-shadow var(--dur-base);
-  }
-  .sidebar.sidebar--open { left: 0; box-shadow: var(--shadow-sheet); }
-  .sidebar-mobile-toggle { display: flex; }
-}
-@media (max-width: 1024px) and (prefers-reduced-motion: reduce) {
-  .sidebar { transition: none; }
-}
-
-/* 모바일: 페이지·본문 여백 축소 (헤더 규칙은 navbar.css) */
-@media (max-width: 768px) {
-  .page-wrapper { padding-left: var(--spacing-md); padding-right: var(--spacing-md); }
-}
-
-/* 폰 */
-@media (max-width: 480px) {
-  body { font-size: 16px; }
-  /* 책 카드 1열 */
-  .book-grid { grid-template-columns: 1fr !important; }
-}
-
-/* 소형 폰 (320~380px) */
-@media (max-width: 380px) {
-  .page-wrapper { padding-left: var(--spacing-sm); padding-right: var(--spacing-sm); }
-}
-
-/* 가로 모드(짧은 높이): 사이드바 좌측 safe-area 여백 (히어로 여백 보정은 Ch7) */
-@media (orientation: landscape) and (max-height: 500px) {
-  .sidebar {
-    padding-left: calc(var(--sp-3) + env(safe-area-inset-left, 0px));
-  }
+/* 모바일: 페이지 래퍼(GitHub · Vibe · 404) 좌우 여백 */
+@media (max-width: 734px) {
+  .page-wrapper { padding-inline: var(--gutter); }
 }

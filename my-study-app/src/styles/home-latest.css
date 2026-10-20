@@ -16,12 +16,18 @@
 
   /* 화면 가장자리 → 본문 왼쪽 끝 거리. 셸프만 화면 끝까지 펼치고(풀블리드) 첫 카드는 제목 줄에 맞추는 데 쓴다.
      전제: 부모 .home-main 이 max-width --container(패딩 포함) + 좌우 패딩 --gutter, 가운데 정렬.
-     100vw 는 클래식 스크롤바 폭만큼 크지만, 같은 값을 margin(−)과 padding(+)에 쓰므로 첫 카드 위치는 틀어지지 않는다. */
-  --latest-inset: calc(max(0px, (100vw - var(--container)) / 2) + var(--gutter));
+     화면 폭은 100vw 가 아니라 100cqw — 컨테이너 .home-page(home-layout.css, 스크롤바를 뺀 폭)의 안쪽 폭.
+     100vw 는 클래식 스크롤바 폭만큼 커서 인셋·페이드가 스크롤바 폭의 절반만큼 어긋났다. */
+  --latest-inset: calc(max(0px, (100cqw - var(--container)) / 2) + var(--gutter));
 }
 /* 경계는 tokens.css 의 모바일 스케일과 같다 */
 @media (max-width: 734px) {
   .latest { --latest-fade-w: 40px; }
+
+  /* 머리 줄: 이전·다음은 숨기고(터치로 밀어 넘긴다) 일시정지만 제목 옆 같은 줄에 둔다 (목업 Mobile.dc.html m-latest).
+     display: none 이라 접근성 트리에서도 빠진다 — 일시정지 버튼은 첫 자식이다(LatestShelf.tsx) */
+  .latest .home-block-head { flex-wrap: nowrap; align-items: center; gap: var(--sp-3); }
+  .latest-controls .latest-btn:not(:first-child) { display: none; }
 }
 
 /* ── 머리 오른쪽: 일시정지 · 이전 · 다음 (훅이 반복을 켰을 때만 그려진다) ── */

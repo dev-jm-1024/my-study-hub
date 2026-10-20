@@ -97,14 +97,11 @@
 }
 .vibe-link:hover { text-decoration: underline; }
 
-@media (max-width: 720px) {
+/* 모바일(≤734px): Vibe 카드 1열, GitHub 행은 언어 칩을 숨긴다 */
+@media (max-width: 734px) {
   .vibe-grid { grid-template-columns: 1fr; }
-}
-
-@media (max-width: 560px) {
   .dl-title { font-size: 1.3rem; }
   .dl-badge { width: 40px; height: 40px; }
-  /* GitHub 행: 언어 칩은 좁으면 숨김 */
   .dl-lang { display: none; }
 }
 

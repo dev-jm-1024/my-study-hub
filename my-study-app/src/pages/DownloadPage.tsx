@@ -1,6 +1,6 @@
-import { useCallback, useEffect, useLayoutEffect, useMemo, useRef, useState } from 'react';
+import { useCallback, useEffect, useId, useLayoutEffect, useMemo, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { Menu, ChevronRight, ChevronLeft, Eye, ArrowUpRight, Clock } from 'lucide-react';
+import { PanelLeft, ChevronRight, ChevronLeft, Eye, ArrowUpRight, Clock } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
 import { PdfPreview } from '../components/PdfPreview';
 import { NotFoundPage } from './NotFoundPage';
@@ -144,6 +144,8 @@ interface PreviewState {
 export function DownloadPage() {
   const { category = '' } = useParams<{ category: string }>();
   const [sidebarOpen, setSidebarOpen] = useState(false);
+  const sidebarId = useId();
+  const toggleRef = useRef<HTMLButtonElement>(null);
   const [preview, setPreview] = useState<PreviewState | null>(null);
   // 사용자가 탭·페이지를 바꾼 주제 — 묶음의 등장 효과는 주제에 처음 들어올 때만 돈다
   const [settledKey, setSettledKey] = useState<string | null>(null);
@@ -221,20 +223,28 @@ export function DownloadPage() {
   return (
     <div className="download-layout">
       <Sidebar
+        id={sidebarId}
+        returnFocusRef={toggleRef}
         currentCategory={resolvedKey}
         isOpen={sidebarOpen}
         onClose={() => setSidebarOpen(false)}
       />
 
       <main className="main-content">
-        {/* 모바일 사이드바 토글 */}
+        {/* 주제 전환 — 서랍(≤1068px)에서만 보인다. '그룹 › 과목'이 브레드크럼과 같은 정보라 이 폭에서는 브레드크럼이 숨는다 */}
         <button
+          ref={toggleRef}
           type="button"
-          className="sidebar-mobile-toggle"
-          onClick={() => setSidebarOpen(prev => !prev)}
+          className="sidebar-toggle"
+          aria-controls={sidebarId}
+          aria-expanded={sidebarOpen}
+          aria-label={`주제 전환 — 현재 ${menuInfo.group} ${name}`}
+          onClick={() => setSidebarOpen(true)}
         >
-          <Menu size={16} />
-          카테고리 메뉴
+          <PanelLeft size={18} strokeWidth={2} aria-hidden="true" />
+          <span className="sidebar-toggle-group">{menuInfo.group}</span>
+          <ChevronRight className="sidebar-toggle-chevron" size={10} strokeWidth={2.8} aria-hidden="true" />
+          <span className="sidebar-toggle-name">{name}</span>
         </button>
 
         {/* 브레드크럼 */}
