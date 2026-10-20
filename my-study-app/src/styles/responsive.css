@@ -2,11 +2,7 @@
    반응형 — 반드시 마지막 import
    폭 경계는 둘뿐이다: 모바일 734px · 태블릿 1068px (constants/ui.ts의 BREAKPOINT와 같은 값).
    각 파일이 자기 @media 를 가져도 같은 두 값만 쓴다. 높이·방향 조건은 폭 경계가 아니라 예외로 둔다.
-   ≤734px 타입·간격 스케일은 tokens.css 가 가진다 — 여기서는 공통 래퍼 여백만 맞춘다.
+   ≤734px 타입·간격 스케일은 tokens.css 가 가진다 — 공통 래퍼(.page-wrapper, layout.css) 좌우 여백도 --gutter가 줄여 주므로
+   지금 이 파일에 규칙은 없다(Ch8).
    (자료실 사이드 메뉴 서랍은 download-page.css, 헤더 규칙은 navbar.css, 홈 모바일은 home-*.css)
 ══════════════════════════════════════════════════ */
-
-/* 모바일: 페이지 래퍼(GitHub · Vibe · 404) 좌우 여백 */
-@media (max-width: 734px) {
-  .page-wrapper { padding-inline: var(--gutter); }
-}

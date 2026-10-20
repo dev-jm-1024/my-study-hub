@@ -291,7 +291,7 @@ body:has(.download-layout) .site-footer-inner {
   .doc-crumb a:hover { text-decoration: underline; }
 }
 
-/* 자료실 헤더 — 브레드크럼 아래 간격 (공용 .dl-head는 위 --sp-2 · 아래 --sp-6) */
+/* 자료실 헤더 — 브레드크럼 아래 간격 (공용 .dl-head는 margin 0, 폭·간격은 쓰는 페이지가 정한다) */
 .main-content .dl-head { margin: var(--sp-5) 0 0; }
 
 .doc-intro {
@@ -349,70 +349,6 @@ body:has(.download-layout) .site-footer-inner {
 .doc-list-area {
   margin-top: var(--sp-7);
   scroll-margin-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--sp-3));
-}
-
-/* ── 소분류 세그먼트 — 넘치면 가로 스크롤(스크롤바는 숨김) ── */
-.doc-seg-scroll {
-  --fade-w: var(--sp-6);    /* 가장자리 페이드 폭 */
-  --fade-start: 0px;
-  --fade-end: 0px;
-
-  overflow-x: auto;
-  scrollbar-width: none;
-  scroll-padding-inline: var(--fade-w);   /* 키보드 포커스로 스크롤될 때 포커스된 칸이 페이드 밖에 놓인다 */
-}
-.doc-seg-scroll::-webkit-scrollbar { display: none; }
-/* 넘칠 때만 — 오른쪽에 더 있으면 end, 왼쪽이 가려져 있으면 start (DownloadPage의 SegmentBar가 속성을 켠다).
-   마스크는 알파만 쓰므로 색은 아무 불투명색이면 되고 라이트·다크와 무관하다 */
-.doc-seg-scroll[data-fade-start] { --fade-start: var(--fade-w); }
-.doc-seg-scroll[data-fade-end] { --fade-end: var(--fade-w); }
-.doc-seg-scroll[data-fade-start],
-.doc-seg-scroll[data-fade-end] {
-  -webkit-mask-image: linear-gradient(to right, transparent, var(--label) var(--fade-start), var(--label) calc(100% - var(--fade-end)), transparent);
-  mask-image: linear-gradient(to right, transparent, var(--label) var(--fade-start), var(--label) calc(100% - var(--fade-end)), transparent);
-}
-.doc-seg {
-  display: inline-flex;
-  gap: var(--sp-1);
-  padding: var(--sp-1);
-  border-radius: var(--r-input);
-  background: var(--fill);
-}
-.doc-seg-btn {
-  position: relative;
-  display: inline-flex;
-  align-items: center;
-  gap: var(--sp-2);
-  min-height: calc(var(--touch) - var(--sp-1) * 2);   /* 바 전체가 터치 최소 높이가 된다 */
-  padding: 0 var(--sp-4);
-  border-radius: var(--r-s);
-  background: transparent;
-  color: var(--label);
-  font-size: var(--fs-callout);
-  line-height: var(--lh-callout);
-  font-weight: 500;
-  white-space: nowrap;
-}
-/* 버튼은 36px이라도 바 안쪽 여백까지 눌리게 — 눌리는 영역이 터치 최소(44px)가 된다 */
-.doc-seg-btn::after {
-  content: '';
-  position: absolute;
-  inset: calc(var(--sp-1) * -1) 0;
-}
-.doc-seg-btn[aria-pressed='true'] {
-  background: var(--surface);
-  box-shadow: var(--shadow-thumb);
-  font-weight: 600;
-}
-.doc-seg-count {
-  font-size: var(--fs-foot);
-  font-weight: 400;
-  color: var(--label-2);
-}
-/* 바깥쪽 넘침(overflow-x)에 잘리지 않게 포커스 링은 안쪽으로 */
-.doc-seg-btn:focus-visible {
-  outline: 2px solid var(--accent);
-  outline-offset: -2px;
 }
 
 /* ── 소분류 묶음 ── */
@@ -757,11 +693,10 @@ body:has(.download-layout) .site-footer-inner {
 
   /* 세그먼트: 스크롤 영역이 화면 끝까지 닿고 첫 칸은 본문 시작선에 맞춘다.
      가장자리 페이드·scroll-padding은 이 영역 기준이라 그대로 화면 가장자리에서 나온다 */
-  .doc-seg-scroll {
+  .main-content .seg-scroll {
     margin-inline: calc(var(--dl-pad-l) * -1) calc(var(--dl-pad-r) * -1);
     padding-inline: var(--dl-pad-l) var(--dl-pad-r);
   }
-  .doc-seg-btn { padding: 0 var(--sp-3); }
 
   .doc-group { margin-top: var(--sp-6); }
   .doc-row { gap: var(--sp-3); }

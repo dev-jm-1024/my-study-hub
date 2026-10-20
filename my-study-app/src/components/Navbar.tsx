@@ -4,12 +4,11 @@ import { Link, useLocation } from 'react-router-dom';
 import { ArrowUpRight, Moon, Sun, Search } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { NavPanel } from './NavPanel';
+import { openCommandPalette } from './CommandPalette';
 import { useNavMenu } from '../hooks/useNavMenu';
 import { useDrawer } from '../hooks/useDrawer';
 import { BREAKPOINT, LINKS, NAV_ITEMS, SOCIAL_LINKS } from '../constants';
 import type { NavItem } from '../constants';
-
-const openSearch = () => window.dispatchEvent(new Event('open-command-palette'));
 
 /* 상단 바에는 Velog·Blog만 (GitHub는 내부 페이지 링크가 따로 있다) */
 const NAV_LINKS = SOCIAL_LINKS
@@ -105,7 +104,7 @@ export function Navbar() {
                 className="nav-icon-btn"
                 aria-label="검색 (⌘K)"
                 {...nav.closerProps}
-                onClick={openSearch}
+                onClick={e => openCommandPalette(e.currentTarget)}
               >
                 <Search size={17} />
               </button>
@@ -126,9 +125,9 @@ export function Navbar() {
                 type="button"
                 className="nav-icon-btn"
                 aria-label="검색"
-                onClick={() => {
+                onClick={e => {
                   closeMobile();
-                  openSearch();
+                  openCommandPalette(e.currentTarget);
                 }}
               >
                 <Search size={MOBILE_ICON_SIZE} />

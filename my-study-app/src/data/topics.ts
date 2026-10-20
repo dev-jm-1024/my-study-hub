@@ -48,9 +48,6 @@ export const ALIASES: Record<string, string[]> = {
 /* 홈/사이드바 그룹 노출 순서 */
 export const GROUP_ORDER = ['프로그래밍', '프레임워크', '데이터베이스', '인프라', '아키텍처', '테스팅'];
 
-/* 배지 색조 클래스 (index.css의 .t-* 와 매칭) */
-export const tintClass = (key: string) => `t-${key.toLowerCase()}`;
-
 /* 배지 라벨 (매핑 없으면 이름 앞 2글자) */
 export const badgeLabel = (key: string, name: string) => BADGE[key] ?? name.slice(0, 2);
 

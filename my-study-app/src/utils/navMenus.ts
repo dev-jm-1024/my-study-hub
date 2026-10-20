@@ -17,6 +17,7 @@ import { REPO_DATA } from '../data/repos';
 import { VIBE_PROJECTS } from '../data/vibe';
 import { docCount } from './category';
 import { isNewTopic } from './home';
+import { VIBE_KINDS, VIBE_KIND_LABEL, vibeKind } from './vibe';
 
 export interface BuildNavMenusOptions {
   /** NEW 주제 판정(Ch4에서 addedAt 기준으로 넘긴다). 기본은 NEW 없음 */
@@ -121,15 +122,14 @@ function buildGithub(): NavColumn[] {
 }
 
 function buildVibe(): NavColumn[] {
-  const { largeHeading, projectHeading, macTech } = NAV_VIBE_RULE;
-  const mac: readonly string[] = macTech;
-
-  const macCount = VIBE_PROJECTS.filter(p => p.techStack.some(t => mac.includes(t))).length;
-  const webCount = VIBE_PROJECTS.length - macCount;
+  const { largeHeading, projectHeading } = NAV_VIBE_RULE;
 
   const links: NavLink[] = [{ label: '모든 프로젝트', to: '/vibe' }];
-  if (macCount > 0) links.push({ label: 'macOS 앱', to: '/vibe?kind=macos' });
-  if (webCount > 0) links.push({ label: '웹', to: '/vibe?kind=web' });
+  VIBE_KINDS.forEach(kind => {
+    if (VIBE_PROJECTS.some(p => vibeKind(p) === kind)) {
+      links.push({ label: VIBE_KIND_LABEL[kind], to: `/vibe?kind=${kind}` });
+    }
+  });
 
   return [
     { heading: largeHeading, size: 'large', links },

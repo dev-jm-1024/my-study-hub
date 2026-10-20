@@ -56,54 +56,123 @@
   .site-footer-links a { transition: none; }
 }
 
+/* 맨 위로 — 채움 알약(Tokens 버튼 색) 원형 44px */
+@keyframes to-top-fade { from { opacity: 0; } to { opacity: 1; } }
 .to-top {
+  --to-top-inset: calc(var(--sp-4) + var(--sp-1));   /* 화면 모서리에서 20px */
   position: fixed;
-  right: 20px;
-  bottom: calc(20px + env(safe-area-inset-bottom, 0px));
+  right: var(--to-top-inset);
+  bottom: calc(var(--to-top-inset) + env(safe-area-inset-bottom, 0px));
   z-index: calc(var(--z-scrim) - 1);   /* 드롭다운 덮개 아래 */
-  width: 44px; height: 44px;
-  border-radius: 50%;
+  width: var(--touch);
+  height: var(--touch);
+  border: 0;
+  border-radius: var(--r-pill);
   display: grid;
   place-items: center;
   cursor: pointer;
-  background: var(--cta-bg);
-  color: var(--cta-text);
-  border: none;
-  box-shadow: var(--shadow-glass-hover);
-  animation: cmdkFade 0.2s ease;
-  transition: filter var(--transition-fast), transform var(--transition-fast);
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  box-shadow: var(--shadow-float);
+  animation: to-top-fade var(--dur-fast) ease;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    transform var(--dur-fast) var(--ease-out);
 }
-.to-top:hover { filter: brightness(0.92); }
 .to-top:active { transform: translateY(1px); }
+/* button 기본 규칙(reset.css)이 outline을 지우므로 포커스 링을 직접 건다 */
+.to-top:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  /* 흰 화살표 대비를 지키려고 필터 대신 어두운 면과 섞는다 (--inv-surface는 라이트·다크 모두 어둡다) */
+  .to-top:hover { background: color-mix(in srgb, var(--accent-fill) 85%, var(--inv-surface)); }
+}
+@media (prefers-reduced-motion: reduce) {
+  .to-top { animation: none; transition: none; }
+}
 
+/* ── 404 ──
+   .app-main이 남는 높이를 채우므로(위 규칙), 404일 때만 세로 flex로 바꿔 안내를 푸터 위 빈 영역 가운데에 둔다 */
+.app-main:has(> .notfound) {
+  display: flex;
+  flex-direction: column;
+}
 .notfound {
-  text-align: center;
+  flex: 1;
+  width: 100%;   /* flex 안에서 .page-wrapper의 auto 여백이 폭을 줄이지 않게 */
   display: flex;
   flex-direction: column;
   align-items: center;
-  gap: var(--spacing-sm);
-  min-height: 50vh;
   justify-content: center;
+  text-align: center;
 }
 .notfound-code {
-  font-family: var(--font-mono);
-  font-size: 4rem;
+  font-size: var(--fs-display);
+  line-height: var(--lh-display);
+  letter-spacing: var(--ls-display);
   font-weight: 700;
-  color: var(--accent-ink);
-  letter-spacing: -0.03em;
-  line-height: 1;
+  color: var(--label-2);
 }
-.notfound-title { font-size: 1.5rem; font-weight: 700; letter-spacing: -0.03em; color: var(--text-primary); margin: var(--spacing-md) 0 0; }
-.notfound-sub { color: var(--text-secondary); margin: 0 0 var(--spacing-lg); }
+.notfound-title {
+  margin: var(--sp-3) 0 0;
+  font-size: var(--fs-t2);
+  line-height: var(--lh-t2);
+  letter-spacing: var(--ls-t2);
+  font-weight: 700;
+  color: var(--label);
+  text-wrap: balance;
+}
+.notfound-sub {
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-lead);
+  line-height: var(--lh-lead);
+  color: var(--label-2);
+  text-wrap: balance;
+}
+.notfound-actions {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+/* Tokens 버튼: 44px 알약 — 기본 = fill(보조), --primary = accent-fill(채움) */
 .notfound-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch);
+  padding: 0 var(--sp-5);
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--label);
+  font-size: var(--fs-body);
+  line-height: 1;
+  font-weight: 500;
+  white-space: nowrap;
   text-decoration: none;
-  background: var(--cta-bg);
-  color: var(--cta-text);
-  padding: 11px 22px;
-  border-radius: var(--border-radius-sm);
-  font-weight: 600;
-  font-size: 0.9rem;
-  transition: filter var(--transition-fast);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
 }
-.notfound-btn:hover { filter: brightness(0.92); }
-
+.notfound-btn--primary {
+  background: var(--accent-fill);
+  color: var(--on-accent);
+}
+/* button 기본 규칙(reset.css)이 outline을 지우므로 포커스 링을 직접 건다 */
+.notfound-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .notfound-btn:hover { background: var(--sep); }
+  /* 흰 글자 대비를 지키려고 필터 대신 어두운 면과 섞는다 (--inv-surface는 라이트·다크 모두 어둡다) */
+  .notfound-btn--primary:hover {
+    background: color-mix(in srgb, var(--accent-fill) 85%, var(--inv-surface));
+  }
+}
+@media (prefers-reduced-motion: reduce) {
+  .notfound-btn { transition: none; }
+}

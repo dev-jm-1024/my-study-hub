@@ -1,53 +1,179 @@
 /* ══════════════════════════════════════════════════
-   추천 도서 — React 쪽 보정
-   원본 book.css는 정적 페이지와 같이 쓰므로 고치지 않고 여기서 덮는다
+   Books 페이지 (Ch8 · pages/BooksPage.tsx)
+   헤더·소개는 doc-list.css(.dl-head · .page-intro), 세그먼트는 segment.css, 폭·위아래 여백은 layout.css(.page-wrapper)가 준다.
+   여기는 태그 세그먼트 자리와 표지 카드 그리드. 카드 안 구매 알약은 자료실 '받기'(.doc-get-pill)와 같은 모양
 ══════════════════════════════════════════════════ */
 
-/* 카드마다 반복되는 구매 버튼: 평소엔 테두리만, 카드에 올리면 채워진다 (자료실 다운로드 버튼과 같은 규칙) */
-.book-btn {
-  padding: 7px 15px;
-  background: transparent;
-  color: var(--text-primary);
-  border: 1px solid var(--border-strong, var(--border-color));
-  transition: background-color var(--transition-fast), color var(--transition-fast),
-              border-color var(--transition-fast), transform var(--transition-fast);
-}
-.book-card:hover .book-btn,
-.book-btn:focus-visible {
-  background: var(--cta-bg);
-  border-color: var(--cta-bg);
-  color: var(--cta-text);
-}
-/* book.css의 brightness(1.08)는 파란 채움 위 흰 글자 대비를 깎으므로 어둡게 덮는다 */
-.book-btn:hover { filter: brightness(0.92); }
+/* ── 세그먼트 자리 ── */
+.bk-seg { margin-top: var(--sp-7); }
 
-/* 모바일(≤734px): 1열, 표지를 왼쪽 썸네일로 둔 가로 카드 — 한 화면에 한 권만 보이던 세로 카드 대신
-   .book-grid 열 수는 pages/book.css(768·480 블록의 2열)보다 이 파일이 뒤에 import 되어 !important 없이 이긴다 */
+/* ── 카드 그리드 ── */
+.bk-grid {
+  /* 폭·비율은 토큰 단계에 없는 예외 (.more-grid의 --more-min과 같은 방식) */
+  --bk-min: 200px;            /* 카드 한 칸 최소 폭 — 본문 1032에서 4열 */
+  --bk-cover-ratio: 4 / 5;    /* 표지 칸 가로 / 세로 */
+  --bk-cover-pad: var(--sp-4);
+  --bk-cover-icon: var(--icon-l);
+  --bk-thumb-w: 76px;         /* ≤734 가로 카드의 표지 썸네일 폭 */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--bk-min)), 1fr));
+  gap: var(--gap);
+  margin: var(--sp-5) 0 0;
+  padding: 0;
+  list-style: none;
+}
+
+.bk-card {
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-4);
+  box-sizing: border-box;
+  min-width: 0;
+  padding: var(--card-pad);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+/* ── 표지 — 바탕색 칸 가운데에 표지가 제 비율대로 놓인다. 이미지는 칸 안에 띄워(absolute) 칸 크기에 영향을 주지 않으므로
+   표지 비율이 제각각이어도 칸이 고정이고, 이미지가 늦게 와도 줄이 흔들리지 않는다 ── */
+.bk-cover {
+  position: relative;
+  display: grid;
+  place-items: center;
+  box-sizing: border-box;
+  aspect-ratio: var(--bk-cover-ratio);
+  border-radius: var(--r-s);
+  background: var(--fill);
+}
+.bk-cover img {
+  position: absolute;
+  inset: 0;
+  margin: auto;
+  max-width: calc(100% - var(--bk-cover-pad) * 2);
+  max-height: calc(100% - var(--bk-cover-pad) * 2);
+  object-fit: contain;
+  box-shadow: var(--shadow-cover);
+}
+.bk-cover-empty {
+  width: var(--bk-cover-icon);
+  height: var(--bk-cover-icon);
+  color: var(--glyph-3);
+}
+
+/* ── 글 ── */
+.bk-body {
+  flex: 1;
+  min-width: 0;
+}
+.bk-title {
+  margin: 0;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 600;
+}
+.bk-author {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
+}
+.bk-desc {
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+  -webkit-line-clamp: 2;
+  line-clamp: 2;
+  overflow: hidden;
+  margin: var(--sp-2) 0 0;
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
+}
+
+/* ── 구매 알약 — 눌리는 영역은 44px, 보이는 알약은 32px. 알약 높이만큼 카드 아래 여백이 늘지 않게 끌어올린다 ── */
+.bk-buy {
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  margin-bottom: calc((var(--touch) - var(--icon-m)) / -2);
+  text-decoration: none;
+}
+.bk-buy-pill {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-1);
+  height: var(--icon-m);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--accent);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  font-weight: 600;
+  transition: background-color var(--dur-fast);
+}
+.bk-buy-pill svg { transition: translate var(--dur-fast); }
+.bk-buy:focus-visible { outline: none; }
+.bk-buy:focus-visible .bk-buy-pill {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .bk-buy:hover .bk-buy-pill { background: var(--sep); }
+  .bk-buy:hover .bk-buy-pill svg { translate: 1px -1px; }
+}
+
+/* 빈 결과 (태그 탭은 책이 있는 것만 만들어서 실제로는 나오지 않는다) */
+.bk-empty {
+  margin: var(--sp-5) 0 0;
+  padding: var(--sp-7) var(--sp-5);
+  border-radius: var(--r-group);
+  background: var(--surface);
+  color: var(--label-2);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  text-align: center;
+}
+
+/* ══════════════════════════════════════════════════
+   Books (≤734px) — 한 열 가로 카드: 표지 썸네일 왼쪽, 오른쪽에 글과 구매 알약
+   세그먼트는 화면 끝까지 닿고 첫 칸은 본문 시작선에 맞춘다 (페이드·scroll-padding이 화면 가장자리에서 나온다)
+══════════════════════════════════════════════════ */
 @media (max-width: 734px) {
-  .book-grid { grid-template-columns: 1fr; gap: 10px; }
-  .book-card {
+  .bk-seg { margin-top: var(--sp-6); }
+  .bk-seg .seg-scroll {
+    margin-inline: calc(var(--gutter) * -1);
+    padding-inline: var(--gutter);
+  }
+
+  .bk-grid {
+    --bk-cover-ratio: 5 / 7;
+    --bk-cover-pad: var(--sp-1);
+    --bk-cover-icon: var(--icon-m);
+
+    grid-template-columns: minmax(0, 1fr);
+  }
+  .bk-card {
     display: grid;
-    grid-template-columns: 76px 1fr;
+    grid-template-columns: var(--bk-thumb-w) minmax(0, 1fr);
     grid-template-rows: 1fr auto;
-    column-gap: 14px;
-    padding: 12px;
+    column-gap: var(--sp-4);
+    row-gap: 0;
+    padding: var(--sp-4);
   }
-  .book-card:hover { transform: none; }
-  .book-cover-wrap,
-  .book-icon {
-    grid-row: 1 / 3;
+  .bk-cover {
+    grid-row: 1 / span 2;
     align-self: start;
-    width: 76px;
-    border: 1px solid var(--border-glass);
-    border-radius: 6px;
   }
-  .book-icon { font-size: 1.6rem; }
-  .book-card:hover .book-cover { transform: none; }
-  .book-card-body { padding: 0; }
-  .book-title { font-size: 0.92rem; margin-bottom: 2px; }
-  .book-author,
-  .book-publisher { font-size: 0.76rem; margin-bottom: 4px; }
-  .book-description { font-size: 0.8rem; -webkit-line-clamp: 2; line-clamp: 2; }
-  .book-card-footer { padding: 8px 0 0; border-top: none; justify-content: flex-start; }
-  .book-btn { padding: 5px 12px; font-size: 0.76rem; }
+  /* grid 항목은 기본이 stretch — 칸 전체가 눌리지 않게 알약 폭만 */
+  .bk-buy {
+    justify-self: start;
+    margin-top: var(--sp-2);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .bk-buy-pill,
+  .bk-buy-pill svg { transition: none; }
 }

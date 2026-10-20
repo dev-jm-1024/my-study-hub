@@ -1,0 +1,71 @@
+/* ══════════════════════════════════════════════════
+   세그먼트 필터 (components/SegmentBar.tsx) — 자료실 소분류·Books 태그·Vibe 종류가 함께 쓴다
+   넘치면 가로 스크롤(스크롤바는 숨김). 화면 끝까지 닿게 하는 ≤734px 보정(margin·padding)은 쓰는 페이지 CSS가 맡는다
+══════════════════════════════════════════════════ */
+.seg-scroll {
+  --fade-w: var(--sp-6);    /* 가장자리 페이드 폭 */
+  --fade-start: 0px;
+  --fade-end: 0px;
+
+  overflow-x: auto;
+  scrollbar-width: none;
+  scroll-padding-inline: var(--fade-w);   /* 키보드 포커스로 스크롤될 때 포커스된 칸이 페이드 밖에 놓인다 */
+}
+.seg-scroll::-webkit-scrollbar { display: none; }
+/* 넘칠 때만 — 오른쪽에 더 있으면 end, 왼쪽이 가려져 있으면 start (SegmentBar가 속성을 켠다).
+   마스크는 알파만 쓰므로 색은 아무 불투명색이면 되고 라이트·다크와 무관하다 */
+.seg-scroll[data-fade-start] { --fade-start: var(--fade-w); }
+.seg-scroll[data-fade-end] { --fade-end: var(--fade-w); }
+.seg-scroll[data-fade-start],
+.seg-scroll[data-fade-end] {
+  -webkit-mask-image: linear-gradient(to right, transparent, var(--label) var(--fade-start), var(--label) calc(100% - var(--fade-end)), transparent);
+  mask-image: linear-gradient(to right, transparent, var(--label) var(--fade-start), var(--label) calc(100% - var(--fade-end)), transparent);
+}
+.seg {
+  display: inline-flex;
+  gap: var(--sp-1);
+  padding: var(--sp-1);
+  border-radius: var(--r-input);
+  background: var(--fill);
+}
+.seg-btn {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: calc(var(--touch) - var(--sp-1) * 2);   /* 바 전체가 터치 최소 높이가 된다 */
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-s);
+  background: transparent;
+  color: var(--label);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  font-weight: 500;
+  white-space: nowrap;
+}
+/* 버튼은 36px이라도 바 안쪽 여백까지 눌리게 — 눌리는 영역이 터치 최소(44px)가 된다 */
+.seg-btn::after {
+  content: '';
+  position: absolute;
+  inset: calc(var(--sp-1) * -1) 0;
+}
+.seg-btn[aria-pressed='true'] {
+  background: var(--surface);
+  box-shadow: var(--shadow-thumb);
+  font-weight: 600;
+}
+.seg-count {
+  font-size: var(--fs-foot);
+  font-weight: 400;
+  color: var(--label-2);
+}
+/* 바깥쪽 넘침(overflow-x)에 잘리지 않게 포커스 링은 안쪽으로 */
+.seg-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* ≤734px — 칸을 한 단계 좁혀 한 화면에 더 많은 탭이 보이게 (자료실·Books·Vibe 공통) */
+@media (max-width: 734px) {
+  .seg-btn { padding: 0 var(--sp-3); }
+}

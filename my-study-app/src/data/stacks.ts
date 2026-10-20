@@ -12,7 +12,7 @@ import {
 } from 'simple-icons';
 
 export interface StackVisual {
-  /** 막대·아이콘 색 (크림 배경 대비 위해 일부 브랜드색은 살짝 조정) */
+  /** 막대·아이콘 색 (밝은 배경 대비 위해 일부 브랜드색은 살짝 조정) */
   color: string;
   /** 브랜드 로고 SVG path (없으면 모노그램) */
   icon?: { path: string; title: string };

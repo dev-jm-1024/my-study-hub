@@ -1,7 +1,6 @@
 /* ══════════════════════════════════════════════════
    홈 하단 '주제별로 찾아보기.' (Ch5 · components/home/TopicGroups.tsx · CategoryRow.tsx)
    머리 줄(.home-block*)은 home-featured.css 가 준다 — 여기서 다시 정의하지 않는다.
-   아래 .t-* 주제 색조는 이 화면이 아니라 자료실(DownloadPage · GitHubPage) · 사이드바 · 팔레트가 쓴다.
 ══════════════════════════════════════════════════ */
 
 /* ── 그룹 그리드: 같은 줄의 그룹은 시작·끝선이 같다 (grid + stretch, 카드가 flex: 1로 남는 높이를 채운다) ── */
@@ -182,14 +181,3 @@
   flex: none;
   color: var(--glyph-3);
 }
-
-/* 주제별 배지 색조 — 바탕은 --surface에 18~20%(hover 32%), 글자는 --label에 50% 섞는다.
-   라이트·다크, hover까지 글자 대비 4.5:1 이상인 값이라 바꾸면 다시 계산한다 */
-.t-java { --t: #C79A4E; } .t-kotlin { --t: #8B6FC0; } .t-oop { --t: #6E7F92; }
-.t-spring { --t: #5E9169; } .t-jsp { --t: #B08A5E; } .t-junit { --t: #B07A5E; }
-.t-mysql { --t: #4E86A8; } .t-mongodb { --t: #6AA06E; } .t-kafka { --t: #A6704A; }
-.t-network { --t: #6E7CA8; } .t-linux { --t: #B8873E; } .t-api { --t: #6683A0; }
-.t-exception { --t: #B0604E; } .t-webserver { --t: #6E8A82; } .t-querydsl { --t: #7C6EA8; }
-.t-docker { --t: #4A8CC4; } .t-system-design { --t: #4E9AA6; }
-.t-github { --t: #6E7C8A; }
-.t-vibe { --t: #8A63D2; }
