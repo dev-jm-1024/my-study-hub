@@ -13,13 +13,18 @@ import { triggerDownload } from '../utils/download';
 import type { DocEntry } from '../utils/paginateSections';
 import { withViewTransition } from '../utils/viewTransition';
 import { useSectionPagination } from '../hooks/usePagination';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { NOT_FOUND_TITLE } from '../constants';
+import { NewTabHint } from '../components/NewTabHint';
 
 interface DocRowProps {
   entry: DocEntry;
+  /** 제목 단계 — 묶음 이름(h2)이 있으면 그 아래 h3, 이름 없는 묶음이면 h1 바로 아래 h2 */
+  heading: 'h2' | 'h3';
   onPreview: (entry: DocEntry, row: HTMLElement) => void;
 }
 
-function DocRow({ entry, onPreview }: DocRowProps) {
+function DocRow({ entry, heading: Heading, onPreview }: DocRowProps) {
   const { pdf, num, title } = entry;
   const rowRef = useRef<HTMLLIElement>(null);
   return (
@@ -27,7 +32,7 @@ function DocRow({ entry, onPreview }: DocRowProps) {
       <span className="doc-num" aria-hidden="true">{num}</span>
       <div className="doc-body">
         <div className="doc-text">
-          <h3 className="doc-title">{title}</h3>
+          <Heading className="doc-title">{title}</Heading>
           <p className="doc-desc">{pdf.description}</p>
         </div>
         {pdf.pdfUrl ? (
@@ -90,6 +95,16 @@ export function DownloadPage() {
   const name = menuInfo?.name ?? category;
   const intro = DESC[key];
   const notice = NOTICES[resolvedKey];
+
+  // 미리보기 시트는 연 과목의 문서다 — 뒤로 가기 등으로 과목이 바뀌면 시트를 닫는다.
+  // 렌더 중에 맞춰야 한 프레임이라도 이전 과목의 시트가 새 과목 위에 남지 않는다 (잠금은 시트가 사라지며 useDrawer가 푼다)
+  const [previewKey, setPreviewKey] = useState(resolvedKey);
+  if (previewKey !== resolvedKey) {
+    setPreviewKey(resolvedKey);
+    setPreview(null);
+  }
+  // 없는 과목 키는 아래에서 NotFoundPage를 그리므로 그 화면의 제목과 맞춘다
+  useDocumentTitle(menuInfo ? name : NOT_FOUND_TITLE);
 
   // 소분류 선택·페이지 상태. 주제(resolvedKey)가 바뀌면 훅이 '전체' 1페이지로 되돌린다
   const list = useSectionPagination(pdfs, resolvedKey);
@@ -218,6 +233,7 @@ export function DownloadPage() {
                 >
                   {notice.link.label}
                   <ArrowUpRight size={10} strokeWidth={2.4} aria-hidden="true" />
+                  <NewTabHint />
                 </a>
               )}
             </div>
@@ -250,7 +266,7 @@ export function DownloadPage() {
                 )}
                 <ul className="doc-card">
                   {g.docs.map(d => (
-                    <DocRow key={d.index} entry={d} onPreview={openPreview} />
+                    <DocRow key={d.index} entry={d} heading={g.name ? 'h3' : 'h2'} onPreview={openPreview} />
                   ))}
                 </ul>
               </div>

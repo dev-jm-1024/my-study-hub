@@ -5,6 +5,8 @@ import { SegmentBar } from '../components/SegmentBar';
 import { BOOKS, BOOK_FILTER_TAGS } from '../data/books';
 import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 import { useScrollTopOnPush } from '../hooks/useScrollTopOnPush';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { NEW_TAB_LABEL } from '../constants';
 import type { BookItem } from '../types';
 
 const STORE_LABELS: [domain: string, label: string][] = [
@@ -68,7 +70,7 @@ function BookCard({ book }: { book: BookItem }) {
         href={book.purchaseUrl}
         target="_blank"
         rel="noopener noreferrer"
-        aria-label={`${book.title} — ${store} (새 탭)`}
+        aria-label={`${book.title} — ${store} ${NEW_TAB_LABEL}`}
       >
         <span className="bk-buy-pill">
           {store}
@@ -79,7 +81,10 @@ function BookCard({ book }: { book: BookItem }) {
   );
 }
 
+const TITLE = '백엔드 개발자 추천 도서';
+
 export function BooksPage() {
+  useDocumentTitle(TITLE);
   useScrollTopOnMount();
   useScrollTopOnPush();   // 상단 메뉴 링크로 태그가 바뀌면 새 목록의 맨 위부터 — 세그먼트·뒤로 가기는 그대로
 
@@ -106,7 +111,7 @@ export function BooksPage() {
         </div>
         <div className="dl-head-text">
           <p className="dl-eyebrow">Books</p>
-          <h1 className="dl-title">백엔드 개발자 추천 도서</h1>
+          <h1 className="dl-title">{TITLE}</h1>
         </div>
         <p className="dl-count">
           <span className="dl-count-num">{BOOKS.length}</span>

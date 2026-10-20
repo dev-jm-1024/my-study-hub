@@ -144,7 +144,7 @@
   color: var(--on-accent);
 }
 
-/* button 기본 규칙(reset.css)이 outline을 지우므로 포커스 링을 직접 건다 */
+/* 포커스 링은 다른 컨트롤과 같은 모양(파랑 2px, 간격 2px)으로 맞춘다 — 브라우저 기본 링을 대신한다 */
 .pdfp-close:focus-visible,
 .pdfp-pill:focus-visible {
   outline: 2px solid var(--accent);

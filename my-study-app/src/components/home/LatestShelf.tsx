@@ -1,5 +1,6 @@
 import { useMemo } from 'react';
 import { ChevronLeft, ChevronRight, Pause, Play } from 'lucide-react';
+import { NEW_TAB_LABEL } from '../../constants';
 import { formatAddedAt, isRecentDate, latestDocs } from '../../utils/home';
 import { useInfiniteCarousel } from '../../hooks/useInfiniteCarousel';
 
@@ -60,7 +61,7 @@ export function LatestShelf() {
                       href={doc.pdfUrl}
                       target="_blank"
                       rel="noopener noreferrer"
-                      aria-label={`${doc.title} PDF 받기`}
+                      aria-label={`${doc.title} PDF 받기 ${NEW_TAB_LABEL}`}
                       tabIndex={clone ? -1 : undefined}
                     >
                       <span className="latest-get-pill">받기</span>
@@ -82,7 +83,7 @@ export function LatestShelf() {
       </div>
 
       {shelf.looping && (
-        <div className="latest-dots" aria-hidden="true">
+        <div className="latest-dots home-anim" aria-hidden="true">
           {docs.map((_, i) => (
             <span key={i} className={`latest-dot${i === shelf.index ? ' latest-dot--on' : ''}`} />
           ))}

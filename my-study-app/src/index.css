@@ -1,18 +1,10 @@
-/* React 앱 CSS — 기존 static CSS 재활용 */
+/* React 앱 CSS */
 
 /* ── 공통 기반 ── */
-@import '../../src/main/resources/static/css/common/reset.css';
-@import '../../src/main/resources/static/css/common/variables.css';
+@import './styles/reset.css';
 @import './styles/tokens.css';
-@import './styles/tokens.legacy.css';   /* RD-1-1 — 이 줄부터 전 페이지 재스킨 */
-
-/* ── 컴포넌트 ── */
-@import '../../src/main/resources/static/css/components/card.css';
-@import '../../src/main/resources/static/css/components/button.css';
-
-/* ── 페이지별 ── */
-@import '../../src/main/resources/static/css/pages/book.css';
-@import '../../src/main/resources/static/css/pages/jm-github.css';
+/* Pretendard — tokens.css --font의 폴백 (Apple 글꼴이 없는 Windows·Android에서 쓰인다) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
 /* React 앱 스타일 — 원본 index.css의 섹션 순서 그대로 (절단표 #1~#13 순, 순서 변경 금지) */
 @import './styles/base.css';

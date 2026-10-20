@@ -3,6 +3,7 @@ import { ArrowUpRight } from 'lucide-react';
 import { NAV_ITEMS } from '../constants';
 import type { NavColumn, NavLink as NavLinkItem, NavMenuKey } from '../constants';
 import { NAV_MENUS } from '../utils/navMenus';
+import { NewTabHint } from './NewTabHint';
 
 /* 드롭다운 패널 안쪽 — 메뉴 하나의 열 목록. 열기·닫기·위치는 Navbar와 useNavMenu 몫이다.
    열 구성은 utils/navMenus.ts가 만든다. 라벨의 '↗'·'›'는 여기서 붙인다 */
@@ -32,6 +33,7 @@ function PanelLink({ link, size, onExternalClick }: PanelLinkProps) {
       >
         {link.label}
         <ArrowUpRight size={ARROW_SIZE[size]} aria-hidden="true" />
+        <NewTabHint />
       </a>
     );
   }

@@ -13,12 +13,14 @@ export function ScrollToTop() {
 
   if (!show) return null;
 
+  const toTop = () => {
+    const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    /* '동작 줄이기'에서는 부드러운 스크롤 없이 바로 올라간다 */
+    window.scrollTo({ top: 0, behavior: reduce ? 'instant' : 'smooth' });
+  };
+
   return (
-    <button
-      className="to-top"
-      aria-label="맨 위로"
-      onClick={() => window.scrollTo({ top: 0, behavior: 'smooth' })}
-    >
+    <button className="to-top" aria-label="맨 위로" onClick={toTop}>
       <ArrowUp size={18} />
     </button>
   );

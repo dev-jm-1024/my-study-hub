@@ -2,7 +2,10 @@
    - html·body 둘 다 잠근다: base.css의 html { overflow-x: clip } 때문에 body의 overflow는 화면 스크롤로 전파되지 않는다
    - html { scrollbar-gutter: stable }이 스크롤바 자리를 지켜, 잠가도 화면 폭이 그대로다(View Transition이 취소되지 않는다)
    - 잠금은 겹쳐 걸 수 있다(서랍 위에 검색 팔레트). 마지막 잠금이 풀릴 때 원래 inline 값을 되돌린다
-   - 잠근 순서 = 모달이 쌓인 순서. 맨 위 층만 키(Esc·Tab)를 받게 할 때 isTopLock으로 묻는다 */
+   - 잠근 순서 = 모달이 쌓인 순서. 맨 위 층만 키(Esc·Tab)를 받게 할 때 isTopLock으로 묻는다
+   - 잠금 하나 = 덮는 층 하나(utils/overlay) — 잠근 동안 뒤 셸프 흐름이 멈춘다 */
+
+import { addOverlay } from './overlay';
 
 const locks: (() => void)[] = [];
 let saved: { el: HTMLElement; x: string; y: string }[] = [];
@@ -17,10 +20,12 @@ export function lockScroll(): () => void {
     });
   }
 
+  const removeOverlay = addOverlay();
   const release = () => {
     const at = locks.indexOf(release);
     if (at < 0) return;
     locks.splice(at, 1);
+    removeOverlay();
     if (locks.length > 0) return;
     for (const { el, x, y } of saved) {
       el.style.overflowX = x;

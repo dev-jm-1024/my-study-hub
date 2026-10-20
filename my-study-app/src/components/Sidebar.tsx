@@ -1,4 +1,4 @@
-import { useCallback, useEffect, useId, useRef, useState, type RefObject } from 'react';
+import { useCallback, useEffect, useId, useLayoutEffect, useRef, useState, type RefObject } from 'react';
 import { Link } from 'react-router-dom';
 import { Search, X } from 'lucide-react';
 import { MENUS } from '../data/menuData';
@@ -73,6 +73,30 @@ export function Sidebar({ id, currentCategory, returnFocusRef, isOpen = false, o
     media: DRAWER_MEDIA,   // 이 폭을 넘어 넓어지면 닫힌다
   });
 
+  // 넘칠 때만 위·아래 가장자리를 흐리게 — 위로 가려진 내용이 있으면 top, 아래로 더 있으면 bottom.
+  // 띠는 CSS(download-page.css의 .sidebar-fade)이고, 여기서는 data-fade-top/bottom 속성만 갱신한다 (SegmentBar와 같은 방식)
+  const [fade, setFade] = useState({ top: false, bottom: false });
+  const measure = useCallback(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    // 소수 픽셀 오차로 끝에서도 띠가 남지 않게 1px 여유를 둔다
+    const top = el.scrollTop > 1;
+    const bottom = el.scrollTop < el.scrollHeight - el.clientHeight - 1;
+    setFade(f => (f.top === top && f.bottom === bottom ? f : { top, bottom }));
+  }, []);
+
+  // 처음 그릴 때와 검색어·서랍 모드로 목록 길이가 달라질 때 — 띠가 한 프레임 어긋나 보이지 않게 레이아웃 직후에 잰다
+  useLayoutEffect(measure);
+
+  // 창 크기·서랍 높이가 달라지면 다시 잰다. 서랍 모드가 바뀌면 패널 요소가 새로 만들어지므로 그때마다 다시 건다
+  useEffect(() => {
+    const el = panelRef.current;
+    if (!el) return;
+    const ro = new ResizeObserver(measure);
+    ro.observe(el);
+    return () => ro.disconnect();
+  }, [measure, drawerMode]);
+
   // 선택된 행이 패널의 보이는 영역 밖이면 패널 안에서만 스크롤한다 (scrollIntoView는 창까지 움직일 수 있다).
   // 서랍이 열릴 때도 한 번 더 — 닫혀 있는 동안 바뀐 검색·크기에 맞춘다
   useEffect(() => {
@@ -81,10 +105,10 @@ export function Sidebar({ id, currentCategory, returnFocusRef, isOpen = false, o
     if (!panel || !row) return;
     const p = panel.getBoundingClientRect();
     const r = row.getBoundingClientRect();
-    // 패널 안쪽 여백까지 남겨서 모서리에 붙지 않게
+    // 모서리에 붙지 않게 안쪽 여백까지, 가장자리 띠에 걸리지 않게 scroll-padding(띠 높이)까지 남긴다 — 둘 중 큰 쪽
     const pad = getComputedStyle(panel);
-    const top = p.top + parseFloat(pad.paddingTop);
-    const bottom = p.bottom - parseFloat(pad.paddingBottom);
+    const top = p.top + Math.max(parseFloat(pad.paddingTop), parseFloat(pad.scrollPaddingTop) || 0);
+    const bottom = p.bottom - Math.max(parseFloat(pad.paddingBottom), parseFloat(pad.scrollPaddingBottom) || 0);
     if (r.top < top) panel.scrollTop -= top - r.top;
     else if (r.bottom > bottom) panel.scrollTop += r.bottom - bottom;
   }, [currentCategory, drawerMode, open]);
@@ -107,12 +131,17 @@ export function Sidebar({ id, currentCategory, returnFocusRef, isOpen = false, o
         id={panelId}
         className="sidebar"
         data-open={open || undefined}
+        data-fade-top={fade.top || undefined}
+        data-fade-bottom={fade.bottom || undefined}
+        onScroll={measure}
         role={drawerMode ? 'dialog' : undefined}
         aria-modal={drawerMode || undefined}
         aria-label={drawerMode ? undefined : '주제 목록'}
         aria-labelledby={drawerMode ? titleId : undefined}
         inert={drawerMode && !open}   // 닫힌 서랍의 링크에 Tab이 들어가지 않게
       >
+        <div className="sidebar-fade sidebar-fade--top" aria-hidden="true" />
+
         {drawerMode && (
           <div className="sidebar-head">
             <h2 className="sidebar-title" id={titleId}>주제</h2>
@@ -185,6 +214,8 @@ export function Sidebar({ id, currentCategory, returnFocusRef, isOpen = false, o
         ))}
 
         {groups.length === 0 && <p className="sidebar-empty" role="status">일치하는 주제가 없어요.</p>}
+
+        <div className="sidebar-fade sidebar-fade--bottom" aria-hidden="true" />
       </Panel>
     </>
   );

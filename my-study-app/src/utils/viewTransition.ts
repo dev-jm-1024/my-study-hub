@@ -17,6 +17,9 @@ export function withViewTransition(kind: string, update: () => void): Promise<vo
   const root = document.documentElement;
   root.dataset.vt = kind;
   const transition = document.startViewTransition(() => flushSync(update));
+  // 전환이 건너뛰어지면(다른 전환이 끼어들거나 같은 이름이 둘이면) ready가 거부된다. 받는 쪽이 없으면 콘솔에 Uncaught (in promise)로 남는다
+  transition.ready.catch(() => {});
+  transition.updateCallbackDone.catch(() => {});
   return transition.finished
     .catch(() => {}) // 전환이 건너뛰어져도 갱신 자체는 끝났다
     .finally(() => {

@@ -15,7 +15,7 @@
 |---|---|---|
 | 디자인 시안 | Apple 스타일 캔버스 7개 보드 — https://claude.ai/artifact/KRGAtS74ioPBUPmT6UZnsL (비공개) | 확정 ("나머지 세부는 구현하면서 수정") |
 | 목업 사본 | `doc/261018_redesign_mockups/` — 보드 7개 + `canvas.json` | 완료 (캔버스 최신본과 동일 확인 22:10) |
-| 디자인 토큰 | `tokens.css`(라이트·다크·모바일) + `tokens.legacy.css`(옛 변수 호환) | 생성 · **미연결** |
+| 디자인 토큰 | `tokens.css`(라이트·다크·모바일) + `tokens.legacy.css`(옛 변수 호환) | 생성 · **미연결** (→ Ch0·Ch1 연결, `tokens.legacy.css`는 Ch9 삭제) |
 | 상수 | `constants/{ui,links,navigation,index}.ts` | 생성 · 아무도 import 안 함 · `tsc --noEmit` 통과 |
 | 계획·로드맵 | 계획서(규칙·명세·에이전트) + 로드맵(Ch0~Ch9, 챕터별 목표·작업표) | 완료 |
 | 에이전트 | 하위 6종(`.claude/agents/`) + 리드 플레이북(`.claude/skills/redesign/`) | 완료 |
@@ -69,7 +69,7 @@
 | 파일 | git 상태 | 메모 |
 |---|---|---|
 | `my-study-app/src/styles/tokens.css` | 미추적 | 디자인 토큰 정본 — 미연결 |
-| `my-study-app/src/styles/tokens.legacy.css` | 미추적 | 옛 변수 → 새 토큰 — 미연결, Ch9에서 삭제 예정 |
+| `my-study-app/src/styles/tokens.legacy.css` | 미추적 | 옛 변수 → 새 토큰 — 미연결, Ch9에서 삭제 예정 (→ 2026-10-20 Ch9 D6에서 삭제, 정적 CSS import도 끊음) |
 | `my-study-app/src/constants/{ui,links,navigation,index}.ts` | 미추적 | 미사용 |
 | `doc/261018_redesign_mockups/*.dc.html` (7) + `canvas.json` | 미추적 | 캔버스 사본 |
 | `scripts/redesign-lead.sh` | 미추적 | IntelliJ 터미널용 리드 실행 (실행 권한 있음) |

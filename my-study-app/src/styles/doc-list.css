@@ -65,9 +65,10 @@
 }
 .dl-count-unit { margin-left: var(--sp-1); }
 
-/* 헤더 아래 소개 문단 (보조 페이지) — 자료실 .doc-intro와 같은 모양 */
-.page-intro {
-  --intro-max: 640px;    /* 소개 문장 한 줄 길이 상한 (download-page.css의 .doc-intro와 같은 값) */
+/* 헤더 아래 소개 문단 — 보조 페이지는 .page-intro, 자료실은 .doc-intro (같은 모양이라 한 규칙) */
+.page-intro,
+.doc-intro {
+  --intro-max: 640px;    /* 소개 문장 한 줄 길이 상한 */
 
   max-width: var(--intro-max);
   margin: var(--sp-5) 0 0;
@@ -172,36 +173,36 @@
 
 
 /* ══════════════════════════════════════════════════
-   보조 페이지 헤더 (≤734px) — 자료실 헤더(download-page.css)와 같은 배치
-   배지가 두 줄에 걸쳐 세로 가운데, 제목 옆, 그 아래 '3개 레포'. eyebrow는 보이게 둔다(자료실은 '주제 전환' 알약이 대신해서 감춘다).
-   .dl-count의 마크업·클래스는 화면 전환 도착점이라 그대로 두고 모양만 바꾼다.
-   Ch9에서 download-page.css의 .main-content 쪽과 한 규칙으로 합칠 거리
+   페이지 헤더 · 소개 문단 (≤734px) — 자료실·Books·GitHub·Vibe 공용. 목업: ArchiveMobile.dc.html
+   배지가 두 줄에 걸쳐 세로 가운데, 제목 옆, 그 아래 '3개 레포'. eyebrow는 보이게 둔다(자료실만 '주제 전환' 알약이 대신해서 감춘다 — download-page.css).
+   .dl-count의 마크업·클래스는 홈에서 이어지는 화면 전환 도착점이라 그대로 두고 모양만 바꾼다
 ══════════════════════════════════════════════════ */
 @media (max-width: 734px) {
-  .page-wrapper .dl-head {
+  .dl-head {
     display: grid;
     grid-template-columns: auto minmax(0, 1fr);
     align-items: center;
     column-gap: var(--sp-4);
     row-gap: var(--sp-1);
   }
-  .page-wrapper .dl-head-badge { grid-row: 1 / span 2; }
-  .page-wrapper .dl-head-text { align-self: end; }
-  .page-wrapper .dl-count {
+  .dl-head-badge { grid-row: 1 / span 2; }
+  .dl-head-text { align-self: end; }
+  .dl-count {
     grid-column: 2;
     align-self: start;
     margin-left: 0;
   }
   /* 숫자는 옆 글자와 같은 크기에 굵기만 */
-  .page-wrapper .dl-count-num {
+  .dl-count-num {
     font-size: inherit;
     line-height: inherit;
     letter-spacing: inherit;
     font-weight: 600;
   }
-  .page-wrapper .dl-count-unit { margin-left: 0; }
+  .dl-count-unit { margin-left: 0; }
 
-  .page-intro { margin-top: var(--sp-4); }
+  .page-intro,
+  .doc-intro { margin-top: var(--sp-4); }
   /* 카드는 한 열 — 폭이 두 칸 들어갈 만큼 남는 692~734에서도 모바일 규칙을 따른다 */
   .repo-grid {
     grid-template-columns: minmax(0, 1fr);

@@ -13,13 +13,16 @@ import { TopicGroup, TopicGroups } from '../components/home/TopicGroups';
 import { newestTopic } from '../utils/home';
 import { HeroSwarm, useHomeIntro, useCountUp } from '../components/HeroIntro';
 import { useMediaQuery } from '../hooks/useMediaQuery';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
 import { BREAKPOINT } from '../constants';
+import { SEARCH_SHORTCUT } from '../utils/platform';
 
 const TOTAL_DOCS = Object.values(MENU_DATA).reduce((sum, arr) => sum + arr.length, 0);
 
 export function HomePage() {
   const [q, setQ] = useState('');
   const query = q.trim().toLowerCase();
+  useDocumentTitle();
 
   const filtered = useMemo(() => (query ? searchTopics(MENUS, query) : []), [query]);
 
@@ -86,8 +89,10 @@ export function HomePage() {
             placeholder={isMobile ? 'Spring, 인덱스, 네트워크…' : '자료 검색 — Spring, 인덱스, 네트워크…'}
             aria-label="자료 검색"
           />
-          <kbd className="home-search-kbd" aria-hidden="true">⌘K</kbd>
+          <kbd className="home-search-kbd" aria-hidden="true">{SEARCH_SHORTCUT}</kbd>
         </label>
+        {/* 결과 수는 늘 렌더되는 라이브 영역이 읽는다 — 검색어가 없을 땐 비어 있어 처음 열 때는 읽히지 않는다 */}
+        <p className="sr-only" role="status">{query ? `검색 결과 ${filtered.length}건` : ''}</p>
         {/* 제목 뒤에 둬야 배지 무리의 레이아웃 효과가 돌 때 gatherRef가 붙어 있다 */}
         {intro && <HeroSwarm target={gatherRef} />}
       </section>

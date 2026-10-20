@@ -2,6 +2,7 @@ import type { CSSProperties } from 'react';
 import { ArrowUpRight } from 'lucide-react';
 import { siVelog } from 'simple-icons';
 import { LINKS } from '../constants';
+import { NewTabHint } from './NewTabHint';
 
 /* 홈 '기록하는 사람.' 왼쪽 타일 — 타일 바탕·여백은 home-about.css의 .about-tile */
 
@@ -53,6 +54,7 @@ export function ProfileCard() {
           >
             {link.label}
             <ArrowUpRight size={ARROW_SIZE} strokeWidth={2.4} aria-hidden="true" />
+            <NewTabHint />
           </a>
         ))}
       </div>

@@ -1,4 +1,4 @@
-import { useMemo } from 'react';
+import { useId, useMemo } from 'react';
 import { ChevronRight } from 'lucide-react';
 import { DESC, topicStyle } from '../../data/topics';
 import { docShare, topTopics } from '../../utils/home';
@@ -15,6 +15,7 @@ interface FeaturedSectionProps {
 /** 홈 중단 '가장 많이 쌓인 자료실.' — 문서 수 상위 주제 타일(1위는 반전) + 문서 비중 타일 */
 export function FeaturedSection({ onBrowseTopics }: FeaturedSectionProps) {
   const go = useTransitionNavigate();
+  const uid = useId();
   const tiles = useMemo(() => topTopics(), []);
   const share = useMemo(() => docShare(), []);
 
@@ -39,17 +40,23 @@ export function FeaturedSection({ onBrowseTopics }: FeaturedSectionProps) {
       <div className="feat-grid">
         {tiles.map((t, i) => {
           const to = `/download/${t.key}`;
+          // 링크 이름은 '과목 이름 + 문서 수'로 짧게 — 칩·설명까지 읽으면 90자가 넘는다. 설명은 보조 설명으로
+          const nameId = `${uid}-${t.key}-name`;
+          const countId = `${uid}-${t.key}-count`;
+          const descId = `${uid}-${t.key}-desc`;
           return (
             <a
               key={t.key}
               className={`feat-tile home-anim${i === 0 ? ' feat-tile--inv' : ''}`}
               href={to}
+              aria-labelledby={`${nameId} ${countId}`}
+              aria-describedby={descId}
               onClick={e => go(e, to, TILE_TO_HEAD)}
             >
               <div>
                 <p className="feat-group">{t.group}</p>
-                <h3 className="feat-name">{t.name}</h3>
-                <p className="feat-desc">{DESC[t.key] ?? t.group}</p>
+                <h3 className="feat-name" id={nameId}>{t.name}</h3>
+                <p className="feat-desc" id={descId}>{DESC[t.key] ?? t.group}</p>
               </div>
               {t.sections.length > 0 && (
                 <ul className="feat-chips">
@@ -61,7 +68,7 @@ export function FeaturedSection({ onBrowseTopics }: FeaturedSectionProps) {
                 </ul>
               )}
               <div className="feat-foot">
-                <p className="feat-count">
+                <p className="feat-count" id={countId}>
                   <span className="feat-count-num">{t.count}</span>
                   <span className="feat-count-unit">개 문서</span>
                 </p>

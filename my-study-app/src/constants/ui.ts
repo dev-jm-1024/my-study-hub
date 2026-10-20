@@ -47,3 +47,12 @@ export const NAV_MENU_TIMING = {
   /** 헤더를 벗어난 뒤 닫기까지 */
   closeDelayMs: 200,
 } as const;
+
+/** 새 탭으로 열리는 링크의 스크린 리더 안내 (components/NewTabHint · aria-label 끝) */
+export const NEW_TAB_LABEL = '(새 탭)';
+
+/** 사이트 이름 — 탭·방문 기록에 보이는 문서 제목의 꼬리 (hooks/useDocumentTitle) */
+export const SITE_NAME = 'JM Hub';
+
+/** 없는 주소의 제목 — NotFoundPage의 h1이자 문서 제목. 자료실이 없는 과목 키를 만났을 때도 같은 화면을 그린다 */
+export const NOT_FOUND_TITLE = '페이지를 찾을 수 없어요';

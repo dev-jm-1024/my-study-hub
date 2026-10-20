@@ -1,5 +1,6 @@
-import { useEffect, useLayoutEffect, useRef, useState, useSyncExternalStore } from 'react';
+import { useEffect, useLayoutEffect, useState, useSyncExternalStore } from 'react';
 import { LATEST_SHELF } from '../constants';
+import { isOverlayOpen, subscribeOverlay } from '../utils/overlay';
 
 /**
  * 끝없이 흐르는 가로 셸프 — 홈 '최근 올라온 문서' (계획서 §4.2). 마크업은 모른다 —
@@ -7,7 +8,9 @@ import { LATEST_SHELF } from '../constants';
  *   - 자동 흐름: speedPxPerSec로 멈추지 않고 왼쪽으로 흐른다. 움직이는 동안은 rAF가 트랙을 transform으로 민다(소수 px까지 매 프레임 고르게,
  *     스크롤 위치는 그대로) — 멈추면 민 양을 scrollLeft로 옮겨 손으로 굴리는 네이티브 스크롤과 이어진다
  *   - 멈춤: 일시정지(재생을 누를 때까지) · 마우스 올림 · 셸프 안 포커스는 rampMs 동안 감속해 멈추고, 풀리면 같은 시간 동안 가속한다.
- *     손가락 닿음 · 가로 휠은 그 자리에서 바로(잡은 것처럼), 탭 숨김 · 셸프가 화면 밖이면 바로(보는 사람 없음).
+ *     손가락 닿음 · 가로 휠은 그 자리에서 바로(잡은 것처럼), 탭 숨김 · 셸프가 화면 밖이면 바로(보는 사람 없음),
+ *     화면을 덮는 층(모달·드롭다운 — utils/overlay)이 열려 있으면 바로(덮개 블러를 매 프레임 다시 그리지 않게).
+ *     다시 흐를 때는 어느 경우든 rampMs 동안 가속한다.
  *     화살표·터치·누름·포커스가 끝나면 holdAfterInteractMs 쉰 뒤 다시 흐른다
  *   - 이전/다음: 시작선에 가장 가까운 카드(점)의 앞/뒤 카드를 glideMs 동안 시작선으로 미끄러뜨린다. 흐르던 속도를 이어받고, 연타하면 한 칸씩 더 간다
  *   - 셸프 안에 포커스가 있는 동안: 브라우저가 포커스 카드를 보이게 스크롤한 자리를 지킨다(이음매 보정을 쉰다), 점은 포커스 카드
@@ -50,7 +53,7 @@ const subscribeReduced = (onChange: () => void) => {
 };
 const isReduced = () => window.matchMedia(REDUCED_QUERY).matches;
 
-const isMouse = (e: React.PointerEvent) => e.pointerType === 'mouse';
+const isMouse = (e: PointerEvent) => e.pointerType === 'mouse';
 const mod = (a: number, n: number) => ((a % n) + n) % n;
 const jump = (el: HTMLElement, left: number) => el.scrollTo({ left, behavior: 'instant' });
 /** 흐름 속도 램프 0..1 → 0..1 — 양끝 기울기 0이라 멈출 때·출발할 때 툭 끊기지 않는다 */
@@ -123,7 +126,6 @@ export function useInfiniteCarousel({
   const [choice, setChoice] = useState<PauseChoice | null>(null);
   const reduced = useSyncExternalStore(subscribeReduced, isReduced);
   const paused = choice && choice.reduced === reduced ? choice.paused : reduced;
-  const regionRef = useRef<HTMLDivElement>(null);
 
   const copies = looping ? setCount : 1;
   const middle = Math.floor(copies / 2);
@@ -136,6 +138,8 @@ export function useInfiniteCarousel({
     const s = {
       el: null as HTMLDivElement | null,
       track: null as HTMLDivElement | null,
+      /** 스크롤러와 페이드를 감싸는 요소 — 마우스 올림·포커스의 범위 */
+      region: null as HTMLDivElement | null,
       count: 0,
       copies: 1,
       middle: 0,
@@ -152,6 +156,8 @@ export function useInfiniteCarousel({
       touching: false,
       /** 셸프가 화면에 걸쳐 있는지 */
       onScreen: false,
+      /** 화면을 덮는 층이 열려 있는지 */
+      covered: false,
       holdUntil: 0,
       /** 트랙을 왼쪽으로 민 양 (px) */
       shift: 0,
@@ -207,7 +213,7 @@ export function useInfiniteCarousel({
     };
 
     /** 셸프 안 요소가 포커스를 쥐었는지 — 그 요소가 지워지면 blur가 안 올 수 있어 실제 포커스도 본다 */
-    const focused = () => s.focusIn && !!regionRef.current?.contains(document.activeElement);
+    const focused = () => s.focusIn && !!s.region?.contains(document.activeElement);
 
     /** 이음매 보정량 — 셸프 안에 포커스가 있으면 쉰다. 브라우저가 포커스 카드를 보이게 스크롤한 자리는 가운데 벌 범위 밖일 수 있는데,
      *  거기서 벌을 옮기면 포커스 카드가 화면 밖으로 나가고 그 자리엔 복제가 남는다. 벌 수에 화면 폭 + 한 칸 여유가 있어
@@ -349,6 +355,7 @@ export function useInfiniteCarousel({
       !s.onScreen ||
       s.hover ||
       s.touching ||
+      s.covered ||
       document.hidden ||
       focused();
 
@@ -359,8 +366,8 @@ export function useInfiniteCarousel({
       const wait = s.holdUntil - performance.now();
       if (free && wait > 0) s.holdTimer = window.setTimeout(update, wait);
       s.kTo = free && wait <= 0 ? 1 : 0;
-      // 손가락 · 탭 숨김 · 화면 밖은 감속 없이 그 자리에서
-      if (s.touching || document.hidden || !s.onScreen) s.k = 0;
+      // 손가락 · 덮는 층 · 탭 숨김 · 화면 밖은 감속 없이 그 자리에서
+      if (s.touching || s.covered || document.hidden || !s.onScreen) s.k = 0;
       kick();
     };
 
@@ -394,6 +401,17 @@ export function useInfiniteCarousel({
       kick();
     };
 
+    const enter = (e: PointerEvent) => {
+      if (!isMouse(e)) return;
+      s.hover = true;
+      update();
+    };
+    const leave = (e: PointerEvent) => {
+      if (!isMouse(e)) return;
+      s.hover = false;
+      update();
+    };
+
     return {
       s,
       align,
@@ -408,6 +426,10 @@ export function useInfiniteCarousel({
           halt();
           onScroll();
         }
+        update();
+      },
+      onOverlay: () => {
+        s.covered = isOverlayOpen();
         update();
       },
 
@@ -449,6 +471,19 @@ export function useInfiniteCarousel({
           if (s.track === el) s.track = null;
         };
       },
+      // 마우스 올림은 브라우저의 pointerenter·leave를 그대로 따른다. React onPointerEnter는 멈춰 있는 마우스 밑에서
+      // 덮개(검색 팔레트)가 DOM에서 빠질 때 오지 않는다 — 브라우저가 다시 보내는 enter를 빠진 덮개에서 온 것으로 보고 거른다
+      attachRegion: (el: HTMLDivElement | null) => {
+        if (!el) return;
+        s.region = el;
+        el.addEventListener('pointerenter', enter);
+        el.addEventListener('pointerleave', leave);
+        return () => {
+          el.removeEventListener('pointerenter', enter);
+          el.removeEventListener('pointerleave', leave);
+          if (s.region === el) s.region = null;
+        };
+      },
 
       onScroll,
       // 사용자가 가로로 직접 굴리면 그 자리에서 잡는다 (세로 휠은 페이지 스크롤이라 둔다)
@@ -470,16 +505,6 @@ export function useInfiniteCarousel({
         onScroll(); // 멈춘 채 손을 뗐으면 scroll이 더 안 오므로 여기서 보정을 예약
       },
 
-      enter: (e: React.PointerEvent) => {
-        if (!isMouse(e)) return;
-        s.hover = true;
-        update();
-      },
-      leave: (e: React.PointerEvent) => {
-        if (!isMouse(e)) return;
-        s.hover = false;
-        update();
-      },
       pointerDown: hold,
       focus: (e: React.FocusEvent) => {
         s.focusIn = true;
@@ -493,7 +518,7 @@ export function useInfiniteCarousel({
       // 셸프 밖으로 나갈 때만 (안에서 옮겨 다니는 건 그대로 멈춤)
       blur: (e: React.FocusEvent) => {
         const next = e.relatedTarget;
-        if (next instanceof Node && regionRef.current?.contains(next)) return;
+        if (next instanceof Node && s.region?.contains(next)) return;
         s.focusIn = false;
         s.focusCard = -1;
         hold();
@@ -528,11 +553,14 @@ export function useInfiniteCarousel({
     ctl.update();
   }, [ctl, looping, paused, reduced, speedPxPerSec, rampMs, glideMs, holdAfterInteractMs, settleMs]);
 
-  // 탭이 숨겨지면 그 자리에서 멈추고 돌아오면 다시 흐른다 + 언마운트 시 프레임·타이머 정리
+  // 탭이 숨겨지거나 화면을 덮는 층이 열리면 그 자리에서 멈추고, 걷히면 다시 흐른다 + 언마운트 시 프레임·타이머 정리
   useEffect(() => {
     document.addEventListener('visibilitychange', ctl.onVisibility);
+    const unsubscribe = subscribeOverlay(ctl.onOverlay);
+    ctl.onOverlay(); // 이미 열린 채로 마운트됐을 때
     return () => {
       document.removeEventListener('visibilitychange', ctl.onVisibility);
+      unsubscribe();
       ctl.stop();
     };
   }, [ctl]);
@@ -555,9 +583,7 @@ export function useInfiniteCarousel({
 
     /** 스크롤러와 양쪽 페이드를 감싸는 요소 — 마우스 올림·누름·포커스의 범위 */
     regionProps: {
-      ref: regionRef,
-      onPointerEnter: ctl.enter,
-      onPointerLeave: ctl.leave,
+      ref: ctl.attachRegion,
       onPointerDown: ctl.pointerDown,
       onFocus: ctl.focus,
       onBlur: ctl.blur,

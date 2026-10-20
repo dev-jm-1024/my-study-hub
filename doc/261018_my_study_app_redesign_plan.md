@@ -45,8 +45,9 @@
 
 | 파일 | 역할 | 상태 |
 |---|---|---|
-| `src/styles/tokens.css` | 디자인 토큰 정본. `:root`(라이트) · `@media (max-width: 734px)`(모바일 스케일) · `body.dark`(다크) | 생성 — 미연결 |
-| `src/styles/tokens.legacy.css` | 옛 변수 이름(variables.css) → 새 토큰 연결. 전환 기간 전용, Ch9에서 삭제 | 생성 — 미연결 |
+| `src/styles/tokens.css` | 디자인 토큰 정본. `:root`(라이트) · `@media (max-width: 734px)`(모바일 스케일) · `body.dark`(다크) | Ch0 연결 |
+| `src/styles/tokens.legacy.css` | 옛 변수 이름(variables.css) → 새 토큰 연결. 전환 기간 전용 | Ch1 연결 → **Ch9 삭제**(옛 변수 사용 0) |
+| `src/styles/reset.css` | 앱 리셋 — 정적 사이트 reset.css에서 옮김(D6) | Ch9 신규 |
 | `src/constants/ui.ts` | 동작 숫자: 경계, 페이지 크기, 대표 타일 수, 셸프 타이밍, 드롭다운 지연, NEW 기간 | 생성 |
 | `src/constants/links.ts` | 외부 링크 단일 출처 (`LINKS`, `SOCIAL_LINKS`) | 생성 |
 | `src/constants/navigation.ts` | 상단 메뉴 순서(`NAV_ITEMS`)와 드롭다운 **축약 규칙** (`NAV_ARCHIVE_RULE` 등) | 생성 |
@@ -60,6 +61,7 @@
 @import './styles/tokens.legacy.css';   /* RD-1-1 — 이 줄부터 전 페이지 재스킨 */
 /* … 나머지 기존 순서 그대로 … */
 ```
+> **Ch9(D6) 뒤 실제 순서:** `./styles/reset.css` → `./styles/tokens.css` → Pretendard `@import url(…)`(정적 variables.css에서 옮김) → 앱 스타일. 정적 사이트 CSS(`src/main/resources/static/css`)와 `tokens.legacy.css` import는 없다. 위 블록은 Ch0·Ch1 당시 기록.
 
 ### 2.2 토큰 요약 (전체는 `tokens.css`)
 
@@ -274,9 +276,9 @@ IntelliJ 터미널: ./scripts/redesign-lead.sh <챕터>
 
 | 파일 | 메모 |
 |---|---|
-| `my-study-app/src/styles/tokens.css` | 미연결 |
-| `my-study-app/src/styles/tokens.legacy.css` | 미연결 |
-| `my-study-app/src/constants/{ui,links,navigation,index}.ts` | 아직 아무도 import하지 않음. `tsc --noEmit` 통과 |
+| `my-study-app/src/styles/tokens.css` | 미연결 (→ Ch0 연결) |
+| `my-study-app/src/styles/tokens.legacy.css` | 미연결 (→ Ch1 연결, Ch9 삭제) |
+| `my-study-app/src/constants/{ui,links,navigation,index}.ts` | 아직 아무도 import하지 않음. `tsc --noEmit` 통과 (→ Ch0부터 사용) |
 | `.claude/agents/{ui-builder,style-migrator,data-wirer,chore-runner,redesign-architect,redesign-reviewer}.md` | `*.md` gitignore 대상 — 커밋하려면 `git add -f .claude` |
 | `.claude/skills/redesign/SKILL.md` | 팀 리드 플레이북 (에이전트 팀 + 서브에이전트 폴백) |
 | `.claude/settings.local.json` | 팀 기능 플래그·in-process 표시·읽기/빌드 명령 허용 — gitignore 대상 |

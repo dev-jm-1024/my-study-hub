@@ -11,7 +11,6 @@ export const BOOKS: BookItem[] = [
     description: '스프링 5의 강력한 기능과 생산성을 활용한 웹 애플리케이션 개발',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791190665186.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001942493',
-    icon: 'fa-solid fa-book',
     tags: ['Spring Boot'],
   },
   {
@@ -21,7 +20,6 @@ export const BOOKS: BookItem[] = [
     description: '기획하고 개발하고 회고하라',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791191905458.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000209185897',
-    icon: 'fa-solid fa-book',
   },
   {
     title: 'MongoDB 완벽 가이드',
@@ -30,7 +28,6 @@ export const BOOKS: BookItem[] = [
     description: 'MONGODB 완벽 가이드',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788979148251.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001223746',
-    icon: 'fa-solid fa-book',
     tags: ['Database'],
   },
   {
@@ -40,7 +37,6 @@ export const BOOKS: BookItem[] = [
     description: '클린 코드의 핵심, 단위 테스트로 소프트웨어 품질을 향상시킨다!',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791160508383.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001792858',
-    icon: 'fa-solid fa-book',
     tags: ['Java', 'Testing'],
   },
   {
@@ -50,7 +46,6 @@ export const BOOKS: BookItem[] = [
     description: '카프카의 개념부터 스트림즈, 커넥트, 스프링 카프카까지',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165920548.jpg',
     purchaseUrl: 'https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000002955323',
-    icon: 'fa-solid fa-book',
     tags: ['Kafka', 'Java'],
   },
   {
@@ -60,7 +55,6 @@ export const BOOKS: BookItem[] = [
     description: '가상 면접 사례로 배우는 대규모 시스템 설계 기초',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788966263158.jpg',
     purchaseUrl: 'https://ebook-product.kyobobook.co.kr/dig/epd/ebook/E000003160871',
-    icon: 'fa-solid fa-book',
     tags: ['Architecture'],
   },
   {
@@ -70,7 +64,6 @@ export const BOOKS: BookItem[] = [
     description: '개발자가 반드시 알아야 할 자바 성능 튜닝 이야기',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788966260928.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001032977',
-    icon: 'fa-solid fa-book',
     tags: ['Java'],
   },
   {
@@ -80,7 +73,6 @@ export const BOOKS: BookItem[] = [
     description: '객체지향부터 스프링과 테스트까지, 다시 제대로 배우는 애플리케이션 개발',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158395155.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000213447953',
-    icon: 'fa-solid fa-book',
     tags: ['Java', 'Spring Boot'],
   },
   {
@@ -90,7 +82,6 @@ export const BOOKS: BookItem[] = [
     description: '람다, 스트림, 함수형, 리액티브 프로그래밍으로 새로워진 자바 마스터하기',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791162242025.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001810171',
-    icon: 'fa-solid fa-book',
     tags: ['Java'],
   },
   {
@@ -100,7 +91,6 @@ export const BOOKS: BookItem[] = [
     description: '소프트웨어 아키텍처 사고를 위한 학습 가이드!',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169213929.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000217513398',
-    icon: 'fa-solid fa-book',
     tags: ['Architecture'],
   },
   {
@@ -110,7 +100,6 @@ export const BOOKS: BookItem[] = [
     description: 'SQL 기초 다루기',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791162244739.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000001810432',
-    icon: 'fa-solid fa-book',
     tags: ['Database'],
   },
   {
@@ -120,7 +109,6 @@ export const BOOKS: BookItem[] = [
     description: '네트워크 기초 다루기',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169212144.jpg',
     purchaseUrl: 'https://product.kyobobook.co.kr/detail/S000212911507',
-    icon: 'fa-solid fa-book',
   },
   {
     title: 'Real MySQL 8.0 (1권)(전면개정판)',
@@ -129,7 +117,6 @@ export const BOOKS: BookItem[] = [
     description: '개발자와 DBA를 위한 MySQL 실전 가이드',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791158392703.jpg',
     purchaseUrl: 'http://www.kyobobook.co.kr/product/detailViewKor.laf?mallGb=KOR&ejkGb=KOR&barcode=9791158392703',
-    icon: 'fa-solid fa-book',
     tags: ['Database'],
   },
   {
@@ -139,7 +126,6 @@ export const BOOKS: BookItem[] = [
     description: '사이킷런, 케라스, 텐서플로 2로 완벽 이해하는 머신러닝, 딥러닝 이론 & 실무',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791169211475.jpg',
     purchaseUrl: 'https://www.coupang.com/vp/products/7583557881?vendorItemId=87404529543',
-    icon: 'fa-solid fa-book',
   },
   {
     title: '이것이 Spring AI다 (개정판)',
@@ -148,7 +134,6 @@ export const BOOKS: BookItem[] = [
     description: 'LLM을 활용한 AI 에이전트 개발',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791175790254.jpg',
     purchaseUrl: 'https://smartstore.naver.com/sjkbook/products/13274283418',
-    icon: 'fa-solid fa-book',
     tags: ['Spring Boot'],
   },
   {
@@ -158,7 +143,6 @@ export const BOOKS: BookItem[] = [
     description: '웹은 어떻게 동작하는가',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788966261208.jpg',
     purchaseUrl: 'https://smartstore.naver.com/yes24book/products/8758052356',
-    icon: 'fa-solid fa-book',
   },
   {
     title: '객체지향의 사실과 오해',
@@ -167,7 +151,6 @@ export const BOOKS: BookItem[] = [
     description: '역할, 책임, 협력 관점에서 본 객체지향',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9788998139766.jpg',
     purchaseUrl: 'https://smartstore.naver.com/yes24book/products/8691695045',
-    icon: 'fa-solid fa-book',
     tags: ['Architecture'],
   },
   {
@@ -177,6 +160,5 @@ export const BOOKS: BookItem[] = [
     description: '디자인 패턴, 운영체제, 데이터베이스, 자료 구조, 네트워크',
     coverUrl: 'https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/9791165219529.jpg',
     purchaseUrl: 'https://smartstore.naver.com/yes24book/products/8834968700',
-    icon: 'fa-solid fa-book',
   },
 ];

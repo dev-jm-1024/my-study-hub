@@ -92,12 +92,13 @@
 }
 
 /* ── 아래 콘텐츠: 히어로가 끝난 뒤에 (기존 .home-anim 등장을 늦출 뿐) ──
-   .feat-grid 안 순서: 대표 타일 둘 → 문서 비중(3번째 자식). 셸프는 가로 스크롤 영역(.latest-region) 하나만 올라온다. */
+   .feat-grid 안 순서: 대표 타일 둘 → 문서 비중(3번째 자식). 셸프는 가로 스크롤 영역(.latest-region)과 점(.latest-dots)만 올라온다. */
 .home-intro .home-block-head { animation: introRise 500ms var(--ease-out) 1340ms both; }
 .home-intro .feat-tile.home-anim:nth-child(1) { animation-delay: 1380ms; }
 .home-intro .feat-tile.home-anim:nth-child(2) { animation-delay: 1450ms; }
 .home-intro .feat-share.home-anim { animation-delay: 1520ms; }
 .home-intro .latest-region.home-anim { animation-delay: 1590ms; }
+.home-intro .latest-dots.home-anim { animation-delay: 1590ms; } /* 점도 셸프와 함께 — 먼저 떠 있지 않게 */
 .home-intro .topic-card.home-anim { animation-delay: 1630ms; }
 
 /* 연출 도중에 설정이 바뀌어도 바로 멈춘다 (진입 때 이미 켜져 있으면 useHomeIntro가 연출을 아예 건너뛴다) */

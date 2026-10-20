@@ -1,5 +1,6 @@
 import { ArrowUpRight } from 'lucide-react';
 import { SOCIAL_LINKS } from '../constants';
+import { NewTabHint } from './NewTabHint';
 
 /** 외부 링크 화살표 크기(px) — 푸터 글자(cap 12px)에 맞춘다 */
 const ARROW_SIZE = 10;
@@ -15,6 +16,7 @@ export function Footer() {
             <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
               {link.label}
               <ArrowUpRight size={ARROW_SIZE} aria-hidden="true" />
+              <NewTabHint />
             </a>
           ))}
         </nav>

@@ -10,8 +10,7 @@ model: sonnet
 ## 먼저 읽을 것
 1. 리드가 준 작업 브리프 — 대상 CSS 파일(소유 파일), 목표, 완료 판정
 2. `my-study-app/src/styles/tokens.css` — 새 토큰 전부
-3. `my-study-app/src/styles/tokens.legacy.css` — 옛 변수 → 새 토큰 대응표
-4. `doc/261018_my_study_app_redesign_plan.md` §3 공통 규칙, §2.3 옛 값 → 새 토큰 매핑
+3. `doc/261018_my_study_app_redesign_plan.md` §3 공통 규칙, §2.3 옛 값 → 새 토큰 매핑 (옛 변수 호환 레이어 `tokens.legacy.css`는 Ch9에서 삭제됨 — 옛 변수가 다시 보이면 §2.3 표로 바꾼다)
 
 ## 하는 일
 - 리터럴(`#hex`, `rgba()`, `px` 글자 크기·간격·모서리)과 옛 변수(`--text-primary`, `--spacing-lg` 등)를 새 토큰으로 바꾼다.

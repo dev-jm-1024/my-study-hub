@@ -4,6 +4,8 @@ import { SegmentBar } from '../components/SegmentBar';
 import { VIBE_PROJECTS } from '../data/vibe';
 import { useScrollTopOnMount } from '../hooks/useScrollTopOnMount';
 import { useScrollTopOnPush } from '../hooks/useScrollTopOnPush';
+import { useDocumentTitle } from '../hooks/useDocumentTitle';
+import { NEW_TAB_LABEL } from '../constants';
 import { VIBE_KINDS, VIBE_KIND_LABEL, isVibeKind, vibeKind, type VibeKind } from '../utils/vibe';
 
 const ALL = 'all';
@@ -20,7 +22,10 @@ const TABS = [
   ...VIBE_KINDS.map(kind => ({ key: kind, label: VIBE_KIND_LABEL[kind], count: KIND_COUNT[kind] })),
 ];
 
+const TITLE = '바이브 코딩';
+
 export function VibeCodingPage() {
+  useDocumentTitle(TITLE);
   useScrollTopOnMount();
   useScrollTopOnPush();   // 상단 메뉴 링크로 ?kind=가 바뀌면 새 목록의 맨 위부터 — 세그먼트(replace)·뒤로 가기는 그대로
 
@@ -45,7 +50,7 @@ export function VibeCodingPage() {
         <div className="dl-head-badge dl-head-badge--mono" aria-hidden="true"><Sparkles size={22} /></div>
         <div className="dl-head-text">
           <p className="dl-eyebrow">Vibe Coding</p>
-          <h1 className="dl-title">바이브 코딩</h1>
+          <h1 className="dl-title">{TITLE}</h1>
         </div>
         <p className="dl-count">
           <span className="dl-count-num">{VIBE_PROJECTS.length}</span>
@@ -86,13 +91,13 @@ export function VibeCodingPage() {
             {(p.link || p.github) && (
               <div className="vibe-links">
                 {p.link && (
-                  <a className="vibe-link" href={p.link} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} 라이브`}>
+                  <a className="vibe-link" href={p.link} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} 라이브 ${NEW_TAB_LABEL}`}>
                     라이브
                     <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden="true" />
                   </a>
                 )}
                 {p.github && (
-                  <a className="vibe-link" href={p.github} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} GitHub`}>
+                  <a className="vibe-link" href={p.github} target="_blank" rel="noopener noreferrer" aria-label={`${p.name} GitHub ${NEW_TAB_LABEL}`}>
                     GitHub
                     <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden="true" />
                   </a>

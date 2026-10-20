@@ -1,7 +1,7 @@
 /* ══════════════════════════════════════════════════
    Books 페이지 (Ch8 · pages/BooksPage.tsx)
    헤더·소개는 doc-list.css(.dl-head · .page-intro), 세그먼트는 segment.css, 폭·위아래 여백은 layout.css(.page-wrapper)가 준다.
-   여기는 태그 세그먼트 자리와 표지 카드 그리드. 카드 안 구매 알약은 자료실 '받기'(.doc-get-pill)와 같은 모양
+   여기는 태그 세그먼트 자리와 표지 카드 그리드. 카드 안 구매 알약은 자료실 '받기'(.doc-get-pill)와 같은 모양·같은 hover
 ══════════════════════════════════════════════════ */
 
 /* ── 세그먼트 자리 ── */
@@ -111,17 +111,19 @@
   font-size: var(--fs-callout);
   line-height: var(--lh-callout);
   font-weight: 600;
-  transition: background-color var(--dur-fast);
+  transition: background-color var(--dur-fast), color var(--dur-fast);
 }
-.bk-buy-pill svg { transition: translate var(--dur-fast); }
 .bk-buy:focus-visible { outline: none; }
 .bk-buy:focus-visible .bk-buy-pill {
   outline: 2px solid var(--accent);
   outline-offset: 2px;
 }
 @media (hover: hover) {
-  .bk-buy:hover .bk-buy-pill { background: var(--sep); }
-  .bk-buy:hover .bk-buy-pill svg { translate: 1px -1px; }
+  /* 자료실 '받기'와 같은 hover — 회색(--sep) 위 파란 글자는 4.5:1에 못 미쳐 채운 파랑 + 흰 글자(4.70)로. 화살표는 움직이지 않는다 */
+  .bk-buy:hover .bk-buy-pill {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
 }
 
 /* 빈 결과 (태그 탭은 책이 있는 것만 만들어서 실제로는 나오지 않는다) */
@@ -174,6 +176,5 @@
 }
 
 @media (prefers-reduced-motion: reduce) {
-  .bk-buy-pill,
-  .bk-buy-pill svg { transition: none; }
+  .bk-buy-pill { transition: none; }
 }

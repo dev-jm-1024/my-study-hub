@@ -3,12 +3,14 @@ import { flushSync } from 'react-dom';
 import { useLocation } from 'react-router-dom';
 import { BREAKPOINT, NAV_MENU_TIMING } from '../constants';
 import type { NavMenuKey } from '../constants';
+import { addOverlay } from '../utils/overlay';
 
 /* 상단 바 드롭다운의 열고 닫기 (계획서 §4.1). 마크업은 모른다 —
    돌려주는 props를 Navbar가 header · 메뉴 버튼 · 패널 · 덮개 · 닫는 요소(로고·Velog·Blog·검색·테마)에 펼친다.
    - 마우스: 머물면 열고, 열린 동안 옆 메뉴로 즉시 전환, 헤더(바+패널)를 벗어나면 잠시 뒤 닫는다
    - 터치·키보드: 메뉴 버튼 클릭으로 토글 (hover 처리는 pointerType === 'mouse'일 때만)
-   - 덮개 클릭 · Esc · 라우트 이동 · 헤더 밖으로 포커스 · ≤734px → 닫는다 */
+   - 덮개 클릭 · Esc · 라우트 이동 · 헤더 밖으로 포커스 · ≤734px → 닫는다
+   - 열린 동안 덮는 층으로 알린다(utils/overlay) — 덮개 블러 뒤 셸프 흐름이 멈춘다 */
 
 const MOBILE_QUERY = `(max-width: ${BREAKPOINT.mobile}px)`;
 const FOCUSABLE =
@@ -173,6 +175,9 @@ export function useNavMenu() {
   });
 
   const isOpen = menu.open !== null;
+
+  // 덮는 층 — 열린 커밋에서 칠하기 전에 알리고, 닫히거나 언마운트되면 거둔다
+  useLayoutEffect(() => (isOpen ? addOverlay() : undefined), [isOpen]);
 
   // Esc — 열려 있는 동안 문서 전체에서 받는다(마우스로 연 경우 포커스가 헤더 밖일 수 있다).
   // 포커스가 헤더 안이거나 갈 곳 없이 body면 연 버튼으로 돌려주고, 본문 입력칸 등에 있으면 빼앗지 않는다.

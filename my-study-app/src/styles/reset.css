@@ -1,0 +1,50 @@
+/* ============================================================
+   CSS Reset — React 앱 전용 (RD-9-3)
+   정적 사이트의 common/reset.css를 옮겨 왔다. 정적 CSS import를 끊으면서
+   index.css 맨 앞에서 요소 기본값을 맡는다.
+
+   원본과 다른 곳
+   - html scroll-behavior: smooth는 '동작 줄이기'가 아닐 때만 건다.
+   - button의 outline: none은 뺐다 (키보드 포커스 링을 지운다).
+     포커스 모양은 컴포넌트 CSS의 :focus-visible이 정한다.
+   - body의 line-height·글꼴 렌더링은 base.css가 정하므로 여기에 두지 않는다.
+   ============================================================ */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 16px;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  html {
+    scroll-behavior: smooth;
+  }
+}
+
+img, picture, video, canvas, svg {
+  display: block;
+  max-width: 100%;
+}
+
+input, button, textarea, select {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+  border: none;
+}
+
+a {
+  text-decoration: none;
+  color: inherit;
+}
+
+ul, ol {
+  list-style: none;
+}

@@ -4,6 +4,7 @@ import { HOME_MORE_PREVIEW_COUNT, LINKS } from '../../constants';
 import { BOOKS } from '../../data/books';
 import { REPO_DATA } from '../../data/repos';
 import { recentBooks } from '../../utils/home';
+import { NewTabHint } from '../NewTabHint';
 
 /** 홈 맨 아래 '함께 보면 좋은 것들.' — 책 타일 + GitHub 타일. 행은 보여 주기만 하고, 이동은 타일 맨 아래 링크 하나가 맡는다 */
 export function MoreSection() {
@@ -70,6 +71,7 @@ export function MoreSection() {
             <a className="more-link" href={LINKS.github} target="_blank" rel="noopener noreferrer">
               GitHub에서 보기
               <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden="true" />
+              <NewTabHint />
             </a>
           </article>
         )}

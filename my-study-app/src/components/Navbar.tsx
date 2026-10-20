@@ -5,10 +5,12 @@ import { ArrowUpRight, Moon, Sun, Search } from 'lucide-react';
 import { useTheme } from './ThemeProvider';
 import { NavPanel } from './NavPanel';
 import { openCommandPalette } from './CommandPalette';
+import { NewTabHint } from './NewTabHint';
 import { useNavMenu } from '../hooks/useNavMenu';
 import { useDrawer } from '../hooks/useDrawer';
 import { BREAKPOINT, LINKS, NAV_ITEMS, SOCIAL_LINKS } from '../constants';
 import type { NavItem } from '../constants';
+import { SEARCH_SHORTCUT } from '../utils/platform';
 
 /* 상단 바에는 Velog·Blog만 (GitHub는 내부 페이지 링크가 따로 있다) */
 const NAV_LINKS = SOCIAL_LINKS
@@ -94,6 +96,7 @@ export function Navbar() {
                 >
                   {link.label}
                   <ArrowUpRight size={10} strokeWidth={2.4} aria-hidden="true" />
+                  <NewTabHint />
                 </a>
               ))}
             </nav>
@@ -102,7 +105,7 @@ export function Navbar() {
               <button
                 type="button"
                 className="nav-icon-btn"
-                aria-label="검색 (⌘K)"
+                aria-label={`검색 (${SEARCH_SHORTCUT})`}
                 {...nav.closerProps}
                 onClick={e => openCommandPalette(e.currentTarget)}
               >
@@ -206,6 +209,7 @@ export function Navbar() {
                 >
                   {link.label}
                   <ArrowUpRight size={14} strokeWidth={2.4} aria-hidden="true" />
+                  <NewTabHint />
                 </a>
               </li>
             ))}
