@@ -5,6 +5,7 @@
 - **관련 문서:** [오늘 작업 기록](./261011_my_study_app_content_add_log.md) · [화면 확인·UI 수정 기록](./261011_my_study_app_ui_check_fix_log.md) · [디자인 이슈 목록](./260803_issue.md) · [버전 관리 목록](./260711_my_study_app_version_control_list.md)
 - **목적:** 다음 작업자가 현재 상태, 남은 일, 자료·도서 추가 절차를 이 문서 하나로 파악할 수 있게 한다.
 - **갱신 (2026-10-21, 리디자인 Ch9):** §3·§4 절차와 §5를 Apple 스타일 리디자인 뒤 코드에 맞췄다. §1·§2는 10-11 시점 기록 그대로 — 지금 상태는 [리디자인 기록](./261021_my_study_app_redesign_log.md) §1.
+- **갱신 (2026-10-27):** §2 #3(도서 태그 결정)은 해결됐고 §4를 책 23권·카테고리 6개 기준으로 고쳤다. Ch9 이후 변경은 [Ch9 이후 작업 기록](./261027_my_study_app_post_redesign_log.md).
 
 ---
 
@@ -26,7 +27,7 @@
 |---|---|---|
 | 1 | ~~화면 확인~~ → **완료(10-11 저녁)**, 재확인 필요 | 6개 항목 통과. 그 뒤 작업 트리가 바뀌어 다시 봐야 한다. 확인 중 나온 UI 수정 2건의 커밋과 남은 일은 [화면 확인·UI 수정 기록 §5](./261011_my_study_app_ui_check_fix_log.md#5-남은-일) |
 | 2 | **push** | 사용자 확인 후 `git push origin main` |
-| 3 | 도서 태그 결정 | 태그 없는 3권(핸즈온 머신러닝, HTTP 완벽 가이드, CS 전공지식 노트)은 '전체'에서만 보인다. 새 태그를 만들려면 `books.ts`의 `tags`와 `pages/BooksPage.tsx`의 `FILTER_TAGS`를 같이 고친다. |
+| 3 | ~~도서 태그 결정~~ → **해결(10-27)** | 모든 책에 태그가 있고 카테고리는 6개로 정리됐다([Ch9 이후 기록](./261027_my_study_app_post_redesign_log.md) §2-E). 태그 목록은 `data/books.ts`의 `BOOK_FILTER_TAGS`. |
 | 4 | `temp/261011/` 정리 | 반영 완료된 원본. 지울지 보관할지 사용자에게 확인 |
 | 5 | 권한 변경 193건 정리 | 외장 볼륨(`/Volumes/dev`) 영향으로 보임. 되돌릴지, `git config core.fileMode false`로 무시할지 결정 필요. 그 전까지는 커밋할 때 `git -c core.fileMode=false add <파일>`로 스테이징 |
 
@@ -62,10 +63,11 @@
 ## 4. 추천 도서 추가 절차 — `data/books.ts`
 
 1. 배열 **끝**에 `{ title, author, publisher, description, coverUrl, purchaseUrl, tags? }`를 넣는다. 배열 끝 = 최근 추가 — Books 페이지·홈 '함께 보면 좋은 것들'·Books 메뉴가 뒤집어서 새 책을 먼저 보여 준다.
-2. **표지:** `https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/<ISBN13>.jpg` — 기존 18권 모두 이 형식. 넣기 전에 200인지, 맞는 판본인지 확인한다.
+2. **표지:** 기본은 `https://contents.kyobobook.co.kr/sih/fit-in/458x0/pdt/<ISBN13>.jpg`(기존 18권). 10-27에 추가한 5권은 출판사·YES24 표지(`wikibook.co.kr`·`cdn-prod.hanbit.co.kr`·`image.yes24.com`)다 — `https:`면 CSP(`img-src`)를 통과한다. 어느 쪽이든 넣기 전에 200인지, 맞는 판본인지 확인한다.
 3. **구매 링크:** 쇼핑몰 주소는 추적 파라미터(`NaPm`, `nl-au`, `sourceType` 등)를 뺀다.
-4. **태그:** `books.ts`의 `BOOK_FILTER_TAGS`에 있는 값만 세그먼트·Books 메뉴(`?tag=`)에 걸린다. 새 태그는 이 배열에 더한다. 태그가 없는 책은 '전체'에서만 보이고, 홈에선 태그 대신 저자를 보여 준다.
-5. **정보 수집:** 네이버 스마트스토어(429)·쿠팡(403)은 자동 요청을 막는다. 제목이나 ISBN을 받아 교보·YES24·출판사 페이지에서 확인하는 편이 빠르다.
+4. **태그:** `BOOK_FILTER_TAGS`(지금 6개 — Java & Spring · Architecture · Data & Infra · CS · Career · AI)에 있는 값만 세그먼트·Books 메뉴(`?tag=`)에 걸린다. 책마다 **하나 이상** 고른다(두 군데 속해도 된다). 태그가 없는 책은 '전체'에서만 보이고, 홈에선 태그 대신 저자를 보여 준다. 새 카테고리는 탭이 늘어 1440px에서 한 줄을 넘기기 쉬우니 먼저 기존 6개에 맞는지 본다. 옛 이름의 `?tag=` 주소는 '전체'로 열린다.
+5. **구매 버튼 이름:** 구매 링크 도메인으로 정한다 — `pages/BooksPage.tsx`의 `STORE_LABELS`(교보문고·YES24·쿠팡·스마트스토어). 목록에 없는 곳은 '구매하기'.
+6. **정보 수집:** 네이버 스마트스토어(429)·쿠팡(403)은 자동 요청을 막는다. 제목이나 ISBN을 받아 교보·YES24·출판사 페이지에서 확인하는 편이 빠르다. 교보 상품 페이지는 서버가 제목을 안 내려주므로 실제 브라우저로 열어 제목을 확인한다. 외부에서 정리해 온 목록은 링크 ID가 틀렸을 수 있다 — 추가 전에 확인한다.
 
 ## 5. 알아둘 것
 
