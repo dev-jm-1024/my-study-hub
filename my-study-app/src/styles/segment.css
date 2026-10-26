@@ -21,44 +21,68 @@
   -webkit-mask-image: linear-gradient(to right, transparent, var(--label) var(--fade-start), var(--label) calc(100% - var(--fade-end)), transparent);
   mask-image: linear-gradient(to right, transparent, var(--label) var(--fade-start), var(--label) calc(100% - var(--fade-end)), transparent);
 }
+/* 알약 바 — 선택 표시(.seg-thumb)는 칸마다 있는 게 아니라 하나뿐이고, SegmentBar가 선택된 칸의 위치·폭을
+   --thumb-x·--thumb-w로 넘기면 그 자리로 미끄러진다. 칸이 서로 폭이 다르므로 위치와 폭을 같이 움직인다 */
 .seg {
+  --thumb-x: 0px;
+  --thumb-w: 0px;
+  --seg-pad-y: 5.5px;   /* 바 테두리와 칸·알약 사이 위아래 여백 — 맞는 간격 토큰이 없다 (--sp-1 4px와 --sp-2 8px 사이) */
+
+  position: relative;
   display: inline-flex;
   gap: var(--sp-1);
-  padding: var(--sp-1);
-  border-radius: var(--r-input);
-  background: var(--fill);
+  padding: var(--seg-pad-y) var(--sp-1);
+  border-radius: var(--r-pill);
+  background: var(--seg-bg);
+}
+.seg-thumb {
+  position: absolute;
+  top: var(--seg-pad-y);
+  bottom: var(--seg-pad-y);
+  left: 0;
+  width: var(--thumb-w);
+  transform: translateX(var(--thumb-x));
+  border-radius: var(--r-pill);
+  background: var(--seg-thumb);
+  pointer-events: none;
+}
+/* 처음 그릴 때는 제자리에 놓고(SegmentBar가 한 프레임 뒤에 data-ready를 켠다), 그 뒤 선택이 바뀔 때만 움직인다 */
+.seg[data-ready] .seg-thumb {
+  transition:
+    transform var(--dur-base) var(--ease-drawer),
+    width var(--dur-base) var(--ease-drawer);
 }
 .seg-btn {
   position: relative;
   display: inline-flex;
   align-items: center;
   gap: var(--sp-2);
-  min-height: calc(var(--touch) - var(--sp-1) * 2);   /* 바 전체가 터치 최소 높이가 된다 */
-  padding: 0 var(--sp-4);
-  border-radius: var(--r-s);
+  min-height: var(--touch);   /* 칸 하나가 터치 최소(44px) — 위아래 여백(--seg-pad-y)까지 더한 바 전체는 55px */
+  padding: 0 calc(var(--sp-4) + var(--sp-1));   /* 20px — 맞는 간격 토큰이 없다 (--sp-4 16px와 --sp-5 24px 사이) */
+  border-radius: var(--r-pill);
   background: transparent;
   color: var(--label);
-  font-size: var(--fs-callout);
-  line-height: var(--lh-callout);
-  font-weight: 500;
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 500;   /* 선택돼도 굵기를 바꾸지 않는다 — 칸 폭이 변하면 알약이 가는 길과 칸이 밀리는 길이 어긋난다 */
   white-space: nowrap;
+  transition: color var(--dur-base) var(--ease-drawer);   /* 알약이 도착하는 시간·곡선과 같게 */
 }
-/* 버튼은 36px이라도 바 안쪽 여백까지 눌리게 — 눌리는 영역이 터치 최소(44px)가 된다 */
+/* 칸 위아래의 바 여백까지 눌리게 — 눌리는 영역이 바 높이 전체가 된다 */
 .seg-btn::after {
   content: '';
   position: absolute;
-  inset: calc(var(--sp-1) * -1) 0;
+  inset: calc(var(--seg-pad-y) * -1) 0;
 }
-.seg-btn[aria-pressed='true'] {
-  background: var(--surface);
-  box-shadow: var(--shadow-thumb);
-  font-weight: 600;
-}
+.seg-btn[aria-pressed='true'] { color: var(--seg-thumb-label); }
 .seg-count {
-  font-size: var(--fs-foot);
+  font-size: var(--fs-callout);
   font-weight: 400;
   color: var(--label-2);
+  transition: color var(--dur-base) var(--ease-drawer);   /* 알약이 도착하는 시간·곡선과 같게 */
 }
+/* 어두운(다크에서는 밝은) 알약 위에서는 숫자도 알약 글자색의 옅은 단계로 */
+.seg-btn[aria-pressed='true'] .seg-count { color: color-mix(in srgb, var(--seg-thumb-label) 70%, transparent); }
 /* 바깥쪽 넘침(overflow-x)에 잘리지 않게 포커스 링은 안쪽으로 */
 .seg-btn:focus-visible {
   outline: 2px solid var(--accent);
@@ -67,5 +91,17 @@
 
 /* ≤734px — 칸을 한 단계 좁혀 한 화면에 더 많은 탭이 보이게 (자료실·Books·Vibe 공통) */
 @media (max-width: 734px) {
-  .seg-btn { padding: 0 var(--sp-3); }
+  .seg-btn { padding: 0 var(--sp-4); }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .seg[data-ready] .seg-thumb,
+  .seg-btn,
+  .seg-count { transition: none; }
+}
+
+/* 강제 색상(고대비) 모드는 배경색을 지우므로 선택 알약이 사라지고 굵기로도 구분되지 않는다 — 시스템 색으로 되살린다 */
+@media (forced-colors: active) {
+  .seg-thumb { forced-color-adjust: none; background: Highlight; }
+  .seg-btn[aria-pressed='true'] { forced-color-adjust: none; color: HighlightText; }
 }

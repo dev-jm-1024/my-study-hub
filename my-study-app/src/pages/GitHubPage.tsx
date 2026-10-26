@@ -21,7 +21,7 @@ export function GitHubPage() {
   return (
     <main className="page-wrapper">
       <header className="dl-head home-anim">
-        <div className="dl-head-badge dl-head-badge--mono" aria-hidden="true"><Github size={22} /></div>
+        <div className="dl-head-badge" aria-hidden="true"><Github size={22} /></div>
         <div className="dl-head-text">
           <p className="dl-eyebrow">GitHub</p>
           <h1 className="dl-title">{TITLE}</h1>

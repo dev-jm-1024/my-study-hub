@@ -1,7 +1,7 @@
 /* ══════════════════════════════════════════════════
    페이지 헤더(자료실·Books·GitHub·Vibe 공용) + 소개 문단 + GitHub 레포 카드
    자료실의 공지·세그먼트·문서 행·페이저는 download-page.css의 .doc-*
-   헤더 모양은 계획서 §4.4 — 배지 L · 그룹 eyebrow · 제목 · 큰 숫자
+   헤더 모양은 계획서 §4.4 — (보조 페이지만) 아이콘 배지 · 그룹 eyebrow · 제목 · 큰 숫자
    .dl-head-badge · .dl-title · .dl-count는 홈에서 이어지는 화면 전환의 도착점이라 한 페이지에 하나씩 둔다 (view-transition.css)
    폭·위 여백은 감싸는 쪽이 정한다 — 보조 페이지는 .page-wrapper(layout.css), 자료실은 .main-content(download-page.css)
 ══════════════════════════════════════════════════ */
@@ -14,7 +14,8 @@
   gap: var(--sp-4);
   margin: 0;
 }
-/* 색은 자료실이 인라인 --topic으로 준다. 없으면 폴백. 보조 페이지는 아래 --mono 수식자 */
+/* 단색 아이콘 배지(Books · GitHub · Vibe) — 자료실 헤더에는 배지가 없다.
+   다크에서는 두 토큰이 같이 뒤집혀 대비가 유지된다 */
 .dl-head-badge {
   flex: none;
   display: grid;
@@ -22,14 +23,6 @@
   width: var(--icon-l);
   height: var(--icon-l);
   border-radius: calc(var(--icon-l) / 4);
-  background: var(--topic, var(--glyph-3));
-  color: var(--on-accent);
-  font-size: var(--fs-body);
-  line-height: 1;
-  font-weight: 700;
-}
-/* 단색 배지(Books · GitHub · Vibe) — 다크에서는 두 토큰이 같이 뒤집혀 대비가 유지된다 */
-.dl-head-badge--mono {
   background: var(--label);
   color: var(--surface);
 }
@@ -174,24 +167,27 @@
 
 /* ══════════════════════════════════════════════════
    페이지 헤더 · 소개 문단 (≤734px) — 자료실·Books·GitHub·Vibe 공용. 목업: ArchiveMobile.dc.html
-   배지가 두 줄에 걸쳐 세로 가운데, 제목 옆, 그 아래 '3개 레포'. eyebrow는 보이게 둔다(자료실만 '주제 전환' 알약이 대신해서 감춘다 — download-page.css).
+   배지(보조 페이지만)가 두 줄에 걸쳐 세로 가운데, 제목 옆, 그 아래 '3개 레포'. 배지가 없는 자료실은 제목 아래에 '25개 문서'.
+   eyebrow는 보이게 둔다(자료실만 '주제 전환' 알약이 대신해서 감춘다 — download-page.css).
    .dl-count의 마크업·클래스는 홈에서 이어지는 화면 전환 도착점이라 그대로 두고 모양만 바꾼다
 ══════════════════════════════════════════════════ */
 @media (max-width: 734px) {
   .dl-head {
     display: grid;
-    grid-template-columns: auto minmax(0, 1fr);
+    grid-template-columns: minmax(0, 1fr);
     align-items: center;
     column-gap: var(--sp-4);
     row-gap: var(--sp-1);
   }
+  /* 배지가 있으면 앞에 자기 폭만큼의 열을 하나 더 둔다 */
+  .dl-head:has(.dl-head-badge) { grid-template-columns: auto minmax(0, 1fr); }
   .dl-head-badge { grid-row: 1 / span 2; }
   .dl-head-text { align-self: end; }
   .dl-count {
-    grid-column: 2;
     align-self: start;
     margin-left: 0;
   }
+  .dl-head:has(.dl-head-badge) .dl-count { grid-column: 2; }
   /* 숫자는 옆 글자와 같은 크기에 굵기만 */
   .dl-count-num {
     font-size: inherit;

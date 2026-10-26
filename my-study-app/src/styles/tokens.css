@@ -18,8 +18,11 @@
   /* ── 색: 면 ── */
   --bg: #F5F5F7;              /* 페이지 바탕 */
   --surface: #FFFFFF;         /* 타일·카드·리스트 그룹 */
-  --fill: #E8E8ED;            /* 칩·보조 버튼·세그먼트 바탕·번호 칸 */
+  --fill: #E8E8ED;            /* 칩·보조 버튼·번호 칸 */
   --sidebar: #E8E8ED;         /* 자료실 사이드바 패널 */
+  --seg-bg: #E8E8EF;          /* 세그먼트 바 바탕 */
+  --seg-thumb: #1D1D1F;       /* 세그먼트 선택 알약 (칸 사이를 미끄러진다) */
+  --seg-thumb-label: #FFFFFF; /* 선택 알약 위 글자 */
   --sep: #D2D2D7;             /* 구분선(헤어라인) */
 
   /* ── 색: 글자 (글자 색은 label·label-2 둘뿐) ── */
@@ -30,6 +33,7 @@
   /* ── 색: 강조 ── */
   --accent: #0066CC;          /* 링크 글자 */
   --accent-fill: #0071E3;     /* 채움 버튼·선택 상태·오늘 날짜 (애플 블루) */
+  --accent-fill-hover: #0066CC;   /* 채움 버튼 hover — 흰 글자 5.57:1 */
   --on-accent: #FFFFFF;
   --new: #B64400;             /* '새로 올라온 것' 전용 */
   --new-soft: #FFF1E6;
@@ -42,8 +46,8 @@
   --inv-accent: #2997FF;
 
   /* ── 머티리얼: 반투명·블러 ── */
-  --bar-bg: rgba(245, 245, 247, 0.8);        /* 상단 바 */
-  --bar-bg-open: rgba(250, 250, 252, 0.97);  /* 드롭다운 열렸을 때 바·패널 */
+  --bar-bg: rgba(255, 255, 255, 0.8);        /* 상단 바 — 페이지 바탕(--bg)과 달리 흰색 */
+  --bar-bg-open: rgba(255, 255, 255, 0.97);  /* 드롭다운 열렸을 때 바·패널 */
   --scrim: rgba(232, 232, 237, 0.4);         /* 드롭다운 바깥 덮개 */
   --scrim-modal: rgba(0, 0, 0, 0.3);         /* 시트·사이드 메뉴 뒤 */
   --blur-bar: saturate(180%) blur(20px);
@@ -52,7 +56,6 @@
 
   /* ── 그림자 (거의 쓰지 않는다 — 층은 명도 차이로 나눈다) ── */
   --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.06);    /* 히어로 검색창 */
-  --shadow-thumb: 0 1px 3px rgba(0, 0, 0, 0.12);     /* 세그먼트 선택 칸 */
   --shadow-sheet: 0 30px 80px rgba(0, 0, 0, 0.25);   /* 미리보기 시트·사이드 메뉴 */
   --shadow-cover: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 14px rgba(0, 0, 0, 0.08); /* 책 표지 */
   --ring-card: 0 0 0 1px rgba(0, 0, 0, 0.06);        /* 패널 위 카드 외곽선 */
@@ -101,8 +104,7 @@
   --card-pad: 24px;           /* 카드 안쪽 */
   --gap: 20px;                /* 타일·카드 사이 */
   --container: 1080px;        /* 홈 본문 폭 */
-  --container-wide: 1180px;   /* 자료실(사이드바 포함) 폭 */
-  --sidebar-w: 320px;         /* 자료실 사이드바 최대 폭 */
+  --sidebar-w: 360px;         /* 자료실 사이드바 폭 (서랍은 화면이 좁으면 이보다 줄어든다) */
   --content-max: 760px;       /* 자료실 본문 최대 폭 */
   --bar-h: 52px;              /* 상단 바 높이 */
   --row-h: 64px;              /* 리스트 행 최소 높이 */
@@ -112,8 +114,8 @@
   --r-tile: 28px;
   --r-card: 20px;
   --r-group: 16px;            /* 리스트 그룹·공지 */
-  --r-input: 12px;            /* 입력창·세그먼트 바탕 */
-  --r-s: 8px;                 /* 세그먼트 칸·사이드바 행·번호 칸 */
+  --r-input: 12px;            /* 입력창 */
+  --r-s: 8px;                 /* 사이드바 행·번호 칸 */
   --r-pill: 980px;
 
   /* ── 주제 아이콘 3단계 (모서리 = 크기 / 4, 글자 = cap / foot / body) ── */
@@ -165,6 +167,9 @@ body.dark {
   --surface: #1C1C1E;
   --fill: #2C2C2E;
   --sidebar: #1C1C1E;
+  --seg-bg: #2C2C2E;
+  --seg-thumb: #F5F5F7;       /* 다크에서는 선택 알약이 밝다 (Apple 다크 세그먼트처럼 반전) */
+  --seg-thumb-label: #1D1D1F;
   --sep: #38383A;
 
   --label: #F5F5F7;
@@ -173,6 +178,7 @@ body.dark {
 
   --accent: #2997FF;
   --accent-fill: #0071E3;
+  --accent-fill-hover: #0062C9;   /* 다크도 더 짙게 — 흰 글자 5.85:1 (다크의 --accent는 밝은 파랑이라 쓸 수 없다) */
   --on-accent: #FFFFFF;
   --new: #FF9F43;
   --new-soft: #3D2A16;
@@ -190,6 +196,5 @@ body.dark {
   --scrim-modal: rgba(0, 0, 0, 0.5);
 
   --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.4);
-  --shadow-thumb: 0 1px 3px rgba(0, 0, 0, 0.5);
   --ring-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
 }

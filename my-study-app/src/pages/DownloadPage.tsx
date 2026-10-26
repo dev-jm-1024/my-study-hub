@@ -6,7 +6,7 @@ import { PdfPreview } from '../components/PdfPreview';
 import { SegmentBar } from '../components/SegmentBar';
 import { NotFoundPage } from './NotFoundPage';
 import { MENUS, MENU_DATA } from '../data/menuData';
-import { DESC, badgeLabel, topicStyle } from '../data/topics';
+import { DESC } from '../data/topics';
 import { NOTICES } from '../data/notices';
 import { resolveCategoryKey, matchesKey } from '../utils/category';
 import { triggerDownload } from '../utils/download';
@@ -198,9 +198,8 @@ export function DownloadPage() {
           <span className="doc-crumb-current" aria-current="page">{name}</span>
         </nav>
 
-        {/* 페이지 헤더 — 배지·제목·문서 수가 홈에서 이어지는 전환의 도착점 (view-transition.css) */}
+        {/* 페이지 헤더 — 제목·문서 수가 홈에서 이어지는 전환의 도착점 (view-transition.css) */}
         <header className="dl-head home-anim">
-          <div className="dl-head-badge" style={topicStyle(key)} aria-hidden="true">{badgeLabel(key, name)}</div>
           <div className="dl-head-text">
             <p className="dl-eyebrow">{menuInfo.group}</p>
             <h1 className="dl-title">{name}</h1>

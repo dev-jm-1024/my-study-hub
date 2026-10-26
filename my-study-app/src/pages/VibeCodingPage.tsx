@@ -47,7 +47,7 @@ export function VibeCodingPage() {
   return (
     <main className="page-wrapper">
       <header className="dl-head home-anim">
-        <div className="dl-head-badge dl-head-badge--mono" aria-hidden="true"><Sparkles size={22} /></div>
+        <div className="dl-head-badge" aria-hidden="true"><Sparkles size={22} /></div>
         <div className="dl-head-text">
           <p className="dl-eyebrow">Vibe Coding</p>
           <h1 className="dl-title">{TITLE}</h1>
