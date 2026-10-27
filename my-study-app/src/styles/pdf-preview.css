@@ -1,93 +1,171 @@
 /* ══════════════════════════════════════════════════
-   PDF 미리보기 모달
+   PDF 미리보기 시트
+   목업: Archive.dc.html 미리보기 시트 · 열기/닫기 연출은 view-transition.css (pdf-sheet)
+   .pdfp-panel 이름은 그 연출의 짝이므로 바꾸지 않는다
 ══════════════════════════════════════════════════ */
+@keyframes pdfp-fade { from { opacity: 0; } to { opacity: 1; } }
+@keyframes pdfp-rise {
+  from { opacity: 0; transform: translateY(var(--sp-3)); }
+  to { opacity: 1; transform: none; }
+}
+
 .pdfp-overlay {
   position: fixed;
   inset: 0;
-  z-index: 210;
-  background: color-mix(in srgb, var(--text-primary) 42%, transparent);
-  backdrop-filter: blur(3px);
-  -webkit-backdrop-filter: blur(3px);
+  z-index: var(--z-sheet);
   display: flex;
   align-items: center;
   justify-content: center;
-  padding: 4vh 16px;
-  animation: cmdkFade 0.15s ease;
+  padding: var(--sp-5);
+  background: var(--scrim-modal);
+  -webkit-backdrop-filter: var(--blur-scrim);
+  backdrop-filter: var(--blur-scrim);
+  animation: pdfp-fade var(--dur-fast) ease;
 }
+
+/* 높이는 덮개(= 화면)에서 위아래 여백만 뺀 만큼 — 덮개가 fixed라 100%가 곧 화면 높이다 */
 .pdfp-panel {
   width: 100%;
-  max-width: 900px;
-  height: 90vh;
+  max-width: var(--preview-max);
+  height: 100%;
   display: flex;
   flex-direction: column;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-color);
-  border-radius: var(--border-radius-lg);
+  background: var(--surface);
+  border-radius: var(--r-tile);
+  box-shadow: var(--shadow-sheet);
   overflow: hidden;
-  box-shadow: var(--shadow-glass-hover);
-  animation: cmdkRise 0.18s cubic-bezier(0.22, 0.61, 0.36, 1);
+  animation: pdfp-rise var(--dur-base) var(--ease-out);
 }
+
+/* ── 머리: 번호 칸 · 위치 줄 · 제목 · 닫기 ── */
 .pdfp-head {
   flex: none;
   display: flex;
-  align-items: center;
-  gap: 12px;
-  padding: 12px 14px;
-  border-bottom: 1px solid var(--border-glass);
+  align-items: flex-start;
+  gap: var(--sp-4);
+  padding: var(--sp-5);
+  border-bottom: 1px solid var(--sep);
 }
-.pdfp-title {
-  flex: 1;
-  min-width: 0;
-  font-weight: 600;
-  font-size: 0.95rem;
-  color: var(--text-primary);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-.pdfp-actions { display: flex; align-items: center; gap: 8px; flex: none; }
-.pdfp-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-family: inherit;
-  font-size: 0.8rem;
-  font-weight: 600;
-  color: var(--text-secondary);
-  background: var(--bg-surface-hover);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--border-radius-sm);
-  padding: 7px 12px;
-  cursor: pointer;
-  text-decoration: none;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
-}
-.pdfp-btn:hover { color: var(--text-primary); border-color: var(--border-color); }
-.pdfp-close {
+.pdfp-num {
+  flex: none;
   display: grid;
   place-items: center;
-  width: 34px; height: 34px;
-  background: none;
-  border: 1px solid var(--border-glass);
-  border-radius: var(--border-radius-sm);
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  min-width: var(--icon-m);
+  height: var(--icon-m);
+  padding: 0 var(--sp-1);
+  border-radius: var(--r-s);
+  background: var(--fill);
+  color: var(--label);
+  font-family: var(--mono);
+  font-size: var(--fs-foot);
+  line-height: 1;
+  font-weight: 600;
 }
-.pdfp-close:hover { color: var(--text-primary); border-color: var(--border-color); }
-.pdfp-body { flex: 1; min-height: 0; background: var(--bg-surface-hover); }
-.pdfp-frame { width: 100%; height: 100%; border: none; display: block; }
-.pdfp-hint {
+/* 닫기 버튼(44px)과 같은 높이를 최소로 — 위치 줄이 없어 제목 한 줄뿐이어도 버튼과 가운데가 맞는다 */
+.pdfp-heading {
+  flex: 1;
+  min-width: 0;
+  min-height: var(--touch);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+.pdfp-where {
+  font-size: var(--fs-foot);
+  line-height: var(--lh-foot);
+  color: var(--label-2);
+}
+.pdfp-title {
+  font-size: var(--fs-t3);
+  line-height: var(--lh-t3);
+  letter-spacing: var(--ls-t3);
+  font-weight: 700;
+  color: var(--label);
+}
+.pdfp-close {
   flex: none;
-  padding: 8px 14px;
-  font-size: 0.72rem;
-  color: var(--text-muted);
-  text-align: center;
-  border-top: 1px solid var(--border-glass);
-}
-@media (max-width: 560px) {
-  .pdfp-overlay { padding: 0; }
-  .pdfp-panel { height: 100vh; max-width: 100%; border-radius: 0; border: none; }
-  .pdfp-btn span { display: none; }
+  display: grid;
+  place-items: center;
+  width: var(--touch);
+  height: var(--touch);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--label-2);
+  transition: background var(--dur-fast) var(--ease-out);
 }
 
+/* ── 몸통: PDF 뷰어 ── */
+.pdfp-body { flex: 1; min-height: 0; background: var(--bg); }
+.pdfp-frame { display: block; width: 100%; height: 100%; border: 0; }
+
+/* ── 발: 설명 · 힌트 · 새 탭에서 열기 · 다운로드 ── */
+.pdfp-foot {
+  flex: none;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  padding: var(--sp-4) var(--sp-5);
+  border-top: 1px solid var(--sep);
+}
+.pdfp-note { flex: 1 1 200px; min-width: 0; }
+.pdfp-desc {
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
+}
+.pdfp-hint {
+  font-size: var(--fs-cap);
+  line-height: var(--lh-cap);
+  color: var(--label-2);
+}
+.pdfp-desc + .pdfp-hint { margin-top: var(--sp-1); }
+.pdfp-actions { display: flex; gap: var(--sp-2); margin-left: auto; }
+.pdfp-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: var(--touch);
+  padding: 0 var(--sp-5);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--label);
+  font-size: var(--fs-body);
+  line-height: 1;
+  font-weight: 500;
+  white-space: nowrap;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    filter var(--dur-fast) var(--ease-out);
+}
+.pdfp-pill--primary {
+  background: var(--accent-fill);
+  color: var(--on-accent);
+}
+
+/* 포커스 링은 다른 컨트롤과 같은 모양(파랑 2px, 간격 2px)으로 맞춘다 — 브라우저 기본 링을 대신한다 */
+.pdfp-close:focus-visible,
+.pdfp-pill:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .pdfp-close:hover,
+  .pdfp-pill:hover { background: var(--sep); }
+  /* 파란 채움은 어둡게 — 밝은 쪽 회색 hover를 쓰면 흰 글자 대비가 깎인다 */
+  .pdfp-pill--primary:hover { background: var(--accent-fill); filter: brightness(0.92); }
+}
+
+/* 좁은 화면: 시트 대신 전체 화면 (view-transition.css의 pdf-sheet 모서리와 경계를 맞춘다) */
+@media (max-width: 734px) {
+  .pdfp-overlay { padding: 0; }
+  .pdfp-panel { max-width: none; border-radius: 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .pdfp-overlay,
+  .pdfp-panel { animation: none; }
+  .pdfp-close,
+  .pdfp-pill { transition: none; }
+}

@@ -1,7 +1,9 @@
-/* ── 페이지 공통 래퍼 ── */
+/* ── 페이지 공통 래퍼 (Books · GitHub · Vibe · 404) ──
+   폭은 홈 본문(.home-main)과 같은 --container, 좌우 여백 --gutter(≤734px은 토큰이 줄인다).
+   위 = 고정 바(+노치) + --sp-7. 아래는 0 — 마지막 콘텐츠 → 푸터 간격은 .site-footer의 margin-top(--section)이 맡는다 */
 .page-wrapper {
-  max-width: 1400px;
+  box-sizing: border-box;
+  max-width: var(--container);
   margin: 0 auto;
-  padding: calc(var(--header-height) + env(safe-area-inset-top, 0px) + var(--spacing-2xl)) var(--spacing-xl) var(--spacing-3xl);
+  padding: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--sp-7)) var(--gutter) 0;
 }
-

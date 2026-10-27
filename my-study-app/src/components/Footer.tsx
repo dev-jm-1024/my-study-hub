@@ -1,13 +1,24 @@
+import { ArrowUpRight } from 'lucide-react';
+import { SOCIAL_LINKS } from '../constants';
+import { NewTabHint } from './NewTabHint';
+
+/** 외부 링크 화살표 크기(px) — 푸터 글자(cap 12px)에 맞춘다 */
+const ARROW_SIZE = 10;
+
 export function Footer() {
   const year = new Date().getFullYear();
   return (
     <footer className="site-footer">
       <div className="site-footer-inner">
-        <span className="site-footer-copy">© {year} JM Study Hub · 직접 공부하고 정리한 자료</span>
+        <p className="site-footer-copy">© {year} JM Study Hub · 직접 공부하고 정리한 자료</p>
         <nav className="site-footer-links" aria-label="외부 링크">
-          <a href="https://velog.io/@dlwoals1024/posts" target="_blank" rel="noopener noreferrer">Velog</a>
-          <a href="https://blog.naver.com/jon1024" target="_blank" rel="noopener noreferrer">네이버 블로그</a>
-          <a href="https://github.com/dev-jm-1024" target="_blank" rel="noopener noreferrer">GitHub</a>
+          {SOCIAL_LINKS.map(link => (
+            <a key={link.href} href={link.href} target="_blank" rel="noopener noreferrer">
+              {link.label}
+              <ArrowUpRight size={ARROW_SIZE} aria-hidden="true" />
+              <NewTabHint />
+            </a>
+          ))}
         </nav>
       </div>
     </footer>

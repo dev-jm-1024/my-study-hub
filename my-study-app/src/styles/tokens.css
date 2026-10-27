@@ -1,0 +1,201 @@
+/* ============================================================
+   Design Tokens — Apple 스타일 리디자인 (2026-10-18)
+
+   정본: 디자인 캔버스 "JM Hub 리디자인 시안" › 디자인 토큰 보드
+         (doc/261018_redesign_mockups/Tokens.dc.html 사본)
+   규칙: 컴포넌트 CSS는 이 파일의 변수만 쓴다.
+         색·글자 크기·간격·모서리를 리터럴로 쓰지 않는다.
+         예외는 주제 색(data/stacks.ts)뿐.
+   테마: 라이트 = :root, 다크 = body.dark (ThemeProvider가 body에 class를 붙인다)
+   화면: 데스크톱이 기본, 모바일(≤734px)에서는 타입·레이아웃 스케일만 바꾼다
+   목업과 이름이 다른 것: 목업의 --hl/--hl-soft → --new/--new-soft
+         ('새로 올라온 것' 전용 의미를 이름에 드러내려고 — 옛 형광펜 지역 변수 --hl은 Ch3에서 삭제)
+   ============================================================ */
+
+:root {
+  color-scheme: light;
+
+  /* ── 색: 면 ── */
+  --bg: #F5F5F7;              /* 페이지 바탕 */
+  --surface: #FFFFFF;         /* 타일·카드·리스트 그룹 */
+  --fill: #E8E8ED;            /* 칩·보조 버튼·번호 칸 */
+  --sidebar: #E8E8ED;         /* 자료실 사이드바 패널 */
+  --seg-bg: #E8E8EF;          /* 세그먼트 바 바탕 */
+  --seg-thumb: #1D1D1F;       /* 세그먼트 선택 알약 (칸 사이를 미끄러진다) */
+  --seg-thumb-label: #FFFFFF; /* 선택 알약 위 글자 */
+  --sep: #D2D2D7;             /* 구분선(헤어라인) */
+
+  /* ── 색: 글자 (글자 색은 label·label-2 둘뿐) ── */
+  --label: #1D1D1F;
+  --label-2: #66666B;         /* 목업 #6E6E73 → --fill 위 4.5:1 확보 (Ch1, 사용자 승인) */
+  --glyph-3: #AEAEB2;         /* 셰브런·비활성 아이콘 전용 — 글자에 쓰지 않는다 */
+
+  /* ── 색: 강조 ── */
+  --accent: #0066CC;          /* 링크 글자 */
+  --accent-fill: #0071E3;     /* 채움 버튼·선택 상태·오늘 날짜 (애플 블루) */
+  --accent-fill-hover: #0066CC;   /* 채움 버튼 hover — 흰 글자 5.57:1 */
+  --on-accent: #FFFFFF;
+  --new: #B64400;             /* '새로 올라온 것' 전용 */
+  --new-soft: #FFF1E6;
+
+  /* ── 색: 반전 타일 (라이트에서 어두운 대표 타일) ── */
+  --inv-surface: #1D1D1F;
+  --inv-fill: #333336;
+  --inv-label: #F5F5F7;
+  --inv-label-2: #A1A1A6;
+  --inv-accent: #2997FF;
+
+  /* ── 머티리얼: 반투명·블러 ── */
+  --bar-bg: rgba(255, 255, 255, 0.8);        /* 상단 바 — 페이지 바탕(--bg)과 달리 흰색 */
+  --bar-bg-open: rgba(255, 255, 255, 0.97);  /* 드롭다운 열렸을 때 바·패널 */
+  --scrim: rgba(232, 232, 237, 0.4);         /* 드롭다운 바깥 덮개 */
+  --scrim-modal: rgba(0, 0, 0, 0.3);         /* 시트·사이드 메뉴 뒤 */
+  --blur-bar: saturate(180%) blur(20px);
+  --blur-scrim: blur(20px);
+  --blur-edge: blur(4px);                    /* 가로 셸프 가장자리 */
+
+  /* ── 그림자 (거의 쓰지 않는다 — 층은 명도 차이로 나눈다) ── */
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.06);    /* 히어로 검색창 */
+  --shadow-sheet: 0 30px 80px rgba(0, 0, 0, 0.25);   /* 미리보기 시트·사이드 메뉴 */
+  --shadow-cover: 0 1px 2px rgba(0, 0, 0, 0.1), 0 6px 14px rgba(0, 0, 0, 0.08); /* 책 표지 */
+  --ring-card: 0 0 0 1px rgba(0, 0, 0, 0.06);        /* 패널 위 카드 외곽선 */
+
+  /* ── 글꼴 ── */
+  --font: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'Apple SD Gothic Neo',
+          'Pretendard', 'Pretendard Variable', 'Noto Sans KR', sans-serif;
+  --mono: 'SF Mono', ui-monospace, Menlo, Consolas, monospace;
+
+  /* ── 타입 스케일 9단계: 크기 / 줄간격 / 자간 ──
+     display  히어로 제목 하나뿐
+     t1       섹션 제목·페이지 제목·넓은 타일 제목·통계 숫자
+     t2       좁은 타일 제목·카드 제목·타일 안 문서 수
+     t3       셸프 카드 제목·소분류 제목·위젯·시트 제목·드롭다운 큰 링크
+     lead     히어로·자료실 소개 문장 (label-2)
+     body     본문·리스트 항목 제목(500)·버튼·링크
+     callout  항목 설명·문서 수·아이브로(600)·공지
+     foot     그룹 헤더(600)·내비·칩·날짜·브레드크럼
+     cap      푸터·배지·태그 */
+  --fs-display: clamp(48px, 6vw, 80px); --lh-display: 1.05; --ls-display: -0.035em;
+  --fs-t1: clamp(32px, 3.4vw, 48px);    --lh-t1: 1.1;       --ls-t1: -0.03em;
+  --fs-t2: 32px;                        --lh-t2: 1.15;      --ls-t2: -0.025em;
+  --fs-t3: 21px;                        --lh-t3: 1.3;       --ls-t3: -0.02em;
+  --fs-lead: 21px;                      --lh-lead: 1.45;
+  --fs-body: 17px;                      --lh-body: 1.5;
+  --fs-callout: 15px;                   --lh-callout: 1.45;
+  --fs-foot: 13px;                      --lh-foot: 1.4;
+  --fs-cap: 12px;                       --lh-cap: 1.4;
+  --ls-base: -0.01em;
+
+  /* ── 간격 9단계 (4의 배수) ── */
+  --sp-1: 4px;
+  --sp-2: 8px;
+  --sp-3: 12px;
+  --sp-4: 16px;
+  --sp-5: 24px;
+  --sp-6: 32px;
+  --sp-7: 48px;
+  --sp-8: 64px;
+  --sp-9: 96px;
+
+  /* ── 레이아웃 ── */
+  --gutter: 24px;             /* 좌우 여백 */
+  --section: 96px;            /* 섹션 간격 (섹션 제목 → 본문은 --sp-6) */
+  --tile-pad: 40px;           /* 타일 안쪽 */
+  --card-pad: 24px;           /* 카드 안쪽 */
+  --gap: 20px;                /* 타일·카드 사이 */
+  --container: 1080px;        /* 홈 본문 폭 */
+  --sidebar-w: 360px;         /* 자료실 사이드바 폭 (서랍은 화면이 좁으면 이보다 줄어든다) */
+  --content-max: 960px;       /* 자료실 본문 최대 폭 (760 → 960) */
+  --preview-max: 760px;       /* PDF 미리보기 창 최대 폭 */
+  --bar-h: 52px;              /* 상단 바 높이 */
+  --row-h: 64px;              /* 리스트 행 최소 높이 */
+  --touch: 44px;              /* 최소 터치 영역 */
+
+  /* ── 모서리 ── */
+  --r-tile: 28px;
+  --r-card: 20px;
+  --r-group: 16px;            /* 리스트 그룹·공지 */
+  --r-input: 12px;            /* 입력창 */
+  --r-s: 8px;                 /* 사이드바 행·번호 칸 */
+  --r-pill: 980px;
+
+  /* ── 주제 아이콘 3단계 (모서리 = 크기 / 4, 글자 = cap / foot / body) ── */
+  --icon-s: 24px;             /* 사이드바·셸프 카드 */
+  --icon-m: 32px;             /* 리스트 행 */
+  --icon-l: 48px;             /* 타일·자료실 헤더 */
+
+  /* ── 모션 ── */
+  --ease-out: cubic-bezier(0.2, 0.8, 0.2, 1);        /* 드롭다운 열 등장 */
+  --ease-panel: cubic-bezier(0.4, 0, 0.2, 1);        /* 드롭다운 패널 높이 */
+  --ease-drawer: cubic-bezier(0.32, 0.72, 0, 1);     /* 사이드 메뉴 */
+  --dur-fast: 0.2s;
+  --dur-base: 0.3s;
+  --dur-panel: 0.45s;
+
+  /* ── 쌓임 순서 ── */
+  --z-scrim: 90;              /* 드롭다운 바깥 덮개 */
+  --z-header: 100;            /* 상단 바 + 드롭다운 패널 */
+  --z-drawer: 200;            /* 모바일 사이드 메뉴 */
+  --z-sheet: 300;             /* PDF 미리보기 시트 */
+}
+
+/* ── 모바일 스케일 (≤734px): 이름은 같고 값만 다르다 ── */
+@media (max-width: 734px) {
+  :root {
+    --fs-display: 40px;
+    --fs-t1: 32px;
+    --fs-t2: 24px;
+    --fs-t3: 19px;
+    --fs-lead: 17px;
+
+    --gutter: 20px;
+    --section: 64px;
+    --tile-pad: 24px;
+    --gap: 12px;
+
+    --r-tile: 24px;
+  }
+}
+
+/* ── 다크 ── */
+/* 뷰포트 스크롤바·캔버스는 html의 color-scheme을 따른다 */
+:root:has(body.dark) { color-scheme: dark; }
+
+body.dark {
+  color-scheme: dark;
+
+  --bg: #000000;
+  --surface: #1C1C1E;
+  --fill: #2C2C2E;
+  --sidebar: #1C1C1E;
+  --seg-bg: #2C2C2E;
+  --seg-thumb: #F5F5F7;       /* 다크에서는 선택 알약이 밝다 (Apple 다크 세그먼트처럼 반전) */
+  --seg-thumb-label: #1D1D1F;
+  --sep: #38383A;
+
+  --label: #F5F5F7;
+  --label-2: #A1A1A6;
+  --glyph-3: #636366;
+
+  --accent: #2997FF;
+  --accent-fill: #0071E3;
+  --accent-fill-hover: #0062C9;   /* 다크도 더 짙게 — 흰 글자 5.85:1 (다크의 --accent는 밝은 파랑이라 쓸 수 없다) */
+  --on-accent: #FFFFFF;
+  --new: #FF9F43;
+  --new-soft: #3D2A16;
+
+  /* 다크에서는 반전 타일이 일반 면과 같다 */
+  --inv-surface: #1C1C1E;
+  --inv-fill: #2C2C2E;
+  --inv-label: #F5F5F7;
+  --inv-label-2: #A1A1A6;
+  --inv-accent: #2997FF;
+
+  --bar-bg: rgba(0, 0, 0, 0.72);
+  --bar-bg-open: rgba(22, 22, 24, 0.97);
+  --scrim: rgba(0, 0, 0, 0.4);
+  --scrim-modal: rgba(0, 0, 0, 0.5);
+
+  --shadow-float: 0 8px 24px rgba(0, 0, 0, 0.4);
+  --ring-card: 0 0 0 1px rgba(255, 255, 255, 0.08);
+}

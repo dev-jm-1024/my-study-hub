@@ -1,247 +1,790 @@
-/* ── Download 레이아웃 ── */
+/* ── Download 레이아웃: 왼쪽 사이드바 열 + 본문 ── */
+/* 자료실 페이지에서만 정의 — 레이아웃과 서랍이 같은 좌우 여백을 나눠 쓴다 */
+body:has(.download-layout) {
+  --dl-pad-l: max(var(--gutter), env(safe-area-inset-left, 0px));    /* 본문 좌우 안쪽 여백 (노치를 피한다) */
+  --dl-pad-r: max(var(--gutter), env(safe-area-inset-right, 0px));
+}
+
 .download-layout {
-  display: flex;
-  align-items: flex-start;
-  min-height: 100vh;
-  padding-top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
+  box-sizing: border-box;
+  /* 상단 바는 fixed — 바 높이(+노치)만큼 내려서 시작한다. 왼쪽은 fixed 사이드바 열(--sidebar-w)만큼 비워 두고,
+     본문은 남은 영역 가운데에 놓인다 (서랍일 때는 맨 아래 ≤1068 블록에서 열을 없앤다) */
+  padding: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--sp-3))
+           var(--dl-pad-r) 0
+           calc(var(--sidebar-w) + var(--dl-pad-l));
 }
 
+.main-content {
+  --doc-text-basis: 260px;   /* 문서 제목·설명 칸의 기본 폭 — 버튼 옆에 이만큼 남지 않으면 버튼이 아래 줄로 내려간다 */
+
+  max-width: var(--content-max);
+  margin-inline: auto;
+  padding: var(--sp-5) 0 0;
+}
+
+/* ── 사이드바: 화면 왼쪽 끝에 붙은 전체 높이 열 — 본문과 색만 다르다 (모서리·테두리·그림자 없음) ──
+   위치·크기는 아래 데스크톱 규칙(기본)과, 이를 덮어쓰는 맨 아래 서랍 블록(≤1068)이 정한다 */
 .sidebar {
-  width: var(--sidebar-width);
-  flex-shrink: 0;
-  position: sticky;
-  align-self: flex-start;
-  top: calc(var(--header-height) + env(safe-area-inset-top, 0px));
-  max-height: calc(100vh - var(--header-height) - env(safe-area-inset-top, 0px));
+  --avatar: 40px;   /* 프로필 이미지 한 변 — 맞는 크기 토큰이 없다 (--icon-m은 32px, --icon-l은 48px) */
+  --side-gap: var(--sp-4);    /* 프로필·검색·그룹 사이 간격 */
+  --side-pad: var(--sp-3);    /* 패널 안쪽 위아래 여백 */
+  --side-pad-x: 15px;         /* 패널 안쪽 좌우 여백 — 맞는 간격 토큰이 없다 (--sp-3 12px와 --sp-4 16px 사이) */
+  --fade-h: var(--sp-6);      /* 위·아래 가장자리 페이드 높이 (아래 .sidebar-fade) */
+
+  box-sizing: border-box;
   overflow-y: auto;
-  background: var(--bg-root);
-  border-right: 1px solid var(--border-glass);
-  padding: var(--spacing-xl) var(--spacing-md);
+  scrollbar-width: none;
+  /* 키보드 포커스로 스크롤될 때 포커스된 행이 가장자리 페이드 밖에 놓인다 */
+  scroll-padding-block: var(--fade-h);
+  display: flex;
+  flex-direction: column;
+  gap: var(--side-gap);
+  padding: var(--side-pad) var(--side-pad-x);
+  background: var(--sidebar);
+}
+.sidebar::-webkit-scrollbar { display: none; }
+/* 세로로 넘칠 때 줄어들지 않고 패널이 스크롤되게 — 높이를 가진 검색창이 눌려 찌그러진다 */
+.sidebar > * { flex: none; }
+
+/* ── 데스크톱(≥1069): 사이드바는 화면 왼쪽 끝(left: 0)에 고정, 상단 바 아래부터 화면 맨 아래까지 ──
+   스크롤·화면 크기·문서 수와 관계없이 같은 자리·같은 크기이고, 푸터가 올라와도 밀려나지 않는다.
+   내용이 넘치면 패널 안에서 스크롤하고, 짧아도 높이는 그대로다.
+   미디어 쿼리 없이 기본으로 두고, ≤1068에서는 맨 아래 서랍 블록이 덮어쓴다 */
+.sidebar {
+  position: fixed;
+  top: calc(var(--bar-h) + env(safe-area-inset-top, 0px));
+  left: 0;
+  width: var(--sidebar-w);
+  height: calc(100vh - var(--bar-h) - env(safe-area-inset-top, 0px));
+  height: calc(100dvh - var(--bar-h) - env(safe-area-inset-top, 0px));
 }
 
-.sidebar-inner { display: flex; flex-direction: column; gap: var(--spacing-lg); }
+/* 푸터는 사이드바 열 오른쪽에서 시작한다 — 구분선도 거기서부터이고, 안쪽 글자는 본문 열(--content-max)과 같은 선에 놓인다 */
+body:has(.download-layout) .site-footer { margin-left: var(--sidebar-w); }
+body:has(.download-layout) .site-footer-inner { max-width: calc(var(--content-max) + var(--gutter) * 2); }
 
-.sidebar-back {
-  display: inline-flex;
-  align-items: center;
-  gap: 4px;
-  font-size: var(--font-size-sm);
-  font-weight: 500;
-  color: var(--text-secondary);
-  text-decoration: none;
-  padding: var(--spacing-xs) var(--spacing-sm);
-  border-radius: var(--border-radius-sm);
-  transition: color var(--transition-fast), background var(--transition-fast);
-}
-
-.sidebar-back:hover { color: var(--text-primary); background: var(--bg-surface-hover); }
-
-.menu-group { display: flex; flex-direction: column; gap: 2px; }
-
-.menu-group-title {
-  font-size: 0.7rem;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  color: var(--text-muted);
-  padding: var(--spacing-xs) var(--spacing-sm) 6px;
-}
-
-.menu-list { list-style: none; margin: 0; padding: 0; display: flex; flex-direction: column; gap: 1px; }
-
-.menu-item {
-  position: relative;
+/* 서랍 머리(서랍 모드에서만 그려진다) — '주제' 제목 + 닫기 */
+.sidebar-head {
   display: flex;
   align-items: center;
-  gap: 10px;
-  padding: 7px var(--spacing-sm);
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  text-decoration: none;
-  border-radius: var(--border-radius-sm);
-  transition: background var(--transition-fast), color var(--transition-fast);
+  justify-content: space-between;
+  gap: var(--sp-3);
+  padding-left: var(--sp-1);
 }
-
-.menu-badge {
+.sidebar-title {
+  margin: 0;
+  font-size: var(--fs-t3);
+  line-height: var(--lh-t3);
+  letter-spacing: var(--ls-t3);
+  font-weight: 700;
+}
+.sidebar-close {
   flex: none;
-  width: 28px; height: 28px;
-  border-radius: 8px;
   display: grid;
   place-items: center;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 0.68rem;
-  letter-spacing: 0.01em;
-  background: color-mix(in srgb, var(--t, var(--text-muted)) 18%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
-  border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 24%, var(--border-color));
+  width: var(--touch);
+  height: var(--touch);
+  padding: 0;
+  border-radius: var(--r-pill);
+  background: var(--surface);
+  box-shadow: var(--ring-card);   /* 다크에서는 --surface가 패널 색과 같아 외곽선으로 구분 */
+  color: var(--label-2);
+  transition: color var(--dur-fast);
+}
+.sidebar-close:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .sidebar-close:hover { color: var(--label); }
 }
 
-.menu-name {
+/* 프로필 줄 */
+.sidebar-profile {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  padding: var(--sp-1) var(--sp-1) 0;
+}
+.sidebar-avatar {
+  flex: none;
+  width: var(--avatar);
+  height: var(--avatar);
+  border-radius: calc(var(--avatar) / 4);
+  object-fit: cover;
+}
+.sidebar-profile-text { min-width: 0; }
+.sidebar-profile-name {
+  margin: 0;
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  font-weight: 600;
+  color: var(--label);
+}
+.sidebar-profile-meta {
+  margin: 0;
+  font-size: var(--fs-foot);
+  line-height: var(--lh-foot);
+  color: var(--label-2);
+}
+
+/* 검색창 — 라이트에서는 패널보다 밝은 흰 입력창. 다크는 --surface가 패널(--sidebar)과 같아 외곽선(--ring-card)으로 구분한다 */
+.sidebar-search {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  box-sizing: border-box;
+  height: var(--touch);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-input);
+  background: var(--surface);
+  box-shadow: var(--ring-card);
+  color: var(--label-2);
+}
+.sidebar-search svg { flex: none; }
+.sidebar-search input {
   flex: 1;
   min-width: 0;
-  font-weight: 500;
-  letter-spacing: -0.01em;
+  height: 100%;
+  padding: 0;
+  border: 0;
+  outline: 0;
+  appearance: none;
+  background: transparent;
+  font: inherit;
+  font-size: var(--fs-callout);
+  color: var(--label);
+}
+.sidebar-search input::placeholder { color: var(--label-2); }
+/* 패널이 넘침을 자르므로 포커스 링은 안쪽으로 */
+.sidebar-search:focus-within {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+
+/* 그룹 */
+.sidebar-group { display: flex; flex-direction: column; }
+.sidebar-group-title {
+  margin: 0 0 var(--sp-1);
+  padding-left: var(--sp-3);
+  font-size: var(--fs-foot);
+  line-height: var(--lh-foot);
+  font-weight: 600;
+  color: var(--label-2);
+}
+.sidebar-list { list-style: none; margin: 0; padding: 0; }
+
+/* 주제 행 — 선택된 행(aria-current)만 파란 채움 */
+.sidebar-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  box-sizing: border-box;
+  min-height: var(--touch);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-s);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label);
+  text-decoration: none;
+  transition: background-color var(--dur-fast);
+}
+@media (hover: hover) {
+  .sidebar-row:not([aria-current='page']):hover {
+    background: color-mix(in srgb, var(--sep) 50%, var(--sidebar));
+  }
+  /* 이 바탕 위 --label-2 는 라이트에서 4.22 — 개수·'준비 중'만 --label 로 올린다 */
+  .sidebar-row:not([aria-current='page']):hover .sidebar-count { color: var(--label); }
+}
+.sidebar-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.sidebar-row[aria-current='page'] {
+  background: var(--accent-fill);
+  color: var(--on-accent);
+  font-weight: 600;
+}
+.sidebar-row[aria-current='page']:focus-visible { outline-color: var(--on-accent); }
+
+/* 주제 배지 — 색은 인라인 --topic 하나로만 들어온다 (data/topics.ts의 topicStyle, 색 없는 주제는 폴백) */
+.sidebar-badge {
+  flex: none;
+  display: grid;
+  place-items: center;
+  width: var(--icon-s);
+  height: var(--icon-s);
+  border-radius: calc(var(--icon-s) / 4);
+  background: var(--topic, var(--glyph-3));
+  color: var(--on-accent);
+  font-size: var(--fs-cap);
+  line-height: 1;
+  font-weight: 700;
+}
+.sidebar-name {
+  flex: 1;
+  min-width: 0;
   white-space: nowrap;
   overflow: hidden;
   text-overflow: ellipsis;
 }
-
-.menu-count {
+.sidebar-count {
   flex: none;
-  font-size: 0.72rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: var(--fs-foot);
+  font-weight: 400;
+  color: var(--label-2);
   font-variant-numeric: tabular-nums;
 }
+.sidebar-row[aria-current='page'] .sidebar-count { color: var(--on-accent); }
 
-.menu-item:hover {
-  background: var(--bg-surface-hover);
-  color: var(--text-primary);
+.sidebar-empty {
+  margin: 0;
+  padding: 0 var(--sp-3);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
 }
 
-.menu-item.active {
-  background: var(--accent-soft);
-  color: var(--accent-ink);
-  font-weight: 600;
+/* ── 스크롤 가장자리 페이드 (components/Sidebar.tsx가 data-fade-top/bottom을 켠다) ──
+   내용이 위로 가려졌으면 위, 아래로 더 있으면 아래 가장자리가 블러 + 패널 색으로 녹아든다 (장식 — 클릭은 아래 행으로 통과).
+   띠 자리는 높이 0짜리 sticky 칸이라 레이아웃을 밀지 않는다: 첫·끝 칸이 flex gap에서 만든 간격을 음수 여백으로 도로 물린다.
+   sticky 기준 사각형은 스크롤러의 안쪽 여백만큼 이미 들어와 있으므로 top/bottom은 0 — 칸은 여백 바로 안쪽에 선다.
+   띠 본체(::before)는 칸에서 안쪽 여백만큼 바깥으로 나가 패널 가장자리부터 둥근 모서리 안쪽 끝까지 덮는다 */
+.sidebar-fade {
+  position: sticky;
+  height: 0;
+  pointer-events: none;
 }
-
-.menu-item.active::before {
-  content: "";
+.sidebar-fade--top { top: 0; margin-bottom: calc(var(--side-gap) * -1); }
+.sidebar-fade--bottom { bottom: 0; margin-top: calc(var(--side-gap) * -1); }
+.sidebar-fade::before {
+  content: '';
   position: absolute;
-  left: 0; top: 7px; bottom: 7px;
-  width: 3px;
-  border-radius: 3px;
-  background: var(--accent-ink);
+  inset-inline: calc(var(--side-pad-x) * -1);
+  height: var(--fade-h);
+  pointer-events: none;
+  -webkit-backdrop-filter: var(--blur-edge);
+  backdrop-filter: var(--blur-edge);
+  /* 꺼져 있는 동안은 그리지 않는다 — 블러 층이 스크롤 내내 남지 않게 (visibility는 사라진 뒤에 끈다) */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity var(--dur-fast), visibility 0s linear var(--dur-fast);
+}
+/* mask-image 의 black 은 색이 아니라 알파 신호(불투명→투명)다 — 색 리터럴 금지의 예외 */
+.sidebar-fade--top::before {
+  top: calc(var(--side-pad) * -1);
+  background: linear-gradient(to bottom, var(--sidebar), transparent);
+  -webkit-mask-image: linear-gradient(to bottom, black, transparent);
+  mask-image: linear-gradient(to bottom, black, transparent);
+}
+.sidebar-fade--bottom::before {
+  bottom: calc(var(--side-pad) * -1);
+  background: linear-gradient(to top, var(--sidebar), transparent);
+  -webkit-mask-image: linear-gradient(to top, black, transparent);
+  mask-image: linear-gradient(to top, black, transparent);
+}
+.sidebar[data-fade-top] .sidebar-fade--top::before,
+.sidebar[data-fade-bottom] .sidebar-fade--bottom::before {
+  opacity: 1;
+  visibility: visible;
+  transition-delay: 0s;
 }
 
-.menu-item.active .menu-name { font-weight: 600; }
-.menu-item.active .menu-count { color: var(--accent-ink); }
+/* ══════════════════════════════════════════════════
+   자료실 본문: 브레드크럼 · 소개 · 공지 · 세그먼트 · 문서 행 · 페이저
+   목업: Archive.dc.html. 헤더(.dl-head 계열)는 GitHub·Vibe와 같이 쓰는 doc-list.css에 있다
+══════════════════════════════════════════════════ */
 
-.main-content {
-  flex: 1;
-  padding: var(--spacing-2xl);
-  background: transparent;
+/* ── 브레드크럼 ── */
+.doc-crumb {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-2);
+  font-size: var(--fs-foot);
+  line-height: var(--lh-foot);
+  color: var(--label-2);
+}
+.doc-crumb svg { flex: none; }
+.doc-crumb a { position: relative; color: var(--label-2); }
+/* 글자 크기는 그대로 두고 눌리는 영역만 터치 최소(--touch)까지 넓힌다 */
+.doc-crumb a::after {
+  content: '';
+  position: absolute;
+  inset: calc((var(--touch) - var(--fs-foot) * var(--lh-foot)) / -2) calc(var(--sp-2) * -1);
+}
+.doc-crumb-current { color: var(--label); }
+@media (hover: hover) {
+  .doc-crumb a:hover { text-decoration: underline; }
 }
 
-/* ── PDF 카드 그리드 ── */
-.card-grid {
+/* 자료실 헤더 — 브레드크럼 아래 간격 (공용 .dl-head는 margin 0, 폭·간격은 쓰는 페이지가 정한다) */
+.main-content .dl-head { margin: var(--sp-5) 0 0; }
+/* 소개 문단 .doc-intro는 보조 페이지의 .page-intro와 같은 모양이라 doc-list.css에서 함께 정한다 */
+
+/* ── 공지 ── */
+.doc-notice {
+  display: flex;
+  gap: var(--sp-4);
+  margin-top: var(--sp-6);
+  padding: var(--sp-5);
+  border-radius: var(--r-group);
+  background: var(--surface);
+}
+.doc-notice-icon {
+  flex: none;
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: var(--spacing-lg);
-  margin-top: var(--spacing-xl);
+  place-items: center;
+  width: var(--icon-s);
+  height: var(--icon-s);
+  border-radius: var(--r-pill);
+  background: var(--accent-fill);
+  color: var(--on-accent);
 }
-
-/* ── 페이지 헤더 ── */
-.page-header {
-  padding: var(--spacing-2xl);
-}
-
-.page-title {
-  font-size: var(--font-size-3xl);
-  font-weight: 900;
-  letter-spacing: -0.04em;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-sm);
-}
-
-.page-subtitle {
-  color: var(--text-secondary);
-  font-size: var(--font-size-base);
-  margin-bottom: var(--spacing-md);
-}
-
-.document-count {
-  display: inline-block;
-  padding: 4px 12px;
-  background: var(--bg-overlay);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--border-radius-full);
-  font-size: var(--font-size-sm);
+.doc-notice-body { min-width: 0; }
+.doc-notice-label {
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
   font-weight: 600;
-  color: var(--text-secondary);
 }
-
-/* ── 카드 내부 (card.css와 함께 사용) ── */
-.card-footer {
-  margin-top: auto;
-  padding-top: var(--spacing-md);
-  border-top: 1px solid var(--border-glass);
+.doc-notice-text {
+  margin-top: var(--sp-1);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  white-space: pre-line;
 }
-
-.card-title {
-  font-size: var(--font-size-base);
-  font-weight: 700;
-  color: var(--text-primary);
-  margin-bottom: var(--spacing-xs);
-  letter-spacing: -0.02em;
-}
-
-.card-description {
-  font-size: var(--font-size-sm);
-  color: var(--text-secondary);
-  line-height: 1.5;
-  flex: 1;
-}
-
-/* ── Download 페이지 헤더 로고 ── */
-.download-logo {
+.doc-notice-link {
   display: inline-flex;
   align-items: center;
-  gap: var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  font-size: 1.5rem;
-  color: var(--text-secondary);
+  gap: var(--sp-1);
+  min-height: var(--touch);
+  font-size: var(--fs-callout);
+  color: var(--accent);
+}
+@media (hover: hover) {
+  .doc-notice-link:hover { text-decoration: underline; }
 }
 
-.download-logo-text {
-  font-size: 2rem;
-  font-weight: 900;
-  color: var(--text-primary);
-  letter-spacing: -0.04em;
+/* ── 목록 영역 — 페이지를 넘기면 이 위쪽(세그먼트 자리)으로 스크롤한다. 상단 바에 가리지 않게 scroll-margin-top ── */
+.doc-list-area {
+  margin-top: var(--sp-7);
+  scroll-margin-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--sp-3));
 }
 
-/* ── 버튼 disabled ── */
-.download-btn:disabled {
-  opacity: 0.4;
-  cursor: not-allowed;
-  transform: none;
-  box-shadow: none;
+/* ── 소분류 묶음 ── */
+.doc-group { margin-top: var(--sp-7); }
+.doc-list-area > .doc-group:first-child { margin-top: 0; }
+.doc-group-head {
+  display: flex;
+  align-items: baseline;
+  flex-wrap: wrap;
+  gap: 0 var(--sp-2);
+  margin-bottom: var(--sp-3);
+  padding-left: var(--sp-1);
+}
+.doc-group-title {
+  font-size: var(--fs-t3);
+  line-height: var(--lh-t3);
+  letter-spacing: var(--ls-t3);
+  font-weight: 700;
+}
+.doc-group-count {
+  font-size: var(--fs-callout);
+  color: var(--label-2);
+}
+.doc-group-cont {
+  font-size: var(--fs-foot);
+  color: var(--label-2);
 }
 
-/* ── 터치 타겟 최소 44px ── */
-.hero-link    { min-height: 44px; }
-.menu-item    { min-height: 44px; }
-.mobile-menu-item { min-height: 44px; }
-.sidebar-back { min-height: 44px; }
-
-/* ── 사이드바 배경 오버레이 (tap-to-close) ── */
-.sidebar-backdrop {
-  position: fixed;
-  inset: 0;
-  z-index: 89;
-  background: rgba(28, 22, 18, 0.48); /* 웜톤 딤 */
-  backdrop-filter: blur(2px);
-  -webkit-backdrop-filter: blur(2px);
+/* ── 문서 행: 인셋 그룹 — 구분선은 번호 칸 오른쪽부터, 첫 행에는 없다 ── */
+.doc-card {
+  overflow: hidden;
+  border-radius: var(--r-group);
+  background: var(--surface);
+}
+/* 행 바탕을 칠해 둔다 — 미리보기 전환(pdf-sheet)이 이 행을 떠서 옮길 때 투명하게 비치지 않게 */
+.doc-row {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-4);
+  min-height: var(--row-h);
+  padding-left: var(--sp-4);
+  background: var(--surface);
+}
+.doc-num {
+  flex: none;
+  display: grid;
+  place-items: center;
+  min-width: var(--icon-m);
+  height: var(--icon-m);
+  padding: 0 var(--sp-1);
+  border-radius: var(--r-s);
+  background: var(--fill);
+  color: var(--label);
+  font-family: var(--mono);
+  font-size: var(--fs-foot);
+  line-height: 1;
+  font-weight: 600;
+  letter-spacing: var(--ls-base);
+}
+.doc-body {
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: var(--sp-1) var(--sp-2);
+  padding: var(--sp-3) var(--sp-3) var(--sp-3) 0;
+  border-top: 1px solid var(--sep);
+}
+.doc-row:first-child .doc-body { border-top: 0; }
+.doc-text { flex: 1 1 var(--doc-text-basis); min-width: 0; }
+.doc-title {
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 500;
+  color: var(--label);
+}
+.doc-desc {
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
 }
 
-/* ── 모바일 사이드바 토글 ── */
-.sidebar-mobile-toggle {
+/* 미리보기 — 눈 아이콘 + 글자 */
+.doc-preview {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--sp-2);
+  min-height: var(--touch);
+  padding: 0 var(--sp-3);
+  border-radius: var(--r-s);
+  background: transparent;
+  color: var(--accent);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+}
+/* 받기 — 눌리는 영역은 44px, 보이는 알약은 32px */
+.doc-get {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  padding: 0;
+  background: transparent;
+}
+.doc-get-pill {
+  display: inline-flex;
+  align-items: center;
+  height: var(--icon-m);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--accent);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  font-weight: 600;
+  transition: background-color var(--dur-fast), color var(--dur-fast);
+}
+.doc-get-pill svg { display: none; }   /* 화살표는 모바일 원형 버튼에서만 */
+.doc-soon {
+  padding: var(--sp-1) var(--sp-2);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--label-2);
+  font-size: var(--fs-cap);
+  line-height: var(--lh-cap);
+  font-weight: 600;
+}
+/* 포커스 링: 미리보기는 버튼 자신이, 받기는 자식 알약이 대신 그린다 (버튼 전체에 브라우저 기본 링이 겹치지 않게 끈다) */
+.doc-preview:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
+}
+.doc-get:focus-visible { outline: none; }
+.doc-get:focus-visible .doc-get-pill {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .doc-preview:hover { background: var(--fill); }
+  /* 회색(--sep) 위 파란 글자는 4.5:1에 못 미친다(라이트 3.70 · 다크 3.88) — 채운 파랑 + 흰 글자(4.70)로. Books 구매 알약(.bk-buy)도 같다 */
+  .doc-get:hover .doc-get-pill {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+}
+
+/* 빈 목록 */
+.doc-empty {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--sp-2);
+  padding: var(--sp-8) var(--sp-5);
+  border-radius: var(--r-group);
+  background: var(--surface);
+  color: var(--label-2);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+}
+
+/* ── 페이저 — 버튼은 44px, 보이는 원은 32px (원 사이 20px) ── */
+.doc-pager {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: var(--sp-3);
+  margin-top: var(--sp-6);
+}
+.doc-pager-range {
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
+  font-variant-numeric: tabular-nums;
+}
+.doc-pager-btns { display: flex; align-items: center; gap: var(--sp-2); }
+.doc-pager-btn {
+  display: grid;
+  place-items: center;
+  width: var(--touch);
+  height: var(--touch);
+  padding: 0;
+  background: transparent;
+  color: var(--label);
+  font-size: var(--fs-callout);
+  line-height: 1;
+  font-variant-numeric: tabular-nums;
+}
+.doc-pager-disc {
+  display: grid;
+  place-items: center;
+  width: var(--icon-m);
+  height: var(--icon-m);
+  border-radius: var(--r-pill);
+}
+.doc-pager-arrow { background: var(--fill); }
+.doc-pager-btn[aria-current='page'] { font-weight: 600; }
+.doc-pager-btn[aria-current='page'] .doc-pager-disc {
+  background: var(--label);
+  color: var(--surface);
+}
+/* 처음·끝 페이지에서는 해당 화살표만 흐리게. disabled 속성은 키보드 포커스를 body로 빼앗으므로 aria-disabled로 둔다 (눌러도 goPage가 같은 페이지면 아무 일도 안 한다) */
+.doc-pager-btn[aria-disabled='true'] { color: var(--glyph-3); cursor: default; }
+.doc-pager-btn:focus-visible { outline: none; }   /* 링은 아래 원판이 대신 그린다 */
+.doc-pager-btn:focus-visible .doc-pager-disc {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .doc-pager-btn:not([aria-disabled='true']):hover .doc-pager-arrow { background: var(--sep); }
+  .doc-pager-btn:not([aria-current='page']):hover .doc-pager-num { background: var(--fill); }
+}
+
+/* ── 주제 전환 버튼 · 서랍 덮개 — 데스크톱에서는 둘 다 없다 (아래 ≤1068 블록이 켠다) ── */
+.sidebar-toggle {
   display: none;
   align-items: center;
-  gap: var(--spacing-sm);
-  width: 100%;
-  padding: 11px var(--spacing-md);
-  margin-bottom: var(--spacing-lg);
-  background: var(--bg-surface);
-  border: 1px solid var(--border-glass);
-  border-radius: var(--border-radius-sm);
-  font-family: inherit;
-  font-size: var(--font-size-sm);
-  font-weight: 600;
-  color: var(--text-secondary);
-  cursor: pointer;
-  transition: color var(--transition-fast), border-color var(--transition-fast);
+  gap: var(--sp-2);
+  width: fit-content;
+  max-width: 100%;
+  min-height: var(--touch);
+  padding: 0 var(--sp-4) 0 var(--sp-3);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--label);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  transition: background-color var(--dur-fast);
 }
-.sidebar-mobile-toggle:hover { color: var(--text-primary); border-color: var(--border-color); }
+.sidebar-toggle > svg { flex: none; }
+.sidebar-toggle-group { flex: none; color: var(--label-2); white-space: nowrap; }
+.sidebar-toggle-chevron { color: var(--glyph-3); }
+.sidebar-toggle-name {
+  min-width: 0;
+  font-weight: 600;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+.sidebar-toggle:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .sidebar-toggle:hover { background: var(--sep); }
+  /* --sep 바탕 위 --label-2 는 라이트에서 3.79 — 그룹 이름만 --label 로 올린다 (사이드바 행 hover와 같은 방식) */
+  .sidebar-toggle:hover .sidebar-toggle-group { color: var(--label); }
+}
 
+.sidebar-backdrop { display: none; }
+
+/* ══════════════════════════════════════════════════
+   서랍 (≤1068px) — 사이드바가 왼쪽에서 밀려 나오는 패널이 된다 (목업: ArchiveMobile.dc.html, 동작은 hooks/useDrawer)
+   위의 데스크톱 규칙을 덮어쓰는 블록이 이것 하나다. 경계는 BREAKPOINT.tablet(constants/ui.ts)과 같은 값
+══════════════════════════════════════════════════ */
+@media (max-width: 1068px) {
+  /* 사이드바 열이 없으니 본문은 화면 가운데에, 푸터는 기본 위치로.
+     위쪽은 목업처럼 상단 바 아래 --sp-4(= 레이아웃 --sp-3 + --sp-1)에서 시작한다 */
+  .download-layout { padding-left: var(--dl-pad-l); }
+  .main-content { padding-top: var(--sp-1); }
+  body:has(.download-layout) .site-footer { margin-left: 0; }
+  body:has(.download-layout) .site-footer-inner { max-width: var(--container); }
+
+  /* '주제 전환' 알약이 현재 위치(그룹 › 과목)를 보여 주므로 브레드크럼은 감춘다 */
+  .sidebar-toggle { display: flex; }
+  .doc-crumb { display: none; }
+
+  /* 서랍: 상단 바 위까지, 위·아래·왼쪽 --sp-2를 띄운 떠 있는 패널. 닫히면 화면 왼쪽 밖으로 나가 숨는다 */
+  .sidebar {
+    --drawer-left: calc(var(--sp-2) + env(safe-area-inset-left, 0px));   /* 가로 모드 노치를 피한다 */
+
+    z-index: var(--z-drawer);
+    top: calc(var(--sp-2) + env(safe-area-inset-top, 0px));
+    bottom: calc(var(--sp-2) + env(safe-area-inset-bottom, 0px));
+    left: var(--drawer-left);
+    width: min(var(--sidebar-w), calc(100vw - var(--sp-8) - var(--sp-2)));   /* 오른쪽에 덮개가 --sp-8 이상 남는다 */
+    height: auto;
+    border-radius: var(--r-card);   /* 데스크톱 열은 모서리가 없고, 떠 있는 서랍만 둥글다 */
+    transform: translateX(calc(-100% - var(--drawer-left) - var(--sp-2)));
+    visibility: hidden;
+    /* visibility는 밀려 나간 뒤에 끈다 — 열릴 때는 아래 [data-open]이 지연을 없앤다 */
+    transition:
+      transform var(--dur-base) var(--ease-drawer),
+      box-shadow var(--dur-base),
+      visibility 0s linear var(--dur-base);
+  }
+  .sidebar[data-open] {
+    transform: none;
+    visibility: visible;
+    box-shadow: var(--shadow-sheet);   /* 닫힌 서랍의 그림자가 화면 왼쪽 끝으로 번지지 않게 열렸을 때만 */
+    transition-delay: 0s;
+  }
+
+  /* 서랍 뒤 덮개 — 닫히면 투명해지고 클릭을 통과시킨다. 블러는 없다 */
+  .sidebar-backdrop {
+    display: block;
+    position: fixed;
+    inset: 0;
+    z-index: calc(var(--z-drawer) - 1);
+    background: var(--scrim-modal);
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity var(--dur-base);
+  }
+  .sidebar-backdrop[data-open] {
+    opacity: 1;
+    pointer-events: auto;
+  }
+}
+
+/* ══════════════════════════════════════════════════
+   자료실 본문 (≤734px) — 목업: ArchiveMobile.dc.html
+   헤더(배지 | 제목 + 그 아래 '25개 문서')는 doc-list.css의 공용 ≤734 규칙이고, 여기서는 그룹 eyebrow만 감춘다.
+   간격은 한 단계씩 좁히고, 세그먼트는 화면 끝까지, 페이저는 가운데에 쌓는다.
+   경계는 tokens.css 모바일 스케일·BREAKPOINT.mobile(constants/ui.ts)과 같은 값
+══════════════════════════════════════════════════ */
+@media (max-width: 734px) {
+  /* 그룹 eyebrow는 '주제 전환' 알약이 보여 주므로 감춘다 */
+  .main-content .dl-eyebrow { display: none; }
+
+  .doc-notice {
+    gap: var(--sp-3);
+    margin-top: var(--sp-5);
+    padding: var(--sp-4);
+  }
+  .doc-list-area { margin-top: var(--sp-6); }
+
+  /* 세그먼트: 스크롤 영역이 화면 끝까지 닿고 첫 칸은 본문 시작선에 맞춘다.
+     가장자리 페이드·scroll-padding은 이 영역 기준이라 그대로 화면 가장자리에서 나온다 */
+  .main-content .seg-scroll {
+    --fade-w: var(--sp-8);   /* 가장자리 페이드를 넓혀 옆으로 더 있다는 게 잘 보이게 (공용 32px → 이 화면만) */
+    margin-inline: calc(var(--dl-pad-l) * -1) calc(var(--dl-pad-r) * -1);
+    padding-inline: var(--dl-pad-l) var(--dl-pad-r);
+  }
+
+  /* 소분류 막대를 한 단계 작게 — Books 모바일과 같은 값(칸 36px·바 44px, 글자 15px). 데스크톱·Vibe는 그대로 */
+  .main-content .seg { --seg-pad-y: var(--sp-1); }
+  .main-content .seg-btn {
+    min-height: calc(var(--touch) - var(--sp-1) * 2);
+    padding: 0 var(--sp-3);
+    font-size: var(--fs-callout);
+    line-height: var(--lh-callout);
+  }
+  .main-content .seg-count { font-size: var(--fs-foot); }
+
+  /* 문서 행: 왼쪽은 번호 + 제목·설명, 오른쪽은 미리보기·받기 원형 아이콘 두 개 (iOS 리스트처럼).
+     글자는 숨기지만 두 버튼 모두 aria-label이 있어 읽어 주는 이름은 그대로다 */
+  .doc-group { margin-top: var(--sp-6); }
+  .doc-row {
+    --doc-pad-y: var(--sp-4);
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding-left: var(--sp-3);
+  }
+  .doc-num {
+    min-width: var(--icon-s);
+    height: var(--icon-s);
+    margin-top: var(--doc-pad-y);
+    font-size: var(--fs-cap);
+  }
+  .doc-body {
+    flex-wrap: nowrap;
+    gap: var(--sp-2);
+    padding: var(--doc-pad-y) var(--sp-3) var(--doc-pad-y) 0;
+  }
+  .doc-text { flex: 1 1 auto; }
+  .doc-title {
+    font-size: var(--fs-callout);
+    line-height: var(--lh-callout);
+    font-weight: 600;
+  }
+  .doc-desc {
+    margin-top: 2px;
+    font-size: var(--fs-foot);
+    line-height: var(--lh-foot);
+  }
+  .doc-btn-label { display: none; }
+  .doc-preview,
+  .doc-get { flex: none; }
+  .doc-preview,
+  .doc-get-pill {
+    justify-content: center;
+    width: calc(var(--touch) - var(--sp-2));
+    height: calc(var(--touch) - var(--sp-2));
+    min-height: 0;
+    padding: 0;
+    border-radius: var(--r-pill);
+    background: var(--fill);
+  }
+  .doc-get { min-height: 0; }
+  .doc-get-pill svg { display: block; }
+
+  /* 페이저: 버튼 줄 가운데, 그 아래 범위 글자 (마크업은 범위가 먼저라 column-reverse).
+     페이지가 많아 한 줄에 못 들어가면 버튼 줄이 줄바꿈하고 가운데로 모인다 */
+  .doc-pager {
+    flex-direction: column-reverse;
+    align-items: center;
+    gap: var(--sp-2);
+    margin-top: var(--sp-5);
+  }
+  .doc-pager-btns {
+    flex-wrap: wrap;
+    justify-content: center;
+  }
+  .doc-pager-range {
+    font-size: var(--fs-foot);
+    line-height: var(--lh-foot);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .sidebar,
+  .sidebar-backdrop,
+  .sidebar-row,
+  .sidebar-fade::before,
+  .sidebar-toggle,
+  .sidebar-close,
+  .doc-get-pill { transition: none; }
+}

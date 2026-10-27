@@ -1,9 +1,11 @@
 /* 주제(카테고리) 공통 표시 헬퍼 — 홈 / 사이드바 / 다운로드에서 공유 */
+import type { CSSProperties } from 'react';
+import { STACK } from './stacks';
 
 /* 2글자 모노그램 배지 */
 export const BADGE: Record<string, string> = {
   api: 'Ap', spring: 'Sp', java: 'Jv', kotlin: 'Kt', linux: 'Lx', jsp: 'Jp',
-  mysql: 'My', mongodb: 'Mo', oop: 'OO', kafka: 'Kf', network: 'Nw',
+  mysql: 'My', mongodb: 'Mo', oop: 'OO', 'system-design': 'Sd', kafka: 'Kf', network: 'Nw',
   webserver: 'Ws', docker: 'Dk', querydsl: 'Qd', JUnit: 'Ju', exception: 'Ex',
 };
 
@@ -18,6 +20,7 @@ export const DESC: Record<string, string> = {
   mysql: '인덱스 · 트랜잭션 · JOIN',
   mongodb: '도큐먼트 모델 · 시작하기',
   oop: '절차지향 vs 객체지향 · SOLID',
+  'system-design': '규모 확장 · DNS · 캐시 · CDN',
   kafka: '이벤트 스트리밍 · 개념과 구조',
   network: 'OSI 7계층 · 프로토콜',
   webserver: 'Nginx vs Apache',
@@ -34,6 +37,7 @@ export const ALIASES: Record<string, string[]> = {
   kotlin: ['코틀린'],
   linux: ['리눅스'],
   oop: ['객체지향'],
+  'system-design': ['대규모', '시스템 설계', '시스템디자인'],
   kafka: ['카프카'],
   network: ['네트워크'],
   webserver: ['웹서버', '웹 서버'],
@@ -44,11 +48,12 @@ export const ALIASES: Record<string, string[]> = {
 /* 홈/사이드바 그룹 노출 순서 */
 export const GROUP_ORDER = ['프로그래밍', '프레임워크', '데이터베이스', '인프라', '아키텍처', '테스팅'];
 
-/* 배지 색조 클래스 (index.css의 .t-* 와 매칭) */
-export const tintClass = (key: string) => `t-${key.toLowerCase()}`;
-
 /* 배지 라벨 (매핑 없으면 이름 앞 2글자) */
 export const badgeLabel = (key: string, name: string) => BADGE[key] ?? name.slice(0, 2);
 
-/* 자료실 페이징 전역 설정 — 페이지당 문서 수 (넘치면 페이지 분할) */
-export const DOWNLOAD_PAGE_SIZE = 10;
+/* 주제 색을 CSS 변수(--topic)로만 넘긴다 — 색이 없는 주제는 CSS의 폴백.
+   대표 타일·주제 행·히어로 배지 무리가 같은 색을 쓰도록 STACK이 단일 출처 */
+export const topicStyle = (key: string): CSSProperties => ({ '--topic': STACK[key]?.color }) as CSSProperties;
+
+/* 자료실 페이징 전역 설정 — 값은 constants/ui가 단일 출처, 기존 import 경로 호환용 re-export */
+export { DOWNLOAD_PAGE_SIZE } from '../constants/ui';

@@ -1,0 +1,32 @@
+/* ══════════════════════════════════════════════════
+   홈 단일 컬럼 레이아웃 (Ch3 · Ch5 정리)
+   히어로(.home-hero)·숫자 스트립(.home-stats)은 home-hero.css가 각자 폭·여백을 가진다.
+   옛 오른쪽 레일 위젯(프로필·스택 비율·시계·달력) 규칙은 Ch5에서 걷어냈다 —
+   프로필·달력은 home-about.css, 스택 비율·시계는 홈에서 빠졌다.
+   파일 이름은 Ch5 마무리(RD-5-6)에서 home-rails.css → home-layout.css로 바꿨다.
+══════════════════════════════════════════════════ */
+.home-page {
+  /* .page-wrapper가 아니므로 고정 헤더 높이만큼 직접 띄운다. 좌우 여백은 각 섹션의 --gutter.
+     아래 여백은 0 — 마지막 섹션 → 푸터 간격은 .site-footer의 margin-top(--section)이 맡는다. */
+  padding: calc(var(--bar-h) + env(safe-area-inset-top, 0px)) 0 0;
+  /* 스크롤바를 뺀 화면 폭을 cqw 로 재는 기준 — 셸프의 --latest-inset (home-latest.css).
+     컨테이너(layout containment)는 position: fixed 자손의 기준이 되므로 이 안에 fixed 요소를 두지 않는다 */
+  container-type: inline-size;
+}
+.home-main {
+  box-sizing: border-box;
+  max-width: var(--container);
+  margin: 0 auto;
+  padding: 0 var(--gutter);
+}
+/* 숫자 스트립 → 첫 섹션 간격은 --section. 첫 섹션은 기본 화면의 FeaturedSection이든 검색 중의 검색 결과든
+   모두 .home-block이라 자기 margin-top이 이미 --section이다 — 이 규칙은 첫 자식이 바뀌어도 간격이 같도록 받쳐 주는 안전망.
+   패딩이 아니라 첫 자식의 margin-top으로 줘서, 섹션마다 자기 위 여백 규칙을 따로 맞추지 않는다. */
+.home-main > :first-child { margin-top: var(--section); }
+
+/* 셸프 → 주제 그룹 간격도 --section. 이 래퍼(div#topics)의 첫 자식은 TopicGroups의 .home-block이고,
+   그 margin-top은 부모-첫 자식 여백이 겹쳐 래퍼 위로 나간다. 래퍼가 아니라 첫 자식에 두는 이유가 그것이다
+   (.home-block 자체 규칙과 같은 --section이라 값은 겹쳐도 달라지지 않는다). */
+.home-topics > :first-child { margin-top: var(--section); }
+/* '자료실 둘러보기'·'모든 주제 보기'가 프로그램으로 포커스를 옮기는 자리라 링은 필요 없다 */
+.home-topics:focus { outline: none; }

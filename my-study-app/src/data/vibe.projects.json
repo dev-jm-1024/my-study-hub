@@ -24,7 +24,7 @@
     },
     {
       "name": "JM Study Hub (이 사이트)",
-      "description": "백엔드 학습 자료 아카이브. 정적 HTML에서 React로 마이그레이션하고, 글래스모피즘을 웜 크림 블로그 톤으로 전면 리디자인. 전역 검색(⌘K)·PDF 미리보기·스택 대시보드까지 AI 페어코딩으로 구현했습니다.",
+      "description": "백엔드 학습 자료 아카이브. 정적 HTML에서 React로 마이그레이션하고, Apple 스타일 디자인 시스템(토큰·다크 모드·모바일 서랍)으로 전면 리디자인. 전역 검색(⌘K)·PDF 미리보기·최근 문서 셸프까지 AI 페어코딩으로 구현했습니다.",
       "techStack": ["React", "TypeScript", "Vite"],
       "ai": ["Claude Code"],
       "github": "https://github.com/dev-jm-1024"

@@ -1,0 +1,232 @@
+/* ══════════════════════════════════════════════════
+   홈 '최근 올라온 문서.' 셸프 (Ch4 · components/home/LatestShelf.tsx)
+   머리 줄(.home-block*)은 home-featured.css 가 준다 — 여기서 다시 정의하지 않는다.
+   가로로 흐르는 동작은 hooks/useInfiniteCarousel 이 한다. 이 파일이 그 훅에 지키는 약속:
+   스크롤러(.latest-scroller)는 overflow-x: auto, 시작선은 scroll-padding-left. 그 안의 트랙(.latest-track)이 카드를 담고,
+   흐르는 동안 훅이 트랙에 인라인 transform 을 쓴다 — 트랙에 CSS transform 을 주지 않는다.
+   스크롤 스냅 · 부드러운 스크롤 속성은 쓰지 않는다 — 흐르는 위치를 훅이 쥐고, 이동 방식도 훅이 고른다.
+══════════════════════════════════════════════════ */
+
+.latest {
+  /* 크기 값: 목업(Main.dc.html) 고정값 — 토큰 단계에 없는 예외 (home-featured.css의 --feat-min과 같은 방식) */
+  --latest-card-w: 300px;      /* 카드 폭 — 벌마다 모두 같아야 한다(훅이 칸 폭을 잰다) */
+  --latest-card-min-h: 240px;  /* 카드 최소 높이 */
+  --latest-fade-w: 64px;       /* 양쪽 가장자리 페이드 폭 (여백이 좁으면 아래 .latest-fade가 줄인다) */
+  --latest-dot-on-w: 20px;     /* 지금 칸 점의 폭 (나머지는 --sp-2 원) */
+
+  /* 화면 가장자리 → 본문 왼쪽 끝 거리. 셸프만 화면 끝까지 펼치고(풀블리드) 첫 카드는 제목 줄에 맞추는 데 쓴다.
+     전제: 부모 .home-main 이 max-width --container(패딩 포함) + 좌우 패딩 --gutter, 가운데 정렬.
+     화면 폭은 100vw 가 아니라 100cqw — 컨테이너 .home-page(home-layout.css, 스크롤바를 뺀 폭)의 안쪽 폭.
+     100vw 는 클래식 스크롤바 폭만큼 커서 인셋·페이드가 스크롤바 폭의 절반만큼 어긋났다. */
+  --latest-inset: calc(max(0px, (100cqw - var(--container)) / 2) + var(--gutter));
+}
+/* 경계는 tokens.css 의 모바일 스케일과 같다 */
+@media (max-width: 734px) {
+  .latest { --latest-fade-w: 40px; }
+
+  /* 머리 줄: 이전·다음은 숨기고(터치로 밀어 넘긴다) 일시정지만 제목 옆 같은 줄에 둔다 (목업 Mobile.dc.html m-latest).
+     display: none 이라 접근성 트리에서도 빠진다 — 일시정지 버튼은 첫 자식이다(LatestShelf.tsx) */
+  .latest .home-block-head { flex-wrap: nowrap; align-items: center; gap: var(--sp-3); }
+  .latest-controls .latest-btn:not(:first-child) { display: none; }
+}
+
+/* ── 머리 오른쪽: 일시정지 · 이전 · 다음 (훅이 반복을 켰을 때만 그려진다) ── */
+.latest-controls {
+  display: flex;
+  gap: var(--sp-3);
+  margin-left: auto;  /* 제목 아래로 줄이 바뀌어도 오른쪽에 둔다 */
+}
+.latest-btn {
+  display: grid;
+  place-items: center;
+  width: var(--touch);
+  height: var(--touch);
+  padding: 0;
+  border: 0;
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--label);
+  cursor: pointer;
+  transition: background var(--dur-fast) var(--ease-out);
+}
+.latest-btn:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  .latest-btn:hover { background: var(--sep); }
+}
+
+/* ── 가로 스크롤러 · 카드 ── */
+.latest-region {
+  position: relative;  /* 페이드의 기준 */
+  min-width: 0;
+  /* 셸프만 화면 양끝까지 — 머리 줄·점은 본문 폭 안에 그대로. 가로 넘침은 html·body 의 overflow-x: clip 이 막는다 */
+  margin-inline: calc(-1 * var(--latest-inset));
+}
+
+.latest-scroller {
+  overflow-x: auto;
+  scrollbar-width: none;
+  padding-block: var(--sp-1);  /* 포커스 링이 위아래에서 잘리지 않게 */
+  /* 시작선 = 본문 왼쪽 끝(제목 줄). 훅이 읽어 첫 카드를 맞추고, 포커스로 스크롤될 때도 이 안쪽에 둔다 */
+  scroll-padding-inline: var(--latest-inset);
+}
+.latest-scroller::-webkit-scrollbar { display: none; }
+
+/* 흐르는 띠 — 끝 여백까지 스크롤 범위에 들도록 폭은 내용만큼, 매 프레임 transform 만 바뀌므로 합성 레이어로 */
+.latest-track {
+  display: flex;
+  gap: var(--gap);
+  width: max-content;
+  padding-inline: var(--latest-inset);
+  will-change: transform;
+}
+
+.latest-card {
+  flex: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--sp-2);
+  box-sizing: border-box;
+  width: var(--latest-card-w);
+  min-height: var(--latest-card-min-h);
+  padding: var(--card-pad);
+  border-radius: var(--r-card);
+  background: var(--surface);
+}
+
+/* 날짜 — 새로 올라온 기간 안이면 --new 색 */
+.latest-date {
+  margin: 0;
+  font-size: var(--fs-foot);
+  line-height: var(--lh-foot);
+  font-weight: 600;
+  color: var(--label-2);
+}
+.latest-date--new { color: var(--new); }
+
+/* 주제 줄: 이름 · 소분류 (글자 배지 없음 — 10-19 사용자 요청) */
+.latest-topic {
+  margin: 0;
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
+}
+
+.latest-title {
+  margin: var(--sp-1) 0 0;
+  font-size: var(--fs-t3);
+  line-height: var(--lh-t3);
+  letter-spacing: var(--ls-t3);
+  font-weight: 700;
+}
+.latest-desc {
+  margin: 0;
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
+}
+
+/* 아래 줄: PDF 꼬리표 · 받기 */
+.latest-foot {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-top: auto;
+}
+.latest-tag {
+  padding: calc(var(--sp-1) / 2) var(--sp-2);
+  border: 1px solid var(--sep);
+  border-radius: var(--r-s);
+  font-size: var(--fs-cap);
+  line-height: var(--lh-cap);
+  font-weight: 600;
+  color: var(--label-2);
+}
+/* 바깥은 터치 영역(44px), 눈에 보이는 건 안의 알약(32px) — 포커스 링도 알약에 건다 */
+.latest-get {
+  display: inline-flex;
+  align-items: center;
+  min-height: var(--touch);
+  text-decoration: none;
+}
+.latest-get:focus-visible { outline: none; }
+.latest-get-pill {
+  display: inline-flex;
+  align-items: center;
+  height: var(--icon-m);
+  padding: 0 var(--sp-4);
+  border-radius: var(--r-pill);
+  background: var(--fill);
+  color: var(--accent);
+  font-size: var(--fs-callout);
+  line-height: 1;
+  font-weight: 600;
+  transition:
+    background var(--dur-fast) var(--ease-out),
+    color var(--dur-fast) var(--ease-out);
+}
+.latest-get:focus-visible .latest-get-pill {
+  outline: 2px solid var(--accent);
+  outline-offset: 2px;
+}
+@media (hover: hover) {
+  /* 자료실 '받기'(.doc-get)·Books 구매(.bk-buy)와 같은 hover — 회색(--sep) 위 파란 글자는 4.5:1에 못 미쳐(라이트 3.70 · 다크 3.88) 채운 파랑 + 흰 글자(4.70)로 */
+  .latest-get:hover .latest-get-pill {
+    background: var(--accent-fill);
+    color: var(--on-accent);
+  }
+}
+
+/* ── 가장자리 페이드: 카드가 바탕으로 녹아들고 살짝 흐려진다 (장식 — 클릭은 아래 카드로 통과) ── */
+.latest-fade {
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  /* 화면이 좁아 바깥 여백이 작아도 페이드가 첫 카드 글자까지 오지 않게 — 카드 안쪽 여백까지만 */
+  width: min(var(--latest-fade-w), calc(var(--latest-inset) + var(--card-pad)));
+  pointer-events: none;
+  -webkit-backdrop-filter: var(--blur-edge);
+  backdrop-filter: var(--blur-edge);
+}
+/* mask-image 의 black 은 색이 아니라 알파 신호(불투명→투명)다 — 색 리터럴 금지의 예외 */
+.latest-fade--start {
+  left: 0;
+  background: linear-gradient(to right, var(--bg), transparent);
+  -webkit-mask-image: linear-gradient(to right, black, transparent);
+  mask-image: linear-gradient(to right, black, transparent);
+}
+.latest-fade--end {
+  right: 0;
+  background: linear-gradient(to left, var(--bg), transparent);
+  -webkit-mask-image: linear-gradient(to left, black, transparent);
+  mask-image: linear-gradient(to left, black, transparent);
+}
+
+/* ── 점: 지금 칸은 길쭉한 알약 (장식 — 위치는 버튼·스크롤이 이미 전한다) ── */
+.latest-dots {
+  display: flex;
+  justify-content: center;
+  gap: var(--sp-2);
+  margin-top: var(--sp-4);
+}
+.latest-dot {
+  width: var(--sp-2);
+  height: var(--sp-2);
+  border-radius: var(--r-pill);
+  background: var(--glyph-3);
+  transition:
+    width var(--dur-base) var(--ease-out),
+    background var(--dur-base) var(--ease-out);
+}
+.latest-dot--on {
+  width: var(--latest-dot-on-w);
+  background: var(--label);
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .latest-btn,
+  .latest-get-pill,
+  .latest-dot { transition: none; }
+}

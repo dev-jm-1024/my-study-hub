@@ -16,14 +16,17 @@ export default function App() {
     <BrowserRouter>
       <ThemeProvider>
         <Navbar />
-        <Routes>
-          <Route path="/" element={<HomePage />} />
-          <Route path="/download/:category" element={<DownloadPage />} />
-          <Route path="/books" element={<BooksPage />} />
-          <Route path="/github" element={<GitHubPage />} />
-          <Route path="/vibe" element={<VibeCodingPage />} />
-          <Route path="*" element={<NotFoundPage />} />
-        </Routes>
+        {/* 페이지가 짧아도 푸터가 화면 바닥에 붙도록 남는 높이를 채운다 (footer-misc.css) */}
+        <div className="app-main">
+          <Routes>
+            <Route path="/" element={<HomePage />} />
+            <Route path="/download/:category" element={<DownloadPage />} />
+            <Route path="/books" element={<BooksPage />} />
+            <Route path="/github" element={<GitHubPage />} />
+            <Route path="/vibe" element={<VibeCodingPage />} />
+            <Route path="*" element={<NotFoundPage />} />
+          </Routes>
+        </div>
         <Footer />
         <ScrollToTop />
         <CommandPalette />

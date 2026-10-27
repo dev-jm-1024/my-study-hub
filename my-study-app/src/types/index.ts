@@ -2,20 +2,19 @@ export interface MenuItem {
   key: string;
   name: string;
   group: string;
-  icon: string;
 }
 
 export interface PdfItem {
   /** 자료실 안 소분류. 한 항목이라도 있으면 해당 카테고리는 소제목별로 묶어 보여준다(페이징 없음) */
   section?: string;
-  icon: string;
   title: string;
   description: string;
   pdfUrl: string;
+  /** 문서 등록일 YYYY-MM-DD — git 이력에서 그 문서가 처음 나타난 커밋의 날짜(커밋 %ad). 근거 없으면 생략 */
+  addedAt?: string;
 }
 
 export interface RepoItem {
-  icon: string;
   title: string;
   description: string;
   repoUrl: string;
@@ -30,7 +29,6 @@ export interface BookItem {
   description: string;
   coverUrl: string;
   purchaseUrl: string;
-  icon: string;
   /** Books 페이지 필터 칩과 매칭되는 태그(없으면 필터 미적용 시에만 노출) */
   tags?: string[];
 }

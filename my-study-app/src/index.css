@@ -1,28 +1,30 @@
-/* React 앱 CSS — 기존 static CSS 재활용 */
+/* React 앱 CSS */
 
 /* ── 공통 기반 ── */
-@import '../../src/main/resources/static/css/common/reset.css';
-@import '../../src/main/resources/static/css/common/variables.css';
-
-/* ── 컴포넌트 ── */
-@import '../../src/main/resources/static/css/components/card.css';
-@import '../../src/main/resources/static/css/components/button.css';
-
-/* ── 페이지별 ── */
-@import '../../src/main/resources/static/css/pages/book.css';
-@import '../../src/main/resources/static/css/pages/jm-github.css';
+@import './styles/reset.css';
+@import './styles/tokens.css';
+/* Pretendard — tokens.css --font의 폴백 (Apple 글꼴이 없는 Windows·Android에서 쓰인다) */
+@import url('https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css');
 
 /* React 앱 스타일 — 원본 index.css의 섹션 순서 그대로 (절단표 #1~#13 순, 순서 변경 금지) */
 @import './styles/base.css';
 @import './styles/navbar.css';
 @import './styles/layout.css';
 @import './styles/home-hero.css';
-@import './styles/home-rails.css';
+@import './styles/home-layout.css';
 @import './styles/home-sections.css';
+@import './styles/home-featured.css';
+@import './styles/home-latest.css';
+@import './styles/home-about.css';
+@import './styles/home-more.css';
 @import './styles/doc-list.css';
 @import './styles/vibe.css';
 @import './styles/command-palette.css';
 @import './styles/pdf-preview.css';
 @import './styles/footer-misc.css';
+@import './styles/segment.css';
 @import './styles/download-page.css';
+@import './styles/books.css';
+@import './styles/home-intro.css';
+@import './styles/view-transition.css';
 @import './styles/responsive.css';   /* 반드시 마지막 */

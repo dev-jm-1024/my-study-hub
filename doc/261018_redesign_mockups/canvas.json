@@ -1,0 +1,21 @@
+{
+  "v": 3,
+  "createdOnFiles": { "v": 1, "at": "2026-10-18T10:40:00Z" },
+  "title": "JM Hub 리디자인 시안",
+  "launch": { "view": "canvas" },
+  "pages": [],
+  "boards": {
+    "Main.dc.html": { "x": 0, "y": 0, "w": 1440, "h": 4760, "title": "홈 — 데스크톱 (라이트)", "expand": "fill", "is_interactive": true },
+    "Archive.dc.html": { "x": 1520, "y": 0, "w": 1440, "h": 2000, "title": "자료실 — 데스크톱 (사이드바·필터·페이지 동작)", "expand": "fill", "is_interactive": true },
+    "Mobile.dc.html": { "x": 3040, "y": 0, "w": 390, "h": 4000, "title": "홈 — 모바일 (다크)", "is_interactive": true },
+    "ArchiveMobile.dc.html": { "x": 3510, "y": 0, "w": 390, "h": 844, "title": "자료실 — 모바일 (사이드 메뉴)", "is_interactive": true },
+    "Tokens.dc.html": { "x": 3980, "y": 0, "w": 1200, "h": 2600, "title": "디자인 토큰 & 컴포넌트" },
+    "Menu.dc.html": { "x": 1520, "y": 2120, "w": 1440, "h": 1000, "title": "헤더 드롭다운 — 열린 상태 (데스크톱)", "expand": "fill", "is_interactive": true },
+    "NavPanel.dc.html": { "x": 1520, "y": 3240, "w": 1440, "h": 1320, "title": "드롭다운 메뉴 콘텐츠 — 4종 (공용 컴포넌트)", "expand": "fill" }
+  },
+  "order": ["Main.dc.html", "Archive.dc.html", "Mobile.dc.html", "ArchiveMobile.dc.html", "Tokens.dc.html", "Menu.dc.html", "NavPanel.dc.html"],
+  "notes": {
+    "title": { "x": 0, "y": -300, "text": "JM Hub — Apple 스타일 리디자인 시안", "kind": "title1", "maxW": 5180 }
+  },
+  "designSystems": []
+}

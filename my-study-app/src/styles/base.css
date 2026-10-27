@@ -9,20 +9,57 @@ html, body {
   overflow-x: clip;
 }
 
-/* 폰트 & 배경 */
+/* 스크롤바 자리를 늘 비워 둔다 — 시트가 html 스크롤을 잠가도 화면 폭이 그대로라
+   View Transition이 "Viewport size changed"로 취소되지 않고, 뒤 화면도 옆으로 밀리지 않는다 */
+html {
+  scrollbar-gutter: stable;
+}
+
+/* 본문 기본값 (SF → Pretendard 폴백, 한글은 어절 단위 줄바꿈, 바탕 패턴 없음) */
 body {
-  font-family: var(--font-family);
-  font-size: 17px;
-  line-height: 1.7;
-  letter-spacing: -0.01em;
+  font-family: var(--font);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  letter-spacing: var(--ls-base);
+  word-break: keep-all;
+  overflow-wrap: break-word;
   -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
   text-rendering: optimizeLegibility;
-  background-color: var(--bg-root);
-  background-image: var(--bg-pattern);
-  background-attachment: fixed;
-  color: var(--text-primary);
+  background-color: var(--bg);
+  color: var(--label);
+  /* 라이트·다크를 바꿀 때 바탕과 글자색이 부드럽게 넘어간다 */
+  transition: background-color var(--dur-base) ease, color var(--dur-base) ease;
   min-height: 100vh;
   /* iPhone 홈 인디케이터 safe area */
   padding-bottom: env(safe-area-inset-bottom, 0px);
+}
+
+/* 선택 영역: 애플 블루 옅은 색 (라이트·다크 모두 글자가 읽힌다) */
+::selection {
+  background: color-mix(in srgb, var(--accent-fill) 22%, transparent);
+  color: var(--label);
+}
+
+/* Shift+Tab 으로 거꾸로 갈 때 포커스된 요소가 고정 상단 바 밑에 가려지지 않게 (WCAG 2.2 2.4.11).
+   html scroll-padding-top 은 쓰지 않는다 — .home-topics·.doc-list-area 의 scroll-margin 과 두 번 더해지고
+   usePagination 의 스크롤 기준도 바뀐다. 두 섹션은 포커스 요소가 아니라 이 선택자에 안 걸린다. 사이드바·모달은 범위 밖 */
+main :is(a[href], button, input, [tabindex]:not([tabindex='-1'])),
+.site-footer a {
+  scroll-margin-top: calc(var(--bar-h) + env(safe-area-inset-top, 0px) + var(--sp-3));
+}
+
+/* 화면에서만 숨기고 스크린 리더에는 읽힌다 (새 탭 안내·라이브 영역).
+   1px 는 이 유틸의 표준 값이라 크기 리터럴 예외 — 레이아웃 폭·스크롤을 바꾸지 않게 absolute 로 뺀다 */
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  margin: -1px;
+  padding: 0;
+  overflow: hidden;
+  clip-path: inset(50%);
+  white-space: nowrap;
+  border: 0;
 }
 

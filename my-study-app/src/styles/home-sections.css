@@ -1,211 +1,183 @@
-/* ── 섹션 헤더 ── */
-.home-section { margin-top: var(--spacing-2xl); }
-.home-section-head {
+/* ══════════════════════════════════════════════════
+   홈 하단 '주제별로 찾아보기.' (Ch5 · components/home/TopicGroups.tsx · CategoryRow.tsx)
+   머리 줄(.home-block*)은 home-featured.css 가 준다 — 여기서 다시 정의하지 않는다.
+══════════════════════════════════════════════════ */
+
+/* ── 그룹 그리드: 같은 줄의 그룹은 시작·끝선이 같다 (grid + stretch, 카드가 flex: 1로 남는 높이를 채운다) ── */
+.topic-grid {
+  /* 폭 값: 목업(Main.dc.html) 고정값 — 토큰 단계에 없는 예외 (home-featured.css의 --feat-min과 같은 방식) */
+  --topic-min: 440px;         /* 그룹 한 칸 최소 폭 — 이보다 좁아지면 한 열로 */
+
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(min(100%, var(--topic-min)), 1fr));
+  gap: var(--sp-6) var(--gap);
+  align-items: stretch;
+}
+/* 검색 결과: auto-fit은 빈 트랙을 접어 1건이 전체 폭으로 늘어난다 — auto-fill로 목록과 같은 열 폭을 지킨다 */
+.topic-grid--results {
+  grid-template-columns: repeat(auto-fill, minmax(min(100%, var(--topic-min)), 1fr));
+}
+
+.topic-group {
   display: flex;
-  align-items: baseline;
-  justify-content: space-between;
-  margin: 0 0 var(--spacing-md);
-  padding: 0 4px;
+  flex-direction: column;
+  min-width: 0;
 }
-.home-section-head h2 {
-  font-size: 0.78rem;
+.topic-group-title {
+  margin: 0 0 var(--sp-2);
+  padding-left: var(--sp-4);
+  font-size: var(--fs-foot);
+  line-height: var(--lh-foot);
   font-weight: 600;
-  color: var(--text-muted);
-  text-transform: uppercase;
-  letter-spacing: 0.1em;
-  margin: 0;
+  color: var(--label-2);
 }
-.home-section-head .more {
-  font-size: 0.78rem;
-  font-weight: 500;
-  color: var(--accent-ink);
-  text-decoration: none;
-}
-.home-section-head .more:hover { text-decoration: underline; }
 
-/* ── 바로가기 카드 ── */
-.quick-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
-.quick-card {
-  display: block;
-  text-decoration: none;
-  color: inherit;
-  background: var(--bg-surface);
-  border: 1px solid var(--border-glass);
-  border-radius: 14px;
-  padding: 16px 18px;
-  box-shadow: var(--shadow-glass-sm);
-  cursor: pointer;
-  transition: transform var(--transition-fast), box-shadow var(--transition-base), border-color var(--transition-fast);
-}
-.quick-card:hover {
-  transform: translateY(-2px);
-  box-shadow: var(--shadow-glass-hover);
-  border-color: var(--border-color);
-}
-.quick-card:hover .quick-card-title { color: var(--accent-ink); }
-.quick-tag {
-  display: inline-block;
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 0.02em;
-  padding: 3px 9px;
-  border-radius: var(--border-radius-full);
-  margin-bottom: 11px;
-  background: color-mix(in srgb, var(--t, var(--text-muted)) 20%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
-}
-.quick-card-title {
-  margin: 0 0 8px;
-  font-size: 0.97rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  line-height: 1.4;
-  color: var(--text-primary);
-  transition: color var(--transition-fast);
-}
-.quick-meta { font-size: 0.8rem; color: var(--text-muted); }
-.quick-meta b { color: var(--text-secondary); font-weight: 500; }
-
-/* ── 주제 리스트 행 ── */
-.cat-list { border-top: 1px solid var(--border-glass); }
-.cat-row {
+/* 행이 카드 모서리를 넘지 않게 자른다 — 첫·끝 행의 hover 하이라이트도 이 모서리를 따라 잘리고,
+   포커스 링은 행 안쪽에 그려서 잘리지 않는다 */
+.topic-card {
   position: relative;
+  flex: 1;
+  border-radius: var(--r-group);
+  background: var(--surface);
+  overflow: hidden;
+}
+
+/* ── hover 하이라이트: 카드마다 하나, 마우스가 가리키는 행으로 미끄러진다 (TopicGroups.tsx의 useRowGlide) ──
+   JS는 위치·높이를 --glide-y · --glide-h 로만 넘기고, 움직임·페이드는 여기서 전환으로 한다.
+   data-on = 보이는 중, data-snap = 처음 나타나는 순간이라 이동 전환 없이 그 자리에 놓는다.
+   마우스가 있는 환경에서만 그린다(터치는 JS도 pointerType으로 거른다). 행은 이 위층(.cat-row의 position) */
+.topic-glide { display: none; }
+@media (hover: hover) {
+  .topic-glide {
+    display: block;
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    height: var(--glide-h, 0);
+    transform: translateY(var(--glide-y, 0));
+    background: color-mix(in srgb, var(--fill) 50%, var(--surface));
+    opacity: 0;
+    pointer-events: none;
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      height var(--dur-base) var(--ease-out),
+      opacity var(--dur-base) var(--ease-out);   /* 카드를 떠날 때는 서서히 */
+  }
+  .topic-glide[data-on] {
+    opacity: 1;
+    transition:
+      transform var(--dur-base) var(--ease-out),
+      height var(--dur-base) var(--ease-out),
+      opacity var(--dur-fast) var(--ease-out);   /* 나타날 때는 조금 빠르게 */
+  }
+  .topic-glide[data-snap] { transition: none; }
+}
+/* 움직임 줄이기: 이동 전환 없이 즉시 그 행으로, 나타나고 사라지는 페이드만 남긴다 */
+@media (hover: hover) and (prefers-reduced-motion: reduce) {
+  .topic-glide,
+  .topic-glide[data-on] { transition: opacity var(--dur-fast); }
+  .topic-glide[data-snap] { transition: none; }
+}
+
+/* ── 주제 행: 카드 안에서 인셋 구분선으로 이어진다. hover 바탕은 행이 아니라 위 하이라이트가 그린다 ── */
+.cat-row {
+  position: relative;          /* 카드의 .topic-glide 위층에 놓는다 */
   display: flex;
   align-items: center;
-  gap: 16px;
-  padding: 15px 14px 15px 4px;
-  border-bottom: 1px solid var(--border-glass);
+  box-sizing: border-box;
+  min-height: var(--row-h);
+  padding-left: var(--sp-4);
+  color: var(--label);
   text-decoration: none;
-  color: inherit;
-  cursor: pointer;
-  transition: background var(--transition-fast);
 }
-.cat-row::before {
-  content: "";
-  position: absolute;
-  left: 0; top: 8px; bottom: 8px;
-  width: 2.5px;
-  border-radius: 3px;
-  background: var(--accent-ink);
-  transform: scaleY(0);
-  opacity: 0;
-  transition: transform var(--transition-base), opacity var(--transition-base);
+.cat-row:focus-visible {
+  outline: 2px solid var(--accent);
+  outline-offset: -2px;
 }
-.cat-row:hover { background: var(--bg-surface-hover); }
-.cat-row:hover::before { transform: scaleY(1); opacity: 1; }
-.cat-row:hover .cat-title { color: var(--accent-ink); }
-.cat-row:hover .cat-chev { transform: translateX(4px); color: var(--text-secondary); }
+/* 첫·끝 행의 포커스 링만 카드 모서리를 따라 둥글게 — 카드 overflow에 링 모서리가 잘리지 않는다.
+   카드 첫 자식이 하이라이트 span이라 :first-child가 아니라 :first-of-type(행은 모두 a)으로 센다 */
+.cat-row:first-of-type:focus-visible {
+  border-top-left-radius: inherit;
+  border-top-right-radius: inherit;
+}
+.cat-row:last-of-type:focus-visible {
+  border-bottom-left-radius: inherit;
+  border-bottom-right-radius: inherit;
+}
 
+/* 군무 배지 — 홈 진입 연출(HeroIntro)이 쓴다. 주제 행·대표 타일에서는 배지를 뺐다.
+   주제 색은 인라인 --topic 변수로만 들어온다 (data/topics.ts의 topicStyle — 색 없는 새 주제는 폴백) */
 .cat-badge {
   flex: none;
-  width: 44px; height: 44px;
-  border-radius: var(--border-radius-sm);
   display: grid;
   place-items: center;
-  font-family: var(--font-mono);
-  font-weight: 600;
-  font-size: 0.85rem;
-  letter-spacing: 0.01em;
-  box-shadow: var(--shadow-glass-sm);
-  background: color-mix(in srgb, var(--t, var(--text-muted)) 20%, var(--bg-surface));
-  color: color-mix(in srgb, var(--t, var(--text-muted)) 60%, var(--text-primary));
-  border: 1px solid color-mix(in srgb, var(--t, var(--text-muted)) 26%, var(--border-color));
-  transition: background var(--transition-fast);
+  width: var(--icon-m);
+  height: var(--icon-m);
+  border-radius: var(--r-s);
+  background: var(--topic, var(--glyph-3));
+  color: var(--on-accent);
+  font-size: var(--fs-foot);
+  line-height: 1;
+  font-weight: 700;
 }
-.cat-row:hover .cat-badge {
-  background: color-mix(in srgb, var(--t, var(--text-muted)) 32%, var(--bg-surface));
+
+/* 행 본문 — 윗선(구분선)이 글자 시작선에서 시작한다(행 왼쪽 여백만큼 안쪽). 그룹의 첫 행만 선이 없다 */
+.cat-body {
+  display: flex;
+  align-items: center;
+  gap: var(--sp-3);
+  flex: 1;
+  min-width: 0;
+  align-self: stretch;
+  padding: var(--sp-3) var(--sp-4) var(--sp-3) 0;
 }
-.cat-main { min-width: 0; flex: 1; }
+.cat-row + .cat-row > .cat-body { border-top: 1px solid var(--sep); }
+
+.cat-main {
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+  min-width: 0;
+}
 .cat-title {
-  font-size: 1rem;
-  font-weight: 600;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  transition: color var(--transition-fast);
+  font-size: var(--fs-body);
+  line-height: var(--lh-body);
+  font-weight: 500;
 }
 .cat-desc {
-  font-size: 0.82rem;
-  color: var(--text-secondary);
-  margin-top: 2px;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
 }
+
+/* NEW · 준비 중 알약 */
+.cat-pill {
+  flex: none;
+  padding: calc(var(--sp-1) / 2) var(--sp-2);
+  border-radius: var(--r-pill);
+  font-size: var(--fs-cap);
+  line-height: var(--lh-cap);
+  font-weight: 600;
+  white-space: nowrap;
+}
+.cat-pill--new {
+  background: var(--new-soft);
+  color: var(--new);
+}
+.cat-pill--soon {
+  background: var(--fill);
+  color: var(--label-2);
+}
+
 .cat-count {
   flex: none;
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: var(--text-muted);
+  font-size: var(--fs-callout);
+  line-height: var(--lh-callout);
+  color: var(--label-2);
   font-variant-numeric: tabular-nums;
-  min-width: 34px;
-  text-align: center;
-  background: var(--bg-surface-hover);
-  border: 1px solid var(--border-glass);
-  padding: 3px 8px;
-  border-radius: var(--border-radius-full);
-  transition: color var(--transition-fast);
 }
-.cat-row:hover .cat-count { color: var(--text-secondary); }
 .cat-chev {
   flex: none;
-  color: var(--text-muted);
-  display: flex;
-  transition: transform var(--transition-base), color var(--transition-fast);
+  color: var(--glyph-3);
 }
-
-/* 주제별 배지 색조 (크림에 20%만 섞은 파스텔) */
-.t-java { --t: #C79A4E; } .t-kotlin { --t: #8B6FC0; } .t-oop { --t: #6E7F92; }
-.t-spring { --t: #5E9169; } .t-jsp { --t: #B08A5E; } .t-junit { --t: #B07A5E; }
-.t-mysql { --t: #4E86A8; } .t-mongodb { --t: #6AA06E; } .t-kafka { --t: #A6704A; }
-.t-network { --t: #6E7CA8; } .t-linux { --t: #B8873E; } .t-api { --t: #6683A0; }
-.t-exception { --t: #B0604E; } .t-webserver { --t: #6E8A82; } .t-querydsl { --t: #7C6EA8; }
-.t-docker { --t: #4A8CC4; }
-.t-github { --t: #6E7C8A; }
-.t-vibe { --t: #8A63D2; }
-
-/* ── 책·GitHub 패널 (유일한 쿨 포인트) ── */
-.home-panel {
-  margin-top: var(--spacing-2xl);
-  padding: 26px 28px;
-  background: var(--panel-cool);
-  border: 1px solid color-mix(in srgb, var(--text-primary) 8%, transparent);
-  border-radius: var(--border-radius-lg);
-  box-shadow: var(--shadow-glass);
-  display: flex;
-  align-items: center;
-  gap: 20px;
-  flex-wrap: wrap;
-}
-.home-panel h3 {
-  margin: 0 0 5px;
-  font-size: var(--font-size-lg);
-  font-weight: 700;
-  letter-spacing: -0.02em;
-  color: var(--text-primary);
-  display: flex;
-  align-items: center;
-  gap: 9px;
-}
-.home-panel h3 .tick { width: 6px; height: 6px; border-radius: 50%; background: var(--cta-bg); }
-.home-panel p { margin: 0; color: color-mix(in srgb, var(--text-primary) 62%, transparent); font-size: 0.9rem; }
-.home-panel .grow { flex: 1; min-width: 180px; }
-.home-panel-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  text-decoration: none;
-  font-size: 0.9rem;
-  font-weight: 600;
-  color: var(--cta-text);
-  background: var(--cta-bg);
-  padding: 11px 20px;
-  border-radius: var(--border-radius-sm);
-  cursor: pointer;
-  border: none;
-  transition: transform var(--transition-fast), filter var(--transition-fast);
-}
-.home-panel-btn:hover { filter: brightness(1.08); }
-.home-panel-btn:hover .arr { transform: translateX(3px); }
-.home-panel-btn .arr { transition: transform var(--transition-base); }
-.home-panel-btn:active { transform: translateY(1px); }
-

@@ -1,0 +1,447 @@
+<!doctype html>
+<html lang="ko">
+<head>
+<meta charset="utf-8">
+<title>자료실</title>
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet>
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@400;500;600;700&amp;display=swap">
+<style>
+:root{
+--bg:#F5F5F7;--surface:#FFFFFF;--fill:#E8E8ED;--sep:#D2D2D7;--sidebar:#E8E8ED;
+--label:#1D1D1F;--label-2:#6E6E73;--glyph-3:#AEAEB2;
+--accent:#0066CC;--accent-fill:#0071E3;--on-accent:#FFFFFF;
+--hl:#B64400;--hl-soft:#FFF1E6;
+--inv-surface:#1D1D1F;--inv-fill:#333336;--inv-label:#F5F5F7;--inv-label-2:#A1A1A6;--inv-accent:#2997FF;
+--fs-display:clamp(48px,6vw,80px);--fs-t1:clamp(32px,3.4vw,48px);--fs-t2:32px;--fs-t3:21px;--fs-lead:21px;--fs-body:17px;--fs-callout:15px;--fs-foot:13px;--fs-cap:12px;
+--sp-1:4px;--sp-2:8px;--sp-3:12px;--sp-4:16px;--sp-5:24px;--sp-6:32px;--sp-7:48px;--sp-8:64px;--sp-9:96px;
+--gutter:24px;--section:96px;--tile-pad:40px;--card-pad:24px;--gap:20px;
+--r-tile:28px;--r-card:20px;--r-group:16px;--r-input:12px;--r-s:8px;--r-pill:980px;
+--font:-apple-system,BlinkMacSystemFont,'SF Pro Display','Apple SD Gothic Neo','Pretendard','Noto Sans KR',sans-serif;
+--mono:'SF Mono',ui-monospace,Menlo,monospace;
+}
+body{margin:0;background:var(--bg)}
+a{color:var(--accent);text-decoration:none}a:hover{text-decoration:underline}
+input::placeholder{color:var(--label-2)}
+:focus-visible{outline:2px solid var(--accent);outline-offset:2px}
+@media (max-width: 760px){[data-sidebar]{position:static!important;max-height:none!important;max-width:none!important}}
+</style>
+</helmet>
+<div style="--accent: {{accent}}; --accent-fill: {{accentFill}}; min-height: 100vh; background: var(--bg); color: var(--label); font-family: var(--font); -webkit-font-smoothing: antialiased; letter-spacing: -0.01em; word-break: keep-all">
+
+  <header style="position: sticky; top: 0; z-index: 10; background: rgba(245, 245, 247, 0.8); backdrop-filter: saturate(180%) blur(20px); -webkit-backdrop-filter: saturate(180%) blur(20px); border-bottom: 1px solid var(--sep)">
+    <div style="max-width: 1180px; margin: 0 auto; padding: 0 var(--gutter); box-sizing: border-box; min-height: 52px; display: flex; align-items: center; gap: var(--sp-5); flex-wrap: wrap">
+      <a href="Main.dc.html" style="display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; color: var(--label); font-size: var(--fs-callout); font-weight: 600">
+        <img src="/_blob/ed96c54f569ccc9f41f80164e1cc22dc" alt="" style="width: 24px; height: 24px; border-radius: 6px">
+        JM Hub
+      </a>
+      <nav aria-label="주요 메뉴" style="flex: 1; display: flex; justify-content: center; gap: 0 var(--sp-6); flex-wrap: wrap">
+        <a href="Main.dc.html" aria-current="page" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-foot); font-weight: 600; color: var(--label)">자료실</a>
+        <a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-foot); color: var(--label)">Books</a>
+        <a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-foot); color: var(--label)">GitHub</a>
+        <a href="Main.dc.html" style="display: inline-flex; align-items: center; min-height: 44px; font-size: var(--fs-foot); color: var(--label)">Vibe</a>
+        <a href="https://velog.io/@dlwoals1024/posts" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-foot); color: var(--label)">Velog
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+        </a>
+        <a href="https://blog.naver.com/jon1024" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-foot); color: var(--label)">Blog
+          <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+        </a>
+      </nav>
+      <div style="display: flex; align-items: center">
+        <button type="button" aria-label="검색 (⌘K)" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--label); cursor: pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        </button>
+        <button type="button" aria-label="다크 모드로 전환" style="width: 44px; height: 44px; display: grid; place-items: center; border: 0; border-radius: var(--r-pill); background: transparent; color: var(--label); cursor: pointer">
+          <svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"></path></svg>
+        </button>
+      </div>
+    </div>
+  </header>
+
+  <div style="max-width: 1180px; margin: 0 auto; padding: var(--sp-3) var(--gutter) 0; box-sizing: border-box; display: flex; flex-wrap: wrap; gap: var(--sp-7); align-items: flex-start">
+
+    <!-- 사이드바: macOS 설정창처럼 다른 색 패널 -->
+    <aside data-sidebar="" aria-label="주제 목록" style="position: sticky; top: 64px; flex: 1 1 300px; max-width: 320px; min-width: 0; max-height: calc(100vh - 76px); overflow-y: auto; scrollbar-width: none; box-sizing: border-box; padding: var(--sp-3); border-radius: var(--r-card); background: var(--sidebar); display: flex; flex-direction: column; gap: var(--sp-4)">
+      <div style="display: flex; align-items: center; gap: var(--sp-3); padding: var(--sp-1) var(--sp-1) 0">
+        <img src="/_blob/af1877753e26c55bdfe8fc8c00e56a00" alt="" style="flex: none; width: 40px; height: 40px; border-radius: 10px">
+        <div style="min-width: 0">
+          <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.4; font-weight: 600">이재민의 자료실</p>
+          <p style="margin: 0; font-size: var(--fs-foot); line-height: 1.4; color: var(--label-2)">17개 주제 · 96개 문서</p>
+        </div>
+      </div>
+      <label style="position: relative; display: flex; align-items: center; gap: var(--sp-2); height: 44px; padding: 0 var(--sp-3); border-radius: var(--r-input); background: var(--surface); color: var(--label-2)">
+        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><circle cx="11" cy="11" r="7"></circle><path d="m20 20-3.5-3.5"></path></svg>
+        <span style="position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); white-space: nowrap">주제 검색</span>
+        <input type="search" placeholder="주제 검색" style="flex: 1; min-width: 0; height: 100%; border: 0; background: transparent; font: inherit; font-size: var(--fs-callout); color: var(--label)">
+      </label>
+      <sc-for list="{{groups}}" as="g" hint-placeholder-count="6">
+        <section style="display: flex; flex-direction: column">
+          <h2 style="margin: 0 0 var(--sp-1); padding-left: var(--sp-3); font-size: var(--fs-foot); line-height: 1.4; font-weight: 600; color: var(--label-2)">{{g.name}}</h2>
+          <sc-for list="{{g.items}}" as="it" hint-placeholder-count="3">
+            <button type="button" aria-current="{{it.current}}" onClick="{{it.pick}}" style="display: flex; align-items: center; gap: var(--sp-3); width: 100%; min-height: 44px; padding: 0 var(--sp-3); border: 0; border-radius: var(--r-s); background: {{it.bg}}; color: {{it.fg}}; font: inherit; font-size: var(--fs-callout); font-weight: {{it.weight}}; text-align: left; cursor: pointer">
+              <span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: 6px; background: {{it.color}}; color: #FFFFFF; display: grid; place-items: center; font-size: 12px; font-weight: 700">{{it.badge}}</span>
+              <span style="flex: 1; min-width: 0; white-space: nowrap; overflow: hidden; text-overflow: ellipsis">{{it.name}}</span>
+              <span style="font-size: var(--fs-foot); font-weight: 400; color: {{it.countColor}}">{{it.count}}</span>
+            </button>
+          </sc-for>
+        </section>
+      </sc-for>
+    </aside>
+
+    <!-- 본문 -->
+    <main style="flex: 999 1 560px; max-width: 760px; min-width: 0; padding-top: var(--sp-5)">
+      <nav aria-label="위치" style="display: flex; align-items: center; gap: var(--sp-2); font-size: var(--fs-foot); line-height: 1.4; color: var(--label-2)">
+        <a href="Main.dc.html" style="color: var(--label-2)">홈</a>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        <span>{{cur.group}}</span>
+        <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg>
+        <span style="color: var(--label)">{{cur.name}}</span>
+      </nav>
+
+      <header style="margin-top: var(--sp-5); display: flex; align-items: center; gap: var(--sp-4); flex-wrap: wrap">
+        <span aria-hidden="true" style="flex: none; width: 48px; height: 48px; border-radius: 12px; background: {{cur.color}}; color: #FFFFFF; display: grid; place-items: center; font-size: 17px; font-weight: 700">{{cur.badge}}</span>
+        <div style="flex: 1 1 260px; min-width: 0">
+          <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; font-weight: 600; color: var(--label-2)">{{cur.group}}</p>
+          <h1 style="margin: 0; font-size: var(--fs-t1); line-height: 1.1; font-weight: 700; letter-spacing: -0.03em">{{cur.name}}</h1>
+        </div>
+        <p style="margin: 0"><span style="font-size: var(--fs-t2); line-height: 1.15; font-weight: 700; letter-spacing: -0.025em">{{total}}</span><span style="margin-left: var(--sp-1); font-size: var(--fs-callout); color: var(--label-2)">개 문서</span></p>
+      </header>
+      <p style="margin: var(--sp-5) 0 0; max-width: 640px; font-size: var(--fs-lead); line-height: 1.45; color: var(--label-2)">{{cur.intro}}</p>
+
+      <sc-if value="{{cur.notice}}" hint-placeholder-val="{{ true }}">
+        <aside aria-label="공지" style="margin-top: var(--sp-6); display: flex; gap: var(--sp-4); padding: var(--sp-5); border-radius: var(--r-group); background: var(--surface)">
+          <span aria-hidden="true" style="flex: none; width: 24px; height: 24px; border-radius: var(--r-pill); background: var(--accent-fill); color: var(--on-accent); display: grid; place-items: center">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.8" stroke-linecap="round" stroke-linejoin="round"><path d="M12 11v6"></path><path d="M12 7.5h.01"></path></svg>
+          </span>
+          <div style="min-width: 0">
+            <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; font-weight: 600">공지</p>
+            <p style="margin: var(--sp-1) 0 0; font-size: var(--fs-callout); line-height: 1.45">이곳의 문서는 자바 기초 문법을 안다는 전제로 쓰였습니다. 기초부터 다지고 싶다면 아래 글을 참고하시거나, 입문서 · 공식 문서를 함께 보시길 권합니다.</p>
+            <a href="https://blog.naver.com/jon1024/223544059862" style="display: inline-flex; align-items: center; gap: var(--sp-1); min-height: 44px; font-size: var(--fs-callout); color: var(--accent)">네이버 블로그 — 자바 기초 정리
+              <svg width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7"></path><path d="M8 7h9v9"></path></svg>
+            </a>
+          </div>
+        </aside>
+      </sc-if>
+
+      <div data-list-top="" style="scroll-margin-top: 76px"></div>
+      <sc-if value="{{hasTabs}}" hint-placeholder-val="{{ true }}">
+        <div style="margin-top: var(--sp-7); overflow-x: auto; scrollbar-width: none">
+          <div role="group" aria-label="소분류 필터" style="display: inline-flex; gap: var(--sp-1); padding: var(--sp-1); border-radius: var(--r-input); background: var(--fill)">
+            <sc-for list="{{tabs}}" as="t" hint-placeholder-count="6">
+              <button type="button" aria-pressed="{{t.pressed}}" onClick="{{t.pick}}" style="display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 36px; padding: 0 var(--sp-4); border: 0; border-radius: var(--r-s); background: {{t.bg}}; box-shadow: {{t.shadow}}; color: var(--label); font: inherit; font-size: var(--fs-callout); font-weight: {{t.weight}}; white-space: nowrap; cursor: pointer">{{t.label}}<span style="font-size: var(--fs-foot); font-weight: 400; color: var(--label-2)">{{t.count}}</span></button>
+            </sc-for>
+          </div>
+        </div>
+      </sc-if>
+
+      <!-- 문서 (페이지당 N개) -->
+      <sc-for list="{{sections}}" as="s" hint-placeholder-count="2">
+        <section style="margin-top: var(--sp-7)">
+          <sc-if value="{{s.hasName}}" hint-placeholder-val="{{ true }}">
+            <div style="display: flex; align-items: baseline; gap: var(--sp-2); margin: 0 0 var(--sp-3); padding-left: var(--sp-1)">
+              <h2 style="margin: 0; font-size: var(--fs-t3); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em">{{s.name}}</h2>
+              <span style="font-size: var(--fs-callout); color: var(--label-2)">{{s.count}}개</span>
+              <sc-if value="{{s.cont}}" hint-placeholder-val="{{ false }}"><span style="font-size: var(--fs-foot); color: var(--label-2)">· 앞 페이지에서 이어짐</span></sc-if>
+            </div>
+          </sc-if>
+          <div style="background: var(--surface); border-radius: var(--r-group); overflow: hidden">
+            <sc-for list="{{s.docs}}" as="d" hint-placeholder-count="4">
+              <div style="display: flex; align-items: center; gap: var(--sp-4); padding-left: var(--sp-4); min-height: 64px">
+                <span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 8px; background: var(--fill); color: var(--label); display: grid; place-items: center; font-family: var(--mono); font-size: 13px; font-weight: 600; letter-spacing: -0.02em">{{d.num}}</span>
+                <div style="flex: 1; min-width: 0; align-self: stretch; display: flex; align-items: center; gap: var(--sp-1) var(--sp-2); flex-wrap: wrap; padding: var(--sp-3) var(--sp-3) var(--sp-3) 0; border-top: {{d.border}}">
+                  <div style="flex: 1 1 260px; min-width: 0">
+                    <h3 style="margin: 0; font-size: var(--fs-body); line-height: 1.4; font-weight: 500">{{d.title}}</h3>
+                    <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">{{d.desc}}</p>
+                  </div>
+                  <sc-if value="{{d.ready}}" hint-placeholder-val="{{ true }}">
+                    <button type="button" onClick="{{d.open}}" style="display: inline-flex; align-items: center; gap: var(--sp-2); min-height: 44px; padding: 0 var(--sp-3); border: 0; border-radius: var(--r-s); background: transparent; color: var(--accent); font: inherit; font-size: var(--fs-callout); cursor: pointer">
+                      <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M2 12s3.5-7 10-7 10 7 10 7-3.5 7-10 7S2 12 2 12z"></path><circle cx="12" cy="12" r="3"></circle></svg>
+                      미리보기
+                    </button>
+                    <a href="#" aria-label="PDF 받기: {{d.title}}" style="display: inline-flex; align-items: center; min-height: 44px"><span style="display: inline-flex; align-items: center; height: 32px; padding: 0 var(--sp-4); border-radius: var(--r-pill); background: var(--fill); color: var(--accent); font-size: var(--fs-callout); font-weight: 600">받기</span></a>
+                  </sc-if>
+                  <sc-if value="{{d.soon}}" hint-placeholder-val="{{ false }}">
+                    <span style="padding: 2px var(--sp-2); border-radius: var(--r-pill); background: var(--fill); color: var(--label-2); font-size: var(--fs-cap); font-weight: 600">준비 중</span>
+                  </sc-if>
+                </div>
+              </div>
+            </sc-for>
+          </div>
+        </section>
+      </sc-for>
+
+      <!-- 페이지 이동: 문서가 N개를 넘을 때만 -->
+      <sc-if value="{{hasPager}}" hint-placeholder-val="{{ false }}">
+        <nav aria-label="페이지" style="margin-top: var(--sp-6); display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap">
+          <p style="margin: 0; font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2); font-variant-numeric: tabular-nums">{{rangeText}}</p>
+          <div style="display: flex; align-items: center; gap: var(--sp-2)">
+            <button type="button" aria-label="이전 페이지" onClick="{{prevPage}}" disabled="{{isFirst}}" style="width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: {{prevColor}}; display: grid; place-items: center; cursor: pointer"><span style="width: 32px; height: 32px; border-radius: var(--r-pill); background: var(--fill); display: grid; place-items: center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6"></path></svg></span>
+            </button>
+            <sc-for list="{{pageList}}" as="p" hint-placeholder-count="3">
+              <button type="button" aria-label="{{p.label}}" aria-current="{{p.current}}" onClick="{{p.go}}" style="width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: {{p.color}}; font: inherit; font-size: var(--fs-callout); font-weight: {{p.weight}}; font-variant-numeric: tabular-nums; display: grid; place-items: center; cursor: pointer"><span style="width: 32px; height: 32px; border-radius: var(--r-pill); background: {{p.bg}}; display: grid; place-items: center">{{p.n}}</span></button>
+            </sc-for>
+            <button type="button" aria-label="다음 페이지" onClick="{{nextPage}}" disabled="{{isLast}}" style="width: 44px; height: 44px; border: 0; padding: 0; background: transparent; color: {{nextColor}}; display: grid; place-items: center; cursor: pointer"><span style="width: 32px; height: 32px; border-radius: var(--r-pill); background: var(--fill); display: grid; place-items: center">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6"></path></svg></span>
+            </button>
+          </div>
+        </nav>
+      </sc-if>
+    </main>
+  </div>
+
+  <footer style="margin-top: var(--section); border-top: 1px solid var(--sep)">
+    <div style="max-width: 1180px; margin: 0 auto; padding: var(--sp-2) var(--gutter) var(--sp-7); box-sizing: border-box; display: flex; align-items: center; justify-content: space-between; gap: 0 var(--sp-5); flex-wrap: wrap; font-size: var(--fs-cap); line-height: 1.4; color: var(--label-2)">
+      <p style="margin: 0">© 2026 JM Study Hub · 직접 공부하고 정리한 자료</p>
+      <nav aria-label="외부 링크" style="display: flex; gap: 0 var(--sp-5); flex-wrap: wrap">
+        <a href="https://velog.io/@dlwoals1024/posts" style="display: inline-flex; align-items: center; min-height: 44px; color: var(--label)">Velog</a>
+        <a href="https://blog.naver.com/jon1024" style="display: inline-flex; align-items: center; min-height: 44px; color: var(--label)">네이버 블로그</a>
+        <a href="https://github.com/dev-jm-1024" style="display: inline-flex; align-items: center; min-height: 44px; color: var(--label)">GitHub</a>
+      </nav>
+    </div>
+  </footer>
+
+  <!-- PDF 미리보기 시트 -->
+  <sc-if value="{{hasPreview}}" hint-placeholder-val="{{ false }}">
+    <div style="position: fixed; inset: 0; z-index: 50; background: rgba(0, 0, 0, 0.3); backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px); display: flex; align-items: center; justify-content: center; padding: var(--sp-5); box-sizing: border-box">
+      <div role="dialog" aria-modal="true" aria-labelledby="pv-title" style="width: 100%; max-width: 760px; max-height: calc(100vh - 48px); display: flex; flex-direction: column; background: var(--surface); border-radius: var(--r-tile); box-shadow: 0 30px 80px rgba(0, 0, 0, 0.25); overflow: hidden">
+        <div style="display: flex; align-items: flex-start; gap: var(--sp-4); padding: var(--sp-5); border-bottom: 1px solid var(--sep)">
+          <span aria-hidden="true" style="flex: none; width: 32px; height: 32px; border-radius: 8px; background: var(--fill); color: var(--label); display: grid; place-items: center; font-family: var(--mono); font-size: 13px; font-weight: 600">{{preview.num}}</span>
+          <div style="flex: 1; min-width: 0">
+            <p style="margin: 0; font-size: var(--fs-foot); line-height: 1.4; color: var(--label-2)">{{preview.where}}</p>
+            <h2 id="pv-title" style="margin: 0; font-size: var(--fs-t3); line-height: 1.3; font-weight: 700; letter-spacing: -0.02em">{{preview.title}}</h2>
+          </div>
+          <button type="button" aria-label="닫기" onClick="{{closePreview}}" style="flex: none; width: 44px; height: 44px; border: 0; border-radius: var(--r-pill); background: var(--fill); color: var(--label-2); display: grid; place-items: center; cursor: pointer">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M18 6 6 18"></path><path d="m6 6 12 12"></path></svg>
+          </button>
+        </div>
+        <div style="flex: 1; min-height: 0; overflow: auto; background: var(--bg); padding: var(--sp-6); display: flex; justify-content: center">
+          <div role="img" aria-label="PDF 첫 페이지 미리보기 자리" style="width: 100%; max-width: 420px; aspect-ratio: 1 / 1.414; box-sizing: border-box; padding: var(--sp-7) var(--sp-6); border-radius: 6px; background: var(--surface); box-shadow: 0 2px 10px rgba(0, 0, 0, 0.08); display: flex; flex-direction: column; gap: var(--sp-3)">
+            <span style="width: 70%; height: 16px; border-radius: 4px; background: var(--label)"></span>
+            <span style="width: 45%; height: 10px; border-radius: 4px; background: var(--sep); margin-bottom: var(--sp-3)"></span>
+            <span style="width: 100%; height: 8px; border-radius: 4px; background: var(--fill)"></span>
+            <span style="width: 96%; height: 8px; border-radius: 4px; background: var(--fill)"></span>
+            <span style="width: 88%; height: 8px; border-radius: 4px; background: var(--fill)"></span>
+            <span style="width: 92%; height: 8px; border-radius: 4px; background: var(--fill); margin-bottom: var(--sp-2)"></span>
+            <span style="width: 100%; height: 88px; border-radius: var(--r-s); background: var(--bg)"></span>
+            <span style="width: 94%; height: 8px; border-radius: 4px; background: var(--fill)"></span>
+            <span style="width: 80%; height: 8px; border-radius: 4px; background: var(--fill)"></span>
+            <span style="margin-top: auto; align-self: center; font-size: var(--fs-cap); color: var(--label-2)">[PDF 페이지가 여기에 렌더됩니다]</span>
+          </div>
+        </div>
+        <div style="display: flex; align-items: center; justify-content: space-between; gap: var(--sp-3); flex-wrap: wrap; padding: var(--sp-4) var(--sp-5); border-top: 1px solid var(--sep)">
+          <p style="margin: 0; flex: 1 1 200px; font-size: var(--fs-callout); line-height: 1.45; color: var(--label-2)">{{preview.desc}}</p>
+          <div style="display: flex; gap: var(--sp-2)">
+            <a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-5); border-radius: var(--r-pill); background: var(--fill); color: var(--label); font-size: var(--fs-body); font-weight: 500">새 탭에서 열기</a>
+            <a href="#" style="display: inline-flex; align-items: center; min-height: 44px; padding: 0 var(--sp-5); border-radius: var(--r-pill); background: var(--accent-fill); color: var(--on-accent); font-size: var(--fs-body); font-weight: 500">다운로드</a>
+          </div>
+        </div>
+      </div>
+    </div>
+  </sc-if>
+</div>
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props='{"accent":{"editor":"color","default":"#0066CC","options":["#0066CC","#5E5CE6","#1D1D1F","#B64400"]},"pageSize":{"editor":"int","default":10,"min":3,"max":25,"step":1},"$preview":{"width":1440,"height":2000}}'>
+class Component extends DCLogic {
+  topics() {
+    if (this._topics) return this._topics;
+    // [key, 이름, 그룹, 배지, 색, 한 줄 설명, 소개, 공지 여부, [[소분류, [[번호, 제목, 설명, 준비됨(생략 시 1)]]]]]
+    const T = [
+      ['java', 'Java', '프로그래밍', 'Jv', '#E76F00', '람다 · 스트림 · Optional · 컬렉션', '가장 많이 쌓인 주제입니다. 모던 자바, 컬렉션, JVM, GC, 가상 스레드로 나눠 정리했습니다.', true, [
+        ['Modern Java', [['1', '자바 역사 간단하게 보기', '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장'], ['2', '동작 파라미터화 코드 전달', 'Predicate, 전략 패턴, 람다까지 동작 파라미터화'], ['3', '람다 표현식', '람다, 함수형 인터페이스, 메소드 참조'], ['4', '스트림 소개팅', '스트림 개념, 내부 반복, 파이프라인, 컬렉션과의 차이'], ['5', '스트림과 데이트', '필터링, 매핑, 리듀싱부터 고급 스트림 연산'], ['6', '스트림과 결혼', '리듀싱·요약, 그룹화와 Collector 동작 원리'], ['7', '포크조인? 숟가락 조인?', '병렬 스트림, Fork/Join, Spliterator'], ['8', '개선된 컬렉션 API', 'List, Set, Map'], ['11', 'null 대신 Optional', 'NullPointerException 예방과 안전한 Optional 활용법'], ['12', '날짜 / 시간 API', 'Java와 데이트 : LocalDate'], ['13', '디폴트 메소드', '추상클래스와 인터페이스']]],
+        ['컬렉션', [['0', 'Introduction to Collections', '컬렉션과 컬렉션 프레임워크란 무엇인가'], ['1', 'Collection Interfaces', '핵심 컬렉션 인터페이스 — 계약과 주의사항'], ['2', 'Collection Implementations', '컬렉션 구현체 선택']]],
+        ['JVM', [['1', 'JVM은 어떤 기계인가', '추상 머신, 바이트코드, 플랫폼 독립성'], ['2', '클래스 로더 서브시스템', '로딩·링킹·초기화와 부모 위임 모델'], ['3', '런타임 데이터 영역과 실행 엔진', '공유 영역 vs 스레드별 영역']]],
+        ['GC', [['1', 'GC는 왜 선택이 중요한가', 'GC 선택이 중요한 이유'], ['2', '세대별 수집이 왜 등장했을까', '세대별 수집의 등장 배경'], ['3', 'Serial부터 ZGC까지 맛보기', 'Serial ~ ZGC 개요'], ['4', 'G1에 대하여', 'G1 GC']]],
+        ['가상 스레드', [['1', '가상 스레드 준비', 'Thread, Executor, Runnable/Callable/Future 훑기'], ['2', 'Platform Thread vs Virtual Thread', '속도가 아니라 규모다'], ['3', '만드는 세 가지 방법', 'ofVirtual, PerTaskExecutor, startVirtualThread'], ['4', '기존 Thread API와 비교', '뭐가 같고 뭐가 달라졌나']]],
+      ]],
+      ['kotlin', 'Kotlin', '프로그래밍', 'Kt', '#7F52FF', '문법 · 널 안정성 · 컬렉션', '', false, [
+        ['', [['', 'KotlinEssentials.kt', '변수, 함수, 조건문, 반복문까지 문법 정리'], ['', 'KotlinAdvanced.kt', '초기화 지연부터 컬렉션, Null 처리까지 문법 정리']]],
+      ]],
+      ['spring', 'Spring Boot', '프레임워크', 'Sp', '#6DB33F', 'DI · 부트 · Security · REST API', '', false, [
+        ['Basic', [['1', '스프링부트 시작', 'PDF 다운 받기'], ['2', '웹 애플리케이션 개발', 'PDF 다운 받기'], ['3', '데이터로 작업하기', 'PDF 다운 받기'], ['4', 'Spring Security', 'PDF 다운 받기'], ['5', '자동-구성속성 이용하기', 'PDF 다운 받기'], ['6', 'REST API', 'PDF 다운 받기']]],
+        ['HTTP Client', [['', 'RestTemplate', 'PDF 다운 받기'], ['', 'WebClient', 'PDF 다운 받기'], ['', 'RestClient', 'PDF 다운 받기']]],
+        ['Filter / Interceptor', [['1', 'Filter 의 개념과 동작 위치', '요청 앞뒤에 개입하는 서블릿 표준 구성 요소'], ['2', 'Dispatch, Forward 와 Redirect', '요청을 넘기는 세 가지 방식과 차이'], ['3', 'Filter 개념과 종류 익히기', 'spring-web 내장 필터 5종과 사용 시 주의점'], ['4', '필터 구현용 베이스 클래스와 등록 방법', 'GenericFilterBean, OncePerRequestFilter와 필터 등록·순서'], ['5', 'WebMvcConfigurer를 통한 인터셉터 등록과 경로패턴 설정', 'HandlerInterceptor 등록, 경로 패턴, Java·XML 설정 차이'], ['6', '정리', '필터 vs 인터셉터 선택 기준과 보안을 필터에서 처리하는 이유']]],
+        ['AOP', [['1', '왜 AOP 를 쓰는가?', 'crosscutting 관심사, AOP 핵심 용어와 Advice 종류'], ['1-1', '왜 AOP 를 쓰는가? - 보완', 'Join point, Pointcut, Advice, Proxy, Weaving 용어 정리']]],
+        ['Cache', [['', 'Spring Cache', '어노테이션 기반 메소드 레벨 캐싱'], ['', 'Caffeine', 'Spring의 기본 로컬 캐시 구현체'], ['', 'Caffeine : Window TinyLFU', 'Caffeine이 빠른 진짜 이유']]],
+        ['Scheduler', [['', 'Spring Scheduler', 'PDF 다운 받기']]],
+      ]],
+      ['jsp', 'JSP', '프레임워크', 'Jp', '#C74634', '서블릿 · JDBC · 세션 · JSTL', '', false, [
+        ['', [['1.1', '웹 개발 환경 이해', '웹 프로그래밍 개요, URL 구조, 개발 환경 설정'], ['2.1', 'Servlet의 개념과 동작', 'Servlet의 기본 원리, 매핑 방식, 요청/응답 처리'], ['2.2', '초기화 파라미터와 데이터 공유', 'Enumeration, ServletConfig, ServletContext 활용'], ['2.3', 'JSP 기본 구조와 태그', 'JSP 문법, 태그 종류, 내장 객체 개념'], ['2.4', '응답 처리와 액션 태그', 'Response, forward vs redirect, include 사용법'], ['3.1', '쿠키와 세션', '상태 유지를 위한 Cookie & Session의 개념과 활용'], ['3.2', '어플리케이션, 예외처리, 자바빈', 'JSP에서 전역 데이터, 에러 처리, JavaBean 활용'], ['3.3', '데이터베이스 & 오라클 개요', 'SQL, Oracle DB 기본 개념과 관리자 권한 이해'], ['3.4', 'SQL 연산자 & JDBC 활용', 'JDBC 연결 흐름, SQL 활용 예제와 자바 연동'], ['4.1', 'JDBC 고급 활용', 'executeUpdate, PreparedStatement, DAO/DTO'], ['4.2', 'DBCP, EL, JSTL', 'DB 커넥션 풀 구성과 JSTL, EL 기본 문법'], ['', '회원관리 & 게시판 구현 1', 'DB 설계부터 로그인, 회원가입, 수정, 탈퇴 구현'], ['', '회원관리 & 게시판 구현 2', '게시글 작성, 수정, 상세 조회, 세션 인증 처리']]],
+      ]],
+      ['mysql', 'MySQL', '데이터베이스', 'My', '#4479A1', '인덱스 · 트랜잭션 · JOIN', '', false, [
+        ['', [['', 'MySQL Setup 가이드', 'MySQL 8.0을 Windows에 설치하는 방법'], ['', 'MySQL 8.0 - 사용자 권한', '사용자 식별, 권한 부여, 역할까지 정리'], ['', 'JOIN - 조인성도 아니고 조인', '외부 조인과 내부조인'], ['', '트랜스지방 아니고 트랜잭션', '트랜잭션 개념과 활용'], ['', '우리 인덱스 타러갈까?', '인덱스란 무엇인가']]],
+      ]],
+      ['mongodb', 'MongoDB', '데이터베이스', 'Mo', '#47A248', '도큐먼트 모델 · 시작하기', '', false, [
+        ['', [['', 'MongoDB 필기 - 2.시작하기', 'MongoDB 기초 개념과 설치 가이드']]],
+      ]],
+      ['querydsl', 'QueryDSL', '데이터베이스', 'Qd', '#7C6EA8', 'Q타입 · 동적 쿼리', '', false, [
+        ['', [['1', 'Q클래스 (Q-Type) 동작 원리', 'Q-Type 클래스 생성 원리와 컴파일 타임 타입 안정성'], ['2', 'QueryDSL 기본 쿼리', 'select, from, where 등 QueryDSL 기본 문법 정리'], ['3', 'BooleanExpression 사용법', '동적 쿼리를 위한 BooleanExpression 조합 패턴']]],
+      ]],
+      ['linux', 'Linux', '인프라', 'Lx', '#C99700', '명령어 · 파일시스템 · 권한', '', false, [
+        ['', [['', '$ cat linux-basics.pdf', '기본 명령어 모음집'], ['', '$ ls -la filesystem.pdf', '파일 시스템 완전 정복'], ['', '$ chmod 755 permissions.pdf', '사용자 권한 마스터'], ['', '$ ifconfig network.pdf', '네트워크 설정 가이드'], ['', '$ systemctl services.pdf', '서비스 관리 완벽 가이드'], ['', '$ vim scripts.pdf', '쉘 스크립트 작성법']]],
+      ]],
+      ['kafka', 'Kafka', '인프라', 'Kf', '#6B7280', '이벤트 스트리밍 · 개념과 구조', '', false, [
+        ['', [['', 'Kafka란?', '대용량 이벤트 스트리밍 플랫폼의 개념과 구조'], ['', '왜 Kafka를 공부해야 하는가', 'RabbitMQ, Redis와의 차이점 및 Kafka의 필요성']]],
+      ]],
+      ['network', 'Network', '인프라', 'Nw', '#6E7CA8', 'OSI 7계층 · 프로토콜', '', false, [
+        ['', [['1', '컴퓨터 네트워크', '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리']]],
+      ]],
+      ['webserver', 'Web Server', '인프라', 'Ws', '#009639', 'Nginx vs Apache', '', false, [
+        ['', [['', 'Nginx vs Apache', '두 웹서버의 구조와 동작 방식 비교']]],
+      ]],
+      ['docker', 'Docker', '인프라', 'Dk', '#2496ED', '가상화 · 컨테이너', '', false, [
+        ['', [['1', '가상화 기술과 컨테이너 가상화', '서버, 하이퍼바이저 가상화와 컨테이너 가상화 비교'], ['2', 'Docker 아키텍처와 컨테이너 실행', 'Client-Server 모델, 컨테이너 엔진·런타임, 실행과 삭제']]],
+      ]],
+      ['api', 'API', '아키텍처', 'Ap', '#6683A0', 'REST · GraphQL · gRPC · WebSocket', '', false, [
+        ['', [['', 'API', 'API란?'], ['', 'REST API', 'RESTful 아키텍처 원칙 - 쉬는 API?'], ['', 'GraphQL', 'GraphQL이란? SQL은 아는데 이건 뭐지'], ['', 'gRPC', 'gRPC란? - NPC마을은 아는데 gRPC 이건 뭐지?'], ['', 'SOAP', '비누?'], ['', 'WebSocket 실시간 통신', '양방향 통신']]],
+      ]],
+      ['oop', 'OOP', '아키텍처', 'OO', '#6E7F92', '절차지향 vs 객체지향 · SOLID', '', false, [
+        ['', [['1', '절차지향 vs 객체지향', 'TDA 원칙과 책임 중심 설계로 객체지향 구현'], ['2', '객체의 종류', 'VO, DTO, DAO, Entity의 본질과 올바른 활용법'], ['3', '행동', '데이터가 아닌 행동 중심 설계와 TDA, 덕 타이핑'], ['4', 'SOLID', '객체지향 설계의 핵심 원칙: SOLID']]],
+      ]],
+      ['system-design', '대규모 시스템 설계', '아키텍처', 'Sd', '#3E8E9E', '규모 확장 · DNS · 캐시 · CDN', '', false, [
+        ['', [['1', '사용자 수에 따른 규모 확장성', '단일 서버에서 로드밸런서, 캐시, CDN, 샤딩까지'], ['1-1', '사용자 수에 따른 규모 확장성 - DNS', 'DNS 조회 과정과 캐시, DNS 레코드']]],
+      ]],
+      ['JUnit', 'JUnit', '테스팅', 'Ju', '#25A162', '단위 테스트 기초', '', false, [
+        ['', [['1', '단위테스트란?', 'JUnit 단위 테스트 기초 개념']]],
+      ]],
+      ['exception', '예외처리 핸드북', '테스팅', 'Ex', '#B0604E', '예외 설계 · 핸드북', '', false, [
+        ['', [['', 'Spring Boot 예외상황', '프로젝트 예외 기록 및 해결법', 0]]],
+      ]],
+    ];
+    this._topics = T.map(([key, name, group, badge, color, desc, intro, notice, sections]) => ({
+      key, name, group, badge, color, desc, notice,
+      intro: intro || desc,
+      sections,
+      total: sections.reduce((n, s) => n + s[1].length, 0),
+      soon: sections.every(s => s[1].every(d => d[3] === 0)),
+    }));
+    return this._topics;
+  }
+
+  renderVals() {
+    const st = this.state || {};
+    const TOPICS = this.topics();
+    const GROUP_ORDER = ['프로그래밍', '프레임워크', '데이터베이스', '인프라', '아키텍처', '테스팅'];
+    const cur = TOPICS.find(t => t.key === (st.topic || 'java')) || TOPICS[0];
+
+    const pickTopic = (key) => {
+      this.setState({ topic: key, sel: '전체', page: 1, preview: null });
+      window.scrollTo({ top: 0, behavior: 'smooth' });
+    };
+    const groups = GROUP_ORDER.map(g => ({
+      name: g,
+      items: TOPICS.filter(t => t.group === g).map(t => {
+        const on = t.key === cur.key;
+        return {
+          badge: t.badge, color: t.color, name: t.name,
+          count: t.soon ? '준비 중' : String(t.total),
+          current: on ? 'page' : 'false',
+          bg: on ? 'var(--accent-fill)' : 'transparent',
+          fg: on ? 'var(--on-accent)' : 'var(--label)',
+          countColor: on ? 'var(--on-accent)' : 'var(--label-2)',
+          weight: on ? '600' : '400',
+          pick: () => pickTopic(t.key),
+        };
+      }),
+    }));
+
+    const named = cur.sections.filter(s => s[0]);
+    const hasTabs = named.length > 1;
+    const sel = hasTabs ? (st.sel || '전체') : '전체';
+    const tabs = [{ label: '전체', count: cur.total }]
+      .concat(named.map(s => ({ label: s[0], count: s[1].length })))
+      .map(t => {
+        const on = t.label === sel;
+        return {
+          label: t.label,
+          count: t.count,
+          pressed: on ? 'true' : 'false',
+          bg: on ? 'var(--surface)' : 'transparent',
+          shadow: on ? '0 1px 3px rgba(0, 0, 0, 0.12)' : 'none',
+          weight: on ? '600' : '500',
+          pick: () => this.setState({ sel: t.label, page: 1 }),
+        };
+      });
+
+    // 페이지당 N개: 고른 범위의 문서를 한 줄로 펴서 자른 뒤, 소분류별로 다시 묶는다
+    const size = Math.max(1, Math.round(Number(this.props.pageSize ?? 10)) || 10);
+    const pool = [];
+    cur.sections.filter(s => sel === '전체' || s[0] === sel).forEach(([sec, docs]) => {
+      docs.forEach((d, i) => pool.push({ sec, secCount: docs.length, i, d }));
+    });
+    const pageCount = Math.max(1, Math.ceil(pool.length / size));
+    const page = Math.min(Math.max(1, st.page || 1), pageCount);
+    const startIdx = (page - 1) * size;
+    const slice = pool.slice(startIdx, startIdx + size);
+
+    const sections = [];
+    slice.forEach(({ sec, secCount, i, d }) => {
+      let g = sections[sections.length - 1];
+      if (!g || g.name !== sec) {
+        g = { name: sec, hasName: !!sec, count: secCount, cont: i > 0, docs: [] };
+        sections.push(g);
+      }
+      const [n, title, desc, ready] = d;
+      const num = n || String(i + 1);
+      const ok = ready !== 0;
+      const where = sec ? cur.name + ' · ' + sec : cur.name;
+      g.docs.push({
+        num, title, desc,
+        ready: ok,
+        soon: !ok,
+        border: g.docs.length === 0 ? '0' : '1px solid var(--sep)',
+        open: () => this.setState({ preview: { num, title, desc, where } }),
+      });
+    });
+
+    const goPage = (n) => {
+      this.setState({ page: n });
+      const top = document.querySelector('[data-list-top]');
+      if (top) top.scrollIntoView({ behavior: 'smooth', block: 'start' });
+    };
+    const pageList = Array.from({ length: pageCount }, (_, k) => {
+      const n = k + 1;
+      const on = n === page;
+      return {
+        n: String(n),
+        label: n + '페이지',
+        current: on ? 'page' : 'false',
+        bg: on ? 'var(--label)' : 'transparent',
+        color: on ? 'var(--surface)' : 'var(--label)',
+        weight: on ? '600' : '400',
+        go: () => goPage(n),
+      };
+    });
+
+    const accent = this.props.accent ?? '#0066CC';
+    const p = st.preview;
+    return {
+      accent,
+      accentFill: accent === '#0066CC' ? '#0071E3' : accent,
+      cur,
+      groups,
+      hasTabs,
+      tabs,
+      sections,
+      total: String(cur.total),
+      hasPager: pageCount > 1,
+      rangeText: (startIdx + 1) + '–' + (startIdx + slice.length) + ' / ' + pool.length + '개',
+      pageList,
+      isFirst: page === 1,
+      isLast: page === pageCount,
+      prevColor: page === 1 ? 'var(--glyph-3)' : 'var(--label)',
+      nextColor: page === pageCount ? 'var(--glyph-3)' : 'var(--label)',
+      prevPage: () => { if (page > 1) goPage(page - 1); },
+      nextPage: () => { if (page < pageCount) goPage(page + 1); },
+      hasPreview: !!p,
+      preview: p || { num: '', title: '', desc: '', where: '' },
+      closePreview: () => this.setState({ preview: null }),
+    };
+  }
+}
+</script>
+</body>
+</html>
