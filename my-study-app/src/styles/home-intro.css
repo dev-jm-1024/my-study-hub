@@ -63,9 +63,11 @@
   from { opacity: 0; transform: translateY(var(--sp-3)); }
 }
 
-/* 제목 단어: 아래 틈에서 밀려 올라온다 (세로만 자른다 — 좁은 자간에 글자 옆이 잘리지 않게) */
+/* 제목 단어: 아래 틈에서 밀려 올라온다 (세로만 자른다 — 좁은 자간에 글자 옆이 잘리지 않게).
+   overflow로 자르면 Safari가 inline-block의 기준선을 아래 모서리로 옮겨 연출 동안 줄이 높아지고,
+   .home-intro가 풀리는 순간 둘째 줄("한곳에")이 위로 튄다 — clip-path는 배치에 영향을 주지 않는다 */
 .home-intro .home-title-w {
-  overflow: visible clip;
+  clip-path: inset(0 -0.5em);
   padding: 0.1em 0;
   margin: -0.1em 0;
 }
@@ -82,10 +84,11 @@
 
 /* "한곳에": 배지들이 닿는 순간 튀어나오고, 튄 반동이 가라앉을 때 마침표가 찍힌다
    (마침표를 먼저 보이면 "기록, ." 처럼 홀로 남고, 같이 보이면 튀어 커진 '에'와 겹친다) */
-.home-intro .home-gather    { animation: introPop 560ms cubic-bezier(0.3, 1.6, 0.5, 1) 1000ms both; }
+.home-intro .home-gather    { animation: introPop 560ms cubic-bezier(0.3, 1.35, 0.5, 1) 1000ms both; }
 .home-intro .home-title-dot { animation: introFade 260ms var(--ease-out) 1300ms both; }
 @keyframes introPop {
-  from { opacity: 0; transform: scale(0.4); }
+  /* 0.4에서 키우면 글자가 줄 가운데에서 커지며 아래→위로 떠오르는 것처럼 보였다 — 작은 폭만 키운다 */
+  from { opacity: 0; transform: scale(0.8); }
 }
 @keyframes introFade {
   from { opacity: 0; }

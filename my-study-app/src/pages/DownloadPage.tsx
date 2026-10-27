@@ -1,8 +1,8 @@
 import { useEffect, useId, useMemo, useRef, useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { PanelLeft, ChevronRight, ChevronLeft, Eye, ArrowUpRight, Clock } from 'lucide-react';
+import { PanelLeft, ChevronRight, ChevronLeft, Eye, ArrowDown, ArrowUpRight, Clock } from 'lucide-react';
 import { Sidebar } from '../components/Sidebar';
-import { PdfPreview } from '../components/PdfPreview';
+import { PdfPreview, toEmbeddable } from '../components/PdfPreview';
 import { SegmentBar } from '../components/SegmentBar';
 import { NotFoundPage } from './NotFoundPage';
 import { MENUS, MENU_DATA } from '../data/menuData';
@@ -14,7 +14,7 @@ import type { DocEntry } from '../utils/paginateSections';
 import { withViewTransition } from '../utils/viewTransition';
 import { useSectionPagination } from '../hooks/usePagination';
 import { useDocumentTitle } from '../hooks/useDocumentTitle';
-import { NOT_FOUND_TITLE } from '../constants';
+import { NOT_FOUND_TITLE, BREAKPOINT } from '../constants';
 import { NewTabHint } from '../components/NewTabHint';
 
 interface DocRowProps {
@@ -44,7 +44,7 @@ function DocRow({ entry, heading: Heading, onPreview }: DocRowProps) {
               aria-label={`미리보기: ${title}`}
             >
               <Eye size={16} aria-hidden="true" />
-              미리보기
+              <span className="doc-btn-label">미리보기</span>
             </button>
             <button
               type="button"
@@ -52,7 +52,10 @@ function DocRow({ entry, heading: Heading, onPreview }: DocRowProps) {
               onClick={() => triggerDownload(pdf.pdfUrl, pdf.title)}
               aria-label={`PDF 받기: ${title}`}
             >
-              <span className="doc-get-pill">받기</span>
+              <span className="doc-get-pill">
+                <ArrowDown size={16} aria-hidden="true" />
+                <span className="doc-btn-label">받기</span>
+              </span>
             </button>
           </>
         ) : (
@@ -122,6 +125,11 @@ export function DownloadPage() {
   const sheetRow = useRef<HTMLElement | null>(null);
 
   const openPreview = (entry: DocEntry, row: HTMLElement) => {
+    // 모바일 브라우저는 iframe 안의 PDF를 그리지 못한다(안드로이드는 빈 화면·내려받기, iOS는 첫 장만) — 새 탭의 기본 뷰어로 연다
+    if (window.matchMedia(`(max-width: ${BREAKPOINT.mobile}px)`).matches || navigator.pdfViewerEnabled === false) {
+      window.open(toEmbeddable(entry.pdf.pdfUrl), '_blank', 'noopener');
+      return;
+    }
     const section = entry.pdf.section?.trim();
     const next: PreviewState = {
       title: entry.title,

@@ -26,7 +26,7 @@
 /* 높이는 덮개(= 화면)에서 위아래 여백만 뺀 만큼 — 덮개가 fixed라 100%가 곧 화면 높이다 */
 .pdfp-panel {
   width: 100%;
-  max-width: var(--content-max);
+  max-width: var(--preview-max);
   height: 100%;
   display: flex;
   flex-direction: column;

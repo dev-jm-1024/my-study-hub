@@ -486,6 +486,7 @@ body:has(.download-layout) .site-footer-inner { max-width: calc(var(--content-ma
   font-weight: 600;
   transition: background-color var(--dur-fast), color var(--dur-fast);
 }
+.doc-get-pill svg { display: none; }   /* 화살표는 모바일 원형 버튼에서만 */
 .doc-soon {
   padding: var(--sp-1) var(--sp-2);
   border-radius: var(--r-pill);
@@ -698,12 +699,67 @@ body:has(.download-layout) .site-footer-inner { max-width: calc(var(--content-ma
   /* 세그먼트: 스크롤 영역이 화면 끝까지 닿고 첫 칸은 본문 시작선에 맞춘다.
      가장자리 페이드·scroll-padding은 이 영역 기준이라 그대로 화면 가장자리에서 나온다 */
   .main-content .seg-scroll {
+    --fade-w: var(--sp-8);   /* 가장자리 페이드를 넓혀 옆으로 더 있다는 게 잘 보이게 (공용 32px → 이 화면만) */
     margin-inline: calc(var(--dl-pad-l) * -1) calc(var(--dl-pad-r) * -1);
     padding-inline: var(--dl-pad-l) var(--dl-pad-r);
   }
 
+  /* 소분류 막대를 한 단계 작게 — Books 모바일과 같은 값(칸 36px·바 44px, 글자 15px). 데스크톱·Vibe는 그대로 */
+  .main-content .seg { --seg-pad-y: var(--sp-1); }
+  .main-content .seg-btn {
+    min-height: calc(var(--touch) - var(--sp-1) * 2);
+    padding: 0 var(--sp-3);
+    font-size: var(--fs-callout);
+    line-height: var(--lh-callout);
+  }
+  .main-content .seg-count { font-size: var(--fs-foot); }
+
+  /* 문서 행: 왼쪽은 번호 + 제목·설명, 오른쪽은 미리보기·받기 원형 아이콘 두 개 (iOS 리스트처럼).
+     글자는 숨기지만 두 버튼 모두 aria-label이 있어 읽어 주는 이름은 그대로다 */
   .doc-group { margin-top: var(--sp-6); }
-  .doc-row { gap: var(--sp-3); }
+  .doc-row {
+    --doc-pad-y: var(--sp-4);
+    align-items: flex-start;
+    gap: var(--sp-3);
+    padding-left: var(--sp-3);
+  }
+  .doc-num {
+    min-width: var(--icon-s);
+    height: var(--icon-s);
+    margin-top: var(--doc-pad-y);
+    font-size: var(--fs-cap);
+  }
+  .doc-body {
+    flex-wrap: nowrap;
+    gap: var(--sp-2);
+    padding: var(--doc-pad-y) var(--sp-3) var(--doc-pad-y) 0;
+  }
+  .doc-text { flex: 1 1 auto; }
+  .doc-title {
+    font-size: var(--fs-callout);
+    line-height: var(--lh-callout);
+    font-weight: 600;
+  }
+  .doc-desc {
+    margin-top: 2px;
+    font-size: var(--fs-foot);
+    line-height: var(--lh-foot);
+  }
+  .doc-btn-label { display: none; }
+  .doc-preview,
+  .doc-get { flex: none; }
+  .doc-preview,
+  .doc-get-pill {
+    justify-content: center;
+    width: calc(var(--touch) - var(--sp-2));
+    height: calc(var(--touch) - var(--sp-2));
+    min-height: 0;
+    padding: 0;
+    border-radius: var(--r-pill);
+    background: var(--fill);
+  }
+  .doc-get { min-height: 0; }
+  .doc-get-pill svg { display: block; }
 
   /* 페이저: 버튼 줄 가운데, 그 아래 범위 글자 (마크업은 범위가 먼저라 column-reverse).
      페이지가 많아 한 줄에 못 들어가면 버튼 줄이 줄바꿈하고 가운데로 모인다 */

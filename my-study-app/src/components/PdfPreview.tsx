@@ -20,7 +20,7 @@ export interface PdfPreviewProps {
  * iframe 인라인 렌더가 안 됨. jsDelivr CDN 은 같은 파일을 application/pdf 로 내려줘
  * 브라우저 내장 뷰어로 인라인 표시됨 → GitHub URL을 jsDelivr로 변환.
  */
-function toEmbeddable(url: string): string {
+export function toEmbeddable(url: string): string {
   try {
     const u = new URL(url);
     const seg = u.pathname.replace(/^\//, '').split('/');

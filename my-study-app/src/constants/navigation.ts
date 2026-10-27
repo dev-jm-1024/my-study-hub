@@ -16,7 +16,7 @@ export interface NavItem {
 
 /** 상단 바 메뉴 순서. 외부 링크(Velog·Blog)는 constants/links.ts의 SOCIAL_LINKS */
 export const NAV_ITEMS: readonly NavItem[] = [
-  { key: 'archive', label: '자료실', to: '/' },
+  { key: 'archive', label: '자료실', to: '/download/java' },
   { key: 'books', label: 'Books', to: '/books' },
   { key: 'github', label: 'GitHub', to: '/github' },
   { key: 'vibe', label: 'Vibe', to: '/vibe' },
