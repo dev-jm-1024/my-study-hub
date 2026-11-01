@@ -45,6 +45,8 @@ static-react/
 
 ## DOC
 *.md
+# 내부 작업 기록·인수인계 문서 (로컬 전용, 저장소에 올리지 않음)
+doc/
 
 ### Claude Code (개인 로컬 설정 — 에이전트 팀 실험 기능 플래그·권한) ###
 .claude/settings.local.json
