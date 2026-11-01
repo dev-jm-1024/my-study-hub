@@ -11,6 +11,7 @@ export const MENUS: MenuItem[] = [
   { key: 'mongodb',   name: 'MongoDB',           group: '데이터베이스' },
   { key: 'oop',       name: 'OOP',               group: '아키텍처' },
   { key: 'system-design', name: '대규모 시스템 설계', group: '아키텍처' },
+  { key: 'software-architecture', name: '소프트웨어 아키텍처', group: '아키텍처' },
   { key: 'kafka',     name: 'Kafka',             group: '인프라' },
   { key: 'network',   name: 'Network',           group: '인프라' },
   { key: 'webserver', name: 'Web Server',        group: '인프라' },

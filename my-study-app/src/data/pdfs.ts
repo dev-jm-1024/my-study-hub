@@ -34,6 +34,8 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { section: 'Cache', title: 'Caffeine', description: 'Spring의 기본 로컬 캐시 구현체', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/Caffeine.pdf', addedAt: '2026-08-03' },
     { section: 'Cache', title: 'Caffeine : Window TinyLFU', description: 'Caffeine이 빠른 진짜 이유', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/Caffeine_Window%20TinyLFU.pdf', addedAt: '2026-08-03' },
     { section: 'Scheduler', title: 'Spring Scheduler', description: 'PDF 다운 받기', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/Spring_Scheduler.pdf', addedAt: '2026-05-30' },
+    { section: 'Retry', title: '0. @Retryable과 RetryTemplate', description: '선언형과 프로그래밍 방식 재시도, 기본값과 선택 기준', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/spring_retry_01.pdf', addedAt: '2026-11-01' },
+    { section: 'Retry', title: '1. @Retryable 사용법', description: '@EnableResilientMethods, 예외 지정, 백오프, timeout', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/springboot-doc/spring_retry_02.pdf', addedAt: '2026-11-01' },
   ],
   java: [
     { section: 'Modern Java', title: '1. 자바 역사 간단하게 보기', description: '자바 8 ~11, 스트림과 함수형 프로그래밍의 등장', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/ch01_%EC%9E%90%EB%B0%94%EC%9D%98_%EC%97%AD%EC%82%AC%EB%A5%BC_%EA%B0%84%EB%8B%A8%ED%9E%88_%EC%9E%90%EB%B0%94%EB%B3%B4%EC%9E%90.pdf', addedAt: '2025-11-13' },
@@ -50,6 +52,7 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { section: '컬렉션', title: '0. Introduction to Collections', description: '컬렉션과 컬렉션 프레임워크란 무엇인가', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/collection_0.pdf', addedAt: '2026-08-03' },
     { section: '컬렉션', title: '1. Collection Interfaces', description: '핵심 컬렉션 인터페이스 — 계약과 주의사항', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/collection_1.pdf', addedAt: '2026-08-03' },
     { section: '컬렉션', title: '2. Collection Implementations', description: '컬렉션 구현체 선택', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/collection_2.pdf', addedAt: '2026-08-03' },
+    { section: 'Core', title: '1. Object 메소드와 equals·hashCode 계약', description: '동치관계 5조건과 hashCode 계약, 흔한 실수', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/core_01.pdf', addedAt: '2026-11-01' },
     { section: 'JVM', title: '1. JVM은 어떤 기계인가', description: '추상 머신, 바이트코드, 플랫폼 독립성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/0_JVM.pdf', addedAt: '2026-07-11' },
     { section: 'JVM', title: '2. 클래스 로더 서브시스템', description: '로딩·링킹·초기화와 부모 위임 모델', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/1_JVM.pdf', addedAt: '2026-07-11' },
     { section: 'JVM', title: '3. 런타임 데이터 영역과 실행 엔진', description: '공유 영역 vs 스레드별 영역', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/modern-java-doc/2_JVM.pdf', addedAt: '2026-07-11' },
@@ -95,9 +98,10 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { title: 'JOIN - 조인성도 아니고 조인', description: '외부 조인과 내부조인', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/join.pdf', addedAt: '2025-12-01' },
     { title: '트랜스지방 아니고 트랜잭션', description: '트랜잭션 개념과 활용', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/transaction.pdf', addedAt: '2025-12-01' },
     { title: '우리 인덱스 타러갈까?', description: '인덱스란 무엇인가', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/index.pdf', addedAt: '2025-12-01' },
+    { title: '7. MySQL 데이터 암호화', description: 'TDE, 키 관리, keyring_file, 테이블·Undo/Redo 로그 암호화', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mysql-doc/encryption.pdf', addedAt: '2026-11-01' },
   ],
   mongodb: [
-    { title: 'MongoDB 필기 - 2.시작하기', description: 'MongoDB 기초 개념과 설치 가이드', pdfUrl: 'https://plusb3b.kr/pdf/mongodb/MongoDB_2장_시작하기.pdf', addedAt: '2025-11-13' },
+    { title: 'MongoDB 필기 - 2.시작하기', description: 'MongoDB 기초 개념과 설치 가이드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/mongodb-doc/mongodb-2.pdf', addedAt: '2025-11-13' },
   ],
   oop: [
     { title: '1. 절차지향 vs 객체지향', description: 'TDA 원칙과 책임 중심 설계로 객체지향 구현', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/oop-doc/oop-1.pdf', addedAt: '2025-11-13' },
@@ -109,12 +113,16 @@ export const MENU_DATA: Record<string, PdfItem[]> = {
     { title: '1. 사용자 수에 따른 규모 확장성', description: '단일 서버에서 로드밸런서, 캐시, CDN, 샤딩까지', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/system-design/Ch01.pdf', addedAt: '2026-10-11' },
     { title: '1-1. 사용자 수에 따른 규모 확장성 - DNS', description: 'DNS 조회 과정과 캐시, DNS 레코드', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/system-design/Ch01-DNS.pdf', addedAt: '2026-10-11' },
   ],
+  'software-architecture': [
+    { title: '1. 소프트웨어 아키텍처 이해하기', description: '아키텍처의 네 가지 차원, 아키텍처와 설계, 트레이드오프', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/software-architecture/software-architecture_01.pdf', addedAt: '2026-11-01' },
+  ],
   kafka: [
     { title: 'Kafka란?', description: '대용량 이벤트 스트리밍 플랫폼의 개념과 구조', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kafka-doc/ch01-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%9E%80.pdf', addedAt: '2025-11-13' },
     { title: '왜 Kafka를 공부해야 하는가', description: 'RabbitMQ, Redis와의 차이점 및 Kafka의 필요성', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/kafka-doc/ch02-%EC%B9%B4%ED%94%84%EC%B9%B4%EB%A5%BC%EA%B3%B5%EB%B6%80%ED%95%B4%EC%95%BC%ED%95%98%EB%8A%94%EC%9D%B4%EC%9C%A0.pdf', addedAt: '2025-11-13' },
   ],
   network: [
-    { title: '1. 컴퓨터 네트워크', description: '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/network-doc/network-1.pdf', addedAt: '2025-11-13' },
+    { section: '네트워크 기초', title: '1. 컴퓨터 네트워크', description: '네트워크 기본 개념, 장치, 프로토콜, OSI 7계층 정리', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/network-doc/network-1.pdf', addedAt: '2025-11-13' },
+    { section: 'HTTP', title: 'HTTP - Ch01. 웹 기초', description: '웹 클라이언트·서버, URI, 메소드와 상태 코드, TCP 커넥션', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/network-doc/http_ch01.pdf', addedAt: '2026-11-01' },
   ],
   webserver: [
     { title: 'Nginx vs Apache', description: '두 웹서버의 구조와 동작 방식 비교', pdfUrl: 'https://raw.githubusercontent.com/dev-jm-1024/study-doc-hub/main/web-server/Nginx%E1%84%8B%E1%85%AA%20Apache.pdf', addedAt: '2026-05-30' },
