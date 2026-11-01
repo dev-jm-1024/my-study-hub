@@ -5,7 +5,7 @@ import { STACK } from './stacks';
 /* 2글자 모노그램 배지 */
 export const BADGE: Record<string, string> = {
   api: 'Ap', spring: 'Sp', java: 'Jv', kotlin: 'Kt', linux: 'Lx', jsp: 'Jp',
-  mysql: 'My', mongodb: 'Mo', oop: 'OO', 'system-design': 'Sd', kafka: 'Kf', network: 'Nw',
+  mysql: 'My', mongodb: 'Mo', oop: 'OO', 'system-design': 'Sd', 'software-architecture': 'Sa', kafka: 'Kf', network: 'Nw',
   webserver: 'Ws', docker: 'Dk', querydsl: 'Qd', JUnit: 'Ju', exception: 'Ex',
 };
 
@@ -21,6 +21,7 @@ export const DESC: Record<string, string> = {
   mongodb: '도큐먼트 모델 · 시작하기',
   oop: '절차지향 vs 객체지향 · SOLID',
   'system-design': '규모 확장 · DNS · 캐시 · CDN',
+  'software-architecture': '아키텍처 차원 · 설계 · 트레이드오프',
   kafka: '이벤트 스트리밍 · 개념과 구조',
   network: 'OSI 7계층 · 프로토콜',
   webserver: 'Nginx vs Apache',
@@ -38,6 +39,7 @@ export const ALIASES: Record<string, string[]> = {
   linux: ['리눅스'],
   oop: ['객체지향'],
   'system-design': ['대규모', '시스템 설계', '시스템디자인'],
+  'software-architecture': ['아키텍처', '소프트웨어 아키텍처'],
   kafka: ['카프카'],
   network: ['네트워크'],
   webserver: ['웹서버', '웹 서버'],
